@@ -1,0 +1,3428 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"IIR.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.mult32x64,"ax",%progbits
+  19              		.align	2
+  20              		.thumb
+  21              		.thumb_func
+  23              	mult32x64:
+  24              	.LFB99:
+  25              		.file 1 "C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
+   1:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /* ----------------------------------------------------------------------
+   2:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Copyright (C) 2010-2013 ARM Limited. All rights reserved.
+   3:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+   4:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * $Date:        17. January 2013
+   5:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * $Revision:    V1.4.1
+   6:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+   7:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Project:      CMSIS DSP Library
+   8:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Title:        arm_math.h
+   9:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+  10:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Description:  Public header file for CMSIS DSP Library
+  11:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+  12:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
+  13:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+  14:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Redistribution and use in source and binary forms, with or without
+  15:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * modification, are permitted provided that the following conditions
+  16:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * are met:
+  17:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Redistributions of source code must retain the above copyright
+  18:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     notice, this list of conditions and the following disclaimer.
+  19:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Redistributions in binary form must reproduce the above copyright
+  20:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     notice, this list of conditions and the following disclaimer in
+  21:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     the documentation and/or other materials provided with the
+  22:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     distribution.
+  23:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Neither the name of ARM LIMITED nor the names of its contributors
+  24:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     may be used to endorse or promote products derived from this
+  25:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     software without specific prior written permission.
+  26:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+  27:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  28:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  29:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  30:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  31:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  32:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+  33:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  34:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  35:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+  36:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  37:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  38:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * POSSIBILITY OF SUCH DAMAGE.
+  39:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * -------------------------------------------------------------------- */
+  40:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+  41:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+  42:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    \mainpage CMSIS DSP Software Library
+  43:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  44:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Introduction</b>
+  45:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  46:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * This user manual describes the CMSIS DSP software library,
+  47:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * a suite of common signal processing functions for use on Cortex-M processor based devices.
+  48:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  49:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library is divided into a number of functions each covering a specific category:
+  50:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Basic math functions
+  51:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Fast math functions
+  52:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Complex math functions
+  53:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Filters
+  54:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Matrix functions
+  55:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Transforms
+  56:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Motor control functions
+  57:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Statistical functions
+  58:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Support functions
+  59:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Interpolation functions
+  60:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  61:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library has separate functions for operating on 8-bit integers, 16-bit integers,
+  62:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * 32-bit integer and 32-bit floating-point values.
+  63:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  64:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Using the Library</b>
+  65:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  66:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library installer contains prebuilt versions of the libraries in the <code>Lib</code> fold
+  67:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4lf_math.lib (Little endian and Floating Point Unit on Cortex-M4)
+  68:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4bf_math.lib (Big endian and Floating Point Unit on Cortex-M4)
+  69:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4l_math.lib (Little endian on Cortex-M4)
+  70:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4b_math.lib (Big endian on Cortex-M4)
+  71:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3l_math.lib (Little endian on Cortex-M3)
+  72:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3b_math.lib (Big endian on Cortex-M3)
+  73:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0l_math.lib (Little endian on Cortex-M0)
+  74:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0b_math.lib (Big endian on Cortex-M3)
+  75:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  76:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library functions are declared in the public file <code>arm_math.h</code> which is placed 
+  77:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Simply include this file and link the appropriate library in the application and begin calling
+  78:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * public header file <code> arm_math.h</code> for Cortex-M4/M3/M0 with little endian and big end
+  79:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define the appropriate pre processor MACRO ARM_MATH_CM4 or  ARM_MATH_CM3 or
+  80:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * ARM_MATH_CM0 or ARM_MATH_CM0PLUS depending on the target processor in the application.
+  81:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  82:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Examples</b>
+  83:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  84:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library ships with a number of examples which demonstrate how to use the library functions
+  85:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  86:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Toolchain Support</b>
+  87:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  88:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library has been developed and tested with MDK-ARM version 4.60.
+  89:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library is being tested in GCC and IAR toolchains and updates on this activity will be mad
+  90:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  91:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Building the Library</b>
+  92:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  93:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library installer contains project files to re build libraries on MDK Tool chain in the <c
+  94:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0b_math.uvproj
+  95:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0l_math.uvproj
+  96:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3b_math.uvproj
+  97:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3l_math.uvproj
+  98:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4b_math.uvproj
+  99:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4l_math.uvproj
+ 100:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4bf_math.uvproj
+ 101:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4lf_math.uvproj
+ 102:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 103:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 104:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The project can be built by opening the appropriate project in MDK-ARM 4.60 chain and defining
+ 105:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 106:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Pre-processor Macros</b>
+ 107:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 108:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Each library project have differant pre-processor macros.
+ 109:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 110:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - UNALIGNED_SUPPORT_DISABLE:
+ 111:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 112:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro UNALIGNED_SUPPORT_DISABLE, If the silicon does not support unaligned memory acces
+ 113:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 114:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_BIG_ENDIAN:
+ 115:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 116:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_BIG_ENDIAN to build the library for big endian targets. By default libra
+ 117:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 118:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_MATRIX_CHECK:
+ 119:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 120:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_MATRIX_CHECK for checking on the input and output sizes of matrices
+ 121:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 122:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_ROUNDING:
+ 123:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 124:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_ROUNDING for rounding on support functions
+ 125:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 126:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_CMx:
+ 127:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 128:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_CM4 for building the library on Cortex-M4 target, ARM_MATH_CM3 for build
+ 129:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * and ARM_MATH_CM0 for building library on cortex-M0 target, ARM_MATH_CM0PLUS for building libra
+ 130:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 131:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - __FPU_PRESENT:
+ 132:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 133:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Initialize macro __FPU_PRESENT = 1 when building on FPU supported Targets. Enable this macro f
+ 134:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 135:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Copyright Notice</b>
+ 136:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 137:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Copyright (C) 2010-2013 ARM Limited. All rights reserved.
+ 138:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 139:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 140:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 141:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 142:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupMath Basic Math Functions
+ 143:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 144:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 145:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 146:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupFastMath Fast Math Functions
+ 147:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions provides a fast approximation to sine, cosine, and square root.
+ 148:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * As compared to most of the other functions in the CMSIS math library, the fast math functions
+ 149:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * operate on individual values and not arrays.
+ 150:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There are separate functions for Q15, Q31, and floating-point data.
+ 151:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 152:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 153:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 154:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 155:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupCmplxMath Complex Math Functions
+ 156:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions operates on complex data vectors.
+ 157:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The data in the complex arrays is stored in an interleaved fashion
+ 158:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * (real, imag, real, imag, ...).
+ 159:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * In the API functions, the number of samples in a complex array refers
+ 160:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * to the number of complex values; the array contains twice this number of
+ 161:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * real values.
+ 162:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 163:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 164:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 165:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupFilters Filtering Functions
+ 166:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 167:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 168:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 169:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupMatrix Matrix Functions
+ 170:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 171:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions provides basic matrix math operations.
+ 172:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The functions operate on matrix data structures.  For example,
+ 173:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * the type
+ 174:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * definition for the floating-point matrix structure is shown
+ 175:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * below:
+ 176:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 177:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     typedef struct
+ 178:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     {
+ 179:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       uint16_t numRows;     // number of rows of the matrix.
+ 180:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       uint16_t numCols;     // number of columns of the matrix.
+ 181:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       float32_t *pData;     // points to the data of the matrix.
+ 182:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     } arm_matrix_instance_f32;
+ 183:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 184:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There are similar definitions for Q15 and Q31 data types.
+ 185:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 186:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The structure specifies the size of the matrix and then points to
+ 187:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * an array of data.  The array is of size <code>numRows X numCols</code>
+ 188:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and the values are arranged in row order.  That is, the
+ 189:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * matrix element (i, j) is stored at:
+ 190:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 191:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     pData[i*numCols + j]
+ 192:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 193:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 194:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par Init Functions
+ 195:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There is an associated initialization function for each type of matrix
+ 196:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * data structure.
+ 197:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The initialization function sets the values of the internal structure fields.
+ 198:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Refer to the function <code>arm_mat_init_f32()</code>, <code>arm_mat_init_q31()</code>
+ 199:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and <code>arm_mat_init_q15()</code> for floating-point, Q31 and Q15 types,  respectively.
+ 200:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 201:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par
+ 202:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Use of the initialization function is optional. However, if initialization function is used
+ 203:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * then the instance structure cannot be placed into a const data section.
+ 204:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * To place the instance structure in a const data
+ 205:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * section, manually initialize the data structure.  For example:
+ 206:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 207:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_f32 S = {nRows, nColumns, pData};</code>
+ 208:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_q31 S = {nRows, nColumns, pData};</code>
+ 209:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_q15 S = {nRows, nColumns, pData};</code>
+ 210:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 211:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * where <code>nRows</code> specifies the number of rows, <code>nColumns</code>
+ 212:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * specifies the number of columns, and <code>pData</code> points to the
+ 213:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * data array.
+ 214:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 215:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par Size Checking
+ 216:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * By default all of the matrix functions perform size checking on the input and
+ 217:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * output matrices.  For example, the matrix addition function verifies that the
+ 218:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * two input matrices and the output matrix all have the same number of rows and
+ 219:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * columns.  If the size check fails the functions return:
+ 220:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 221:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_SIZE_MISMATCH
+ 222:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 223:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Otherwise the functions return
+ 224:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 225:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_SUCCESS
+ 226:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 227:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There is some overhead associated with this matrix size checking.
+ 228:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The matrix size checking is enabled via the \#define
+ 229:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 230:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_MATRIX_CHECK
+ 231:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 232:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * within the library project settings.  By default this macro is defined
+ 233:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and size checking is enabled.  By changing the project settings and
+ 234:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * undefining this macro size checking is eliminated and the functions
+ 235:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * run a bit faster.  With size checking disabled the functions always
+ 236:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * return <code>ARM_MATH_SUCCESS</code>.
+ 237:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 238:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 239:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 240:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupTransforms Transform Functions
+ 241:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 242:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 243:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 244:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupController Controller Functions
+ 245:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 246:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 247:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 248:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupStats Statistics Functions
+ 249:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 250:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 251:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupSupport Support Functions
+ 252:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 253:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 254:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 255:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupInterpolation Interpolation Functions
+ 256:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * These functions perform 1- and 2-dimensional interpolation of data.
+ 257:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Linear interpolation is used for 1-dimensional data and
+ 258:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * bilinear interpolation is used for 2-dimensional data.
+ 259:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 260:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 261:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 262:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupExamples Examples
+ 263:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 264:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef _ARM_MATH_H
+ 265:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define _ARM_MATH_H
+ 266:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 267:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __CMSIS_GENERIC         /* disable NVIC and Systick functions */
+ 268:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 269:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined (ARM_MATH_CM4)
+ 270:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm4.h"
+ 271:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM3)
+ 272:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm3.h"
+ 273:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM0)
+ 274:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm0.h"
+ 275:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define ARM_MATH_CM0_FAMILY
+ 276:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM0PLUS)
+ 277:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm0plus.h"
+ 278:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define ARM_MATH_CM0_FAMILY
+ 279:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
+ 280:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "ARMCM4.h"
+ 281:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #warning "Define either ARM_MATH_CM4 OR ARM_MATH_CM3...By Default building on ARM_MATH_CM4....."
+ 282:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 283:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 284:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #undef  __CMSIS_GENERIC         /* enable NVIC and Systick functions */
+ 285:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "string.h"
+ 286:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "math.h"
+ 287:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifdef	__cplusplus
+ 288:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** extern "C"
+ 289:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** {
+ 290:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 291:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 292:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 293:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 294:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for reciprocal calculation in Normalized LMS
+ 295:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 296:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 297:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define DELTA_Q31 			(0x100)
+ 298:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define DELTA_Q15 			0x5
+ 299:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define INDEX_MASK 			0x0000003F
+ 300:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef PI
+ 301:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define PI					3.14159265358979f
+ 302:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 303:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 304:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 305:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for SINE and COSINE Fast math approximations
+ 306:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 307:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 308:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SIZE			256
+ 309:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SPACING_Q31	0x800000
+ 310:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SPACING_Q15	0x80
+ 311:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 312:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 313:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for SINE and COSINE Controller functions
+ 314:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 315:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /* 1.31(q31) Fixed value of 2/360 */
+ 316:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /* -1 to +1 is divided into 360 values so total spacing is (2/360) */
+ 317:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define INPUT_SPACING			0xB60B61
+ 318:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 319:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 320:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macro for Unaligned Support
+ 321:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 322:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef UNALIGNED_SUPPORT_DISABLE
+ 323:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4
+ 324:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
+ 325:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #if defined  (__GNUC__)
+ 326:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4 __attribute__((aligned(4)))
+ 327:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #else
+ 328:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4 __align(4)
+ 329:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #endif
+ 330:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
+ 331:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 332:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 333:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Error status returned by some functions in the library.
+ 334:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 335:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 336:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef enum
+ 337:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 338:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SUCCESS = 0,                /**< No error */
+ 339:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_ARGUMENT_ERROR = -1,        /**< One or more arguments are incorrect */
+ 340:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_LENGTH_ERROR = -2,          /**< Length of data buffer is incorrect */
+ 341:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SIZE_MISMATCH = -3,         /**< Size of matrices is not compatible with the operation
+ 342:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_NANINF = -4,                /**< Not-a-number (NaN) or infinity is generated */
+ 343:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SINGULAR = -5,              /**< Generated by matrix inversion if the input matrix is 
+ 344:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_TEST_FAILURE = -6           /**< Test Failed  */
+ 345:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   } arm_status;
+ 346:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 347:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 348:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 8-bit fractional data type in 1.7 format.
+ 349:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 350:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int8_t q7_t;
+ 351:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 352:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 353:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 16-bit fractional data type in 1.15 format.
+ 354:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 355:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int16_t q15_t;
+ 356:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 357:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 358:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 32-bit fractional data type in 1.31 format.
+ 359:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 360:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int32_t q31_t;
+ 361:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 362:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 363:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 64-bit fractional data type in 1.63 format.
+ 364:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 365:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int64_t q63_t;
+ 366:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 367:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 368:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 32-bit floating-point type definition.
+ 369:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 370:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef float float32_t;
+ 371:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 372:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 373:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 64-bit floating-point type definition.
+ 374:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 375:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef double float64_t;
+ 376:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 377:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 378:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to read/write two 16 bit values.
+ 379:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 380:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined __CC_ARM
+ 381:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t __packed
+ 382:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED __attribute__((unused))
+ 383:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined __ICCARM__
+ 384:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED
+ 385:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t __packed
+ 386:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined __GNUC__
+ 387:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t
+ 388:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED __attribute__((unused))
+ 389:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
+ 390:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #error Unknown compiler
+ 391:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 392:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 393:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32(addr)  (*(__SIMD32_TYPE **) & (addr))
+ 394:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_CONST(addr)  ((__SIMD32_TYPE *)(addr))
+ 395:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 396:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define _SIMD32_OFFSET(addr)  (*(__SIMD32_TYPE *)  (addr))
+ 397:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 398:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD64(addr)  (*(int64_t **) & (addr))
+ 399:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 400:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined (ARM_MATH_CM3) || defined (ARM_MATH_CM0_FAMILY)
+ 401:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 402:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to pack two 16 bit values.
+ 403:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 404:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PKHBT(ARG1, ARG2, ARG3)      ( (((int32_t)(ARG1) <<  0) & (int32_t)0x0000FFFF) | \
+ 405:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                          (((int32_t)(ARG2) << ARG3) & (int32_t)0xFFFF0000)  )
+ 406:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PKHTB(ARG1, ARG2, ARG3)      ( (((int32_t)(ARG1) <<  0) & (int32_t)0xFFFF0000) | \
+ 407:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                          (((int32_t)(ARG2) >> ARG3) & (int32_t)0x0000FFFF)  )
+ 408:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 409:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 410:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 411:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 412:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    /**
+ 413:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to pack four 8 bit values.
+ 414:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 415:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef ARM_MATH_BIG_ENDIAN
+ 416:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 417:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PACKq7(v0,v1,v2,v3) ( (((int32_t)(v0) <<  0) & (int32_t)0x000000FF) |	\
+ 418:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                 (((int32_t)(v1) <<  8) & (int32_t)0x0000FF00) |	\
+ 419:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v2) << 16) & (int32_t)0x00FF0000) |	\
+ 420:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v3) << 24) & (int32_t)0xFF000000)  )
+ 421:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
+ 422:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 423:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PACKq7(v0,v1,v2,v3) ( (((int32_t)(v3) <<  0) & (int32_t)0x000000FF) |	\
+ 424:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                 (((int32_t)(v2) <<  8) & (int32_t)0x0000FF00) |	\
+ 425:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v1) << 16) & (int32_t)0x00FF0000) |	\
+ 426:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v0) << 24) & (int32_t)0xFF000000)  )
+ 427:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 428:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 429:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 430:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 431:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 432:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q63 to Q31 values.
+ 433:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 434:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q31_t clip_q63_to_q31(
+ 435:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x)
+ 436:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 437:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 32) != ((q31_t) x >> 31)) ?
+ 438:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFFFFFF ^ ((q31_t) (x >> 63)))) : (q31_t) x;
+ 439:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 440:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 441:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 442:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q63 to Q15 values.
+ 443:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 444:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q15_t clip_q63_to_q15(
+ 445:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x)
+ 446:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 447:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 32) != ((q31_t) x >> 31)) ?
+ 448:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFF ^ ((q15_t) (x >> 63)))) : (q15_t) (x >> 15);
+ 449:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 450:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 451:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 452:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q31 to Q7 values.
+ 453:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 454:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q7_t clip_q31_to_q7(
+ 455:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t x)
+ 456:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 457:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 24) != ((q31_t) x >> 23)) ?
+ 458:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7F ^ ((q7_t) (x >> 31)))) : (q7_t) x;
+ 459:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 460:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 461:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 462:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q31 to Q15 values.
+ 463:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 464:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q15_t clip_q31_to_q15(
+ 465:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t x)
+ 466:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 467:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 16) != ((q31_t) x >> 15)) ?
+ 468:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFF ^ ((q15_t) (x >> 31)))) : (q15_t) x;
+ 469:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 470:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 471:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 472:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Multiplies 32 X 64 and returns 32 bit result in 2.30 format.
+ 473:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 474:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 475:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q63_t mult32x64(
+ 476:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x,
+ 477:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t y)
+ 478:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+  26              		.loc 1 478 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 16
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 2DE9F003 		push	{r4, r5, r6, r7, r8, r9}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 24
+  34              		.cfi_offset 4, -24
+  35              		.cfi_offset 5, -20
+  36              		.cfi_offset 6, -16
+  37              		.cfi_offset 7, -12
+  38              		.cfi_offset 8, -8
+  39              		.cfi_offset 9, -4
+  40 0004 84B0     		sub	sp, sp, #16
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 40
+  43 0006 00AF     		add	r7, sp, #0
+  44              	.LCFI2:
+  45              		.cfi_def_cfa_register 7
+  46 0008 C7E90201 		strd	r0, [r7, #8]
+  47 000c 7A60     		str	r2, [r7, #4]
+ 479:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((((q63_t) (x & 0x00000000FFFFFFFF) * y) >> 32) +
+  48              		.loc 1 479 0
+  49 000e D7E90201 		ldrd	r0, [r7, #8]
+  50 0012 4FF0FF32 		mov	r2, #-1
+  51 0016 4FF00003 		mov	r3, #0
+  52 001a 00EA0200 		and	r0, r0, r2
+  53 001e 01EA0301 		and	r1, r1, r3
+  54 0022 7E68     		ldr	r6, [r7, #4]
+  55 0024 3246     		mov	r2, r6
+  56 0026 4FEAE273 		asr	r3, r2, #31
+  57 002a 02FB01FC 		mul	ip, r2, r1
+  58 002e 00FB03F6 		mul	r6, r0, r3
+  59 0032 6644     		add	r6, ip, r6
+  60 0034 A0FB0223 		umull	r2, r3, r0, r2
+  61 0038 F118     		adds	r1, r6, r3
+  62 003a 0B46     		mov	r3, r1
+  63 003c 9846     		mov	r8, r3
+  64 003e 4FEAE379 		asr	r9, r3, #31
+ 480:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****             (((q63_t) (x >> 32) * y)));
+  65              		.loc 1 480 0
+  66 0042 FB68     		ldr	r3, [r7, #12]
+  67 0044 1C46     		mov	r4, r3
+  68 0046 FB68     		ldr	r3, [r7, #12]
+  69 0048 4FEAE375 		asr	r5, r3, #31
+  70 004c 7968     		ldr	r1, [r7, #4]
+  71 004e 0A46     		mov	r2, r1
+  72 0050 4FEAE273 		asr	r3, r2, #31
+  73 0054 02FB05F0 		mul	r0, r2, r5
+  74 0058 04FB03F1 		mul	r1, r4, r3
+  75 005c 4118     		adds	r1, r0, r1
+  76 005e A4FB0223 		umull	r2, r3, r4, r2
+  77 0062 C918     		adds	r1, r1, r3
+  78 0064 0B46     		mov	r3, r1
+ 479:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((((q63_t) (x & 0x00000000FFFFFFFF) * y) >> 32) +
+  79              		.loc 1 479 0
+  80 0066 12EB0802 		adds	r2, r2, r8
+  81 006a 43EB0903 		adc	r3, r3, r9
+ 481:C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+  82              		.loc 1 481 0
+  83 006e 1046     		mov	r0, r2
+  84 0070 1946     		mov	r1, r3
+  85 0072 07F11007 		add	r7, r7, #16
+  86 0076 BD46     		mov	sp, r7
+  87 0078 BDE8F003 		pop	{r4, r5, r6, r7, r8, r9}
+  88 007c 7047     		bx	lr
+  89              		.cfi_endproc
+  90              	.LFE99:
+  92 007e 00BF     		.section	.text.Init_q31_t_IIR,"ax",%progbits
+  93              		.align	2
+  94              		.global	Init_q31_t_IIR
+  95              		.thumb
+  96              		.thumb_func
+  98              	Init_q31_t_IIR:
+  99              	.LFB128:
+ 100              		.file 2 "../Sources/DSP/IIR.c"
+   1:../Sources/DSP/IIR.c **** #include "arm_math.h"
+   2:../Sources/DSP/IIR.c **** #include "IIR.h"
+   3:../Sources/DSP/IIR.c **** #include "math.h"
+   4:../Sources/DSP/IIR.c **** //an Fixed Point IIR filter implementation for ARM Cortex M4.... i like it better than the librarie
+   5:../Sources/DSP/IIR.c **** 
+   6:../Sources/DSP/IIR.c **** //Computes IIR filter in Direct Form I
+   7:../Sources/DSP/IIR.c **** //
+   8:../Sources/DSP/IIR.c **** //
+   9:../Sources/DSP/IIR.c **** //y[n] = (b0/a0)*x[n] + (b1/a0)*x[n-1] + (b2/a0)*x[n-2]
+  10:../Sources/DSP/IIR.c **** //                     - (a1/a0)*y[n-1] - (a2/a0)*y[n-2]            (Eq 4)
+  11:../Sources/DSP/IIR.c **** //
+  12:../Sources/DSP/IIR.c **** //The Data struct for the filter is design such that the coefficients can be swapped
+  13:../Sources/DSP/IIR.c **** //in an atomic way.   I.E.  If a IRQ process is continuously computing the filter
+  14:../Sources/DSP/IIR.c **** //and a foreground process wants to change the parameters,   It can modify them in a linked Coeff
+  15:../Sources/DSP/IIR.c **** //Struct and then flag the processing routine to swap the coefficients in a safe manner
+  16:../Sources/DSP/IIR.c **** //
+  17:../Sources/DSP/IIR.c **** 
+  18:../Sources/DSP/IIR.c **** 
+  19:../Sources/DSP/IIR.c **** 
+  20:../Sources/DSP/IIR.c **** //Great Reference.... The Bible for Audio BiQuad design.
+  21:../Sources/DSP/IIR.c **** 
+  22:../Sources/DSP/IIR.c **** //http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt
+  23:../Sources/DSP/IIR.c **** 
+  24:../Sources/DSP/IIR.c **** 
+  25:../Sources/DSP/IIR.c **** 
+  26:../Sources/DSP/IIR.c **** 
+  27:../Sources/DSP/IIR.c **** 
+  28:../Sources/DSP/IIR.c **** void Init_q31_t_IIR(q31_t_IIR *MyIIR)
+  29:../Sources/DSP/IIR.c **** {
+ 101              		.loc 2 29 0
+ 102              		.cfi_startproc
+ 103              		@ args = 0, pretend = 0, frame = 8
+ 104              		@ frame_needed = 1, uses_anonymous_args = 0
+ 105              		@ link register save eliminated.
+ 106 0000 80B4     		push	{r7}
+ 107              	.LCFI3:
+ 108              		.cfi_def_cfa_offset 4
+ 109              		.cfi_offset 7, -4
+ 110 0002 83B0     		sub	sp, sp, #12
+ 111              	.LCFI4:
+ 112              		.cfi_def_cfa_offset 16
+ 113 0004 00AF     		add	r7, sp, #0
+ 114              	.LCFI5:
+ 115              		.cfi_def_cfa_register 7
+ 116 0006 7860     		str	r0, [r7, #4]
+  30:../Sources/DSP/IIR.c ****     MyIIR->Update = 0;
+ 117              		.loc 2 30 0
+ 118 0008 7B68     		ldr	r3, [r7, #4]
+ 119 000a 4FF00002 		mov	r2, #0
+ 120 000e 83F84820 		strb	r2, [r3, #72]
+  31:../Sources/DSP/IIR.c ****     MyIIR->State.Yn1 = 0;
+ 121              		.loc 2 31 0
+ 122 0012 7968     		ldr	r1, [r7, #4]
+ 123 0014 4FF00002 		mov	r2, #0
+ 124 0018 4FF00003 		mov	r3, #0
+ 125 001c C1E90823 		strd	r2, [r1, #32]
+  32:../Sources/DSP/IIR.c ****     MyIIR->State.Yn2 = 0;
+ 126              		.loc 2 32 0
+ 127 0020 7968     		ldr	r1, [r7, #4]
+ 128 0022 4FF00002 		mov	r2, #0
+ 129 0026 4FF00003 		mov	r3, #0
+ 130 002a C1E90A23 		strd	r2, [r1, #40]
+  33:../Sources/DSP/IIR.c **** }
+ 131              		.loc 2 33 0
+ 132 002e 07F10C07 		add	r7, r7, #12
+ 133 0032 BD46     		mov	sp, r7
+ 134 0034 80BC     		pop	{r7}
+ 135 0036 7047     		bx	lr
+ 136              		.cfi_endproc
+ 137              	.LFE128:
+ 139              		.section	.text.Compute_q31_t_IIR,"ax",%progbits
+ 140              		.align	2
+ 141              		.global	Compute_q31_t_IIR
+ 142              		.thumb
+ 143              		.thumb_func
+ 145              	Compute_q31_t_IIR:
+ 146              	.LFB129:
+  34:../Sources/DSP/IIR.c **** 
+  35:../Sources/DSP/IIR.c **** void Compute_q31_t_IIR(q31_t_IIR *MyIIR,q31_t Input,q31_t *Output)
+  36:../Sources/DSP/IIR.c **** {
+ 147              		.loc 2 36 0
+ 148              		.cfi_startproc
+ 149              		@ args = 0, pretend = 0, frame = 24
+ 150              		@ frame_needed = 1, uses_anonymous_args = 0
+ 151 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 152              	.LCFI6:
+ 153              		.cfi_def_cfa_offset 20
+ 154              		.cfi_offset 4, -20
+ 155              		.cfi_offset 5, -16
+ 156              		.cfi_offset 6, -12
+ 157              		.cfi_offset 7, -8
+ 158              		.cfi_offset 14, -4
+ 159 0002 87B0     		sub	sp, sp, #28
+ 160              	.LCFI7:
+ 161              		.cfi_def_cfa_offset 48
+ 162 0004 00AF     		add	r7, sp, #0
+ 163              	.LCFI8:
+ 164              		.cfi_def_cfa_register 7
+ 165 0006 F860     		str	r0, [r7, #12]
+ 166 0008 B960     		str	r1, [r7, #8]
+ 167 000a 7A60     		str	r2, [r7, #4]
+  37:../Sources/DSP/IIR.c ****     q63_t acc = 0;
+ 168              		.loc 2 37 0
+ 169 000c 4FF00002 		mov	r2, #0
+ 170 0010 4FF00003 		mov	r3, #0
+ 171 0014 C7E90423 		strd	r2, [r7, #16]
+  38:../Sources/DSP/IIR.c ****     /* acc =  b0 * x[n] + b1 * x[n-1] + b2 * x[n-2] + a1 * y[n-1] + a2 * y[n-2] */
+  39:../Sources/DSP/IIR.c ****     /* acc =  b0 * x[n] */
+  40:../Sources/DSP/IIR.c ****     acc = (q63_t) Input * MyIIR->Coef.b[0];
+ 172              		.loc 2 40 0
+ 173 0018 BB68     		ldr	r3, [r7, #8]
+ 174 001a 1846     		mov	r0, r3
+ 175 001c 4FEAE071 		asr	r1, r0, #31
+ 176 0020 FB68     		ldr	r3, [r7, #12]
+ 177 0022 1E68     		ldr	r6, [r3, #0]
+ 178 0024 3246     		mov	r2, r6
+ 179 0026 4FEAE273 		asr	r3, r2, #31
+ 180 002a 02FB01FE 		mul	lr, r2, r1
+ 181 002e 00FB03F6 		mul	r6, r0, r3
+ 182 0032 7644     		add	r6, lr, r6
+ 183 0034 A0FB0223 		umull	r2, r3, r0, r2
+ 184 0038 F118     		adds	r1, r6, r3
+ 185 003a 0B46     		mov	r3, r1
+ 186 003c C7E90423 		strd	r2, [r7, #16]
+ 187 0040 C7E90423 		strd	r2, [r7, #16]
+  41:../Sources/DSP/IIR.c ****     /* acc +=  b1 * x[n-1] */
+  42:../Sources/DSP/IIR.c ****     acc += (q63_t) MyIIR->State.Xn1 * MyIIR->Coef.b[1];
+ 188              		.loc 2 42 0
+ 189 0044 FB68     		ldr	r3, [r7, #12]
+ 190 0046 9B69     		ldr	r3, [r3, #24]
+ 191 0048 1846     		mov	r0, r3
+ 192 004a 4FEAE071 		asr	r1, r0, #31
+ 193 004e FB68     		ldr	r3, [r7, #12]
+ 194 0050 5E68     		ldr	r6, [r3, #4]
+ 195 0052 3246     		mov	r2, r6
+ 196 0054 4FEAE273 		asr	r3, r2, #31
+ 197 0058 02FB01FE 		mul	lr, r2, r1
+ 198 005c 00FB03F6 		mul	r6, r0, r3
+ 199 0060 7644     		add	r6, lr, r6
+ 200 0062 A0FB0223 		umull	r2, r3, r0, r2
+ 201 0066 F118     		adds	r1, r6, r3
+ 202 0068 0B46     		mov	r3, r1
+ 203 006a D7E90401 		ldrd	r0, [r7, #16]
+ 204 006e 1218     		adds	r2, r2, r0
+ 205 0070 43EB0103 		adc	r3, r3, r1
+ 206 0074 C7E90423 		strd	r2, [r7, #16]
+  43:../Sources/DSP/IIR.c ****     /* Arc +=  b[2] * x[n-2] */
+  44:../Sources/DSP/IIR.c ****     acc += (q63_t) MyIIR->State.Xn2 * MyIIR->Coef.b[2];
+ 207              		.loc 2 44 0
+ 208 0078 FB68     		ldr	r3, [r7, #12]
+ 209 007a DB69     		ldr	r3, [r3, #28]
+ 210 007c 1846     		mov	r0, r3
+ 211 007e 4FEAE071 		asr	r1, r0, #31
+ 212 0082 FB68     		ldr	r3, [r7, #12]
+ 213 0084 9E68     		ldr	r6, [r3, #8]
+ 214 0086 3246     		mov	r2, r6
+ 215 0088 4FEAE273 		asr	r3, r2, #31
+ 216 008c 02FB01FE 		mul	lr, r2, r1
+ 217 0090 00FB03F6 		mul	r6, r0, r3
+ 218 0094 7644     		add	r6, lr, r6
+ 219 0096 A0FB0223 		umull	r2, r3, r0, r2
+ 220 009a F118     		adds	r1, r6, r3
+ 221 009c 0B46     		mov	r3, r1
+ 222 009e D7E90401 		ldrd	r0, [r7, #16]
+ 223 00a2 1218     		adds	r2, r2, r0
+ 224 00a4 43EB0103 		adc	r3, r3, r1
+ 225 00a8 C7E90423 		strd	r2, [r7, #16]
+  45:../Sources/DSP/IIR.c ****     /* acc +=  a1 * y[n-1] */
+  46:../Sources/DSP/IIR.c ****     acc += mult32x64(MyIIR->State.Yn1 , MyIIR->Coef.a[0]);
+ 226              		.loc 2 46 0
+ 227 00ac FB68     		ldr	r3, [r7, #12]
+ 228 00ae D3E90823 		ldrd	r2, [r3, #32]
+ 229 00b2 F968     		ldr	r1, [r7, #12]
+ 230 00b4 CE68     		ldr	r6, [r1, #12]
+ 231 00b6 1046     		mov	r0, r2
+ 232 00b8 1946     		mov	r1, r3
+ 233 00ba 3246     		mov	r2, r6
+ 234 00bc FFF7FEFF 		bl	mult32x64
+ 235 00c0 0246     		mov	r2, r0
+ 236 00c2 0B46     		mov	r3, r1
+ 237 00c4 D7E90401 		ldrd	r0, [r7, #16]
+ 238 00c8 1218     		adds	r2, r2, r0
+ 239 00ca 43EB0103 		adc	r3, r3, r1
+ 240 00ce C7E90423 		strd	r2, [r7, #16]
+  47:../Sources/DSP/IIR.c ****     /* acc +=  a2 * y[n-2] */
+  48:../Sources/DSP/IIR.c ****     acc += mult32x64(MyIIR->State.Yn2 , MyIIR->Coef.a[1]);
+ 241              		.loc 2 48 0
+ 242 00d2 FB68     		ldr	r3, [r7, #12]
+ 243 00d4 D3E90A23 		ldrd	r2, [r3, #40]
+ 244 00d8 F968     		ldr	r1, [r7, #12]
+ 245 00da 0E69     		ldr	r6, [r1, #16]
+ 246 00dc 1046     		mov	r0, r2
+ 247 00de 1946     		mov	r1, r3
+ 248 00e0 3246     		mov	r2, r6
+ 249 00e2 FFF7FEFF 		bl	mult32x64
+ 250 00e6 0246     		mov	r2, r0
+ 251 00e8 0B46     		mov	r3, r1
+ 252 00ea D7E90401 		ldrd	r0, [r7, #16]
+ 253 00ee 1218     		adds	r2, r2, r0
+ 254 00f0 43EB0103 		adc	r3, r3, r1
+ 255 00f4 C7E90423 		strd	r2, [r7, #16]
+  49:../Sources/DSP/IIR.c ****     acc = acc << MyIIR->Coef.PostShift; //DO the post multiply!
+ 256              		.loc 2 49 0
+ 257 00f8 FB68     		ldr	r3, [r7, #12]
+ 258 00fa 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 259 00fc 5BB2     		sxtb	r3, r3
+ 260 00fe A3F12002 		sub	r2, r3, #32
+ 261 0102 3969     		ldr	r1, [r7, #16]
+ 262 0104 01FA02F1 		lsl	r1, r1, r2
+ 263 0108 C3F12000 		rsb	r0, r3, #32
+ 264 010c 3E69     		ldr	r6, [r7, #16]
+ 265 010e 26FA00F0 		lsr	r0, r6, r0
+ 266 0112 7E69     		ldr	r6, [r7, #20]
+ 267 0114 06FA03F6 		lsl	r6, r6, r3
+ 268 0118 3043     		orrs	r0, r0, r6
+ 269 011a 7861     		str	r0, [r7, #20]
+ 270 011c 7869     		ldr	r0, [r7, #20]
+ 271 011e 002A     		cmp	r2, #0
+ 272 0120 B4BF     		ite	lt
+ 273 0122 0246     		movlt	r2, r0
+ 274 0124 0A46     		movge	r2, r1
+ 275 0126 7A61     		str	r2, [r7, #20]
+ 276 0128 3A69     		ldr	r2, [r7, #16]
+ 277 012a 02FA03F3 		lsl	r3, r2, r3
+ 278 012e 3B61     		str	r3, [r7, #16]
+  50:../Sources/DSP/IIR.c ****     //Store the previous outputs in High precision form
+  51:../Sources/DSP/IIR.c ****     MyIIR->State.Yn2 =  MyIIR->State.Yn1;
+ 279              		.loc 2 51 0
+ 280 0130 FB68     		ldr	r3, [r7, #12]
+ 281 0132 D3E90823 		ldrd	r2, [r3, #32]
+ 282 0136 F968     		ldr	r1, [r7, #12]
+ 283 0138 C1E90A23 		strd	r2, [r1, #40]
+  52:../Sources/DSP/IIR.c ****     MyIIR->State.Yn1 =  acc;
+ 284              		.loc 2 52 0
+ 285 013c F968     		ldr	r1, [r7, #12]
+ 286 013e D7E90423 		ldrd	r2, [r7, #16]
+ 287 0142 C1E90823 		strd	r2, [r1, #32]
+  53:../Sources/DSP/IIR.c ****     MyIIR->State.Xn2 =  MyIIR->State.Xn1;
+ 288              		.loc 2 53 0
+ 289 0146 FB68     		ldr	r3, [r7, #12]
+ 290 0148 9A69     		ldr	r2, [r3, #24]
+ 291 014a FB68     		ldr	r3, [r7, #12]
+ 292 014c DA61     		str	r2, [r3, #28]
+  54:../Sources/DSP/IIR.c ****     MyIIR->State.Xn1 =  Input;
+ 293              		.loc 2 54 0
+ 294 014e FB68     		ldr	r3, [r7, #12]
+ 295 0150 BA68     		ldr	r2, [r7, #8]
+ 296 0152 9A61     		str	r2, [r3, #24]
+  55:../Sources/DSP/IIR.c ****     *Output = acc>>31;
+ 297              		.loc 2 55 0
+ 298 0154 7B69     		ldr	r3, [r7, #20]
+ 299 0156 4FEA4303 		lsl	r3, r3, #1
+ 300 015a 3A69     		ldr	r2, [r7, #16]
+ 301 015c 4FEAD274 		lsr	r4, r2, #31
+ 302 0160 1C43     		orrs	r4, r4, r3
+ 303 0162 7B69     		ldr	r3, [r7, #20]
+ 304 0164 4FEAE375 		asr	r5, r3, #31
+ 305 0168 2246     		mov	r2, r4
+ 306 016a 7B68     		ldr	r3, [r7, #4]
+ 307 016c 1A60     		str	r2, [r3, #0]
+  56:../Sources/DSP/IIR.c **** }
+ 308              		.loc 2 56 0
+ 309 016e 07F11C07 		add	r7, r7, #28
+ 310 0172 BD46     		mov	sp, r7
+ 311 0174 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 312              		.cfi_endproc
+ 313              	.LFE129:
+ 315              		.comm	A,8,8
+ 316              		.comm	w0,8,8
+ 317              		.comm	alpha,8,8
+ 318              		.comm	coef,48,8
+ 319              		.global	__aeabi_fdiv
+ 320              		.global	__aeabi_f2d
+ 321              		.global	__aeabi_fcmpeq
+ 322              		.global	__aeabi_dmul
+ 323              		.global	__aeabi_ddiv
+ 324              		.global	__aeabi_dadd
+ 325              		.global	__aeabi_dsub
+ 326              		.global	__aeabi_i2f
+ 327              		.global	__aeabi_dcmpgt
+ 328              		.global	__aeabi_d2iz
+ 329 0176 00BF     		.section	.text.DesignAudioBiquadIIR_q31_t,"ax",%progbits
+ 330              		.align	2
+ 331              		.global	DesignAudioBiquadIIR_q31_t
+ 332              		.thumb
+ 333              		.thumb_func
+ 335              	DesignAudioBiquadIIR_q31_t:
+ 336              	.LFB130:
+  57:../Sources/DSP/IIR.c **** 
+  58:../Sources/DSP/IIR.c **** 
+  59:../Sources/DSP/IIR.c **** double GetPeak(double *Values,uint8_t Size);
+  60:../Sources/DSP/IIR.c **** 
+  61:../Sources/DSP/IIR.c **** 
+  62:../Sources/DSP/IIR.c **** double A;
+  63:../Sources/DSP/IIR.c **** double w0;
+  64:../Sources/DSP/IIR.c **** double alpha;
+  65:../Sources/DSP/IIR.c **** 
+  66:../Sources/DSP/IIR.c **** double coef[6];
+  67:../Sources/DSP/IIR.c **** 
+  68:../Sources/DSP/IIR.c **** #define a0 coef[0]
+  69:../Sources/DSP/IIR.c **** #define a1 coef[1]
+  70:../Sources/DSP/IIR.c **** #define a2 coef[2]
+  71:../Sources/DSP/IIR.c **** #define b0 coef[3]
+  72:../Sources/DSP/IIR.c **** #define b1 coef[4]
+  73:../Sources/DSP/IIR.c **** #define b2 coef[5]
+  74:../Sources/DSP/IIR.c **** 
+  75:../Sources/DSP/IIR.c **** void DesignAudioBiquadIIR_q31_t(q31_t_IIR_Coefficients *C,// Pointer to the IIR Structure
+  76:../Sources/DSP/IIR.c ****                                 uint8_t FilterType,
+  77:../Sources/DSP/IIR.c ****                                 float Fs, //System Sample Rate
+  78:../Sources/DSP/IIR.c ****                                 float f0, //("wherever it's happenin', man."  Center Frequency or
+  79:../Sources/DSP/IIR.c ****                                 //Corner Frequency, or shelf midpoint frequency, depending
+  80:../Sources/DSP/IIR.c ****                                 //on which filter type.  The "significant frequency".)*/
+  81:../Sources/DSP/IIR.c ****                                 float Q,//(the EE kind of definition, except for peakingEQ in which
+  82:../Sources/DSP/IIR.c ****                                 // the classic EE Q.  That adjustment in definition was made so tha
+  83:../Sources/DSP/IIR.c ****                                 // a boost of N dB followed by a cut of N dB for identical Q and
+  84:../Sources/DSP/IIR.c ****                                 // f0/Fs results in a precisely flat unity gain filter or "wire".)*
+  85:../Sources/DSP/IIR.c ****                                 float dBgain// (used only for peaking and shelving filters)
+  86:../Sources/DSP/IIR.c ****                                )
+  87:../Sources/DSP/IIR.c **** {
+ 337              		.loc 2 87 0
+ 338              		.cfi_startproc
+ 339              		@ args = 8, pretend = 0, frame = 32
+ 340              		@ frame_needed = 1, uses_anonymous_args = 0
+ 341 0000 2DE9B04F 		push	{r4, r5, r7, r8, r9, sl, fp, lr}
+ 342              	.LCFI9:
+ 343              		.cfi_def_cfa_offset 32
+ 344              		.cfi_offset 4, -32
+ 345              		.cfi_offset 5, -28
+ 346              		.cfi_offset 7, -24
+ 347              		.cfi_offset 8, -20
+ 348              		.cfi_offset 9, -16
+ 349              		.cfi_offset 10, -12
+ 350              		.cfi_offset 11, -8
+ 351              		.cfi_offset 14, -4
+ 352 0004 88B0     		sub	sp, sp, #32
+ 353              	.LCFI10:
+ 354              		.cfi_def_cfa_offset 64
+ 355 0006 00AF     		add	r7, sp, #0
+ 356              	.LCFI11:
+ 357              		.cfi_def_cfa_register 7
+ 358 0008 F861     		str	r0, [r7, #28]
+ 359 000a 7A61     		str	r2, [r7, #20]	@ float
+ 360 000c 3B61     		str	r3, [r7, #16]	@ float
+ 361 000e 0B46     		mov	r3, r1
+ 362 0010 FB76     		strb	r3, [r7, #27]
+  88:../Sources/DSP/IIR.c ****     A = sqrt(pow(10,(dBgain/40)));
+ 363              		.loc 2 88 0
+ 364 0012 786C     		ldr	r0, [r7, #68]	@ float
+ 365 0014 4FF00001 		mov	r1, #0
+ 366 0018 C4F22021 		movt	r1, 16928
+ 367 001c FFF7FEFF 		bl	__aeabi_fdiv
+ 368 0020 0346     		mov	r3, r0
+ 369 0022 1846     		mov	r0, r3
+ 370 0024 FFF7FEFF 		bl	__aeabi_f2d
+ 371 0028 0246     		mov	r2, r0
+ 372 002a 0B46     		mov	r3, r1
+ 373 002c 4FF00000 		mov	r0, #0
+ 374 0030 4FF00001 		mov	r1, #0
+ 375 0034 C4F22401 		movt	r1, 16420
+ 376 0038 FFF7FEFF 		bl	pow
+ 377 003c 0246     		mov	r2, r0
+ 378 003e 0B46     		mov	r3, r1
+ 379 0040 1046     		mov	r0, r2
+ 380 0042 1946     		mov	r1, r3
+ 381 0044 FFF7FEFF 		bl	sqrt
+ 382 0048 40F20003 		movw	r3, #:lower16:A
+ 383 004c C0F20003 		movt	r3, #:upper16:A
+ 384 0050 C3E90001 		strd	r0, [r3]
+  89:../Sources/DSP/IIR.c **** 
+  90:../Sources/DSP/IIR.c ****     if(Fs == 0) Fs = 1000;
+ 385              		.loc 2 90 0
+ 386 0054 7869     		ldr	r0, [r7, #20]	@ float
+ 387 0056 4FF00001 		mov	r1, #0
+ 388 005a FFF7FEFF 		bl	__aeabi_fcmpeq
+ 389 005e 0346     		mov	r3, r0
+ 390 0060 002B     		cmp	r3, #0
+ 391 0062 04D0     		beq	.L6
+ 392              	.L24:
+ 393              		.loc 2 90 0 is_stmt 0
+ 394 0064 4FF00003 		mov	r3, #0
+ 395 0068 C4F27A43 		movt	r3, 17530
+ 396 006c 7B61     		str	r3, [r7, #20]	@ float
+ 397              	.L6:
+  91:../Sources/DSP/IIR.c **** 
+  92:../Sources/DSP/IIR.c ****     if(Q == 0) Q = 1.0;
+ 398              		.loc 2 92 0 is_stmt 1
+ 399 006e 386C     		ldr	r0, [r7, #64]	@ float
+ 400 0070 4FF00001 		mov	r1, #0
+ 401 0074 FFF7FEFF 		bl	__aeabi_fcmpeq
+ 402 0078 0346     		mov	r3, r0
+ 403 007a 002B     		cmp	r3, #0
+ 404 007c 02D0     		beq	.L8
+ 405              	.L25:
+ 406              		.loc 2 92 0 is_stmt 0
+ 407 007e 4FF07E53 		mov	r3, #1065353216
+ 408 0082 3B64     		str	r3, [r7, #64]	@ float
+ 409              	.L8:
+  93:../Sources/DSP/IIR.c **** 
+  94:../Sources/DSP/IIR.c ****     w0 = 2.0*3.141592654*f0/Fs;
+ 410              		.loc 2 94 0 is_stmt 1
+ 411 0084 3869     		ldr	r0, [r7, #16]	@ float
+ 412 0086 FFF7FEFF 		bl	__aeabi_f2d
+ 413 008a 0246     		mov	r2, r0
+ 414 008c 0B46     		mov	r3, r1
+ 415 008e 1046     		mov	r0, r2
+ 416 0090 1946     		mov	r1, r3
+ 417 0092 8DA3     		adr	r3, .L26
+ 418 0094 D3E90023 		ldrd	r2, [r3]
+ 419 0098 FFF7FEFF 		bl	__aeabi_dmul
+ 420 009c 0246     		mov	r2, r0
+ 421 009e 0B46     		mov	r3, r1
+ 422 00a0 1446     		mov	r4, r2
+ 423 00a2 1D46     		mov	r5, r3
+ 424 00a4 7869     		ldr	r0, [r7, #20]	@ float
+ 425 00a6 FFF7FEFF 		bl	__aeabi_f2d
+ 426 00aa 0246     		mov	r2, r0
+ 427 00ac 0B46     		mov	r3, r1
+ 428 00ae 2046     		mov	r0, r4
+ 429 00b0 2946     		mov	r1, r5
+ 430 00b2 FFF7FEFF 		bl	__aeabi_ddiv
+ 431 00b6 0246     		mov	r2, r0
+ 432 00b8 0B46     		mov	r3, r1
+ 433 00ba 1046     		mov	r0, r2
+ 434 00bc 1946     		mov	r1, r3
+ 435 00be 40F20003 		movw	r3, #:lower16:w0
+ 436 00c2 C0F20003 		movt	r3, #:upper16:w0
+ 437 00c6 C3E90001 		strd	r0, [r3]
+  95:../Sources/DSP/IIR.c ****     alpha = sin(w0)/(2.0 * Q);
+ 438              		.loc 2 95 0
+ 439 00ca 40F20003 		movw	r3, #:lower16:w0
+ 440 00ce C0F20003 		movt	r3, #:upper16:w0
+ 441 00d2 D3E90023 		ldrd	r2, [r3]
+ 442 00d6 1046     		mov	r0, r2
+ 443 00d8 1946     		mov	r1, r3
+ 444 00da FFF7FEFF 		bl	sin
+ 445 00de 0446     		mov	r4, r0
+ 446 00e0 0D46     		mov	r5, r1
+ 447 00e2 386C     		ldr	r0, [r7, #64]	@ float
+ 448 00e4 FFF7FEFF 		bl	__aeabi_f2d
+ 449 00e8 0246     		mov	r2, r0
+ 450 00ea 0B46     		mov	r3, r1
+ 451 00ec 1046     		mov	r0, r2
+ 452 00ee 1946     		mov	r1, r3
+ 453 00f0 FFF7FEFF 		bl	__aeabi_dadd
+ 454 00f4 0246     		mov	r2, r0
+ 455 00f6 0B46     		mov	r3, r1
+ 456 00f8 2046     		mov	r0, r4
+ 457 00fa 2946     		mov	r1, r5
+ 458 00fc FFF7FEFF 		bl	__aeabi_ddiv
+ 459 0100 0246     		mov	r2, r0
+ 460 0102 0B46     		mov	r3, r1
+ 461 0104 1046     		mov	r0, r2
+ 462 0106 1946     		mov	r1, r3
+ 463 0108 40F20003 		movw	r3, #:lower16:alpha
+ 464 010c C0F20003 		movt	r3, #:upper16:alpha
+ 465 0110 C3E90001 		strd	r0, [r3]
+  96:../Sources/DSP/IIR.c **** 
+  97:../Sources/DSP/IIR.c ****     switch(FilterType)
+ 466              		.loc 2 97 0
+ 467 0114 FB7E     		ldrb	r3, [r7, #27]	@ zero_extendqisi2
+ 468 0116 03F1FF33 		add	r3, r3, #-1
+ 469 011a 072B     		cmp	r3, #7
+ 470 011c 12D8     		bhi	.L10
+ 471 011e 01A0     		adr	r0, .L19
+ 472 0120 50F823F0 		ldr	pc, [r0, r3, lsl #2]
+ 473              		.align	2
+ 474              	.L19:
+ 475 0124 D1020000 		.word	.L11+1
+ 476 0128 5F040000 		.word	.L12+1
+ 477 012c 71050000 		.word	.L13+1
+ 478 0130 5F060000 		.word	.L14+1
+ 479 0134 6F070000 		.word	.L15+1
+ 480 0138 B3080000 		.word	.L16+1
+ 481 013c 470A0000 		.word	.L17+1
+ 482 0140 450F0000 		.word	.L18+1
+ 483              	.L10:
+  98:../Sources/DSP/IIR.c ****         {
+  99:../Sources/DSP/IIR.c ****             default:
+ 100:../Sources/DSP/IIR.c ****             case BIQUAD_LOW_PASS_FILTER	:
+ 101:../Sources/DSP/IIR.c ****             	
+ 102:../Sources/DSP/IIR.c ****                 b0 =  (1 - cos(w0))/2;
+ 484              		.loc 2 102 0
+ 485 0144 40F20003 		movw	r3, #:lower16:w0
+ 486 0148 C0F20003 		movt	r3, #:upper16:w0
+ 487 014c D3E90023 		ldrd	r2, [r3]
+ 488 0150 1046     		mov	r0, r2
+ 489 0152 1946     		mov	r1, r3
+ 490 0154 FFF7FEFF 		bl	cos
+ 491 0158 0246     		mov	r2, r0
+ 492 015a 0B46     		mov	r3, r1
+ 493 015c 4FF00000 		mov	r0, #0
+ 494 0160 4FF00001 		mov	r1, #0
+ 495 0164 C3F6F071 		movt	r1, 16368
+ 496 0168 FFF7FEFF 		bl	__aeabi_dsub
+ 497 016c 0246     		mov	r2, r0
+ 498 016e 0B46     		mov	r3, r1
+ 499 0170 1046     		mov	r0, r2
+ 500 0172 1946     		mov	r1, r3
+ 501 0174 4FF00002 		mov	r2, #0
+ 502 0178 4FF08043 		mov	r3, #1073741824
+ 503 017c FFF7FEFF 		bl	__aeabi_ddiv
+ 504 0180 0246     		mov	r2, r0
+ 505 0182 0B46     		mov	r3, r1
+ 506 0184 1046     		mov	r0, r2
+ 507 0186 1946     		mov	r1, r3
+ 508 0188 40F20003 		movw	r3, #:lower16:coef
+ 509 018c C0F20003 		movt	r3, #:upper16:coef
+ 510 0190 C3E90601 		strd	r0, [r3, #24]
+ 103:../Sources/DSP/IIR.c ****                 b1 =   1 - cos(w0);
+ 511              		.loc 2 103 0
+ 512 0194 40F20003 		movw	r3, #:lower16:w0
+ 513 0198 C0F20003 		movt	r3, #:upper16:w0
+ 514 019c D3E90023 		ldrd	r2, [r3]
+ 515 01a0 1046     		mov	r0, r2
+ 516 01a2 1946     		mov	r1, r3
+ 517 01a4 FFF7FEFF 		bl	cos
+ 518 01a8 0246     		mov	r2, r0
+ 519 01aa 0B46     		mov	r3, r1
+ 520 01ac 4FF00000 		mov	r0, #0
+ 521 01b0 4FF00001 		mov	r1, #0
+ 522 01b4 C3F6F071 		movt	r1, 16368
+ 523 01b8 FFF7FEFF 		bl	__aeabi_dsub
+ 524 01bc 0246     		mov	r2, r0
+ 525 01be 0B46     		mov	r3, r1
+ 526 01c0 1046     		mov	r0, r2
+ 527 01c2 1946     		mov	r1, r3
+ 528 01c4 40F20003 		movw	r3, #:lower16:coef
+ 529 01c8 C0F20003 		movt	r3, #:upper16:coef
+ 530 01cc C3E90801 		strd	r0, [r3, #32]
+ 104:../Sources/DSP/IIR.c ****                 b2 =  (1 - cos(w0))/2;
+ 531              		.loc 2 104 0
+ 532 01d0 40F20003 		movw	r3, #:lower16:w0
+ 533 01d4 C0F20003 		movt	r3, #:upper16:w0
+ 534 01d8 D3E90023 		ldrd	r2, [r3]
+ 535 01dc 1046     		mov	r0, r2
+ 536 01de 1946     		mov	r1, r3
+ 537 01e0 FFF7FEFF 		bl	cos
+ 538 01e4 0246     		mov	r2, r0
+ 539 01e6 0B46     		mov	r3, r1
+ 540 01e8 4FF00000 		mov	r0, #0
+ 541 01ec 4FF00001 		mov	r1, #0
+ 542 01f0 C3F6F071 		movt	r1, 16368
+ 543 01f4 FFF7FEFF 		bl	__aeabi_dsub
+ 544 01f8 0246     		mov	r2, r0
+ 545 01fa 0B46     		mov	r3, r1
+ 546 01fc 1046     		mov	r0, r2
+ 547 01fe 1946     		mov	r1, r3
+ 548 0200 4FF00002 		mov	r2, #0
+ 549 0204 4FF08043 		mov	r3, #1073741824
+ 550 0208 FFF7FEFF 		bl	__aeabi_ddiv
+ 551 020c 0246     		mov	r2, r0
+ 552 020e 0B46     		mov	r3, r1
+ 553 0210 1046     		mov	r0, r2
+ 554 0212 1946     		mov	r1, r3
+ 555 0214 40F20003 		movw	r3, #:lower16:coef
+ 556 0218 C0F20003 		movt	r3, #:upper16:coef
+ 557 021c C3E90A01 		strd	r0, [r3, #40]
+ 105:../Sources/DSP/IIR.c ****                 a0 =   1 + alpha;
+ 558              		.loc 2 105 0
+ 559 0220 40F20003 		movw	r3, #:lower16:alpha
+ 560 0224 C0F20003 		movt	r3, #:upper16:alpha
+ 561 0228 D3E90023 		ldrd	r2, [r3]
+ 562 022c 1046     		mov	r0, r2
+ 563 022e 1946     		mov	r1, r3
+ 564 0230 4FF00002 		mov	r2, #0
+ 565 0234 4FF00003 		mov	r3, #0
+ 566 0238 C3F6F073 		movt	r3, 16368
+ 567 023c FFF7FEFF 		bl	__aeabi_dadd
+ 568 0240 0246     		mov	r2, r0
+ 569 0242 0B46     		mov	r3, r1
+ 570 0244 1046     		mov	r0, r2
+ 571 0246 1946     		mov	r1, r3
+ 572 0248 40F20003 		movw	r3, #:lower16:coef
+ 573 024c C0F20003 		movt	r3, #:upper16:coef
+ 574 0250 C3E90001 		strd	r0, [r3]
+ 106:../Sources/DSP/IIR.c ****                 a1 =  -2*cos(w0);
+ 575              		.loc 2 106 0
+ 576 0254 40F20003 		movw	r3, #:lower16:w0
+ 577 0258 C0F20003 		movt	r3, #:upper16:w0
+ 578 025c D3E90023 		ldrd	r2, [r3]
+ 579 0260 1046     		mov	r0, r2
+ 580 0262 1946     		mov	r1, r3
+ 581 0264 FFF7FEFF 		bl	cos
+ 582 0268 0246     		mov	r2, r0
+ 583 026a 0B46     		mov	r3, r1
+ 584 026c 1046     		mov	r0, r2
+ 585 026e 1946     		mov	r1, r3
+ 586 0270 4FF00002 		mov	r2, #0
+ 587 0274 4FF04043 		mov	r3, #-1073741824
+ 588 0278 FFF7FEFF 		bl	__aeabi_dmul
+ 589 027c 0246     		mov	r2, r0
+ 590 027e 0B46     		mov	r3, r1
+ 591 0280 1046     		mov	r0, r2
+ 592 0282 1946     		mov	r1, r3
+ 593 0284 40F20003 		movw	r3, #:lower16:coef
+ 594 0288 C0F20003 		movt	r3, #:upper16:coef
+ 595 028c C3E90201 		strd	r0, [r3, #8]
+ 107:../Sources/DSP/IIR.c ****                 a2 =   1 - alpha;
+ 596              		.loc 2 107 0
+ 597 0290 40F20003 		movw	r3, #:lower16:alpha
+ 598 0294 C0F20003 		movt	r3, #:upper16:alpha
+ 599 0298 D3E90023 		ldrd	r2, [r3]
+ 600 029c 4FF00000 		mov	r0, #0
+ 601 02a0 4FF00001 		mov	r1, #0
+ 602 02a4 C3F6F071 		movt	r1, 16368
+ 603 02a8 FFF7FEFF 		bl	__aeabi_dsub
+ 604 02ac 0246     		mov	r2, r0
+ 605 02ae 0B46     		mov	r3, r1
+ 606 02b0 1046     		mov	r0, r2
+ 607 02b2 1946     		mov	r1, r3
+ 608 02b4 40F20003 		movw	r3, #:lower16:coef
+ 609 02b8 C0F20003 		movt	r3, #:upper16:coef
+ 610 02bc C3E90401 		strd	r0, [r3, #16]
+ 108:../Sources/DSP/IIR.c ****                 break;
+ 611              		.loc 2 108 0
+ 612 02c0 01F0BFB8 		b	.L20
+ 613              	.L27:
+ 614 02c4 AFF30080 		.align	3
+ 615              	.L26:
+ 616 02c8 50455254 		.word	1414677840
+ 617 02cc FB211940 		.word	1075388923
+ 618              	.L11:
+ 109:../Sources/DSP/IIR.c **** 
+ 110:../Sources/DSP/IIR.c ****             case   BIQUAD_HIGH_PASS_FILTER 	:
+ 111:../Sources/DSP/IIR.c ****                 b0 =  (1 + cos(w0))/2;
+ 619              		.loc 2 111 0
+ 620 02d0 40F20003 		movw	r3, #:lower16:w0
+ 621 02d4 C0F20003 		movt	r3, #:upper16:w0
+ 622 02d8 D3E90023 		ldrd	r2, [r3]
+ 623 02dc 1046     		mov	r0, r2
+ 624 02de 1946     		mov	r1, r3
+ 625 02e0 FFF7FEFF 		bl	cos
+ 626 02e4 0246     		mov	r2, r0
+ 627 02e6 0B46     		mov	r3, r1
+ 628 02e8 1046     		mov	r0, r2
+ 629 02ea 1946     		mov	r1, r3
+ 630 02ec 4FF00002 		mov	r2, #0
+ 631 02f0 4FF00003 		mov	r3, #0
+ 632 02f4 C3F6F073 		movt	r3, 16368
+ 633 02f8 FFF7FEFF 		bl	__aeabi_dadd
+ 634 02fc 0246     		mov	r2, r0
+ 635 02fe 0B46     		mov	r3, r1
+ 636 0300 1046     		mov	r0, r2
+ 637 0302 1946     		mov	r1, r3
+ 638 0304 4FF00002 		mov	r2, #0
+ 639 0308 4FF08043 		mov	r3, #1073741824
+ 640 030c FFF7FEFF 		bl	__aeabi_ddiv
+ 641 0310 0246     		mov	r2, r0
+ 642 0312 0B46     		mov	r3, r1
+ 643 0314 1046     		mov	r0, r2
+ 644 0316 1946     		mov	r1, r3
+ 645 0318 40F20003 		movw	r3, #:lower16:coef
+ 646 031c C0F20003 		movt	r3, #:upper16:coef
+ 647 0320 C3E90601 		strd	r0, [r3, #24]
+ 112:../Sources/DSP/IIR.c ****                 b1 = -(1 + cos(w0));
+ 648              		.loc 2 112 0
+ 649 0324 40F20003 		movw	r3, #:lower16:w0
+ 650 0328 C0F20003 		movt	r3, #:upper16:w0
+ 651 032c D3E90023 		ldrd	r2, [r3]
+ 652 0330 1046     		mov	r0, r2
+ 653 0332 1946     		mov	r1, r3
+ 654 0334 FFF7FEFF 		bl	cos
+ 655 0338 0246     		mov	r2, r0
+ 656 033a 0B46     		mov	r3, r1
+ 657 033c 1046     		mov	r0, r2
+ 658 033e 1946     		mov	r1, r3
+ 659 0340 4FF00002 		mov	r2, #0
+ 660 0344 4FF00003 		mov	r3, #0
+ 661 0348 C3F6F073 		movt	r3, 16368
+ 662 034c FFF7FEFF 		bl	__aeabi_dadd
+ 663 0350 0246     		mov	r2, r0
+ 664 0352 0B46     		mov	r3, r1
+ 665 0354 9246     		mov	sl, r2
+ 666 0356 83F0004B 		eor	fp, r3, #-2147483648
+ 667 035a 40F20003 		movw	r3, #:lower16:coef
+ 668 035e C0F20003 		movt	r3, #:upper16:coef
+ 669 0362 C3E908AB 		strd	sl, [r3, #32]
+ 113:../Sources/DSP/IIR.c ****                 b2 =  (1 + cos(w0))/2;
+ 670              		.loc 2 113 0
+ 671 0366 40F20003 		movw	r3, #:lower16:w0
+ 672 036a C0F20003 		movt	r3, #:upper16:w0
+ 673 036e D3E90023 		ldrd	r2, [r3]
+ 674 0372 1046     		mov	r0, r2
+ 675 0374 1946     		mov	r1, r3
+ 676 0376 FFF7FEFF 		bl	cos
+ 677 037a 0246     		mov	r2, r0
+ 678 037c 0B46     		mov	r3, r1
+ 679 037e 1046     		mov	r0, r2
+ 680 0380 1946     		mov	r1, r3
+ 681 0382 4FF00002 		mov	r2, #0
+ 682 0386 4FF00003 		mov	r3, #0
+ 683 038a C3F6F073 		movt	r3, 16368
+ 684 038e FFF7FEFF 		bl	__aeabi_dadd
+ 685 0392 0246     		mov	r2, r0
+ 686 0394 0B46     		mov	r3, r1
+ 687 0396 1046     		mov	r0, r2
+ 688 0398 1946     		mov	r1, r3
+ 689 039a 4FF00002 		mov	r2, #0
+ 690 039e 4FF08043 		mov	r3, #1073741824
+ 691 03a2 FFF7FEFF 		bl	__aeabi_ddiv
+ 692 03a6 0246     		mov	r2, r0
+ 693 03a8 0B46     		mov	r3, r1
+ 694 03aa 1046     		mov	r0, r2
+ 695 03ac 1946     		mov	r1, r3
+ 696 03ae 40F20003 		movw	r3, #:lower16:coef
+ 697 03b2 C0F20003 		movt	r3, #:upper16:coef
+ 698 03b6 C3E90A01 		strd	r0, [r3, #40]
+ 114:../Sources/DSP/IIR.c ****                 a0 =   1 + alpha;
+ 699              		.loc 2 114 0
+ 700 03ba 40F20003 		movw	r3, #:lower16:alpha
+ 701 03be C0F20003 		movt	r3, #:upper16:alpha
+ 702 03c2 D3E90023 		ldrd	r2, [r3]
+ 703 03c6 1046     		mov	r0, r2
+ 704 03c8 1946     		mov	r1, r3
+ 705 03ca 4FF00002 		mov	r2, #0
+ 706 03ce 4FF00003 		mov	r3, #0
+ 707 03d2 C3F6F073 		movt	r3, 16368
+ 708 03d6 FFF7FEFF 		bl	__aeabi_dadd
+ 709 03da 0246     		mov	r2, r0
+ 710 03dc 0B46     		mov	r3, r1
+ 711 03de 1046     		mov	r0, r2
+ 712 03e0 1946     		mov	r1, r3
+ 713 03e2 40F20003 		movw	r3, #:lower16:coef
+ 714 03e6 C0F20003 		movt	r3, #:upper16:coef
+ 715 03ea C3E90001 		strd	r0, [r3]
+ 115:../Sources/DSP/IIR.c ****                 a1 =  -2*cos(w0);
+ 716              		.loc 2 115 0
+ 717 03ee 40F20003 		movw	r3, #:lower16:w0
+ 718 03f2 C0F20003 		movt	r3, #:upper16:w0
+ 719 03f6 D3E90023 		ldrd	r2, [r3]
+ 720 03fa 1046     		mov	r0, r2
+ 721 03fc 1946     		mov	r1, r3
+ 722 03fe FFF7FEFF 		bl	cos
+ 723 0402 0246     		mov	r2, r0
+ 724 0404 0B46     		mov	r3, r1
+ 725 0406 1046     		mov	r0, r2
+ 726 0408 1946     		mov	r1, r3
+ 727 040a 4FF00002 		mov	r2, #0
+ 728 040e 4FF04043 		mov	r3, #-1073741824
+ 729 0412 FFF7FEFF 		bl	__aeabi_dmul
+ 730 0416 0246     		mov	r2, r0
+ 731 0418 0B46     		mov	r3, r1
+ 732 041a 1046     		mov	r0, r2
+ 733 041c 1946     		mov	r1, r3
+ 734 041e 40F20003 		movw	r3, #:lower16:coef
+ 735 0422 C0F20003 		movt	r3, #:upper16:coef
+ 736 0426 C3E90201 		strd	r0, [r3, #8]
+ 116:../Sources/DSP/IIR.c ****                 a2 =   1 - alpha;
+ 737              		.loc 2 116 0
+ 738 042a 40F20003 		movw	r3, #:lower16:alpha
+ 739 042e C0F20003 		movt	r3, #:upper16:alpha
+ 740 0432 D3E90023 		ldrd	r2, [r3]
+ 741 0436 4FF00000 		mov	r0, #0
+ 742 043a 4FF00001 		mov	r1, #0
+ 743 043e C3F6F071 		movt	r1, 16368
+ 744 0442 FFF7FEFF 		bl	__aeabi_dsub
+ 745 0446 0246     		mov	r2, r0
+ 746 0448 0B46     		mov	r3, r1
+ 747 044a 1046     		mov	r0, r2
+ 748 044c 1946     		mov	r1, r3
+ 749 044e 40F20003 		movw	r3, #:lower16:coef
+ 750 0452 C0F20003 		movt	r3, #:upper16:coef
+ 751 0456 C3E90401 		strd	r0, [r3, #16]
+ 117:../Sources/DSP/IIR.c ****                 break;
+ 752              		.loc 2 117 0
+ 753 045a 00F0F2BF 		b	.L20
+ 754              	.L12:
+ 118:../Sources/DSP/IIR.c **** 
+ 119:../Sources/DSP/IIR.c ****             case         BIQUAD_BAND_PASS_FILTER_CONSTANT_SKIRT_GAIN_PEAKGAIN_Q	:
+ 120:../Sources/DSP/IIR.c ****                 b0 =   Q*alpha;
+ 755              		.loc 2 120 0
+ 756 045e 386C     		ldr	r0, [r7, #64]	@ float
+ 757 0460 FFF7FEFF 		bl	__aeabi_f2d
+ 758 0464 40F20003 		movw	r3, #:lower16:alpha
+ 759 0468 C0F20003 		movt	r3, #:upper16:alpha
+ 760 046c D3E90023 		ldrd	r2, [r3]
+ 761 0470 FFF7FEFF 		bl	__aeabi_dmul
+ 762 0474 0246     		mov	r2, r0
+ 763 0476 0B46     		mov	r3, r1
+ 764 0478 1046     		mov	r0, r2
+ 765 047a 1946     		mov	r1, r3
+ 766 047c 40F20003 		movw	r3, #:lower16:coef
+ 767 0480 C0F20003 		movt	r3, #:upper16:coef
+ 768 0484 C3E90601 		strd	r0, [r3, #24]
+ 121:../Sources/DSP/IIR.c ****                 b1 =   0;
+ 769              		.loc 2 121 0
+ 770 0488 40F20003 		movw	r3, #:lower16:coef
+ 771 048c C0F20003 		movt	r3, #:upper16:coef
+ 772 0490 4FF00000 		mov	r0, #0
+ 773 0494 4FF00001 		mov	r1, #0
+ 774 0498 C3E90801 		strd	r0, [r3, #32]
+ 122:../Sources/DSP/IIR.c ****                 b2 =  -Q*alpha;
+ 775              		.loc 2 122 0
+ 776 049c 3B6C     		ldr	r3, [r7, #64]
+ 777 049e 83F00043 		eor	r3, r3, #-2147483648
+ 778 04a2 1846     		mov	r0, r3
+ 779 04a4 FFF7FEFF 		bl	__aeabi_f2d
+ 780 04a8 40F20003 		movw	r3, #:lower16:alpha
+ 781 04ac C0F20003 		movt	r3, #:upper16:alpha
+ 782 04b0 D3E90023 		ldrd	r2, [r3]
+ 783 04b4 FFF7FEFF 		bl	__aeabi_dmul
+ 784 04b8 0246     		mov	r2, r0
+ 785 04ba 0B46     		mov	r3, r1
+ 786 04bc 1046     		mov	r0, r2
+ 787 04be 1946     		mov	r1, r3
+ 788 04c0 40F20003 		movw	r3, #:lower16:coef
+ 789 04c4 C0F20003 		movt	r3, #:upper16:coef
+ 790 04c8 C3E90A01 		strd	r0, [r3, #40]
+ 123:../Sources/DSP/IIR.c ****                 a0 =   1 + alpha;
+ 791              		.loc 2 123 0
+ 792 04cc 40F20003 		movw	r3, #:lower16:alpha
+ 793 04d0 C0F20003 		movt	r3, #:upper16:alpha
+ 794 04d4 D3E90023 		ldrd	r2, [r3]
+ 795 04d8 1046     		mov	r0, r2
+ 796 04da 1946     		mov	r1, r3
+ 797 04dc 4FF00002 		mov	r2, #0
+ 798 04e0 4FF00003 		mov	r3, #0
+ 799 04e4 C3F6F073 		movt	r3, 16368
+ 800 04e8 FFF7FEFF 		bl	__aeabi_dadd
+ 801 04ec 0246     		mov	r2, r0
+ 802 04ee 0B46     		mov	r3, r1
+ 803 04f0 1046     		mov	r0, r2
+ 804 04f2 1946     		mov	r1, r3
+ 805 04f4 40F20003 		movw	r3, #:lower16:coef
+ 806 04f8 C0F20003 		movt	r3, #:upper16:coef
+ 807 04fc C3E90001 		strd	r0, [r3]
+ 124:../Sources/DSP/IIR.c ****                 a1 =  -2*cos(w0);
+ 808              		.loc 2 124 0
+ 809 0500 40F20003 		movw	r3, #:lower16:w0
+ 810 0504 C0F20003 		movt	r3, #:upper16:w0
+ 811 0508 D3E90023 		ldrd	r2, [r3]
+ 812 050c 1046     		mov	r0, r2
+ 813 050e 1946     		mov	r1, r3
+ 814 0510 FFF7FEFF 		bl	cos
+ 815 0514 0246     		mov	r2, r0
+ 816 0516 0B46     		mov	r3, r1
+ 817 0518 1046     		mov	r0, r2
+ 818 051a 1946     		mov	r1, r3
+ 819 051c 4FF00002 		mov	r2, #0
+ 820 0520 4FF04043 		mov	r3, #-1073741824
+ 821 0524 FFF7FEFF 		bl	__aeabi_dmul
+ 822 0528 0246     		mov	r2, r0
+ 823 052a 0B46     		mov	r3, r1
+ 824 052c 1046     		mov	r0, r2
+ 825 052e 1946     		mov	r1, r3
+ 826 0530 40F20003 		movw	r3, #:lower16:coef
+ 827 0534 C0F20003 		movt	r3, #:upper16:coef
+ 828 0538 C3E90201 		strd	r0, [r3, #8]
+ 125:../Sources/DSP/IIR.c ****                 a2 =   1 - alpha;
+ 829              		.loc 2 125 0
+ 830 053c 40F20003 		movw	r3, #:lower16:alpha
+ 831 0540 C0F20003 		movt	r3, #:upper16:alpha
+ 832 0544 D3E90023 		ldrd	r2, [r3]
+ 833 0548 4FF00000 		mov	r0, #0
+ 834 054c 4FF00001 		mov	r1, #0
+ 835 0550 C3F6F071 		movt	r1, 16368
+ 836 0554 FFF7FEFF 		bl	__aeabi_dsub
+ 837 0558 0246     		mov	r2, r0
+ 838 055a 0B46     		mov	r3, r1
+ 839 055c 1046     		mov	r0, r2
+ 840 055e 1946     		mov	r1, r3
+ 841 0560 40F20003 		movw	r3, #:lower16:coef
+ 842 0564 C0F20003 		movt	r3, #:upper16:coef
+ 843 0568 C3E90401 		strd	r0, [r3, #16]
+ 126:../Sources/DSP/IIR.c ****                 break;
+ 844              		.loc 2 126 0
+ 845 056c 00F069BF 		b	.L20
+ 846              	.L13:
+ 127:../Sources/DSP/IIR.c **** 
+ 128:../Sources/DSP/IIR.c ****             case            BIQUAD_BAND_PASS_FILTER_CONSTANT_0_DB_PEAK_GAIN:
+ 129:../Sources/DSP/IIR.c ****                 b0 =   alpha;
+ 847              		.loc 2 129 0
+ 848 0570 40F20003 		movw	r3, #:lower16:alpha
+ 849 0574 C0F20003 		movt	r3, #:upper16:alpha
+ 850 0578 D3E90001 		ldrd	r0, [r3]
+ 851 057c 40F20003 		movw	r3, #:lower16:coef
+ 852 0580 C0F20003 		movt	r3, #:upper16:coef
+ 853 0584 C3E90601 		strd	r0, [r3, #24]
+ 130:../Sources/DSP/IIR.c ****                 b1 =   0;
+ 854              		.loc 2 130 0
+ 855 0588 40F20003 		movw	r3, #:lower16:coef
+ 856 058c C0F20003 		movt	r3, #:upper16:coef
+ 857 0590 4FF00000 		mov	r0, #0
+ 858 0594 4FF00001 		mov	r1, #0
+ 859 0598 C3E90801 		strd	r0, [r3, #32]
+ 131:../Sources/DSP/IIR.c ****                 b2 =  -alpha;
+ 860              		.loc 2 131 0
+ 861 059c 40F20003 		movw	r3, #:lower16:alpha
+ 862 05a0 C0F20003 		movt	r3, #:upper16:alpha
+ 863 05a4 D3E90023 		ldrd	r2, [r3]
+ 864 05a8 9046     		mov	r8, r2
+ 865 05aa 83F00049 		eor	r9, r3, #-2147483648
+ 866 05ae 40F20003 		movw	r3, #:lower16:coef
+ 867 05b2 C0F20003 		movt	r3, #:upper16:coef
+ 868 05b6 C3E90A89 		strd	r8, [r3, #40]
+ 132:../Sources/DSP/IIR.c ****                 a0 =   1 + alpha;
+ 869              		.loc 2 132 0
+ 870 05ba 40F20003 		movw	r3, #:lower16:alpha
+ 871 05be C0F20003 		movt	r3, #:upper16:alpha
+ 872 05c2 D3E90023 		ldrd	r2, [r3]
+ 873 05c6 1046     		mov	r0, r2
+ 874 05c8 1946     		mov	r1, r3
+ 875 05ca 4FF00002 		mov	r2, #0
+ 876 05ce 4FF00003 		mov	r3, #0
+ 877 05d2 C3F6F073 		movt	r3, 16368
+ 878 05d6 FFF7FEFF 		bl	__aeabi_dadd
+ 879 05da 0246     		mov	r2, r0
+ 880 05dc 0B46     		mov	r3, r1
+ 881 05de 1046     		mov	r0, r2
+ 882 05e0 1946     		mov	r1, r3
+ 883 05e2 40F20003 		movw	r3, #:lower16:coef
+ 884 05e6 C0F20003 		movt	r3, #:upper16:coef
+ 885 05ea C3E90001 		strd	r0, [r3]
+ 133:../Sources/DSP/IIR.c ****                 a1 =  -2*cos(w0);
+ 886              		.loc 2 133 0
+ 887 05ee 40F20003 		movw	r3, #:lower16:w0
+ 888 05f2 C0F20003 		movt	r3, #:upper16:w0
+ 889 05f6 D3E90023 		ldrd	r2, [r3]
+ 890 05fa 1046     		mov	r0, r2
+ 891 05fc 1946     		mov	r1, r3
+ 892 05fe FFF7FEFF 		bl	cos
+ 893 0602 0246     		mov	r2, r0
+ 894 0604 0B46     		mov	r3, r1
+ 895 0606 1046     		mov	r0, r2
+ 896 0608 1946     		mov	r1, r3
+ 897 060a 4FF00002 		mov	r2, #0
+ 898 060e 4FF04043 		mov	r3, #-1073741824
+ 899 0612 FFF7FEFF 		bl	__aeabi_dmul
+ 900 0616 0246     		mov	r2, r0
+ 901 0618 0B46     		mov	r3, r1
+ 902 061a 1046     		mov	r0, r2
+ 903 061c 1946     		mov	r1, r3
+ 904 061e 40F20003 		movw	r3, #:lower16:coef
+ 905 0622 C0F20003 		movt	r3, #:upper16:coef
+ 906 0626 C3E90201 		strd	r0, [r3, #8]
+ 134:../Sources/DSP/IIR.c ****                 a2 =   1 - alpha;
+ 907              		.loc 2 134 0
+ 908 062a 40F20003 		movw	r3, #:lower16:alpha
+ 909 062e C0F20003 		movt	r3, #:upper16:alpha
+ 910 0632 D3E90023 		ldrd	r2, [r3]
+ 911 0636 4FF00000 		mov	r0, #0
+ 912 063a 4FF00001 		mov	r1, #0
+ 913 063e C3F6F071 		movt	r1, 16368
+ 914 0642 FFF7FEFF 		bl	__aeabi_dsub
+ 915 0646 0246     		mov	r2, r0
+ 916 0648 0B46     		mov	r3, r1
+ 917 064a 1046     		mov	r0, r2
+ 918 064c 1946     		mov	r1, r3
+ 919 064e 40F20003 		movw	r3, #:lower16:coef
+ 920 0652 C0F20003 		movt	r3, #:upper16:coef
+ 921 0656 C3E90401 		strd	r0, [r3, #16]
+ 135:../Sources/DSP/IIR.c ****                 break;
+ 922              		.loc 2 135 0
+ 923 065a 00F0F2BE 		b	.L20
+ 924              	.L14:
+ 136:../Sources/DSP/IIR.c **** 
+ 137:../Sources/DSP/IIR.c ****             case             BIQUAD_NOTCH_FILTER:
+ 138:../Sources/DSP/IIR.c ****                 b0 =   1;
+ 925              		.loc 2 138 0
+ 926 065e 40F20003 		movw	r3, #:lower16:coef
+ 927 0662 C0F20003 		movt	r3, #:upper16:coef
+ 928 0666 4FF00000 		mov	r0, #0
+ 929 066a 4FF00001 		mov	r1, #0
+ 930 066e C3F6F071 		movt	r1, 16368
+ 931 0672 C3E90601 		strd	r0, [r3, #24]
+ 139:../Sources/DSP/IIR.c ****                 b1 =  -2*cos(w0);
+ 932              		.loc 2 139 0
+ 933 0676 40F20003 		movw	r3, #:lower16:w0
+ 934 067a C0F20003 		movt	r3, #:upper16:w0
+ 935 067e D3E90023 		ldrd	r2, [r3]
+ 936 0682 1046     		mov	r0, r2
+ 937 0684 1946     		mov	r1, r3
+ 938 0686 FFF7FEFF 		bl	cos
+ 939 068a 0246     		mov	r2, r0
+ 940 068c 0B46     		mov	r3, r1
+ 941 068e 1046     		mov	r0, r2
+ 942 0690 1946     		mov	r1, r3
+ 943 0692 4FF00002 		mov	r2, #0
+ 944 0696 4FF04043 		mov	r3, #-1073741824
+ 945 069a FFF7FEFF 		bl	__aeabi_dmul
+ 946 069e 0246     		mov	r2, r0
+ 947 06a0 0B46     		mov	r3, r1
+ 948 06a2 1046     		mov	r0, r2
+ 949 06a4 1946     		mov	r1, r3
+ 950 06a6 40F20003 		movw	r3, #:lower16:coef
+ 951 06aa C0F20003 		movt	r3, #:upper16:coef
+ 952 06ae C3E90801 		strd	r0, [r3, #32]
+ 140:../Sources/DSP/IIR.c ****                 b2 =   1;
+ 953              		.loc 2 140 0
+ 954 06b2 40F20003 		movw	r3, #:lower16:coef
+ 955 06b6 C0F20003 		movt	r3, #:upper16:coef
+ 956 06ba 4FF00000 		mov	r0, #0
+ 957 06be 4FF00001 		mov	r1, #0
+ 958 06c2 C3F6F071 		movt	r1, 16368
+ 959 06c6 C3E90A01 		strd	r0, [r3, #40]
+ 141:../Sources/DSP/IIR.c ****                 a0 =   1 + alpha;
+ 960              		.loc 2 141 0
+ 961 06ca 40F20003 		movw	r3, #:lower16:alpha
+ 962 06ce C0F20003 		movt	r3, #:upper16:alpha
+ 963 06d2 D3E90023 		ldrd	r2, [r3]
+ 964 06d6 1046     		mov	r0, r2
+ 965 06d8 1946     		mov	r1, r3
+ 966 06da 4FF00002 		mov	r2, #0
+ 967 06de 4FF00003 		mov	r3, #0
+ 968 06e2 C3F6F073 		movt	r3, 16368
+ 969 06e6 FFF7FEFF 		bl	__aeabi_dadd
+ 970 06ea 0246     		mov	r2, r0
+ 971 06ec 0B46     		mov	r3, r1
+ 972 06ee 1046     		mov	r0, r2
+ 973 06f0 1946     		mov	r1, r3
+ 974 06f2 40F20003 		movw	r3, #:lower16:coef
+ 975 06f6 C0F20003 		movt	r3, #:upper16:coef
+ 976 06fa C3E90001 		strd	r0, [r3]
+ 142:../Sources/DSP/IIR.c ****                 a1 =  -2*cos(w0);
+ 977              		.loc 2 142 0
+ 978 06fe 40F20003 		movw	r3, #:lower16:w0
+ 979 0702 C0F20003 		movt	r3, #:upper16:w0
+ 980 0706 D3E90023 		ldrd	r2, [r3]
+ 981 070a 1046     		mov	r0, r2
+ 982 070c 1946     		mov	r1, r3
+ 983 070e FFF7FEFF 		bl	cos
+ 984 0712 0246     		mov	r2, r0
+ 985 0714 0B46     		mov	r3, r1
+ 986 0716 1046     		mov	r0, r2
+ 987 0718 1946     		mov	r1, r3
+ 988 071a 4FF00002 		mov	r2, #0
+ 989 071e 4FF04043 		mov	r3, #-1073741824
+ 990 0722 FFF7FEFF 		bl	__aeabi_dmul
+ 991 0726 0246     		mov	r2, r0
+ 992 0728 0B46     		mov	r3, r1
+ 993 072a 1046     		mov	r0, r2
+ 994 072c 1946     		mov	r1, r3
+ 995 072e 40F20003 		movw	r3, #:lower16:coef
+ 996 0732 C0F20003 		movt	r3, #:upper16:coef
+ 997 0736 C3E90201 		strd	r0, [r3, #8]
+ 143:../Sources/DSP/IIR.c ****                 a2 =   1 - alpha;
+ 998              		.loc 2 143 0
+ 999 073a 40F20003 		movw	r3, #:lower16:alpha
+ 1000 073e C0F20003 		movt	r3, #:upper16:alpha
+ 1001 0742 D3E90023 		ldrd	r2, [r3]
+ 1002 0746 4FF00000 		mov	r0, #0
+ 1003 074a 4FF00001 		mov	r1, #0
+ 1004 074e C3F6F071 		movt	r1, 16368
+ 1005 0752 FFF7FEFF 		bl	__aeabi_dsub
+ 1006 0756 0246     		mov	r2, r0
+ 1007 0758 0B46     		mov	r3, r1
+ 1008 075a 1046     		mov	r0, r2
+ 1009 075c 1946     		mov	r1, r3
+ 1010 075e 40F20003 		movw	r3, #:lower16:coef
+ 1011 0762 C0F20003 		movt	r3, #:upper16:coef
+ 1012 0766 C3E90401 		strd	r0, [r3, #16]
+ 144:../Sources/DSP/IIR.c ****                 break;
+ 1013              		.loc 2 144 0
+ 1014 076a 00F06ABE 		b	.L20
+ 1015              	.L15:
+ 145:../Sources/DSP/IIR.c **** 
+ 146:../Sources/DSP/IIR.c ****             case             BIQUAD_ALL_PASS_FILTER:
+ 147:../Sources/DSP/IIR.c ****                 b0 =   1 - alpha;
+ 1016              		.loc 2 147 0
+ 1017 076e 40F20003 		movw	r3, #:lower16:alpha
+ 1018 0772 C0F20003 		movt	r3, #:upper16:alpha
+ 1019 0776 D3E90023 		ldrd	r2, [r3]
+ 1020 077a 4FF00000 		mov	r0, #0
+ 1021 077e 4FF00001 		mov	r1, #0
+ 1022 0782 C3F6F071 		movt	r1, 16368
+ 1023 0786 FFF7FEFF 		bl	__aeabi_dsub
+ 1024 078a 0246     		mov	r2, r0
+ 1025 078c 0B46     		mov	r3, r1
+ 1026 078e 1046     		mov	r0, r2
+ 1027 0790 1946     		mov	r1, r3
+ 1028 0792 40F20003 		movw	r3, #:lower16:coef
+ 1029 0796 C0F20003 		movt	r3, #:upper16:coef
+ 1030 079a C3E90601 		strd	r0, [r3, #24]
+ 148:../Sources/DSP/IIR.c ****                 b1 =  -2*cos(w0);
+ 1031              		.loc 2 148 0
+ 1032 079e 40F20003 		movw	r3, #:lower16:w0
+ 1033 07a2 C0F20003 		movt	r3, #:upper16:w0
+ 1034 07a6 D3E90023 		ldrd	r2, [r3]
+ 1035 07aa 1046     		mov	r0, r2
+ 1036 07ac 1946     		mov	r1, r3
+ 1037 07ae FFF7FEFF 		bl	cos
+ 1038 07b2 0246     		mov	r2, r0
+ 1039 07b4 0B46     		mov	r3, r1
+ 1040 07b6 1046     		mov	r0, r2
+ 1041 07b8 1946     		mov	r1, r3
+ 1042 07ba 4FF00002 		mov	r2, #0
+ 1043 07be 4FF04043 		mov	r3, #-1073741824
+ 1044 07c2 FFF7FEFF 		bl	__aeabi_dmul
+ 1045 07c6 0246     		mov	r2, r0
+ 1046 07c8 0B46     		mov	r3, r1
+ 1047 07ca 1046     		mov	r0, r2
+ 1048 07cc 1946     		mov	r1, r3
+ 1049 07ce 40F20003 		movw	r3, #:lower16:coef
+ 1050 07d2 C0F20003 		movt	r3, #:upper16:coef
+ 1051 07d6 C3E90801 		strd	r0, [r3, #32]
+ 149:../Sources/DSP/IIR.c ****                 b2 =   1 + alpha;
+ 1052              		.loc 2 149 0
+ 1053 07da 40F20003 		movw	r3, #:lower16:alpha
+ 1054 07de C0F20003 		movt	r3, #:upper16:alpha
+ 1055 07e2 D3E90023 		ldrd	r2, [r3]
+ 1056 07e6 1046     		mov	r0, r2
+ 1057 07e8 1946     		mov	r1, r3
+ 1058 07ea 4FF00002 		mov	r2, #0
+ 1059 07ee 4FF00003 		mov	r3, #0
+ 1060 07f2 C3F6F073 		movt	r3, 16368
+ 1061 07f6 FFF7FEFF 		bl	__aeabi_dadd
+ 1062 07fa 0246     		mov	r2, r0
+ 1063 07fc 0B46     		mov	r3, r1
+ 1064 07fe 1046     		mov	r0, r2
+ 1065 0800 1946     		mov	r1, r3
+ 1066 0802 40F20003 		movw	r3, #:lower16:coef
+ 1067 0806 C0F20003 		movt	r3, #:upper16:coef
+ 1068 080a C3E90A01 		strd	r0, [r3, #40]
+ 150:../Sources/DSP/IIR.c ****                 a0 =   1 + alpha;
+ 1069              		.loc 2 150 0
+ 1070 080e 40F20003 		movw	r3, #:lower16:alpha
+ 1071 0812 C0F20003 		movt	r3, #:upper16:alpha
+ 1072 0816 D3E90023 		ldrd	r2, [r3]
+ 1073 081a 1046     		mov	r0, r2
+ 1074 081c 1946     		mov	r1, r3
+ 1075 081e 4FF00002 		mov	r2, #0
+ 1076 0822 4FF00003 		mov	r3, #0
+ 1077 0826 C3F6F073 		movt	r3, 16368
+ 1078 082a FFF7FEFF 		bl	__aeabi_dadd
+ 1079 082e 0246     		mov	r2, r0
+ 1080 0830 0B46     		mov	r3, r1
+ 1081 0832 1046     		mov	r0, r2
+ 1082 0834 1946     		mov	r1, r3
+ 1083 0836 40F20003 		movw	r3, #:lower16:coef
+ 1084 083a C0F20003 		movt	r3, #:upper16:coef
+ 1085 083e C3E90001 		strd	r0, [r3]
+ 151:../Sources/DSP/IIR.c ****                 a1 =  -2*cos(w0);
+ 1086              		.loc 2 151 0
+ 1087 0842 40F20003 		movw	r3, #:lower16:w0
+ 1088 0846 C0F20003 		movt	r3, #:upper16:w0
+ 1089 084a D3E90023 		ldrd	r2, [r3]
+ 1090 084e 1046     		mov	r0, r2
+ 1091 0850 1946     		mov	r1, r3
+ 1092 0852 FFF7FEFF 		bl	cos
+ 1093 0856 0246     		mov	r2, r0
+ 1094 0858 0B46     		mov	r3, r1
+ 1095 085a 1046     		mov	r0, r2
+ 1096 085c 1946     		mov	r1, r3
+ 1097 085e 4FF00002 		mov	r2, #0
+ 1098 0862 4FF04043 		mov	r3, #-1073741824
+ 1099 0866 FFF7FEFF 		bl	__aeabi_dmul
+ 1100 086a 0246     		mov	r2, r0
+ 1101 086c 0B46     		mov	r3, r1
+ 1102 086e 1046     		mov	r0, r2
+ 1103 0870 1946     		mov	r1, r3
+ 1104 0872 40F20003 		movw	r3, #:lower16:coef
+ 1105 0876 C0F20003 		movt	r3, #:upper16:coef
+ 1106 087a C3E90201 		strd	r0, [r3, #8]
+ 152:../Sources/DSP/IIR.c ****                 a2 =   1 - alpha;
+ 1107              		.loc 2 152 0
+ 1108 087e 40F20003 		movw	r3, #:lower16:alpha
+ 1109 0882 C0F20003 		movt	r3, #:upper16:alpha
+ 1110 0886 D3E90023 		ldrd	r2, [r3]
+ 1111 088a 4FF00000 		mov	r0, #0
+ 1112 088e 4FF00001 		mov	r1, #0
+ 1113 0892 C3F6F071 		movt	r1, 16368
+ 1114 0896 FFF7FEFF 		bl	__aeabi_dsub
+ 1115 089a 0246     		mov	r2, r0
+ 1116 089c 0B46     		mov	r3, r1
+ 1117 089e 1046     		mov	r0, r2
+ 1118 08a0 1946     		mov	r1, r3
+ 1119 08a2 40F20003 		movw	r3, #:lower16:coef
+ 1120 08a6 C0F20003 		movt	r3, #:upper16:coef
+ 1121 08aa C3E90401 		strd	r0, [r3, #16]
+ 153:../Sources/DSP/IIR.c ****                 break;
+ 1122              		.loc 2 153 0
+ 1123 08ae 00F0C8BD 		b	.L20
+ 1124              	.L16:
+ 154:../Sources/DSP/IIR.c **** 
+ 155:../Sources/DSP/IIR.c ****             case            BIQUAD_PEAKING_EQ:
+ 156:../Sources/DSP/IIR.c ****                 b0 =   1 + alpha*A;
+ 1125              		.loc 2 156 0
+ 1126 08b2 40F20003 		movw	r3, #:lower16:alpha
+ 1127 08b6 C0F20003 		movt	r3, #:upper16:alpha
+ 1128 08ba D3E90001 		ldrd	r0, [r3]
+ 1129 08be 40F20003 		movw	r3, #:lower16:A
+ 1130 08c2 C0F20003 		movt	r3, #:upper16:A
+ 1131 08c6 D3E90023 		ldrd	r2, [r3]
+ 1132 08ca FFF7FEFF 		bl	__aeabi_dmul
+ 1133 08ce 0246     		mov	r2, r0
+ 1134 08d0 0B46     		mov	r3, r1
+ 1135 08d2 1046     		mov	r0, r2
+ 1136 08d4 1946     		mov	r1, r3
+ 1137 08d6 4FF00002 		mov	r2, #0
+ 1138 08da 4FF00003 		mov	r3, #0
+ 1139 08de C3F6F073 		movt	r3, 16368
+ 1140 08e2 FFF7FEFF 		bl	__aeabi_dadd
+ 1141 08e6 0246     		mov	r2, r0
+ 1142 08e8 0B46     		mov	r3, r1
+ 1143 08ea 1046     		mov	r0, r2
+ 1144 08ec 1946     		mov	r1, r3
+ 1145 08ee 40F20003 		movw	r3, #:lower16:coef
+ 1146 08f2 C0F20003 		movt	r3, #:upper16:coef
+ 1147 08f6 C3E90601 		strd	r0, [r3, #24]
+ 157:../Sources/DSP/IIR.c ****                 b1 =  -2*cos(w0);
+ 1148              		.loc 2 157 0
+ 1149 08fa 40F20003 		movw	r3, #:lower16:w0
+ 1150 08fe C0F20003 		movt	r3, #:upper16:w0
+ 1151 0902 D3E90023 		ldrd	r2, [r3]
+ 1152 0906 1046     		mov	r0, r2
+ 1153 0908 1946     		mov	r1, r3
+ 1154 090a FFF7FEFF 		bl	cos
+ 1155 090e 0246     		mov	r2, r0
+ 1156 0910 0B46     		mov	r3, r1
+ 1157 0912 1046     		mov	r0, r2
+ 1158 0914 1946     		mov	r1, r3
+ 1159 0916 4FF00002 		mov	r2, #0
+ 1160 091a 4FF04043 		mov	r3, #-1073741824
+ 1161 091e FFF7FEFF 		bl	__aeabi_dmul
+ 1162 0922 0246     		mov	r2, r0
+ 1163 0924 0B46     		mov	r3, r1
+ 1164 0926 1046     		mov	r0, r2
+ 1165 0928 1946     		mov	r1, r3
+ 1166 092a 40F20003 		movw	r3, #:lower16:coef
+ 1167 092e C0F20003 		movt	r3, #:upper16:coef
+ 1168 0932 C3E90801 		strd	r0, [r3, #32]
+ 158:../Sources/DSP/IIR.c ****                 b2 =   1 - alpha*A;
+ 1169              		.loc 2 158 0
+ 1170 0936 40F20003 		movw	r3, #:lower16:alpha
+ 1171 093a C0F20003 		movt	r3, #:upper16:alpha
+ 1172 093e D3E90001 		ldrd	r0, [r3]
+ 1173 0942 40F20003 		movw	r3, #:lower16:A
+ 1174 0946 C0F20003 		movt	r3, #:upper16:A
+ 1175 094a D3E90023 		ldrd	r2, [r3]
+ 1176 094e FFF7FEFF 		bl	__aeabi_dmul
+ 1177 0952 0246     		mov	r2, r0
+ 1178 0954 0B46     		mov	r3, r1
+ 1179 0956 4FF00000 		mov	r0, #0
+ 1180 095a 4FF00001 		mov	r1, #0
+ 1181 095e C3F6F071 		movt	r1, 16368
+ 1182 0962 FFF7FEFF 		bl	__aeabi_dsub
+ 1183 0966 0246     		mov	r2, r0
+ 1184 0968 0B46     		mov	r3, r1
+ 1185 096a 1046     		mov	r0, r2
+ 1186 096c 1946     		mov	r1, r3
+ 1187 096e 40F20003 		movw	r3, #:lower16:coef
+ 1188 0972 C0F20003 		movt	r3, #:upper16:coef
+ 1189 0976 C3E90A01 		strd	r0, [r3, #40]
+ 159:../Sources/DSP/IIR.c ****                 a0 =   1 + alpha/A;
+ 1190              		.loc 2 159 0
+ 1191 097a 40F20003 		movw	r3, #:lower16:alpha
+ 1192 097e C0F20003 		movt	r3, #:upper16:alpha
+ 1193 0982 D3E90001 		ldrd	r0, [r3]
+ 1194 0986 40F20003 		movw	r3, #:lower16:A
+ 1195 098a C0F20003 		movt	r3, #:upper16:A
+ 1196 098e D3E90023 		ldrd	r2, [r3]
+ 1197 0992 FFF7FEFF 		bl	__aeabi_ddiv
+ 1198 0996 0246     		mov	r2, r0
+ 1199 0998 0B46     		mov	r3, r1
+ 1200 099a 1046     		mov	r0, r2
+ 1201 099c 1946     		mov	r1, r3
+ 1202 099e 4FF00002 		mov	r2, #0
+ 1203 09a2 4FF00003 		mov	r3, #0
+ 1204 09a6 C3F6F073 		movt	r3, 16368
+ 1205 09aa FFF7FEFF 		bl	__aeabi_dadd
+ 1206 09ae 0246     		mov	r2, r0
+ 1207 09b0 0B46     		mov	r3, r1
+ 1208 09b2 1046     		mov	r0, r2
+ 1209 09b4 1946     		mov	r1, r3
+ 1210 09b6 40F20003 		movw	r3, #:lower16:coef
+ 1211 09ba C0F20003 		movt	r3, #:upper16:coef
+ 1212 09be C3E90001 		strd	r0, [r3]
+ 160:../Sources/DSP/IIR.c ****                 a1 =  -2*cos(w0);
+ 1213              		.loc 2 160 0
+ 1214 09c2 40F20003 		movw	r3, #:lower16:w0
+ 1215 09c6 C0F20003 		movt	r3, #:upper16:w0
+ 1216 09ca D3E90023 		ldrd	r2, [r3]
+ 1217 09ce 1046     		mov	r0, r2
+ 1218 09d0 1946     		mov	r1, r3
+ 1219 09d2 FFF7FEFF 		bl	cos
+ 1220 09d6 0246     		mov	r2, r0
+ 1221 09d8 0B46     		mov	r3, r1
+ 1222 09da 1046     		mov	r0, r2
+ 1223 09dc 1946     		mov	r1, r3
+ 1224 09de 4FF00002 		mov	r2, #0
+ 1225 09e2 4FF04043 		mov	r3, #-1073741824
+ 1226 09e6 FFF7FEFF 		bl	__aeabi_dmul
+ 1227 09ea 0246     		mov	r2, r0
+ 1228 09ec 0B46     		mov	r3, r1
+ 1229 09ee 1046     		mov	r0, r2
+ 1230 09f0 1946     		mov	r1, r3
+ 1231 09f2 40F20003 		movw	r3, #:lower16:coef
+ 1232 09f6 C0F20003 		movt	r3, #:upper16:coef
+ 1233 09fa C3E90201 		strd	r0, [r3, #8]
+ 161:../Sources/DSP/IIR.c ****                 a2 =   1 - alpha/A;
+ 1234              		.loc 2 161 0
+ 1235 09fe 40F20003 		movw	r3, #:lower16:alpha
+ 1236 0a02 C0F20003 		movt	r3, #:upper16:alpha
+ 1237 0a06 D3E90001 		ldrd	r0, [r3]
+ 1238 0a0a 40F20003 		movw	r3, #:lower16:A
+ 1239 0a0e C0F20003 		movt	r3, #:upper16:A
+ 1240 0a12 D3E90023 		ldrd	r2, [r3]
+ 1241 0a16 FFF7FEFF 		bl	__aeabi_ddiv
+ 1242 0a1a 0246     		mov	r2, r0
+ 1243 0a1c 0B46     		mov	r3, r1
+ 1244 0a1e 4FF00000 		mov	r0, #0
+ 1245 0a22 4FF00001 		mov	r1, #0
+ 1246 0a26 C3F6F071 		movt	r1, 16368
+ 1247 0a2a FFF7FEFF 		bl	__aeabi_dsub
+ 1248 0a2e 0246     		mov	r2, r0
+ 1249 0a30 0B46     		mov	r3, r1
+ 1250 0a32 1046     		mov	r0, r2
+ 1251 0a34 1946     		mov	r1, r3
+ 1252 0a36 40F20003 		movw	r3, #:lower16:coef
+ 1253 0a3a C0F20003 		movt	r3, #:upper16:coef
+ 1254 0a3e C3E90401 		strd	r0, [r3, #16]
+ 162:../Sources/DSP/IIR.c ****                 break;
+ 1255              		.loc 2 162 0
+ 1256 0a42 00F0FEBC 		b	.L20
+ 1257              	.L17:
+ 163:../Sources/DSP/IIR.c **** 
+ 164:../Sources/DSP/IIR.c ****             case            BIQUAD_LOW_SHELF:
+ 165:../Sources/DSP/IIR.c ****                 b0 =    A*( (A+1.0) - (A-1.0)*cos(w0) + 2.0*sqrt(A)*alpha );
+ 1258              		.loc 2 165 0
+ 1259 0a46 40F20003 		movw	r3, #:lower16:A
+ 1260 0a4a C0F20003 		movt	r3, #:upper16:A
+ 1261 0a4e D3E90023 		ldrd	r2, [r3]
+ 1262 0a52 1046     		mov	r0, r2
+ 1263 0a54 1946     		mov	r1, r3
+ 1264 0a56 4FF00002 		mov	r2, #0
+ 1265 0a5a 4FF00003 		mov	r3, #0
+ 1266 0a5e C3F6F073 		movt	r3, 16368
+ 1267 0a62 FFF7FEFF 		bl	__aeabi_dadd
+ 1268 0a66 0246     		mov	r2, r0
+ 1269 0a68 0B46     		mov	r3, r1
+ 1270 0a6a 1446     		mov	r4, r2
+ 1271 0a6c 1D46     		mov	r5, r3
+ 1272 0a6e 40F20003 		movw	r3, #:lower16:A
+ 1273 0a72 C0F20003 		movt	r3, #:upper16:A
+ 1274 0a76 D3E90023 		ldrd	r2, [r3]
+ 1275 0a7a 1046     		mov	r0, r2
+ 1276 0a7c 1946     		mov	r1, r3
+ 1277 0a7e 4FF00002 		mov	r2, #0
+ 1278 0a82 4FF00003 		mov	r3, #0
+ 1279 0a86 C3F6F073 		movt	r3, 16368
+ 1280 0a8a FFF7FEFF 		bl	__aeabi_dsub
+ 1281 0a8e 0246     		mov	r2, r0
+ 1282 0a90 0B46     		mov	r3, r1
+ 1283 0a92 9046     		mov	r8, r2
+ 1284 0a94 9946     		mov	r9, r3
+ 1285 0a96 40F20003 		movw	r3, #:lower16:w0
+ 1286 0a9a C0F20003 		movt	r3, #:upper16:w0
+ 1287 0a9e D3E90023 		ldrd	r2, [r3]
+ 1288 0aa2 1046     		mov	r0, r2
+ 1289 0aa4 1946     		mov	r1, r3
+ 1290 0aa6 FFF7FEFF 		bl	cos
+ 1291 0aaa 0246     		mov	r2, r0
+ 1292 0aac 0B46     		mov	r3, r1
+ 1293 0aae 4046     		mov	r0, r8
+ 1294 0ab0 4946     		mov	r1, r9
+ 1295 0ab2 FFF7FEFF 		bl	__aeabi_dmul
+ 1296 0ab6 0246     		mov	r2, r0
+ 1297 0ab8 0B46     		mov	r3, r1
+ 1298 0aba 2046     		mov	r0, r4
+ 1299 0abc 2946     		mov	r1, r5
+ 1300 0abe FFF7FEFF 		bl	__aeabi_dsub
+ 1301 0ac2 0246     		mov	r2, r0
+ 1302 0ac4 0B46     		mov	r3, r1
+ 1303 0ac6 1446     		mov	r4, r2
+ 1304 0ac8 1D46     		mov	r5, r3
+ 1305 0aca 40F20003 		movw	r3, #:lower16:A
+ 1306 0ace C0F20003 		movt	r3, #:upper16:A
+ 1307 0ad2 D3E90023 		ldrd	r2, [r3]
+ 1308 0ad6 1046     		mov	r0, r2
+ 1309 0ad8 1946     		mov	r1, r3
+ 1310 0ada FFF7FEFF 		bl	sqrt
+ 1311 0ade 0246     		mov	r2, r0
+ 1312 0ae0 0B46     		mov	r3, r1
+ 1313 0ae2 1046     		mov	r0, r2
+ 1314 0ae4 1946     		mov	r1, r3
+ 1315 0ae6 FFF7FEFF 		bl	__aeabi_dadd
+ 1316 0aea 0246     		mov	r2, r0
+ 1317 0aec 0B46     		mov	r3, r1
+ 1318 0aee 1046     		mov	r0, r2
+ 1319 0af0 1946     		mov	r1, r3
+ 1320 0af2 40F20003 		movw	r3, #:lower16:alpha
+ 1321 0af6 C0F20003 		movt	r3, #:upper16:alpha
+ 1322 0afa D3E90023 		ldrd	r2, [r3]
+ 1323 0afe FFF7FEFF 		bl	__aeabi_dmul
+ 1324 0b02 0246     		mov	r2, r0
+ 1325 0b04 0B46     		mov	r3, r1
+ 1326 0b06 2046     		mov	r0, r4
+ 1327 0b08 2946     		mov	r1, r5
+ 1328 0b0a FFF7FEFF 		bl	__aeabi_dadd
+ 1329 0b0e 0246     		mov	r2, r0
+ 1330 0b10 0B46     		mov	r3, r1
+ 1331 0b12 1046     		mov	r0, r2
+ 1332 0b14 1946     		mov	r1, r3
+ 1333 0b16 40F20003 		movw	r3, #:lower16:A
+ 1334 0b1a C0F20003 		movt	r3, #:upper16:A
+ 1335 0b1e D3E90023 		ldrd	r2, [r3]
+ 1336 0b22 FFF7FEFF 		bl	__aeabi_dmul
+ 1337 0b26 0246     		mov	r2, r0
+ 1338 0b28 0B46     		mov	r3, r1
+ 1339 0b2a 1046     		mov	r0, r2
+ 1340 0b2c 1946     		mov	r1, r3
+ 1341 0b2e 40F20003 		movw	r3, #:lower16:coef
+ 1342 0b32 C0F20003 		movt	r3, #:upper16:coef
+ 1343 0b36 C3E90601 		strd	r0, [r3, #24]
+ 166:../Sources/DSP/IIR.c ****                 b1 =  2.0*A*( (A-1.0) - (A+1.0)*cos(w0)                   );
+ 1344              		.loc 2 166 0
+ 1345 0b3a 40F20003 		movw	r3, #:lower16:A
+ 1346 0b3e C0F20003 		movt	r3, #:upper16:A
+ 1347 0b42 D3E90023 		ldrd	r2, [r3]
+ 1348 0b46 1046     		mov	r0, r2
+ 1349 0b48 1946     		mov	r1, r3
+ 1350 0b4a FFF7FEFF 		bl	__aeabi_dadd
+ 1351 0b4e 0246     		mov	r2, r0
+ 1352 0b50 0B46     		mov	r3, r1
+ 1353 0b52 1446     		mov	r4, r2
+ 1354 0b54 1D46     		mov	r5, r3
+ 1355 0b56 40F20003 		movw	r3, #:lower16:A
+ 1356 0b5a C0F20003 		movt	r3, #:upper16:A
+ 1357 0b5e D3E90023 		ldrd	r2, [r3]
+ 1358 0b62 1046     		mov	r0, r2
+ 1359 0b64 1946     		mov	r1, r3
+ 1360 0b66 4FF00002 		mov	r2, #0
+ 1361 0b6a 4FF00003 		mov	r3, #0
+ 1362 0b6e C3F6F073 		movt	r3, 16368
+ 1363 0b72 FFF7FEFF 		bl	__aeabi_dsub
+ 1364 0b76 0246     		mov	r2, r0
+ 1365 0b78 0B46     		mov	r3, r1
+ 1366 0b7a 9046     		mov	r8, r2
+ 1367 0b7c 9946     		mov	r9, r3
+ 1368 0b7e 40F20003 		movw	r3, #:lower16:A
+ 1369 0b82 C0F20003 		movt	r3, #:upper16:A
+ 1370 0b86 D3E90023 		ldrd	r2, [r3]
+ 1371 0b8a 1046     		mov	r0, r2
+ 1372 0b8c 1946     		mov	r1, r3
+ 1373 0b8e 4FF00002 		mov	r2, #0
+ 1374 0b92 4FF00003 		mov	r3, #0
+ 1375 0b96 C3F6F073 		movt	r3, 16368
+ 1376 0b9a FFF7FEFF 		bl	__aeabi_dadd
+ 1377 0b9e 0246     		mov	r2, r0
+ 1378 0ba0 0B46     		mov	r3, r1
+ 1379 0ba2 9246     		mov	sl, r2
+ 1380 0ba4 9B46     		mov	fp, r3
+ 1381 0ba6 40F20003 		movw	r3, #:lower16:w0
+ 1382 0baa C0F20003 		movt	r3, #:upper16:w0
+ 1383 0bae D3E90023 		ldrd	r2, [r3]
+ 1384 0bb2 1046     		mov	r0, r2
+ 1385 0bb4 1946     		mov	r1, r3
+ 1386 0bb6 FFF7FEFF 		bl	cos
+ 1387 0bba 0246     		mov	r2, r0
+ 1388 0bbc 0B46     		mov	r3, r1
+ 1389 0bbe 5046     		mov	r0, sl
+ 1390 0bc0 5946     		mov	r1, fp
+ 1391 0bc2 FFF7FEFF 		bl	__aeabi_dmul
+ 1392 0bc6 0246     		mov	r2, r0
+ 1393 0bc8 0B46     		mov	r3, r1
+ 1394 0bca 4046     		mov	r0, r8
+ 1395 0bcc 4946     		mov	r1, r9
+ 1396 0bce FFF7FEFF 		bl	__aeabi_dsub
+ 1397 0bd2 0246     		mov	r2, r0
+ 1398 0bd4 0B46     		mov	r3, r1
+ 1399 0bd6 2046     		mov	r0, r4
+ 1400 0bd8 2946     		mov	r1, r5
+ 1401 0bda FFF7FEFF 		bl	__aeabi_dmul
+ 1402 0bde 0246     		mov	r2, r0
+ 1403 0be0 0B46     		mov	r3, r1
+ 1404 0be2 1046     		mov	r0, r2
+ 1405 0be4 1946     		mov	r1, r3
+ 1406 0be6 40F20003 		movw	r3, #:lower16:coef
+ 1407 0bea C0F20003 		movt	r3, #:upper16:coef
+ 1408 0bee C3E90801 		strd	r0, [r3, #32]
+ 167:../Sources/DSP/IIR.c ****                 b2 =    A*( (A+1.0) - (A-1.0)*cos(w0) - 2.0*sqrt(A)*alpha );
+ 1409              		.loc 2 167 0
+ 1410 0bf2 40F20003 		movw	r3, #:lower16:A
+ 1411 0bf6 C0F20003 		movt	r3, #:upper16:A
+ 1412 0bfa D3E90023 		ldrd	r2, [r3]
+ 1413 0bfe 1046     		mov	r0, r2
+ 1414 0c00 1946     		mov	r1, r3
+ 1415 0c02 4FF00002 		mov	r2, #0
+ 1416 0c06 4FF00003 		mov	r3, #0
+ 1417 0c0a C3F6F073 		movt	r3, 16368
+ 1418 0c0e FFF7FEFF 		bl	__aeabi_dadd
+ 1419 0c12 0246     		mov	r2, r0
+ 1420 0c14 0B46     		mov	r3, r1
+ 1421 0c16 1446     		mov	r4, r2
+ 1422 0c18 1D46     		mov	r5, r3
+ 1423 0c1a 40F20003 		movw	r3, #:lower16:A
+ 1424 0c1e C0F20003 		movt	r3, #:upper16:A
+ 1425 0c22 D3E90023 		ldrd	r2, [r3]
+ 1426 0c26 1046     		mov	r0, r2
+ 1427 0c28 1946     		mov	r1, r3
+ 1428 0c2a 4FF00002 		mov	r2, #0
+ 1429 0c2e 4FF00003 		mov	r3, #0
+ 1430 0c32 C3F6F073 		movt	r3, 16368
+ 1431 0c36 FFF7FEFF 		bl	__aeabi_dsub
+ 1432 0c3a 0246     		mov	r2, r0
+ 1433 0c3c 0B46     		mov	r3, r1
+ 1434 0c3e 9046     		mov	r8, r2
+ 1435 0c40 9946     		mov	r9, r3
+ 1436 0c42 40F20003 		movw	r3, #:lower16:w0
+ 1437 0c46 C0F20003 		movt	r3, #:upper16:w0
+ 1438 0c4a D3E90023 		ldrd	r2, [r3]
+ 1439 0c4e 1046     		mov	r0, r2
+ 1440 0c50 1946     		mov	r1, r3
+ 1441 0c52 FFF7FEFF 		bl	cos
+ 1442 0c56 0246     		mov	r2, r0
+ 1443 0c58 0B46     		mov	r3, r1
+ 1444 0c5a 4046     		mov	r0, r8
+ 1445 0c5c 4946     		mov	r1, r9
+ 1446 0c5e FFF7FEFF 		bl	__aeabi_dmul
+ 1447 0c62 0246     		mov	r2, r0
+ 1448 0c64 0B46     		mov	r3, r1
+ 1449 0c66 2046     		mov	r0, r4
+ 1450 0c68 2946     		mov	r1, r5
+ 1451 0c6a FFF7FEFF 		bl	__aeabi_dsub
+ 1452 0c6e 0246     		mov	r2, r0
+ 1453 0c70 0B46     		mov	r3, r1
+ 1454 0c72 1446     		mov	r4, r2
+ 1455 0c74 1D46     		mov	r5, r3
+ 1456 0c76 40F20003 		movw	r3, #:lower16:A
+ 1457 0c7a C0F20003 		movt	r3, #:upper16:A
+ 1458 0c7e D3E90023 		ldrd	r2, [r3]
+ 1459 0c82 1046     		mov	r0, r2
+ 1460 0c84 1946     		mov	r1, r3
+ 1461 0c86 FFF7FEFF 		bl	sqrt
+ 1462 0c8a 0246     		mov	r2, r0
+ 1463 0c8c 0B46     		mov	r3, r1
+ 1464 0c8e 1046     		mov	r0, r2
+ 1465 0c90 1946     		mov	r1, r3
+ 1466 0c92 FFF7FEFF 		bl	__aeabi_dadd
+ 1467 0c96 0246     		mov	r2, r0
+ 1468 0c98 0B46     		mov	r3, r1
+ 1469 0c9a 1046     		mov	r0, r2
+ 1470 0c9c 1946     		mov	r1, r3
+ 1471 0c9e 40F20003 		movw	r3, #:lower16:alpha
+ 1472 0ca2 C0F20003 		movt	r3, #:upper16:alpha
+ 1473 0ca6 D3E90023 		ldrd	r2, [r3]
+ 1474 0caa FFF7FEFF 		bl	__aeabi_dmul
+ 1475 0cae 0246     		mov	r2, r0
+ 1476 0cb0 0B46     		mov	r3, r1
+ 1477 0cb2 2046     		mov	r0, r4
+ 1478 0cb4 2946     		mov	r1, r5
+ 1479 0cb6 FFF7FEFF 		bl	__aeabi_dsub
+ 1480 0cba 0246     		mov	r2, r0
+ 1481 0cbc 0B46     		mov	r3, r1
+ 1482 0cbe 1046     		mov	r0, r2
+ 1483 0cc0 1946     		mov	r1, r3
+ 1484 0cc2 40F20003 		movw	r3, #:lower16:A
+ 1485 0cc6 C0F20003 		movt	r3, #:upper16:A
+ 1486 0cca D3E90023 		ldrd	r2, [r3]
+ 1487 0cce FFF7FEFF 		bl	__aeabi_dmul
+ 1488 0cd2 0246     		mov	r2, r0
+ 1489 0cd4 0B46     		mov	r3, r1
+ 1490 0cd6 1046     		mov	r0, r2
+ 1491 0cd8 1946     		mov	r1, r3
+ 1492 0cda 40F20003 		movw	r3, #:lower16:coef
+ 1493 0cde C0F20003 		movt	r3, #:upper16:coef
+ 1494 0ce2 C3E90A01 		strd	r0, [r3, #40]
+ 168:../Sources/DSP/IIR.c ****                 a0 =        (A+1.0) + (A-1.0)*cos(w0) + 2.0*sqrt(A)*alpha;
+ 1495              		.loc 2 168 0
+ 1496 0ce6 40F20003 		movw	r3, #:lower16:A
+ 1497 0cea C0F20003 		movt	r3, #:upper16:A
+ 1498 0cee D3E90023 		ldrd	r2, [r3]
+ 1499 0cf2 1046     		mov	r0, r2
+ 1500 0cf4 1946     		mov	r1, r3
+ 1501 0cf6 4FF00002 		mov	r2, #0
+ 1502 0cfa 4FF00003 		mov	r3, #0
+ 1503 0cfe C3F6F073 		movt	r3, 16368
+ 1504 0d02 FFF7FEFF 		bl	__aeabi_dadd
+ 1505 0d06 0246     		mov	r2, r0
+ 1506 0d08 0B46     		mov	r3, r1
+ 1507 0d0a 1446     		mov	r4, r2
+ 1508 0d0c 1D46     		mov	r5, r3
+ 1509 0d0e 40F20003 		movw	r3, #:lower16:A
+ 1510 0d12 C0F20003 		movt	r3, #:upper16:A
+ 1511 0d16 D3E90023 		ldrd	r2, [r3]
+ 1512 0d1a 1046     		mov	r0, r2
+ 1513 0d1c 1946     		mov	r1, r3
+ 1514 0d1e 4FF00002 		mov	r2, #0
+ 1515 0d22 4FF00003 		mov	r3, #0
+ 1516 0d26 C3F6F073 		movt	r3, 16368
+ 1517 0d2a FFF7FEFF 		bl	__aeabi_dsub
+ 1518 0d2e 0246     		mov	r2, r0
+ 1519 0d30 0B46     		mov	r3, r1
+ 1520 0d32 9046     		mov	r8, r2
+ 1521 0d34 9946     		mov	r9, r3
+ 1522 0d36 40F20003 		movw	r3, #:lower16:w0
+ 1523 0d3a C0F20003 		movt	r3, #:upper16:w0
+ 1524 0d3e D3E90023 		ldrd	r2, [r3]
+ 1525 0d42 1046     		mov	r0, r2
+ 1526 0d44 1946     		mov	r1, r3
+ 1527 0d46 FFF7FEFF 		bl	cos
+ 1528 0d4a 0246     		mov	r2, r0
+ 1529 0d4c 0B46     		mov	r3, r1
+ 1530 0d4e 4046     		mov	r0, r8
+ 1531 0d50 4946     		mov	r1, r9
+ 1532 0d52 FFF7FEFF 		bl	__aeabi_dmul
+ 1533 0d56 0246     		mov	r2, r0
+ 1534 0d58 0B46     		mov	r3, r1
+ 1535 0d5a 2046     		mov	r0, r4
+ 1536 0d5c 2946     		mov	r1, r5
+ 1537 0d5e FFF7FEFF 		bl	__aeabi_dadd
+ 1538 0d62 0246     		mov	r2, r0
+ 1539 0d64 0B46     		mov	r3, r1
+ 1540 0d66 1446     		mov	r4, r2
+ 1541 0d68 1D46     		mov	r5, r3
+ 1542 0d6a 40F20003 		movw	r3, #:lower16:A
+ 1543 0d6e C0F20003 		movt	r3, #:upper16:A
+ 1544 0d72 D3E90023 		ldrd	r2, [r3]
+ 1545 0d76 1046     		mov	r0, r2
+ 1546 0d78 1946     		mov	r1, r3
+ 1547 0d7a FFF7FEFF 		bl	sqrt
+ 1548 0d7e 0246     		mov	r2, r0
+ 1549 0d80 0B46     		mov	r3, r1
+ 1550 0d82 1046     		mov	r0, r2
+ 1551 0d84 1946     		mov	r1, r3
+ 1552 0d86 FFF7FEFF 		bl	__aeabi_dadd
+ 1553 0d8a 0246     		mov	r2, r0
+ 1554 0d8c 0B46     		mov	r3, r1
+ 1555 0d8e 1046     		mov	r0, r2
+ 1556 0d90 1946     		mov	r1, r3
+ 1557 0d92 40F20003 		movw	r3, #:lower16:alpha
+ 1558 0d96 C0F20003 		movt	r3, #:upper16:alpha
+ 1559 0d9a D3E90023 		ldrd	r2, [r3]
+ 1560 0d9e FFF7FEFF 		bl	__aeabi_dmul
+ 1561 0da2 0246     		mov	r2, r0
+ 1562 0da4 0B46     		mov	r3, r1
+ 1563 0da6 2046     		mov	r0, r4
+ 1564 0da8 2946     		mov	r1, r5
+ 1565 0daa FFF7FEFF 		bl	__aeabi_dadd
+ 1566 0dae 0246     		mov	r2, r0
+ 1567 0db0 0B46     		mov	r3, r1
+ 1568 0db2 1046     		mov	r0, r2
+ 1569 0db4 1946     		mov	r1, r3
+ 1570 0db6 40F20003 		movw	r3, #:lower16:coef
+ 1571 0dba C0F20003 		movt	r3, #:upper16:coef
+ 1572 0dbe C3E90001 		strd	r0, [r3]
+ 169:../Sources/DSP/IIR.c ****                 a1 =   -2.0*( (A-1.0) + (A+1.0)*cos(w0)                   );
+ 1573              		.loc 2 169 0
+ 1574 0dc2 40F20003 		movw	r3, #:lower16:A
+ 1575 0dc6 C0F20003 		movt	r3, #:upper16:A
+ 1576 0dca D3E90023 		ldrd	r2, [r3]
+ 1577 0dce 1046     		mov	r0, r2
+ 1578 0dd0 1946     		mov	r1, r3
+ 1579 0dd2 4FF00002 		mov	r2, #0
+ 1580 0dd6 4FF00003 		mov	r3, #0
+ 1581 0dda C3F6F073 		movt	r3, 16368
+ 1582 0dde FFF7FEFF 		bl	__aeabi_dsub
+ 1583 0de2 0246     		mov	r2, r0
+ 1584 0de4 0B46     		mov	r3, r1
+ 1585 0de6 1446     		mov	r4, r2
+ 1586 0de8 1D46     		mov	r5, r3
+ 1587 0dea 40F20003 		movw	r3, #:lower16:A
+ 1588 0dee C0F20003 		movt	r3, #:upper16:A
+ 1589 0df2 D3E90023 		ldrd	r2, [r3]
+ 1590 0df6 1046     		mov	r0, r2
+ 1591 0df8 1946     		mov	r1, r3
+ 1592 0dfa 4FF00002 		mov	r2, #0
+ 1593 0dfe 4FF00003 		mov	r3, #0
+ 1594 0e02 C3F6F073 		movt	r3, 16368
+ 1595 0e06 FFF7FEFF 		bl	__aeabi_dadd
+ 1596 0e0a 0246     		mov	r2, r0
+ 1597 0e0c 0B46     		mov	r3, r1
+ 1598 0e0e 9046     		mov	r8, r2
+ 1599 0e10 9946     		mov	r9, r3
+ 1600 0e12 40F20003 		movw	r3, #:lower16:w0
+ 1601 0e16 C0F20003 		movt	r3, #:upper16:w0
+ 1602 0e1a D3E90023 		ldrd	r2, [r3]
+ 1603 0e1e 1046     		mov	r0, r2
+ 1604 0e20 1946     		mov	r1, r3
+ 1605 0e22 FFF7FEFF 		bl	cos
+ 1606 0e26 0246     		mov	r2, r0
+ 1607 0e28 0B46     		mov	r3, r1
+ 1608 0e2a 4046     		mov	r0, r8
+ 1609 0e2c 4946     		mov	r1, r9
+ 1610 0e2e FFF7FEFF 		bl	__aeabi_dmul
+ 1611 0e32 0246     		mov	r2, r0
+ 1612 0e34 0B46     		mov	r3, r1
+ 1613 0e36 2046     		mov	r0, r4
+ 1614 0e38 2946     		mov	r1, r5
+ 1615 0e3a FFF7FEFF 		bl	__aeabi_dadd
+ 1616 0e3e 0246     		mov	r2, r0
+ 1617 0e40 0B46     		mov	r3, r1
+ 1618 0e42 1046     		mov	r0, r2
+ 1619 0e44 1946     		mov	r1, r3
+ 1620 0e46 4FF00002 		mov	r2, #0
+ 1621 0e4a 4FF04043 		mov	r3, #-1073741824
+ 1622 0e4e FFF7FEFF 		bl	__aeabi_dmul
+ 1623 0e52 0246     		mov	r2, r0
+ 1624 0e54 0B46     		mov	r3, r1
+ 1625 0e56 1046     		mov	r0, r2
+ 1626 0e58 1946     		mov	r1, r3
+ 1627 0e5a 40F20003 		movw	r3, #:lower16:coef
+ 1628 0e5e C0F20003 		movt	r3, #:upper16:coef
+ 1629 0e62 C3E90201 		strd	r0, [r3, #8]
+ 170:../Sources/DSP/IIR.c ****                 a2 =        (A+1.0) + (A-1.0)*cos(w0) - 2.0*sqrt(A)*alpha;
+ 1630              		.loc 2 170 0
+ 1631 0e66 40F20003 		movw	r3, #:lower16:A
+ 1632 0e6a C0F20003 		movt	r3, #:upper16:A
+ 1633 0e6e D3E90023 		ldrd	r2, [r3]
+ 1634 0e72 1046     		mov	r0, r2
+ 1635 0e74 1946     		mov	r1, r3
+ 1636 0e76 4FF00002 		mov	r2, #0
+ 1637 0e7a 4FF00003 		mov	r3, #0
+ 1638 0e7e C3F6F073 		movt	r3, 16368
+ 1639 0e82 FFF7FEFF 		bl	__aeabi_dadd
+ 1640 0e86 0246     		mov	r2, r0
+ 1641 0e88 0B46     		mov	r3, r1
+ 1642 0e8a 1446     		mov	r4, r2
+ 1643 0e8c 1D46     		mov	r5, r3
+ 1644 0e8e 40F20003 		movw	r3, #:lower16:A
+ 1645 0e92 C0F20003 		movt	r3, #:upper16:A
+ 1646 0e96 D3E90023 		ldrd	r2, [r3]
+ 1647 0e9a 1046     		mov	r0, r2
+ 1648 0e9c 1946     		mov	r1, r3
+ 1649 0e9e 4FF00002 		mov	r2, #0
+ 1650 0ea2 4FF00003 		mov	r3, #0
+ 1651 0ea6 C3F6F073 		movt	r3, 16368
+ 1652 0eaa FFF7FEFF 		bl	__aeabi_dsub
+ 1653 0eae 0246     		mov	r2, r0
+ 1654 0eb0 0B46     		mov	r3, r1
+ 1655 0eb2 9046     		mov	r8, r2
+ 1656 0eb4 9946     		mov	r9, r3
+ 1657 0eb6 40F20003 		movw	r3, #:lower16:w0
+ 1658 0eba C0F20003 		movt	r3, #:upper16:w0
+ 1659 0ebe D3E90023 		ldrd	r2, [r3]
+ 1660 0ec2 1046     		mov	r0, r2
+ 1661 0ec4 1946     		mov	r1, r3
+ 1662 0ec6 FFF7FEFF 		bl	cos
+ 1663 0eca 0246     		mov	r2, r0
+ 1664 0ecc 0B46     		mov	r3, r1
+ 1665 0ece 4046     		mov	r0, r8
+ 1666 0ed0 4946     		mov	r1, r9
+ 1667 0ed2 FFF7FEFF 		bl	__aeabi_dmul
+ 1668 0ed6 0246     		mov	r2, r0
+ 1669 0ed8 0B46     		mov	r3, r1
+ 1670 0eda 2046     		mov	r0, r4
+ 1671 0edc 2946     		mov	r1, r5
+ 1672 0ede FFF7FEFF 		bl	__aeabi_dadd
+ 1673 0ee2 0246     		mov	r2, r0
+ 1674 0ee4 0B46     		mov	r3, r1
+ 1675 0ee6 1446     		mov	r4, r2
+ 1676 0ee8 1D46     		mov	r5, r3
+ 1677 0eea 40F20003 		movw	r3, #:lower16:A
+ 1678 0eee C0F20003 		movt	r3, #:upper16:A
+ 1679 0ef2 D3E90023 		ldrd	r2, [r3]
+ 1680 0ef6 1046     		mov	r0, r2
+ 1681 0ef8 1946     		mov	r1, r3
+ 1682 0efa FFF7FEFF 		bl	sqrt
+ 1683 0efe 0246     		mov	r2, r0
+ 1684 0f00 0B46     		mov	r3, r1
+ 1685 0f02 1046     		mov	r0, r2
+ 1686 0f04 1946     		mov	r1, r3
+ 1687 0f06 FFF7FEFF 		bl	__aeabi_dadd
+ 1688 0f0a 0246     		mov	r2, r0
+ 1689 0f0c 0B46     		mov	r3, r1
+ 1690 0f0e 1046     		mov	r0, r2
+ 1691 0f10 1946     		mov	r1, r3
+ 1692 0f12 40F20003 		movw	r3, #:lower16:alpha
+ 1693 0f16 C0F20003 		movt	r3, #:upper16:alpha
+ 1694 0f1a D3E90023 		ldrd	r2, [r3]
+ 1695 0f1e FFF7FEFF 		bl	__aeabi_dmul
+ 1696 0f22 0246     		mov	r2, r0
+ 1697 0f24 0B46     		mov	r3, r1
+ 1698 0f26 2046     		mov	r0, r4
+ 1699 0f28 2946     		mov	r1, r5
+ 1700 0f2a FFF7FEFF 		bl	__aeabi_dsub
+ 1701 0f2e 0246     		mov	r2, r0
+ 1702 0f30 0B46     		mov	r3, r1
+ 1703 0f32 1046     		mov	r0, r2
+ 1704 0f34 1946     		mov	r1, r3
+ 1705 0f36 40F20003 		movw	r3, #:lower16:coef
+ 1706 0f3a C0F20003 		movt	r3, #:upper16:coef
+ 1707 0f3e C3E90401 		strd	r0, [r3, #16]
+ 171:../Sources/DSP/IIR.c ****                 break;
+ 1708              		.loc 2 171 0
+ 1709 0f42 7EE2     		b	.L20
+ 1710              	.L18:
+ 172:../Sources/DSP/IIR.c **** 
+ 173:../Sources/DSP/IIR.c ****             case           BIQUAD_HIGH_SHELF:
+ 174:../Sources/DSP/IIR.c ****                 b0 =    A*( (A+1) + (A-1)*cos(w0) + 2*sqrt(A)*alpha );
+ 1711              		.loc 2 174 0
+ 1712 0f44 40F20003 		movw	r3, #:lower16:A
+ 1713 0f48 C0F20003 		movt	r3, #:upper16:A
+ 1714 0f4c D3E90023 		ldrd	r2, [r3]
+ 1715 0f50 1046     		mov	r0, r2
+ 1716 0f52 1946     		mov	r1, r3
+ 1717 0f54 4FF00002 		mov	r2, #0
+ 1718 0f58 4FF00003 		mov	r3, #0
+ 1719 0f5c C3F6F073 		movt	r3, 16368
+ 1720 0f60 FFF7FEFF 		bl	__aeabi_dadd
+ 1721 0f64 0246     		mov	r2, r0
+ 1722 0f66 0B46     		mov	r3, r1
+ 1723 0f68 1446     		mov	r4, r2
+ 1724 0f6a 1D46     		mov	r5, r3
+ 1725 0f6c 40F20003 		movw	r3, #:lower16:A
+ 1726 0f70 C0F20003 		movt	r3, #:upper16:A
+ 1727 0f74 D3E90023 		ldrd	r2, [r3]
+ 1728 0f78 1046     		mov	r0, r2
+ 1729 0f7a 1946     		mov	r1, r3
+ 1730 0f7c 4FF00002 		mov	r2, #0
+ 1731 0f80 4FF00003 		mov	r3, #0
+ 1732 0f84 C3F6F073 		movt	r3, 16368
+ 1733 0f88 FFF7FEFF 		bl	__aeabi_dsub
+ 1734 0f8c 0246     		mov	r2, r0
+ 1735 0f8e 0B46     		mov	r3, r1
+ 1736 0f90 9046     		mov	r8, r2
+ 1737 0f92 9946     		mov	r9, r3
+ 1738 0f94 40F20003 		movw	r3, #:lower16:w0
+ 1739 0f98 C0F20003 		movt	r3, #:upper16:w0
+ 1740 0f9c D3E90023 		ldrd	r2, [r3]
+ 1741 0fa0 1046     		mov	r0, r2
+ 1742 0fa2 1946     		mov	r1, r3
+ 1743 0fa4 FFF7FEFF 		bl	cos
+ 1744 0fa8 0246     		mov	r2, r0
+ 1745 0faa 0B46     		mov	r3, r1
+ 1746 0fac 4046     		mov	r0, r8
+ 1747 0fae 4946     		mov	r1, r9
+ 1748 0fb0 FFF7FEFF 		bl	__aeabi_dmul
+ 1749 0fb4 0246     		mov	r2, r0
+ 1750 0fb6 0B46     		mov	r3, r1
+ 1751 0fb8 2046     		mov	r0, r4
+ 1752 0fba 2946     		mov	r1, r5
+ 1753 0fbc FFF7FEFF 		bl	__aeabi_dadd
+ 1754 0fc0 0246     		mov	r2, r0
+ 1755 0fc2 0B46     		mov	r3, r1
+ 1756 0fc4 1446     		mov	r4, r2
+ 1757 0fc6 1D46     		mov	r5, r3
+ 1758 0fc8 40F20003 		movw	r3, #:lower16:A
+ 1759 0fcc C0F20003 		movt	r3, #:upper16:A
+ 1760 0fd0 D3E90023 		ldrd	r2, [r3]
+ 1761 0fd4 1046     		mov	r0, r2
+ 1762 0fd6 1946     		mov	r1, r3
+ 1763 0fd8 FFF7FEFF 		bl	sqrt
+ 1764 0fdc 0246     		mov	r2, r0
+ 1765 0fde 0B46     		mov	r3, r1
+ 1766 0fe0 1046     		mov	r0, r2
+ 1767 0fe2 1946     		mov	r1, r3
+ 1768 0fe4 FFF7FEFF 		bl	__aeabi_dadd
+ 1769 0fe8 0246     		mov	r2, r0
+ 1770 0fea 0B46     		mov	r3, r1
+ 1771 0fec 1046     		mov	r0, r2
+ 1772 0fee 1946     		mov	r1, r3
+ 1773 0ff0 40F20003 		movw	r3, #:lower16:alpha
+ 1774 0ff4 C0F20003 		movt	r3, #:upper16:alpha
+ 1775 0ff8 D3E90023 		ldrd	r2, [r3]
+ 1776 0ffc FFF7FEFF 		bl	__aeabi_dmul
+ 1777 1000 0246     		mov	r2, r0
+ 1778 1002 0B46     		mov	r3, r1
+ 1779 1004 2046     		mov	r0, r4
+ 1780 1006 2946     		mov	r1, r5
+ 1781 1008 FFF7FEFF 		bl	__aeabi_dadd
+ 1782 100c 0246     		mov	r2, r0
+ 1783 100e 0B46     		mov	r3, r1
+ 1784 1010 1046     		mov	r0, r2
+ 1785 1012 1946     		mov	r1, r3
+ 1786 1014 40F20003 		movw	r3, #:lower16:A
+ 1787 1018 C0F20003 		movt	r3, #:upper16:A
+ 1788 101c D3E90023 		ldrd	r2, [r3]
+ 1789 1020 FFF7FEFF 		bl	__aeabi_dmul
+ 1790 1024 0246     		mov	r2, r0
+ 1791 1026 0B46     		mov	r3, r1
+ 1792 1028 1046     		mov	r0, r2
+ 1793 102a 1946     		mov	r1, r3
+ 1794 102c 40F20003 		movw	r3, #:lower16:coef
+ 1795 1030 C0F20003 		movt	r3, #:upper16:coef
+ 1796 1034 C3E90601 		strd	r0, [r3, #24]
+ 175:../Sources/DSP/IIR.c ****                 b1 = -2*A*( (A-1) + (A+1)*cos(w0)                   );
+ 1797              		.loc 2 175 0
+ 1798 1038 40F20003 		movw	r3, #:lower16:A
+ 1799 103c C0F20003 		movt	r3, #:upper16:A
+ 1800 1040 D3E90023 		ldrd	r2, [r3]
+ 1801 1044 1046     		mov	r0, r2
+ 1802 1046 1946     		mov	r1, r3
+ 1803 1048 4FF00002 		mov	r2, #0
+ 1804 104c 4FF04043 		mov	r3, #-1073741824
+ 1805 1050 FFF7FEFF 		bl	__aeabi_dmul
+ 1806 1054 0246     		mov	r2, r0
+ 1807 1056 0B46     		mov	r3, r1
+ 1808 1058 1446     		mov	r4, r2
+ 1809 105a 1D46     		mov	r5, r3
+ 1810 105c 40F20003 		movw	r3, #:lower16:A
+ 1811 1060 C0F20003 		movt	r3, #:upper16:A
+ 1812 1064 D3E90023 		ldrd	r2, [r3]
+ 1813 1068 1046     		mov	r0, r2
+ 1814 106a 1946     		mov	r1, r3
+ 1815 106c 4FF00002 		mov	r2, #0
+ 1816 1070 4FF00003 		mov	r3, #0
+ 1817 1074 C3F6F073 		movt	r3, 16368
+ 1818 1078 FFF7FEFF 		bl	__aeabi_dsub
+ 1819 107c 0246     		mov	r2, r0
+ 1820 107e 0B46     		mov	r3, r1
+ 1821 1080 9046     		mov	r8, r2
+ 1822 1082 9946     		mov	r9, r3
+ 1823 1084 40F20003 		movw	r3, #:lower16:A
+ 1824 1088 C0F20003 		movt	r3, #:upper16:A
+ 1825 108c D3E90023 		ldrd	r2, [r3]
+ 1826 1090 1046     		mov	r0, r2
+ 1827 1092 1946     		mov	r1, r3
+ 1828 1094 4FF00002 		mov	r2, #0
+ 1829 1098 4FF00003 		mov	r3, #0
+ 1830 109c C3F6F073 		movt	r3, 16368
+ 1831 10a0 FFF7FEFF 		bl	__aeabi_dadd
+ 1832 10a4 0246     		mov	r2, r0
+ 1833 10a6 0B46     		mov	r3, r1
+ 1834 10a8 9246     		mov	sl, r2
+ 1835 10aa 9B46     		mov	fp, r3
+ 1836 10ac 40F20003 		movw	r3, #:lower16:w0
+ 1837 10b0 C0F20003 		movt	r3, #:upper16:w0
+ 1838 10b4 D3E90023 		ldrd	r2, [r3]
+ 1839 10b8 1046     		mov	r0, r2
+ 1840 10ba 1946     		mov	r1, r3
+ 1841 10bc FFF7FEFF 		bl	cos
+ 1842 10c0 0246     		mov	r2, r0
+ 1843 10c2 0B46     		mov	r3, r1
+ 1844 10c4 5046     		mov	r0, sl
+ 1845 10c6 5946     		mov	r1, fp
+ 1846 10c8 FFF7FEFF 		bl	__aeabi_dmul
+ 1847 10cc 0246     		mov	r2, r0
+ 1848 10ce 0B46     		mov	r3, r1
+ 1849 10d0 4046     		mov	r0, r8
+ 1850 10d2 4946     		mov	r1, r9
+ 1851 10d4 FFF7FEFF 		bl	__aeabi_dadd
+ 1852 10d8 0246     		mov	r2, r0
+ 1853 10da 0B46     		mov	r3, r1
+ 1854 10dc 2046     		mov	r0, r4
+ 1855 10de 2946     		mov	r1, r5
+ 1856 10e0 FFF7FEFF 		bl	__aeabi_dmul
+ 1857 10e4 0246     		mov	r2, r0
+ 1858 10e6 0B46     		mov	r3, r1
+ 1859 10e8 1046     		mov	r0, r2
+ 1860 10ea 1946     		mov	r1, r3
+ 1861 10ec 40F20003 		movw	r3, #:lower16:coef
+ 1862 10f0 C0F20003 		movt	r3, #:upper16:coef
+ 1863 10f4 C3E90801 		strd	r0, [r3, #32]
+ 176:../Sources/DSP/IIR.c ****                 b2 =    A*( (A+1) + (A-1)*cos(w0) - 2*sqrt(A)*alpha );
+ 1864              		.loc 2 176 0
+ 1865 10f8 40F20003 		movw	r3, #:lower16:A
+ 1866 10fc C0F20003 		movt	r3, #:upper16:A
+ 1867 1100 D3E90023 		ldrd	r2, [r3]
+ 1868 1104 1046     		mov	r0, r2
+ 1869 1106 1946     		mov	r1, r3
+ 1870 1108 4FF00002 		mov	r2, #0
+ 1871 110c 4FF00003 		mov	r3, #0
+ 1872 1110 C3F6F073 		movt	r3, 16368
+ 1873 1114 FFF7FEFF 		bl	__aeabi_dadd
+ 1874 1118 0246     		mov	r2, r0
+ 1875 111a 0B46     		mov	r3, r1
+ 1876 111c 1446     		mov	r4, r2
+ 1877 111e 1D46     		mov	r5, r3
+ 1878 1120 40F20003 		movw	r3, #:lower16:A
+ 1879 1124 C0F20003 		movt	r3, #:upper16:A
+ 1880 1128 D3E90023 		ldrd	r2, [r3]
+ 1881 112c 1046     		mov	r0, r2
+ 1882 112e 1946     		mov	r1, r3
+ 1883 1130 4FF00002 		mov	r2, #0
+ 1884 1134 4FF00003 		mov	r3, #0
+ 1885 1138 C3F6F073 		movt	r3, 16368
+ 1886 113c FFF7FEFF 		bl	__aeabi_dsub
+ 1887 1140 0246     		mov	r2, r0
+ 1888 1142 0B46     		mov	r3, r1
+ 1889 1144 9046     		mov	r8, r2
+ 1890 1146 9946     		mov	r9, r3
+ 1891 1148 40F20003 		movw	r3, #:lower16:w0
+ 1892 114c C0F20003 		movt	r3, #:upper16:w0
+ 1893 1150 D3E90023 		ldrd	r2, [r3]
+ 1894 1154 1046     		mov	r0, r2
+ 1895 1156 1946     		mov	r1, r3
+ 1896 1158 FFF7FEFF 		bl	cos
+ 1897 115c 0246     		mov	r2, r0
+ 1898 115e 0B46     		mov	r3, r1
+ 1899 1160 4046     		mov	r0, r8
+ 1900 1162 4946     		mov	r1, r9
+ 1901 1164 FFF7FEFF 		bl	__aeabi_dmul
+ 1902 1168 0246     		mov	r2, r0
+ 1903 116a 0B46     		mov	r3, r1
+ 1904 116c 2046     		mov	r0, r4
+ 1905 116e 2946     		mov	r1, r5
+ 1906 1170 FFF7FEFF 		bl	__aeabi_dadd
+ 1907 1174 0246     		mov	r2, r0
+ 1908 1176 0B46     		mov	r3, r1
+ 1909 1178 1446     		mov	r4, r2
+ 1910 117a 1D46     		mov	r5, r3
+ 1911 117c 40F20003 		movw	r3, #:lower16:A
+ 1912 1180 C0F20003 		movt	r3, #:upper16:A
+ 1913 1184 D3E90023 		ldrd	r2, [r3]
+ 1914 1188 1046     		mov	r0, r2
+ 1915 118a 1946     		mov	r1, r3
+ 1916 118c FFF7FEFF 		bl	sqrt
+ 1917 1190 0246     		mov	r2, r0
+ 1918 1192 0B46     		mov	r3, r1
+ 1919 1194 1046     		mov	r0, r2
+ 1920 1196 1946     		mov	r1, r3
+ 1921 1198 FFF7FEFF 		bl	__aeabi_dadd
+ 1922 119c 0246     		mov	r2, r0
+ 1923 119e 0B46     		mov	r3, r1
+ 1924 11a0 1046     		mov	r0, r2
+ 1925 11a2 1946     		mov	r1, r3
+ 1926 11a4 40F20003 		movw	r3, #:lower16:alpha
+ 1927 11a8 C0F20003 		movt	r3, #:upper16:alpha
+ 1928 11ac D3E90023 		ldrd	r2, [r3]
+ 1929 11b0 FFF7FEFF 		bl	__aeabi_dmul
+ 1930 11b4 0246     		mov	r2, r0
+ 1931 11b6 0B46     		mov	r3, r1
+ 1932 11b8 2046     		mov	r0, r4
+ 1933 11ba 2946     		mov	r1, r5
+ 1934 11bc FFF7FEFF 		bl	__aeabi_dsub
+ 1935 11c0 0246     		mov	r2, r0
+ 1936 11c2 0B46     		mov	r3, r1
+ 1937 11c4 1046     		mov	r0, r2
+ 1938 11c6 1946     		mov	r1, r3
+ 1939 11c8 40F20003 		movw	r3, #:lower16:A
+ 1940 11cc C0F20003 		movt	r3, #:upper16:A
+ 1941 11d0 D3E90023 		ldrd	r2, [r3]
+ 1942 11d4 FFF7FEFF 		bl	__aeabi_dmul
+ 1943 11d8 0246     		mov	r2, r0
+ 1944 11da 0B46     		mov	r3, r1
+ 1945 11dc 1046     		mov	r0, r2
+ 1946 11de 1946     		mov	r1, r3
+ 1947 11e0 40F20003 		movw	r3, #:lower16:coef
+ 1948 11e4 C0F20003 		movt	r3, #:upper16:coef
+ 1949 11e8 C3E90A01 		strd	r0, [r3, #40]
+ 177:../Sources/DSP/IIR.c ****                 a0 =        (A+1) - (A-1)*cos(w0) + 2*sqrt(A)*alpha;
+ 1950              		.loc 2 177 0
+ 1951 11ec 40F20003 		movw	r3, #:lower16:A
+ 1952 11f0 C0F20003 		movt	r3, #:upper16:A
+ 1953 11f4 D3E90023 		ldrd	r2, [r3]
+ 1954 11f8 1046     		mov	r0, r2
+ 1955 11fa 1946     		mov	r1, r3
+ 1956 11fc 4FF00002 		mov	r2, #0
+ 1957 1200 4FF00003 		mov	r3, #0
+ 1958 1204 C3F6F073 		movt	r3, 16368
+ 1959 1208 FFF7FEFF 		bl	__aeabi_dadd
+ 1960 120c 0246     		mov	r2, r0
+ 1961 120e 0B46     		mov	r3, r1
+ 1962 1210 1446     		mov	r4, r2
+ 1963 1212 1D46     		mov	r5, r3
+ 1964 1214 40F20003 		movw	r3, #:lower16:A
+ 1965 1218 C0F20003 		movt	r3, #:upper16:A
+ 1966 121c D3E90023 		ldrd	r2, [r3]
+ 1967 1220 1046     		mov	r0, r2
+ 1968 1222 1946     		mov	r1, r3
+ 1969 1224 4FF00002 		mov	r2, #0
+ 1970 1228 4FF00003 		mov	r3, #0
+ 1971 122c C3F6F073 		movt	r3, 16368
+ 1972 1230 FFF7FEFF 		bl	__aeabi_dsub
+ 1973 1234 0246     		mov	r2, r0
+ 1974 1236 0B46     		mov	r3, r1
+ 1975 1238 9046     		mov	r8, r2
+ 1976 123a 9946     		mov	r9, r3
+ 1977 123c 40F20003 		movw	r3, #:lower16:w0
+ 1978 1240 C0F20003 		movt	r3, #:upper16:w0
+ 1979 1244 D3E90023 		ldrd	r2, [r3]
+ 1980 1248 1046     		mov	r0, r2
+ 1981 124a 1946     		mov	r1, r3
+ 1982 124c FFF7FEFF 		bl	cos
+ 1983 1250 0246     		mov	r2, r0
+ 1984 1252 0B46     		mov	r3, r1
+ 1985 1254 4046     		mov	r0, r8
+ 1986 1256 4946     		mov	r1, r9
+ 1987 1258 FFF7FEFF 		bl	__aeabi_dmul
+ 1988 125c 0246     		mov	r2, r0
+ 1989 125e 0B46     		mov	r3, r1
+ 1990 1260 2046     		mov	r0, r4
+ 1991 1262 2946     		mov	r1, r5
+ 1992 1264 FFF7FEFF 		bl	__aeabi_dsub
+ 1993 1268 0246     		mov	r2, r0
+ 1994 126a 0B46     		mov	r3, r1
+ 1995 126c 1446     		mov	r4, r2
+ 1996 126e 1D46     		mov	r5, r3
+ 1997 1270 40F20003 		movw	r3, #:lower16:A
+ 1998 1274 C0F20003 		movt	r3, #:upper16:A
+ 1999 1278 D3E90023 		ldrd	r2, [r3]
+ 2000 127c 1046     		mov	r0, r2
+ 2001 127e 1946     		mov	r1, r3
+ 2002 1280 FFF7FEFF 		bl	sqrt
+ 2003 1284 0246     		mov	r2, r0
+ 2004 1286 0B46     		mov	r3, r1
+ 2005 1288 1046     		mov	r0, r2
+ 2006 128a 1946     		mov	r1, r3
+ 2007 128c FFF7FEFF 		bl	__aeabi_dadd
+ 2008 1290 0246     		mov	r2, r0
+ 2009 1292 0B46     		mov	r3, r1
+ 2010 1294 1046     		mov	r0, r2
+ 2011 1296 1946     		mov	r1, r3
+ 2012 1298 40F20003 		movw	r3, #:lower16:alpha
+ 2013 129c C0F20003 		movt	r3, #:upper16:alpha
+ 2014 12a0 D3E90023 		ldrd	r2, [r3]
+ 2015 12a4 FFF7FEFF 		bl	__aeabi_dmul
+ 2016 12a8 0246     		mov	r2, r0
+ 2017 12aa 0B46     		mov	r3, r1
+ 2018 12ac 2046     		mov	r0, r4
+ 2019 12ae 2946     		mov	r1, r5
+ 2020 12b0 FFF7FEFF 		bl	__aeabi_dadd
+ 2021 12b4 0246     		mov	r2, r0
+ 2022 12b6 0B46     		mov	r3, r1
+ 2023 12b8 1046     		mov	r0, r2
+ 2024 12ba 1946     		mov	r1, r3
+ 2025 12bc 40F20003 		movw	r3, #:lower16:coef
+ 2026 12c0 C0F20003 		movt	r3, #:upper16:coef
+ 2027 12c4 C3E90001 		strd	r0, [r3]
+ 178:../Sources/DSP/IIR.c ****                 a1 =    2*( (A-1) - (A+1)*cos(w0)                   );
+ 2028              		.loc 2 178 0
+ 2029 12c8 40F20003 		movw	r3, #:lower16:A
+ 2030 12cc C0F20003 		movt	r3, #:upper16:A
+ 2031 12d0 D3E90023 		ldrd	r2, [r3]
+ 2032 12d4 1046     		mov	r0, r2
+ 2033 12d6 1946     		mov	r1, r3
+ 2034 12d8 4FF00002 		mov	r2, #0
+ 2035 12dc 4FF00003 		mov	r3, #0
+ 2036 12e0 C3F6F073 		movt	r3, 16368
+ 2037 12e4 FFF7FEFF 		bl	__aeabi_dsub
+ 2038 12e8 0246     		mov	r2, r0
+ 2039 12ea 0B46     		mov	r3, r1
+ 2040 12ec 1446     		mov	r4, r2
+ 2041 12ee 1D46     		mov	r5, r3
+ 2042 12f0 40F20003 		movw	r3, #:lower16:A
+ 2043 12f4 C0F20003 		movt	r3, #:upper16:A
+ 2044 12f8 D3E90023 		ldrd	r2, [r3]
+ 2045 12fc 1046     		mov	r0, r2
+ 2046 12fe 1946     		mov	r1, r3
+ 2047 1300 4FF00002 		mov	r2, #0
+ 2048 1304 4FF00003 		mov	r3, #0
+ 2049 1308 C3F6F073 		movt	r3, 16368
+ 2050 130c FFF7FEFF 		bl	__aeabi_dadd
+ 2051 1310 0246     		mov	r2, r0
+ 2052 1312 0B46     		mov	r3, r1
+ 2053 1314 9046     		mov	r8, r2
+ 2054 1316 9946     		mov	r9, r3
+ 2055 1318 40F20003 		movw	r3, #:lower16:w0
+ 2056 131c C0F20003 		movt	r3, #:upper16:w0
+ 2057 1320 D3E90023 		ldrd	r2, [r3]
+ 2058 1324 1046     		mov	r0, r2
+ 2059 1326 1946     		mov	r1, r3
+ 2060 1328 FFF7FEFF 		bl	cos
+ 2061 132c 0246     		mov	r2, r0
+ 2062 132e 0B46     		mov	r3, r1
+ 2063 1330 4046     		mov	r0, r8
+ 2064 1332 4946     		mov	r1, r9
+ 2065 1334 FFF7FEFF 		bl	__aeabi_dmul
+ 2066 1338 0246     		mov	r2, r0
+ 2067 133a 0B46     		mov	r3, r1
+ 2068 133c 2046     		mov	r0, r4
+ 2069 133e 2946     		mov	r1, r5
+ 2070 1340 FFF7FEFF 		bl	__aeabi_dsub
+ 2071 1344 0246     		mov	r2, r0
+ 2072 1346 0B46     		mov	r3, r1
+ 2073 1348 1046     		mov	r0, r2
+ 2074 134a 1946     		mov	r1, r3
+ 2075 134c FFF7FEFF 		bl	__aeabi_dadd
+ 2076 1350 0246     		mov	r2, r0
+ 2077 1352 0B46     		mov	r3, r1
+ 2078 1354 1046     		mov	r0, r2
+ 2079 1356 1946     		mov	r1, r3
+ 2080 1358 40F20003 		movw	r3, #:lower16:coef
+ 2081 135c C0F20003 		movt	r3, #:upper16:coef
+ 2082 1360 C3E90201 		strd	r0, [r3, #8]
+ 179:../Sources/DSP/IIR.c ****                 a2 =        (A+1) - (A-1)*cos(w0) - 2*sqrt(A)*alpha;
+ 2083              		.loc 2 179 0
+ 2084 1364 40F20003 		movw	r3, #:lower16:A
+ 2085 1368 C0F20003 		movt	r3, #:upper16:A
+ 2086 136c D3E90023 		ldrd	r2, [r3]
+ 2087 1370 1046     		mov	r0, r2
+ 2088 1372 1946     		mov	r1, r3
+ 2089 1374 4FF00002 		mov	r2, #0
+ 2090 1378 4FF00003 		mov	r3, #0
+ 2091 137c C3F6F073 		movt	r3, 16368
+ 2092 1380 FFF7FEFF 		bl	__aeabi_dadd
+ 2093 1384 0246     		mov	r2, r0
+ 2094 1386 0B46     		mov	r3, r1
+ 2095 1388 1446     		mov	r4, r2
+ 2096 138a 1D46     		mov	r5, r3
+ 2097 138c 40F20003 		movw	r3, #:lower16:A
+ 2098 1390 C0F20003 		movt	r3, #:upper16:A
+ 2099 1394 D3E90023 		ldrd	r2, [r3]
+ 2100 1398 1046     		mov	r0, r2
+ 2101 139a 1946     		mov	r1, r3
+ 2102 139c 4FF00002 		mov	r2, #0
+ 2103 13a0 4FF00003 		mov	r3, #0
+ 2104 13a4 C3F6F073 		movt	r3, 16368
+ 2105 13a8 FFF7FEFF 		bl	__aeabi_dsub
+ 2106 13ac 0246     		mov	r2, r0
+ 2107 13ae 0B46     		mov	r3, r1
+ 2108 13b0 9046     		mov	r8, r2
+ 2109 13b2 9946     		mov	r9, r3
+ 2110 13b4 40F20003 		movw	r3, #:lower16:w0
+ 2111 13b8 C0F20003 		movt	r3, #:upper16:w0
+ 2112 13bc D3E90023 		ldrd	r2, [r3]
+ 2113 13c0 1046     		mov	r0, r2
+ 2114 13c2 1946     		mov	r1, r3
+ 2115 13c4 FFF7FEFF 		bl	cos
+ 2116 13c8 0246     		mov	r2, r0
+ 2117 13ca 0B46     		mov	r3, r1
+ 2118 13cc 4046     		mov	r0, r8
+ 2119 13ce 4946     		mov	r1, r9
+ 2120 13d0 FFF7FEFF 		bl	__aeabi_dmul
+ 2121 13d4 0246     		mov	r2, r0
+ 2122 13d6 0B46     		mov	r3, r1
+ 2123 13d8 2046     		mov	r0, r4
+ 2124 13da 2946     		mov	r1, r5
+ 2125 13dc FFF7FEFF 		bl	__aeabi_dsub
+ 2126 13e0 0246     		mov	r2, r0
+ 2127 13e2 0B46     		mov	r3, r1
+ 2128 13e4 1446     		mov	r4, r2
+ 2129 13e6 1D46     		mov	r5, r3
+ 2130 13e8 40F20003 		movw	r3, #:lower16:A
+ 2131 13ec C0F20003 		movt	r3, #:upper16:A
+ 2132 13f0 D3E90023 		ldrd	r2, [r3]
+ 2133 13f4 1046     		mov	r0, r2
+ 2134 13f6 1946     		mov	r1, r3
+ 2135 13f8 FFF7FEFF 		bl	sqrt
+ 2136 13fc 0246     		mov	r2, r0
+ 2137 13fe 0B46     		mov	r3, r1
+ 2138 1400 1046     		mov	r0, r2
+ 2139 1402 1946     		mov	r1, r3
+ 2140 1404 FFF7FEFF 		bl	__aeabi_dadd
+ 2141 1408 0246     		mov	r2, r0
+ 2142 140a 0B46     		mov	r3, r1
+ 2143 140c 1046     		mov	r0, r2
+ 2144 140e 1946     		mov	r1, r3
+ 2145 1410 40F20003 		movw	r3, #:lower16:alpha
+ 2146 1414 C0F20003 		movt	r3, #:upper16:alpha
+ 2147 1418 D3E90023 		ldrd	r2, [r3]
+ 2148 141c FFF7FEFF 		bl	__aeabi_dmul
+ 2149 1420 0246     		mov	r2, r0
+ 2150 1422 0B46     		mov	r3, r1
+ 2151 1424 2046     		mov	r0, r4
+ 2152 1426 2946     		mov	r1, r5
+ 2153 1428 FFF7FEFF 		bl	__aeabi_dsub
+ 2154 142c 0246     		mov	r2, r0
+ 2155 142e 0B46     		mov	r3, r1
+ 2156 1430 1046     		mov	r0, r2
+ 2157 1432 1946     		mov	r1, r3
+ 2158 1434 40F20003 		movw	r3, #:lower16:coef
+ 2159 1438 C0F20003 		movt	r3, #:upper16:coef
+ 2160 143c C3E90401 		strd	r0, [r3, #16]
+ 180:../Sources/DSP/IIR.c ****                 break;
+ 2161              		.loc 2 180 0
+ 2162 1440 00BF     		nop
+ 2163              	.L20:
+ 181:../Sources/DSP/IIR.c ****         }
+ 182:../Sources/DSP/IIR.c **** 
+ 183:../Sources/DSP/IIR.c ****     /*
+ 184:../Sources/DSP/IIR.c ****     The most straight forward implementation would be the "Direct Form 1"
+ 185:../Sources/DSP/IIR.c ****     (Eq 2):
+ 186:../Sources/DSP/IIR.c **** 
+ 187:../Sources/DSP/IIR.c ****         y[n] = (b0/a0)*x[n] + (b1/a0)*x[n-1] + (b2/a0)*x[n-2]
+ 188:../Sources/DSP/IIR.c ****                             - (a1/a0)*y[n-1] - (a2/a0)*y[n-2]            (Eq 4)
+ 189:../Sources/DSP/IIR.c **** 
+ 190:../Sources/DSP/IIR.c ****     but to make things easier on the chip,  we will do all adds:
+ 191:../Sources/DSP/IIR.c **** 
+ 192:../Sources/DSP/IIR.c ****     	    y[n] = (b0/a0)*x[n] + (b1/a0)*x[n-1] + (b2/a0)*x[n-2]
+ 193:../Sources/DSP/IIR.c ****                             + (a1/a0)*y[n-1] + (a2/a0)*y[n-2]            (Eq 4)
+ 194:../Sources/DSP/IIR.c **** 
+ 195:../Sources/DSP/IIR.c ****                             THis means that 2 feedback coef. have to be inverted
+ 196:../Sources/DSP/IIR.c **** 
+ 197:../Sources/DSP/IIR.c ****       */
+ 198:../Sources/DSP/IIR.c ****     b0 = b0/a0;
+ 2164              		.loc 2 198 0
+ 2165 1442 40F20003 		movw	r3, #:lower16:coef
+ 2166 1446 C0F20003 		movt	r3, #:upper16:coef
+ 2167 144a D3E90601 		ldrd	r0, [r3, #24]
+ 2168 144e 40F20003 		movw	r3, #:lower16:coef
+ 2169 1452 C0F20003 		movt	r3, #:upper16:coef
+ 2170 1456 D3E90023 		ldrd	r2, [r3]
+ 2171 145a FFF7FEFF 		bl	__aeabi_ddiv
+ 2172 145e 0246     		mov	r2, r0
+ 2173 1460 0B46     		mov	r3, r1
+ 2174 1462 1046     		mov	r0, r2
+ 2175 1464 1946     		mov	r1, r3
+ 2176 1466 40F20003 		movw	r3, #:lower16:coef
+ 2177 146a C0F20003 		movt	r3, #:upper16:coef
+ 2178 146e C3E90601 		strd	r0, [r3, #24]
+ 199:../Sources/DSP/IIR.c ****     b1 = b1/a0;
+ 2179              		.loc 2 199 0
+ 2180 1472 40F20003 		movw	r3, #:lower16:coef
+ 2181 1476 C0F20003 		movt	r3, #:upper16:coef
+ 2182 147a D3E90801 		ldrd	r0, [r3, #32]
+ 2183 147e 40F20003 		movw	r3, #:lower16:coef
+ 2184 1482 C0F20003 		movt	r3, #:upper16:coef
+ 2185 1486 D3E90023 		ldrd	r2, [r3]
+ 2186 148a FFF7FEFF 		bl	__aeabi_ddiv
+ 2187 148e 0246     		mov	r2, r0
+ 2188 1490 0B46     		mov	r3, r1
+ 2189 1492 1046     		mov	r0, r2
+ 2190 1494 1946     		mov	r1, r3
+ 2191 1496 40F20003 		movw	r3, #:lower16:coef
+ 2192 149a C0F20003 		movt	r3, #:upper16:coef
+ 2193 149e C3E90801 		strd	r0, [r3, #32]
+ 200:../Sources/DSP/IIR.c ****     b2 = b2/a0;
+ 2194              		.loc 2 200 0
+ 2195 14a2 40F20003 		movw	r3, #:lower16:coef
+ 2196 14a6 C0F20003 		movt	r3, #:upper16:coef
+ 2197 14aa D3E90A01 		ldrd	r0, [r3, #40]
+ 2198 14ae 40F20003 		movw	r3, #:lower16:coef
+ 2199 14b2 C0F20003 		movt	r3, #:upper16:coef
+ 2200 14b6 D3E90023 		ldrd	r2, [r3]
+ 2201 14ba FFF7FEFF 		bl	__aeabi_ddiv
+ 2202 14be 0246     		mov	r2, r0
+ 2203 14c0 0B46     		mov	r3, r1
+ 2204 14c2 1046     		mov	r0, r2
+ 2205 14c4 1946     		mov	r1, r3
+ 2206 14c6 40F20003 		movw	r3, #:lower16:coef
+ 2207 14ca C0F20003 		movt	r3, #:upper16:coef
+ 2208 14ce C3E90A01 		strd	r0, [r3, #40]
+ 201:../Sources/DSP/IIR.c ****     a1 = a1/a0;
+ 2209              		.loc 2 201 0
+ 2210 14d2 40F20003 		movw	r3, #:lower16:coef
+ 2211 14d6 C0F20003 		movt	r3, #:upper16:coef
+ 2212 14da D3E90201 		ldrd	r0, [r3, #8]
+ 2213 14de 40F20003 		movw	r3, #:lower16:coef
+ 2214 14e2 C0F20003 		movt	r3, #:upper16:coef
+ 2215 14e6 D3E90023 		ldrd	r2, [r3]
+ 2216 14ea FFF7FEFF 		bl	__aeabi_ddiv
+ 2217 14ee 0246     		mov	r2, r0
+ 2218 14f0 0B46     		mov	r3, r1
+ 2219 14f2 1046     		mov	r0, r2
+ 2220 14f4 1946     		mov	r1, r3
+ 2221 14f6 40F20003 		movw	r3, #:lower16:coef
+ 2222 14fa C0F20003 		movt	r3, #:upper16:coef
+ 2223 14fe C3E90201 		strd	r0, [r3, #8]
+ 202:../Sources/DSP/IIR.c ****     a2 = a2/a0;
+ 2224              		.loc 2 202 0
+ 2225 1502 40F20003 		movw	r3, #:lower16:coef
+ 2226 1506 C0F20003 		movt	r3, #:upper16:coef
+ 2227 150a D3E90401 		ldrd	r0, [r3, #16]
+ 2228 150e 40F20003 		movw	r3, #:lower16:coef
+ 2229 1512 C0F20003 		movt	r3, #:upper16:coef
+ 2230 1516 D3E90023 		ldrd	r2, [r3]
+ 2231 151a FFF7FEFF 		bl	__aeabi_ddiv
+ 2232 151e 0246     		mov	r2, r0
+ 2233 1520 0B46     		mov	r3, r1
+ 2234 1522 1046     		mov	r0, r2
+ 2235 1524 1946     		mov	r1, r3
+ 2236 1526 40F20003 		movw	r3, #:lower16:coef
+ 2237 152a C0F20003 		movt	r3, #:upper16:coef
+ 2238 152e C3E90401 		strd	r0, [r3, #16]
+ 203:../Sources/DSP/IIR.c ****     a0 = 1.0;
+ 2239              		.loc 2 203 0
+ 2240 1532 40F20003 		movw	r3, #:lower16:coef
+ 2241 1536 C0F20003 		movt	r3, #:upper16:coef
+ 2242 153a 4FF00000 		mov	r0, #0
+ 2243 153e 4FF00001 		mov	r1, #0
+ 2244 1542 C3F6F071 		movt	r1, 16368
+ 2245 1546 C3E90001 		strd	r0, [r3]
+ 204:../Sources/DSP/IIR.c ****     a1 = a1 * -1.0;
+ 2246              		.loc 2 204 0
+ 2247 154a 40F20003 		movw	r3, #:lower16:coef
+ 2248 154e C0F20003 		movt	r3, #:upper16:coef
+ 2249 1552 D3E90223 		ldrd	r2, [r3, #8]
+ 2250 1556 1146     		mov	r1, r2
+ 2251 1558 B960     		str	r1, [r7, #8]
+ 2252 155a 83F00040 		eor	r0, r3, #-2147483648
+ 2253 155e F860     		str	r0, [r7, #12]
+ 2254 1560 40F20003 		movw	r3, #:lower16:coef
+ 2255 1564 C0F20003 		movt	r3, #:upper16:coef
+ 2256 1568 D7E90201 		ldrd	r0, [r7, #8]
+ 2257 156c C3E90201 		strd	r0, [r3, #8]
+ 205:../Sources/DSP/IIR.c ****     a2 = a2 * -1.0;
+ 2258              		.loc 2 205 0
+ 2259 1570 40F20003 		movw	r3, #:lower16:coef
+ 2260 1574 C0F20003 		movt	r3, #:upper16:coef
+ 2261 1578 D3E90423 		ldrd	r2, [r3, #16]
+ 2262 157c 1146     		mov	r1, r2
+ 2263 157e 3960     		str	r1, [r7, #0]
+ 2264 1580 83F00040 		eor	r0, r3, #-2147483648
+ 2265 1584 7860     		str	r0, [r7, #4]
+ 2266 1586 40F20003 		movw	r3, #:lower16:coef
+ 2267 158a C0F20003 		movt	r3, #:upper16:coef
+ 2268 158e D7E90001 		ldrd	r0, [r7]
+ 2269 1592 C3E90401 		strd	r0, [r3, #16]
+ 206:../Sources/DSP/IIR.c ****     C->PostShift = 0;
+ 2270              		.loc 2 206 0
+ 2271 1596 FB69     		ldr	r3, [r7, #28]
+ 2272 1598 4FF00002 		mov	r2, #0
+ 2273 159c 1A75     		strb	r2, [r3, #20]
+ 207:../Sources/DSP/IIR.c **** 
+ 208:../Sources/DSP/IIR.c ****     while(GetPeak(&coef[0],6) > 1.0)
+ 2274              		.loc 2 208 0
+ 2275 159e DEE0     		b	.L21
+ 2276              	.L22:
+ 209:../Sources/DSP/IIR.c ****         {
+ 210:../Sources/DSP/IIR.c ****             C->PostShift++;
+ 2277              		.loc 2 210 0
+ 2278 15a0 FB69     		ldr	r3, [r7, #28]
+ 2279 15a2 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 2280 15a4 03F10103 		add	r3, r3, #1
+ 2281 15a8 DAB2     		uxtb	r2, r3
+ 2282 15aa FB69     		ldr	r3, [r7, #28]
+ 2283 15ac 1A75     		strb	r2, [r3, #20]
+ 211:../Sources/DSP/IIR.c ****             b0 = b0/(float)(1<<C->PostShift);
+ 2284              		.loc 2 211 0
+ 2285 15ae 40F20003 		movw	r3, #:lower16:coef
+ 2286 15b2 C0F20003 		movt	r3, #:upper16:coef
+ 2287 15b6 D3E90645 		ldrd	r4, [r3, #24]
+ 2288 15ba FB69     		ldr	r3, [r7, #28]
+ 2289 15bc 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 2290 15be 5BB2     		sxtb	r3, r3
+ 2291 15c0 4FF00102 		mov	r2, #1
+ 2292 15c4 02FA03F3 		lsl	r3, r2, r3
+ 2293 15c8 1846     		mov	r0, r3
+ 2294 15ca FFF7FEFF 		bl	__aeabi_i2f
+ 2295 15ce 0346     		mov	r3, r0
+ 2296 15d0 1846     		mov	r0, r3
+ 2297 15d2 FFF7FEFF 		bl	__aeabi_f2d
+ 2298 15d6 0246     		mov	r2, r0
+ 2299 15d8 0B46     		mov	r3, r1
+ 2300 15da 2046     		mov	r0, r4
+ 2301 15dc 2946     		mov	r1, r5
+ 2302 15de FFF7FEFF 		bl	__aeabi_ddiv
+ 2303 15e2 0246     		mov	r2, r0
+ 2304 15e4 0B46     		mov	r3, r1
+ 2305 15e6 1046     		mov	r0, r2
+ 2306 15e8 1946     		mov	r1, r3
+ 2307 15ea 40F20003 		movw	r3, #:lower16:coef
+ 2308 15ee C0F20003 		movt	r3, #:upper16:coef
+ 2309 15f2 C3E90601 		strd	r0, [r3, #24]
+ 212:../Sources/DSP/IIR.c ****             b1 = b1/(float)(1<<C->PostShift);
+ 2310              		.loc 2 212 0
+ 2311 15f6 40F20003 		movw	r3, #:lower16:coef
+ 2312 15fa C0F20003 		movt	r3, #:upper16:coef
+ 2313 15fe D3E90845 		ldrd	r4, [r3, #32]
+ 2314 1602 FB69     		ldr	r3, [r7, #28]
+ 2315 1604 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 2316 1606 5BB2     		sxtb	r3, r3
+ 2317 1608 4FF00102 		mov	r2, #1
+ 2318 160c 02FA03F3 		lsl	r3, r2, r3
+ 2319 1610 1846     		mov	r0, r3
+ 2320 1612 FFF7FEFF 		bl	__aeabi_i2f
+ 2321 1616 0346     		mov	r3, r0
+ 2322 1618 1846     		mov	r0, r3
+ 2323 161a FFF7FEFF 		bl	__aeabi_f2d
+ 2324 161e 0246     		mov	r2, r0
+ 2325 1620 0B46     		mov	r3, r1
+ 2326 1622 2046     		mov	r0, r4
+ 2327 1624 2946     		mov	r1, r5
+ 2328 1626 FFF7FEFF 		bl	__aeabi_ddiv
+ 2329 162a 0246     		mov	r2, r0
+ 2330 162c 0B46     		mov	r3, r1
+ 2331 162e 1046     		mov	r0, r2
+ 2332 1630 1946     		mov	r1, r3
+ 2333 1632 40F20003 		movw	r3, #:lower16:coef
+ 2334 1636 C0F20003 		movt	r3, #:upper16:coef
+ 2335 163a C3E90801 		strd	r0, [r3, #32]
+ 213:../Sources/DSP/IIR.c ****             b2 = b2/(float)(1<<C->PostShift);
+ 2336              		.loc 2 213 0
+ 2337 163e 40F20003 		movw	r3, #:lower16:coef
+ 2338 1642 C0F20003 		movt	r3, #:upper16:coef
+ 2339 1646 D3E90A45 		ldrd	r4, [r3, #40]
+ 2340 164a FB69     		ldr	r3, [r7, #28]
+ 2341 164c 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 2342 164e 5BB2     		sxtb	r3, r3
+ 2343 1650 4FF00102 		mov	r2, #1
+ 2344 1654 02FA03F3 		lsl	r3, r2, r3
+ 2345 1658 1846     		mov	r0, r3
+ 2346 165a FFF7FEFF 		bl	__aeabi_i2f
+ 2347 165e 0346     		mov	r3, r0
+ 2348 1660 1846     		mov	r0, r3
+ 2349 1662 FFF7FEFF 		bl	__aeabi_f2d
+ 2350 1666 0246     		mov	r2, r0
+ 2351 1668 0B46     		mov	r3, r1
+ 2352 166a 2046     		mov	r0, r4
+ 2353 166c 2946     		mov	r1, r5
+ 2354 166e FFF7FEFF 		bl	__aeabi_ddiv
+ 2355 1672 0246     		mov	r2, r0
+ 2356 1674 0B46     		mov	r3, r1
+ 2357 1676 1046     		mov	r0, r2
+ 2358 1678 1946     		mov	r1, r3
+ 2359 167a 40F20003 		movw	r3, #:lower16:coef
+ 2360 167e C0F20003 		movt	r3, #:upper16:coef
+ 2361 1682 C3E90A01 		strd	r0, [r3, #40]
+ 214:../Sources/DSP/IIR.c ****             a1 = a1/(float)(1<<C->PostShift);
+ 2362              		.loc 2 214 0
+ 2363 1686 40F20003 		movw	r3, #:lower16:coef
+ 2364 168a C0F20003 		movt	r3, #:upper16:coef
+ 2365 168e D3E90245 		ldrd	r4, [r3, #8]
+ 2366 1692 FB69     		ldr	r3, [r7, #28]
+ 2367 1694 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 2368 1696 5BB2     		sxtb	r3, r3
+ 2369 1698 4FF00102 		mov	r2, #1
+ 2370 169c 02FA03F3 		lsl	r3, r2, r3
+ 2371 16a0 1846     		mov	r0, r3
+ 2372 16a2 FFF7FEFF 		bl	__aeabi_i2f
+ 2373 16a6 0346     		mov	r3, r0
+ 2374 16a8 1846     		mov	r0, r3
+ 2375 16aa FFF7FEFF 		bl	__aeabi_f2d
+ 2376 16ae 0246     		mov	r2, r0
+ 2377 16b0 0B46     		mov	r3, r1
+ 2378 16b2 2046     		mov	r0, r4
+ 2379 16b4 2946     		mov	r1, r5
+ 2380 16b6 FFF7FEFF 		bl	__aeabi_ddiv
+ 2381 16ba 0246     		mov	r2, r0
+ 2382 16bc 0B46     		mov	r3, r1
+ 2383 16be 1046     		mov	r0, r2
+ 2384 16c0 1946     		mov	r1, r3
+ 2385 16c2 40F20003 		movw	r3, #:lower16:coef
+ 2386 16c6 C0F20003 		movt	r3, #:upper16:coef
+ 2387 16ca C3E90201 		strd	r0, [r3, #8]
+ 215:../Sources/DSP/IIR.c ****             a2 = a2/(float)(1<<C->PostShift);
+ 2388              		.loc 2 215 0
+ 2389 16ce 40F20003 		movw	r3, #:lower16:coef
+ 2390 16d2 C0F20003 		movt	r3, #:upper16:coef
+ 2391 16d6 D3E90445 		ldrd	r4, [r3, #16]
+ 2392 16da FB69     		ldr	r3, [r7, #28]
+ 2393 16dc 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 2394 16de 5BB2     		sxtb	r3, r3
+ 2395 16e0 4FF00102 		mov	r2, #1
+ 2396 16e4 02FA03F3 		lsl	r3, r2, r3
+ 2397 16e8 1846     		mov	r0, r3
+ 2398 16ea FFF7FEFF 		bl	__aeabi_i2f
+ 2399 16ee 0346     		mov	r3, r0
+ 2400 16f0 1846     		mov	r0, r3
+ 2401 16f2 FFF7FEFF 		bl	__aeabi_f2d
+ 2402 16f6 0246     		mov	r2, r0
+ 2403 16f8 0B46     		mov	r3, r1
+ 2404 16fa 2046     		mov	r0, r4
+ 2405 16fc 2946     		mov	r1, r5
+ 2406 16fe FFF7FEFF 		bl	__aeabi_ddiv
+ 2407 1702 0246     		mov	r2, r0
+ 2408 1704 0B46     		mov	r3, r1
+ 2409 1706 1046     		mov	r0, r2
+ 2410 1708 1946     		mov	r1, r3
+ 2411 170a 40F20003 		movw	r3, #:lower16:coef
+ 2412 170e C0F20003 		movt	r3, #:upper16:coef
+ 2413 1712 C3E90401 		strd	r0, [r3, #16]
+ 216:../Sources/DSP/IIR.c ****             a0 = a0/(float)(1<<C->PostShift);
+ 2414              		.loc 2 216 0
+ 2415 1716 40F20003 		movw	r3, #:lower16:coef
+ 2416 171a C0F20003 		movt	r3, #:upper16:coef
+ 2417 171e D3E90045 		ldrd	r4, [r3]
+ 2418 1722 FB69     		ldr	r3, [r7, #28]
+ 2419 1724 1B7D     		ldrb	r3, [r3, #20]	@ zero_extendqisi2
+ 2420 1726 5BB2     		sxtb	r3, r3
+ 2421 1728 4FF00102 		mov	r2, #1
+ 2422 172c 02FA03F3 		lsl	r3, r2, r3
+ 2423 1730 1846     		mov	r0, r3
+ 2424 1732 FFF7FEFF 		bl	__aeabi_i2f
+ 2425 1736 0346     		mov	r3, r0
+ 2426 1738 1846     		mov	r0, r3
+ 2427 173a FFF7FEFF 		bl	__aeabi_f2d
+ 2428 173e 0246     		mov	r2, r0
+ 2429 1740 0B46     		mov	r3, r1
+ 2430 1742 2046     		mov	r0, r4
+ 2431 1744 2946     		mov	r1, r5
+ 2432 1746 FFF7FEFF 		bl	__aeabi_ddiv
+ 2433 174a 0246     		mov	r2, r0
+ 2434 174c 0B46     		mov	r3, r1
+ 2435 174e 1046     		mov	r0, r2
+ 2436 1750 1946     		mov	r1, r3
+ 2437 1752 40F20003 		movw	r3, #:lower16:coef
+ 2438 1756 C0F20003 		movt	r3, #:upper16:coef
+ 2439 175a C3E90001 		strd	r0, [r3]
+ 2440              	.L21:
+ 208:../Sources/DSP/IIR.c ****     while(GetPeak(&coef[0],6) > 1.0)
+ 2441              		.loc 2 208 0
+ 2442 175e 40F20000 		movw	r0, #:lower16:coef
+ 2443 1762 C0F20000 		movt	r0, #:upper16:coef
+ 2444 1766 4FF00601 		mov	r1, #6
+ 2445 176a FFF7FEFF 		bl	GetPeak
+ 2446 176e 0246     		mov	r2, r0
+ 2447 1770 0B46     		mov	r3, r1
+ 2448 1772 1046     		mov	r0, r2
+ 2449 1774 1946     		mov	r1, r3
+ 2450 1776 4FF00002 		mov	r2, #0
+ 2451 177a 4FF00003 		mov	r3, #0
+ 2452 177e C3F6F073 		movt	r3, 16368
+ 2453 1782 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 2454 1786 0346     		mov	r3, r0
+ 2455 1788 002B     		cmp	r3, #0
+ 2456 178a 7FF409AF 		bne	.L22
+ 217:../Sources/DSP/IIR.c ****         }
+ 218:../Sources/DSP/IIR.c **** 
+ 219:../Sources/DSP/IIR.c ****     C->a[0] = (q31_t)(0x7FFFFFFF * a1); //a[0] in the IIR struct is actually a1
+ 2457              		.loc 2 219 0
+ 2458 178e 40F20003 		movw	r3, #:lower16:coef
+ 2459 1792 C0F20003 		movt	r3, #:upper16:coef
+ 2460 1796 D3E90223 		ldrd	r2, [r3, #8]
+ 2461 179a 1046     		mov	r0, r2
+ 2462 179c 1946     		mov	r1, r3
+ 2463 179e 36A3     		adr	r3, .L28
+ 2464 17a0 D3E90023 		ldrd	r2, [r3]
+ 2465 17a4 FFF7FEFF 		bl	__aeabi_dmul
+ 2466 17a8 0246     		mov	r2, r0
+ 2467 17aa 0B46     		mov	r3, r1
+ 2468 17ac 1046     		mov	r0, r2
+ 2469 17ae 1946     		mov	r1, r3
+ 2470 17b0 FFF7FEFF 		bl	__aeabi_d2iz
+ 2471 17b4 0246     		mov	r2, r0
+ 2472 17b6 FB69     		ldr	r3, [r7, #28]
+ 2473 17b8 DA60     		str	r2, [r3, #12]
+ 220:../Sources/DSP/IIR.c ****     C->a[1] = (q31_t)(0x7FFFFFFF * a2); //a[1] in the IIR struct is actually a2
+ 2474              		.loc 2 220 0
+ 2475 17ba 40F20003 		movw	r3, #:lower16:coef
+ 2476 17be C0F20003 		movt	r3, #:upper16:coef
+ 2477 17c2 D3E90423 		ldrd	r2, [r3, #16]
+ 2478 17c6 1046     		mov	r0, r2
+ 2479 17c8 1946     		mov	r1, r3
+ 2480 17ca 2BA3     		adr	r3, .L28
+ 2481 17cc D3E90023 		ldrd	r2, [r3]
+ 2482 17d0 FFF7FEFF 		bl	__aeabi_dmul
+ 2483 17d4 0246     		mov	r2, r0
+ 2484 17d6 0B46     		mov	r3, r1
+ 2485 17d8 1046     		mov	r0, r2
+ 2486 17da 1946     		mov	r1, r3
+ 2487 17dc FFF7FEFF 		bl	__aeabi_d2iz
+ 2488 17e0 0246     		mov	r2, r0
+ 2489 17e2 FB69     		ldr	r3, [r7, #28]
+ 2490 17e4 1A61     		str	r2, [r3, #16]
+ 221:../Sources/DSP/IIR.c ****     C->b[0] = (q31_t)(0x7FFFFFFF * b0);
+ 2491              		.loc 2 221 0
+ 2492 17e6 40F20003 		movw	r3, #:lower16:coef
+ 2493 17ea C0F20003 		movt	r3, #:upper16:coef
+ 2494 17ee D3E90623 		ldrd	r2, [r3, #24]
+ 2495 17f2 1046     		mov	r0, r2
+ 2496 17f4 1946     		mov	r1, r3
+ 2497 17f6 20A3     		adr	r3, .L28
+ 2498 17f8 D3E90023 		ldrd	r2, [r3]
+ 2499 17fc FFF7FEFF 		bl	__aeabi_dmul
+ 2500 1800 0246     		mov	r2, r0
+ 2501 1802 0B46     		mov	r3, r1
+ 2502 1804 1046     		mov	r0, r2
+ 2503 1806 1946     		mov	r1, r3
+ 2504 1808 FFF7FEFF 		bl	__aeabi_d2iz
+ 2505 180c 0246     		mov	r2, r0
+ 2506 180e FB69     		ldr	r3, [r7, #28]
+ 2507 1810 1A60     		str	r2, [r3, #0]
+ 222:../Sources/DSP/IIR.c ****     C->b[1] = (q31_t)(0x7FFFFFFF * b1);
+ 2508              		.loc 2 222 0
+ 2509 1812 40F20003 		movw	r3, #:lower16:coef
+ 2510 1816 C0F20003 		movt	r3, #:upper16:coef
+ 2511 181a D3E90823 		ldrd	r2, [r3, #32]
+ 2512 181e 1046     		mov	r0, r2
+ 2513 1820 1946     		mov	r1, r3
+ 2514 1822 15A3     		adr	r3, .L28
+ 2515 1824 D3E90023 		ldrd	r2, [r3]
+ 2516 1828 FFF7FEFF 		bl	__aeabi_dmul
+ 2517 182c 0246     		mov	r2, r0
+ 2518 182e 0B46     		mov	r3, r1
+ 2519 1830 1046     		mov	r0, r2
+ 2520 1832 1946     		mov	r1, r3
+ 2521 1834 FFF7FEFF 		bl	__aeabi_d2iz
+ 2522 1838 0246     		mov	r2, r0
+ 2523 183a FB69     		ldr	r3, [r7, #28]
+ 2524 183c 5A60     		str	r2, [r3, #4]
+ 223:../Sources/DSP/IIR.c ****     C->b[2] = (q31_t)(0x7FFFFFFF * b2);
+ 2525              		.loc 2 223 0
+ 2526 183e 40F20003 		movw	r3, #:lower16:coef
+ 2527 1842 C0F20003 		movt	r3, #:upper16:coef
+ 2528 1846 D3E90A23 		ldrd	r2, [r3, #40]
+ 2529 184a 1046     		mov	r0, r2
+ 2530 184c 1946     		mov	r1, r3
+ 2531 184e 0AA3     		adr	r3, .L28
+ 2532 1850 D3E90023 		ldrd	r2, [r3]
+ 2533 1854 FFF7FEFF 		bl	__aeabi_dmul
+ 2534 1858 0246     		mov	r2, r0
+ 2535 185a 0B46     		mov	r3, r1
+ 2536 185c 1046     		mov	r0, r2
+ 2537 185e 1946     		mov	r1, r3
+ 2538 1860 FFF7FEFF 		bl	__aeabi_d2iz
+ 2539 1864 0246     		mov	r2, r0
+ 2540 1866 FB69     		ldr	r3, [r7, #28]
+ 2541 1868 9A60     		str	r2, [r3, #8]
+ 224:../Sources/DSP/IIR.c ****     return;
+ 2542              		.loc 2 224 0
+ 2543 186a 00BF     		nop
+ 225:../Sources/DSP/IIR.c **** }
+ 2544              		.loc 2 225 0
+ 2545 186c 07F12007 		add	r7, r7, #32
+ 2546 1870 BD46     		mov	sp, r7
+ 2547 1872 BDE8B08F 		pop	{r4, r5, r7, r8, r9, sl, fp, pc}
+ 2548              	.L29:
+ 2549 1876 00BF     		.align	3
+ 2550              	.L28:
+ 2551 1878 0000C0FF 		.word	-4194304
+ 2552 187c FFFFDF41 		.word	1105199103
+ 2553              		.cfi_endproc
+ 2554              	.LFE130:
+ 2556              		.global	__aeabi_dcmplt
+ 2557              		.section	.text.GetPeak,"ax",%progbits
+ 2558              		.align	2
+ 2559              		.global	GetPeak
+ 2560              		.thumb
+ 2561              		.thumb_func
+ 2563              	GetPeak:
+ 2564              	.LFB131:
+ 226:../Sources/DSP/IIR.c **** 
+ 227:../Sources/DSP/IIR.c **** 
+ 228:../Sources/DSP/IIR.c **** 
+ 229:../Sources/DSP/IIR.c **** double GetPeak(double *Values,uint8_t Size)
+ 230:../Sources/DSP/IIR.c **** {
+ 2565              		.loc 2 230 0
+ 2566              		.cfi_startproc
+ 2567              		@ args = 0, pretend = 0, frame = 32
+ 2568              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2569 0000 80B5     		push	{r7, lr}
+ 2570              	.LCFI12:
+ 2571              		.cfi_def_cfa_offset 8
+ 2572              		.cfi_offset 7, -8
+ 2573              		.cfi_offset 14, -4
+ 2574 0002 88B0     		sub	sp, sp, #32
+ 2575              	.LCFI13:
+ 2576              		.cfi_def_cfa_offset 40
+ 2577 0004 00AF     		add	r7, sp, #0
+ 2578              	.LCFI14:
+ 2579              		.cfi_def_cfa_register 7
+ 2580 0006 7860     		str	r0, [r7, #4]
+ 2581 0008 0B46     		mov	r3, r1
+ 2582 000a FB70     		strb	r3, [r7, #3]
+ 231:../Sources/DSP/IIR.c ****     double Peak = 0;
+ 2583              		.loc 2 231 0
+ 2584 000c 4FF00002 		mov	r2, #0
+ 2585 0010 4FF00003 		mov	r3, #0
+ 2586 0014 C7E90623 		strd	r2, [r7, #24]
+ 232:../Sources/DSP/IIR.c ****     double Temp = 0;
+ 2587              		.loc 2 232 0
+ 2588 0018 4FF00002 		mov	r2, #0
+ 2589 001c 4FF00003 		mov	r3, #0
+ 2590 0020 C7E90423 		strd	r2, [r7, #16]
+ 233:../Sources/DSP/IIR.c ****     uint8_t i;
+ 234:../Sources/DSP/IIR.c **** 
+ 235:../Sources/DSP/IIR.c ****     for(i=0; i<Size; i++)
+ 2591              		.loc 2 235 0
+ 2592 0024 4FF00003 		mov	r3, #0
+ 2593 0028 FB73     		strb	r3, [r7, #15]
+ 2594 002a 38E0     		b	.L31
+ 2595              	.L37:
+ 236:../Sources/DSP/IIR.c ****         {
+ 237:../Sources/DSP/IIR.c ****             if(Values[i]<0)
+ 2596              		.loc 2 237 0
+ 2597 002c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 2598 002e 4FEAC303 		lsl	r3, r3, #3
+ 2599 0032 7A68     		ldr	r2, [r7, #4]
+ 2600 0034 D318     		adds	r3, r2, r3
+ 2601 0036 D3E90023 		ldrd	r2, [r3]
+ 2602 003a 1046     		mov	r0, r2
+ 2603 003c 1946     		mov	r1, r3
+ 2604 003e 4FF00002 		mov	r2, #0
+ 2605 0042 4FF00003 		mov	r3, #0
+ 2606 0046 FFF7FEFF 		bl	__aeabi_dcmplt
+ 2607 004a 0346     		mov	r3, r0
+ 2608 004c 002B     		cmp	r3, #0
+ 2609 004e 0CD0     		beq	.L41
+ 2610              	.L39:
+ 238:../Sources/DSP/IIR.c ****                 Temp= Values[i]*-1;
+ 2611              		.loc 2 238 0
+ 2612 0050 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 2613 0052 4FEAC303 		lsl	r3, r3, #3
+ 2614 0056 7A68     		ldr	r2, [r7, #4]
+ 2615 0058 D318     		adds	r3, r2, r3
+ 2616 005a D3E90023 		ldrd	r2, [r3]
+ 2617 005e 1146     		mov	r1, r2
+ 2618 0060 3961     		str	r1, [r7, #16]
+ 2619 0062 83F00043 		eor	r3, r3, #-2147483648
+ 2620 0066 7B61     		str	r3, [r7, #20]
+ 2621 0068 08E0     		b	.L34
+ 2622              	.L41:
+ 239:../Sources/DSP/IIR.c ****             else
+ 240:../Sources/DSP/IIR.c ****                 Temp = Values[i];
+ 2623              		.loc 2 240 0
+ 2624 006a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 2625 006c 4FEAC303 		lsl	r3, r3, #3
+ 2626 0070 7A68     		ldr	r2, [r7, #4]
+ 2627 0072 D318     		adds	r3, r2, r3
+ 2628 0074 D3E90023 		ldrd	r2, [r3]
+ 2629 0078 C7E90423 		strd	r2, [r7, #16]
+ 2630              	.L34:
+ 241:../Sources/DSP/IIR.c **** 
+ 242:../Sources/DSP/IIR.c ****             if(Temp>Peak)
+ 2631              		.loc 2 242 0
+ 2632 007c D7E90401 		ldrd	r0, [r7, #16]
+ 2633 0080 D7E90623 		ldrd	r2, [r7, #24]
+ 2634 0084 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 2635 0088 0346     		mov	r3, r0
+ 2636 008a 002B     		cmp	r3, #0
+ 2637 008c 03D0     		beq	.L35
+ 2638              	.L40:
+ 243:../Sources/DSP/IIR.c ****                 Peak = Temp;
+ 2639              		.loc 2 243 0
+ 2640 008e D7E90423 		ldrd	r2, [r7, #16]
+ 2641 0092 C7E90623 		strd	r2, [r7, #24]
+ 2642              	.L35:
+ 235:../Sources/DSP/IIR.c ****     for(i=0; i<Size; i++)
+ 2643              		.loc 2 235 0
+ 2644 0096 FB7B     		ldrb	r3, [r7, #15]
+ 2645 0098 03F10103 		add	r3, r3, #1
+ 2646 009c FB73     		strb	r3, [r7, #15]
+ 2647              	.L31:
+ 235:../Sources/DSP/IIR.c ****     for(i=0; i<Size; i++)
+ 2648              		.loc 2 235 0 is_stmt 0
+ 2649 009e FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 2650 00a0 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 2651 00a2 9A42     		cmp	r2, r3
+ 2652 00a4 C2D3     		bcc	.L37
+ 244:../Sources/DSP/IIR.c ****         }
+ 245:../Sources/DSP/IIR.c **** 
+ 246:../Sources/DSP/IIR.c ****     return Peak;
+ 2653              		.loc 2 246 0 is_stmt 1
+ 2654 00a6 D7E90623 		ldrd	r2, [r7, #24]
+ 247:../Sources/DSP/IIR.c **** }
+ 2655              		.loc 2 247 0
+ 2656 00aa 1046     		mov	r0, r2
+ 2657 00ac 1946     		mov	r1, r3
+ 2658 00ae 07F12007 		add	r7, r7, #32
+ 2659 00b2 BD46     		mov	sp, r7
+ 2660 00b4 80BD     		pop	{r7, pc}
+ 2661              		.cfi_endproc
+ 2662              	.LFE131:
+ 2664 00b6 00BF     		.text
+ 2665              	.Letext0:
+ 2666              		.file 3 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 2667              		.file 4 "../Sources/DSP/IIR.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 IIR.c
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:19     .text.mult32x64:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:23     .text.mult32x64:00000000 mult32x64
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:93     .text.Init_q31_t_IIR:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:98     .text.Init_q31_t_IIR:00000000 Init_q31_t_IIR
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:140    .text.Compute_q31_t_IIR:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:145    .text.Compute_q31_t_IIR:00000000 Compute_q31_t_IIR
+                            *COM*:00000008 A
+                            *COM*:00000008 w0
+                            *COM*:00000008 alpha
+                            *COM*:00000030 coef
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:330    .text.DesignAudioBiquadIIR_q31_t:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:335    .text.DesignAudioBiquadIIR_q31_t:00000000 DesignAudioBiquadIIR_q31_t
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:475    .text.DesignAudioBiquadIIR_q31_t:00000124 $d
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:485    .text.DesignAudioBiquadIIR_q31_t:00000144 $t
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:616    .text.DesignAudioBiquadIIR_q31_t:000002c8 $d
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:620    .text.DesignAudioBiquadIIR_q31_t:000002d0 $t
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:2563   .text.GetPeak:00000000 GetPeak
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:2551   .text.DesignAudioBiquadIIR_q31_t:00001878 $d
+C:\Users\ehughes\AppData\Local\Temp\ccoNCTxR.s:2558   .text.GetPeak:00000000 $t
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_fdiv
+__aeabi_f2d
+__aeabi_fcmpeq
+__aeabi_dmul
+__aeabi_ddiv
+__aeabi_dadd
+__aeabi_dsub
+__aeabi_i2f
+__aeabi_dcmpgt
+__aeabi_d2iz
+pow
+sqrt
+sin
+cos
+__aeabi_dcmplt

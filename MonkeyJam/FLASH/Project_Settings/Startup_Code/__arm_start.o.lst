@@ -1,0 +1,410 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"__arm_start.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.bss.argv,"aw",%nobits
+  19              		.align	2
+  22              	argv:
+  23 0000 00000000 		.space	4
+  24              		.section	.text.zero_fill_bss,"ax",%progbits
+  25              		.align	2
+  26              		.thumb
+  27              		.thumb_func
+  29              	zero_fill_bss:
+  30              	.LFB0:
+  31              		.file 1 "../Project_Settings/Startup_Code/__arm_start.c"
+   1:../Project_Settings/Startup_Code/__arm_start.c **** /* CodeWarrior ARM Runtime Support Library
+   2:../Project_Settings/Startup_Code/__arm_start.c **** 
+   3:../Project_Settings/Startup_Code/__arm_start.c ****  * Copyright © 2012 Freescale Semiconductors. All rights reserved.
+   4:../Project_Settings/Startup_Code/__arm_start.c **** 
+   5:../Project_Settings/Startup_Code/__arm_start.c ****  *
+   6:../Project_Settings/Startup_Code/__arm_start.c **** 
+   7:../Project_Settings/Startup_Code/__arm_start.c ****  * $Date: 2013/02/08 07:14:44 $
+   8:../Project_Settings/Startup_Code/__arm_start.c **** 
+   9:../Project_Settings/Startup_Code/__arm_start.c ****  * $Revision: 1.6 $
+  10:../Project_Settings/Startup_Code/__arm_start.c **** 
+  11:../Project_Settings/Startup_Code/__arm_start.c ****  */
+  12:../Project_Settings/Startup_Code/__arm_start.c **** 
+  13:../Project_Settings/Startup_Code/__arm_start.c **** 
+  14:../Project_Settings/Startup_Code/__arm_start.c **** 
+  15:../Project_Settings/Startup_Code/__arm_start.c **** 
+  16:../Project_Settings/Startup_Code/__arm_start.c **** 
+  17:../Project_Settings/Startup_Code/__arm_start.c **** /*
+  18:../Project_Settings/Startup_Code/__arm_start.c **** 
+  19:../Project_Settings/Startup_Code/__arm_start.c ****  *	__arm_start.c	-	entry-point for ARM programs
+  20:../Project_Settings/Startup_Code/__arm_start.c **** 
+  21:../Project_Settings/Startup_Code/__arm_start.c ****  *
+  22:../Project_Settings/Startup_Code/__arm_start.c **** 
+  23:../Project_Settings/Startup_Code/__arm_start.c ****  */
+  24:../Project_Settings/Startup_Code/__arm_start.c **** 
+  25:../Project_Settings/Startup_Code/__arm_start.c **** #include <string.h>
+  26:../Project_Settings/Startup_Code/__arm_start.c **** 
+  27:../Project_Settings/Startup_Code/__arm_start.c **** #include <stdlib.h>
+  28:../Project_Settings/Startup_Code/__arm_start.c **** 
+  29:../Project_Settings/Startup_Code/__arm_start.c **** #include <runtime_configuration.h>
+  30:../Project_Settings/Startup_Code/__arm_start.c **** 
+  31:../Project_Settings/Startup_Code/__arm_start.c **** 
+  32:../Project_Settings/Startup_Code/__arm_start.c **** 
+  33:../Project_Settings/Startup_Code/__arm_start.c **** _EWL_BEGIN_EXTERN_C
+  34:../Project_Settings/Startup_Code/__arm_start.c **** 
+  35:../Project_Settings/Startup_Code/__arm_start.c **** 
+  36:../Project_Settings/Startup_Code/__arm_start.c **** 
+  37:../Project_Settings/Startup_Code/__arm_start.c **** #if SUPPORT_SEMIHOST_ARGC_ARGV
+  38:../Project_Settings/Startup_Code/__arm_start.c **** 
+  39:../Project_Settings/Startup_Code/__arm_start.c **** #define __MAX_CMDLINE_ARGS 10
+  40:../Project_Settings/Startup_Code/__arm_start.c **** 
+  41:../Project_Settings/Startup_Code/__arm_start.c **** static char *argv[__MAX_CMDLINE_ARGS] = { 0 };
+  42:../Project_Settings/Startup_Code/__arm_start.c **** 
+  43:../Project_Settings/Startup_Code/__arm_start.c **** #else
+  44:../Project_Settings/Startup_Code/__arm_start.c **** 
+  45:../Project_Settings/Startup_Code/__arm_start.c **** static char *argv[] = { 0 };
+  46:../Project_Settings/Startup_Code/__arm_start.c **** 
+  47:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+  48:../Project_Settings/Startup_Code/__arm_start.c **** 
+  49:../Project_Settings/Startup_Code/__arm_start.c **** 
+  50:../Project_Settings/Startup_Code/__arm_start.c **** 
+  51:../Project_Settings/Startup_Code/__arm_start.c **** #if __GNUC__
+  52:../Project_Settings/Startup_Code/__arm_start.c **** 
+  53:../Project_Settings/Startup_Code/__arm_start.c **** #define __call_static_initializers __init_cpp
+  54:../Project_Settings/Startup_Code/__arm_start.c **** 
+  55:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+  56:../Project_Settings/Startup_Code/__arm_start.c **** 
+  57:../Project_Settings/Startup_Code/__arm_start.c **** #if SUPPORT_SEMIHOST_ARGC_ARGV
+  58:../Project_Settings/Startup_Code/__arm_start.c **** 
+  59:../Project_Settings/Startup_Code/__arm_start.c **** extern int __argc_argv(int, char **);
+  60:../Project_Settings/Startup_Code/__arm_start.c **** 
+  61:../Project_Settings/Startup_Code/__arm_start.c **** #endif /* SUPPORT_SEMIHOST_ARGC_ARGV */
+  62:../Project_Settings/Startup_Code/__arm_start.c **** 
+  63:../Project_Settings/Startup_Code/__arm_start.c **** 
+  64:../Project_Settings/Startup_Code/__arm_start.c **** 
+  65:../Project_Settings/Startup_Code/__arm_start.c **** extern void __call_static_initializers(void);
+  66:../Project_Settings/Startup_Code/__arm_start.c **** 
+  67:../Project_Settings/Startup_Code/__arm_start.c **** extern int main(int, char **);
+  68:../Project_Settings/Startup_Code/__arm_start.c **** 
+  69:../Project_Settings/Startup_Code/__arm_start.c **** 
+  70:../Project_Settings/Startup_Code/__arm_start.c **** 
+  71:../Project_Settings/Startup_Code/__arm_start.c **** #ifdef __VFPV4__
+  72:../Project_Settings/Startup_Code/__arm_start.c **** 
+  73:../Project_Settings/Startup_Code/__arm_start.c **** extern void __fp_init(void);
+  74:../Project_Settings/Startup_Code/__arm_start.c **** 
+  75:../Project_Settings/Startup_Code/__arm_start.c **** #endif /* __VFPV4__ */
+  76:../Project_Settings/Startup_Code/__arm_start.c **** 
+  77:../Project_Settings/Startup_Code/__arm_start.c **** 
+  78:../Project_Settings/Startup_Code/__arm_start.c **** 
+  79:../Project_Settings/Startup_Code/__arm_start.c **** extern void __init_registers();
+  80:../Project_Settings/Startup_Code/__arm_start.c **** 
+  81:../Project_Settings/Startup_Code/__arm_start.c **** extern void __init_hardware();
+  82:../Project_Settings/Startup_Code/__arm_start.c **** 
+  83:../Project_Settings/Startup_Code/__arm_start.c **** extern void __init_user();
+  84:../Project_Settings/Startup_Code/__arm_start.c **** 
+  85:../Project_Settings/Startup_Code/__arm_start.c **** 
+  86:../Project_Settings/Startup_Code/__arm_start.c **** 
+  87:../Project_Settings/Startup_Code/__arm_start.c **** #if defined(__APCS_ROPI)
+  88:../Project_Settings/Startup_Code/__arm_start.c **** 
+  89:../Project_Settings/Startup_Code/__arm_start.c **** extern void __init_pic();
+  90:../Project_Settings/Startup_Code/__arm_start.c **** 
+  91:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+  92:../Project_Settings/Startup_Code/__arm_start.c **** 
+  93:../Project_Settings/Startup_Code/__arm_start.c **** 
+  94:../Project_Settings/Startup_Code/__arm_start.c **** 
+  95:../Project_Settings/Startup_Code/__arm_start.c **** #if defined(__APCS_RWPI)
+  96:../Project_Settings/Startup_Code/__arm_start.c **** 
+  97:../Project_Settings/Startup_Code/__arm_start.c **** extern void __init_pid();
+  98:../Project_Settings/Startup_Code/__arm_start.c **** 
+  99:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 100:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 101:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 102:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 103:../Project_Settings/Startup_Code/__arm_start.c **** #if defined(__APCS_ROPI) || defined(__APCS_RWPI)
+ 104:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 105:../Project_Settings/Startup_Code/__arm_start.c **** extern void __load_static_base();
+ 106:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 107:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 108:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 109:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 110:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 111:../Project_Settings/Startup_Code/__arm_start.c **** #if defined(__SEMIHOSTING)
+ 112:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 113:../Project_Settings/Startup_Code/__arm_start.c **** extern void __init_semihost(void) _EWL_WEAK;
+ 114:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 115:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 116:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 117:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 118:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 119:../Project_Settings/Startup_Code/__arm_start.c **** #if SUPPORT_ROM_TO_RAM
+ 120:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 121:../Project_Settings/Startup_Code/__arm_start.c **** extern void __copy_rom_sections_to_ram(void);
+ 122:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 123:../Project_Settings/Startup_Code/__arm_start.c **** extern char __S_romp[];
+ 124:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 125:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 126:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 127:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 128:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 129:../Project_Settings/Startup_Code/__arm_start.c **** static void zero_fill_bss(void)
+ 130:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 131:../Project_Settings/Startup_Code/__arm_start.c **** {
+  32              		.loc 1 131 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36 0000 80B5     		push	{r7, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41 0002 00AF     		add	r7, sp, #0
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_register 7
+ 132:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 133:../Project_Settings/Startup_Code/__arm_start.c **** 	extern char __START_BSS[];
+ 134:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 135:../Project_Settings/Startup_Code/__arm_start.c **** 	extern char __END_BSS[];
+ 136:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 137:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 138:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 139:../Project_Settings/Startup_Code/__arm_start.c **** 	memset(__START_BSS, 0, (__END_BSS - __START_BSS));
+  44              		.loc 1 139 0
+  45 0004 40F20002 		movw	r2, #:lower16:__END_BSS
+  46 0008 C0F20002 		movt	r2, #:upper16:__END_BSS
+  47 000c 40F20003 		movw	r3, #:lower16:__START_BSS
+  48 0010 C0F20003 		movt	r3, #:upper16:__START_BSS
+  49 0014 D31A     		subs	r3, r2, r3
+  50 0016 40F20000 		movw	r0, #:lower16:__START_BSS
+  51 001a C0F20000 		movt	r0, #:upper16:__START_BSS
+  52 001e 4FF00001 		mov	r1, #0
+  53 0022 1A46     		mov	r2, r3
+  54 0024 FFF7FEFF 		bl	memset
+ 140:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 141:../Project_Settings/Startup_Code/__arm_start.c **** }
+  55              		.loc 1 141 0
+  56 0028 80BD     		pop	{r7, pc}
+  57              		.cfi_endproc
+  58              	.LFE0:
+  60 002a 00BF     		.section	.text.__iar_program_start,"ax",%progbits
+  61              		.align	2
+  62              		.global	__iar_program_start
+  63              		.thumb
+  64              		.thumb_func
+  66              	__iar_program_start:
+  67              	.LFB1:
+ 142:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 143:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 144:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 145:../Project_Settings/Startup_Code/__arm_start.c **** #ifndef __thumb // Thumb version
+ 146:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 147:../Project_Settings/Startup_Code/__arm_start.c **** #error Thumb startup
+ 148:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 149:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 150:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 151:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 152:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 153:../Project_Settings/Startup_Code/__arm_start.c **** // To keep iar debugger happy
+ 154:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 155:../Project_Settings/Startup_Code/__arm_start.c **** void __iar_program_start(void) _EWL_NAKED;
+ 156:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 157:../Project_Settings/Startup_Code/__arm_start.c **** void __thumb_startup(void);
+ 158:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 159:../Project_Settings/Startup_Code/__arm_start.c **** void __iar_program_start()
+ 160:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 161:../Project_Settings/Startup_Code/__arm_start.c **** {
+  68              		.loc 1 161 0
+  69              		.cfi_startproc
+  70              		@ Naked Function: prologue and epilogue provided by programmer.
+  71              		@ args = 0, pretend = 0, frame = 0
+  72              		@ frame_needed = 1, uses_anonymous_args = 0
+ 162:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 163:../Project_Settings/Startup_Code/__arm_start.c **** 	__thumb_startup();
+  73              		.loc 1 163 0
+  74 0000 FFF7FEFF 		bl	__thumb_startup
+ 164:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 165:../Project_Settings/Startup_Code/__arm_start.c **** }
+  75              		.loc 1 165 0
+  76              		.cfi_endproc
+  77              	.LFE1:
+  79              		.section	.text.__thumb_startup,"ax",%progbits
+  80              		.align	2
+  81              		.global	__thumb_startup
+  82              		.thumb
+  83              		.thumb_func
+  85              	__thumb_startup:
+  86              	.LFB2:
+ 166:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 167:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 168:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 169:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 170:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 171:../Project_Settings/Startup_Code/__arm_start.c **** void __thumb_startup(void) _EWL_NAKED;
+ 172:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 173:../Project_Settings/Startup_Code/__arm_start.c **** void __thumb_startup(void)
+ 174:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 175:../Project_Settings/Startup_Code/__arm_start.c **** {
+  87              		.loc 1 175 0
+  88              		.cfi_startproc
+  89              		@ Naked Function: prologue and epilogue provided by programmer.
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 1, uses_anonymous_args = 0
+ 176:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 177:../Project_Settings/Startup_Code/__arm_start.c **** 		// Setup registers
+ 178:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 179:../Project_Settings/Startup_Code/__arm_start.c **** 		__init_registers();
+  92              		.loc 1 179 0
+  93 0000 FFF7FEFF 		bl	__init_registers
+ 180:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 181:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 182:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 183:../Project_Settings/Startup_Code/__arm_start.c **** 		// setup hardware
+ 184:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 185:../Project_Settings/Startup_Code/__arm_start.c **** 		__init_hardware();
+  94              		.loc 1 185 0
+  95 0004 FFF7FEFF 		bl	__init_hardware
+ 186:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 187:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 188:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 189:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 190:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 191:../Project_Settings/Startup_Code/__arm_start.c **** #if defined(__APCS_ROPI) || defined(__APCS_RWPI)
+ 192:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 193:../Project_Settings/Startup_Code/__arm_start.c **** 		//	static base register initialization
+ 194:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 195:../Project_Settings/Startup_Code/__arm_start.c **** 		__load_static_base();
+ 196:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 197:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 198:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 199:../Project_Settings/Startup_Code/__arm_start.c **** #if defined(__APCS_RWPI)
+ 200:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 201:../Project_Settings/Startup_Code/__arm_start.c **** 		//	-pid
+ 202:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 203:../Project_Settings/Startup_Code/__arm_start.c **** 		//	setup static base for SB relative position independent data
+ 204:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 205:../Project_Settings/Startup_Code/__arm_start.c **** 		//	perform runtime relocation
+ 206:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 207:../Project_Settings/Startup_Code/__arm_start.c **** 		__init_pid();
+ 208:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 209:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 210:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 211:../Project_Settings/Startup_Code/__arm_start.c **** #if defined(__APCS_ROPI)
+ 212:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 213:../Project_Settings/Startup_Code/__arm_start.c **** 		//	-pic
+ 214:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 215:../Project_Settings/Startup_Code/__arm_start.c **** 		//	perform runtime relocation for position independent code
+ 216:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 217:../Project_Settings/Startup_Code/__arm_start.c **** 		__init_pic();
+ 218:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 219:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 220:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 221:../Project_Settings/Startup_Code/__arm_start.c **** 		//	zero-fill the .bss section
+ 222:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 223:../Project_Settings/Startup_Code/__arm_start.c **** 		zero_fill_bss();
+  96              		.loc 1 223 0
+  97 0008 FFF7FEFF 		bl	zero_fill_bss
+ 224:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 225:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 226:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 227:../Project_Settings/Startup_Code/__arm_start.c **** #if SUPPORT_ROM_TO_RAM
+ 228:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 229:../Project_Settings/Startup_Code/__arm_start.c **** 		if (__S_romp != 0L)
+ 230:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 231:../Project_Settings/Startup_Code/__arm_start.c **** 			__copy_rom_sections_to_ram();
+  98              		.loc 1 231 0
+  99 000c FFF7FEFF 		bl	__copy_rom_sections_to_ram
+ 232:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 233:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 234:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 235:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 236:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 237:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 238:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 239:../Project_Settings/Startup_Code/__arm_start.c **** 		//      initialize the floating-point library
+ 240:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 241:../Project_Settings/Startup_Code/__arm_start.c **** #ifdef __VFPV4__
+ 242:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 243:../Project_Settings/Startup_Code/__arm_start.c **** 		__fp_init();
+ 244:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 245:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 246:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 247:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 248:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 249:../Project_Settings/Startup_Code/__arm_start.c **** 		//	call C++ static initializers
+ 250:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 251:../Project_Settings/Startup_Code/__arm_start.c **** 		__call_static_initializers();
+ 100              		.loc 1 251 0
+ 101 0010 FFF7FEFF 		bl	__init_cpp
+ 252:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 253:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 254:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 255:../Project_Settings/Startup_Code/__arm_start.c **** 		// initializations before main, user specific
+ 256:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 257:../Project_Settings/Startup_Code/__arm_start.c **** 		__init_user();
+ 102              		.loc 1 257 0
+ 103 0014 FFF7FEFF 		bl	__init_user
+ 258:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 259:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 260:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 261:../Project_Settings/Startup_Code/__arm_start.c **** #if defined(__SEMIHOSTING)
+ 262:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 263:../Project_Settings/Startup_Code/__arm_start.c **** 		// semihost initializations
+ 264:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 265:../Project_Settings/Startup_Code/__arm_start.c **** 		__init_semihost();
+ 266:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 267:../Project_Settings/Startup_Code/__arm_start.c **** #endif
+ 268:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 269:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 270:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 271:../Project_Settings/Startup_Code/__arm_start.c **** 		//	call main(argc, &argv)
+ 272:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 273:../Project_Settings/Startup_Code/__arm_start.c **** #if SUPPORT_SEMIHOST_ARGC_ARGV
+ 274:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 275:../Project_Settings/Startup_Code/__arm_start.c **** 		exit(main(__argc_argv(__MAX_CMDLINE_ARGS, argv), argv));
+ 276:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 277:../Project_Settings/Startup_Code/__arm_start.c **** #else
+ 278:../Project_Settings/Startup_Code/__arm_start.c **** 
+ 279:../Project_Settings/Startup_Code/__arm_start.c **** 		exit(main(0, argv));
+ 104              		.loc 1 279 0
+ 105 0018 4FF00000 		mov	r0, #0
+ 106 001c 40F20001 		movw	r1, #:lower16:argv
+ 107 0020 C0F20001 		movt	r1, #:upper16:argv
+ 108 0024 FFF7FEFF 		bl	main
+ 109 0028 0346     		mov	r3, r0
+ 110 002a 1846     		mov	r0, r3
+ 111 002c FFF7FEFF 		bl	exit
+ 112              		.cfi_endproc
+ 113              	.LFE2:
+ 115              		.text
+ 116              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 __arm_start.c
+C:\Users\ehughes\AppData\Local\Temp\ccSHnQvs.s:19     .bss.argv:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\ccSHnQvs.s:22     .bss.argv:00000000 argv
+C:\Users\ehughes\AppData\Local\Temp\ccSHnQvs.s:25     .text.zero_fill_bss:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccSHnQvs.s:29     .text.zero_fill_bss:00000000 zero_fill_bss
+C:\Users\ehughes\AppData\Local\Temp\ccSHnQvs.s:61     .text.__iar_program_start:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccSHnQvs.s:66     .text.__iar_program_start:00000000 __iar_program_start
+C:\Users\ehughes\AppData\Local\Temp\ccSHnQvs.s:85     .text.__thumb_startup:00000000 __thumb_startup
+C:\Users\ehughes\AppData\Local\Temp\ccSHnQvs.s:80     .text.__thumb_startup:00000000 $t
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__END_BSS
+__START_BSS
+memset
+__init_registers
+__init_hardware
+__copy_rom_sections_to_ram
+__init_cpp
+__init_user
+main
+exit

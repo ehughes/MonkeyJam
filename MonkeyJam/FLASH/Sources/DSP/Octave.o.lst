@@ -1,0 +1,300 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"Octave.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.InitOctave,"ax",%progbits
+  19              		.align	2
+  20              		.global	InitOctave
+  21              		.thumb
+  22              		.thumb_func
+  24              	InitOctave:
+  25              	.LFB128:
+  26              		.file 1 "../Sources/DSP/Octave.c"
+   1:../Sources/DSP/Octave.c **** /*
+   2:../Sources/DSP/Octave.c ****  * Octave.c
+   3:../Sources/DSP/Octave.c ****  *
+   4:../Sources/DSP/Octave.c ****  *  Created on: Mar 3, 2014
+   5:../Sources/DSP/Octave.c ****  *      Author: emh203
+   6:../Sources/DSP/Octave.c ****  */
+   7:../Sources/DSP/Octave.c **** 
+   8:../Sources/DSP/Octave.c **** #include "arm_math.h"
+   9:../Sources/DSP/Octave.c **** #include "Octave.h"
+  10:../Sources/DSP/Octave.c **** 
+  11:../Sources/DSP/Octave.c **** 
+  12:../Sources/DSP/Octave.c **** 
+  13:../Sources/DSP/Octave.c **** void InitOctave(OctaveControl *OC,q31_t HighThreshold, q31_t LowThreshold)
+  14:../Sources/DSP/Octave.c **** {
+  27              		.loc 1 14 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 16
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 85B0     		sub	sp, sp, #20
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 24
+  39 0004 00AF     		add	r7, sp, #0
+  40              	.LCFI2:
+  41              		.cfi_def_cfa_register 7
+  42 0006 F860     		str	r0, [r7, #12]
+  43 0008 B960     		str	r1, [r7, #8]
+  44 000a 7A60     		str	r2, [r7, #4]
+  15:../Sources/DSP/Octave.c ****     OC->SquareTracker[0] = 0x80000000; //Start at -1
+  45              		.loc 1 15 0
+  46 000c FB68     		ldr	r3, [r7, #12]
+  47 000e 4FF00042 		mov	r2, #-2147483648
+  48 0012 1A60     		str	r2, [r3, #0]
+  16:../Sources/DSP/Octave.c ****     OC->SquareTracker[1] = 0x80000000; //Start at -1
+  49              		.loc 1 16 0
+  50 0014 FB68     		ldr	r3, [r7, #12]
+  51 0016 4FF00042 		mov	r2, #-2147483648
+  52 001a 5A60     		str	r2, [r3, #4]
+  17:../Sources/DSP/Octave.c ****     OC->Modulation[0] = 0x80000000; //Start at -1
+  53              		.loc 1 17 0
+  54 001c FB68     		ldr	r3, [r7, #12]
+  55 001e 4FF00042 		mov	r2, #-2147483648
+  56 0022 5A60     		str	r2, [r3, #4]
+  18:../Sources/DSP/Octave.c ****     OC->Modulation[1] = 0x80000000; //Start at -1
+  57              		.loc 1 18 0
+  58 0024 FB68     		ldr	r3, [r7, #12]
+  59 0026 4FF00042 		mov	r2, #-2147483648
+  60 002a 9A60     		str	r2, [r3, #8]
+  19:../Sources/DSP/Octave.c ****     OC->HighThresh = HighThreshold;
+  61              		.loc 1 19 0
+  62 002c FB68     		ldr	r3, [r7, #12]
+  63 002e BA68     		ldr	r2, [r7, #8]
+  64 0030 5A61     		str	r2, [r3, #20]
+  20:../Sources/DSP/Octave.c ****     OC->LowThresh = LowThreshold;
+  65              		.loc 1 20 0
+  66 0032 FB68     		ldr	r3, [r7, #12]
+  67 0034 7A68     		ldr	r2, [r7, #4]
+  68 0036 9A61     		str	r2, [r3, #24]
+  21:../Sources/DSP/Octave.c **** }
+  69              		.loc 1 21 0
+  70 0038 07F11407 		add	r7, r7, #20
+  71 003c BD46     		mov	sp, r7
+  72 003e 80BC     		pop	{r7}
+  73 0040 7047     		bx	lr
+  74              		.cfi_endproc
+  75              	.LFE128:
+  77 0042 00BF     		.section	.text.Octave,"ax",%progbits
+  78              		.align	2
+  79              		.global	Octave
+  80              		.thumb
+  81              		.thumb_func
+  83              	Octave:
+  84              	.LFB129:
+  22:../Sources/DSP/Octave.c **** 
+  23:../Sources/DSP/Octave.c **** void Octave(q31_t In, q31_t *Out,OctaveControl *OC)
+  24:../Sources/DSP/Octave.c **** {
+  85              		.loc 1 24 0
+  86              		.cfi_startproc
+  87              		@ args = 0, pretend = 0, frame = 24
+  88              		@ frame_needed = 1, uses_anonymous_args = 0
+  89              		@ link register save eliminated.
+  90 0000 90B4     		push	{r4, r7}
+  91              	.LCFI3:
+  92              		.cfi_def_cfa_offset 8
+  93              		.cfi_offset 4, -8
+  94              		.cfi_offset 7, -4
+  95 0002 86B0     		sub	sp, sp, #24
+  96              	.LCFI4:
+  97              		.cfi_def_cfa_offset 32
+  98 0004 00AF     		add	r7, sp, #0
+  99              	.LCFI5:
+ 100              		.cfi_def_cfa_register 7
+ 101 0006 F860     		str	r0, [r7, #12]
+ 102 0008 B960     		str	r1, [r7, #8]
+ 103 000a 7A60     		str	r2, [r7, #4]
+  25:../Sources/DSP/Octave.c ****     OC->SquareTracker[1] =  OC->SquareTracker[0];
+ 104              		.loc 1 25 0
+ 105 000c 7B68     		ldr	r3, [r7, #4]
+ 106 000e 1A68     		ldr	r2, [r3, #0]
+ 107 0010 7B68     		ldr	r3, [r7, #4]
+ 108 0012 5A60     		str	r2, [r3, #4]
+  26:../Sources/DSP/Octave.c **** 
+  27:../Sources/DSP/Octave.c ****     if(OC->SquareTracker[0] < 0)
+ 109              		.loc 1 27 0
+ 110 0014 7B68     		ldr	r3, [r7, #4]
+ 111 0016 1B68     		ldr	r3, [r3, #0]
+ 112 0018 002B     		cmp	r3, #0
+ 113 001a 09DA     		bge	.L3
+  28:../Sources/DSP/Octave.c ****         {
+  29:../Sources/DSP/Octave.c ****             if(In > OC->HighThresh)
+ 114              		.loc 1 29 0
+ 115 001c 7B68     		ldr	r3, [r7, #4]
+ 116 001e 5A69     		ldr	r2, [r3, #20]
+ 117 0020 FB68     		ldr	r3, [r7, #12]
+ 118 0022 9A42     		cmp	r2, r3
+ 119 0024 0DDA     		bge	.L4
+  30:../Sources/DSP/Octave.c ****                 {
+  31:../Sources/DSP/Octave.c ****                     OC->SquareTracker[0] = 0x7FFFFFFF;
+ 120              		.loc 1 31 0
+ 121 0026 7B68     		ldr	r3, [r7, #4]
+ 122 0028 6FF00042 		mvn	r2, #-2147483648
+ 123 002c 1A60     		str	r2, [r3, #0]
+ 124 002e 08E0     		b	.L4
+ 125              	.L3:
+  32:../Sources/DSP/Octave.c ****                 }
+  33:../Sources/DSP/Octave.c ****         }
+  34:../Sources/DSP/Octave.c ****     else
+  35:../Sources/DSP/Octave.c ****         {
+  36:../Sources/DSP/Octave.c ****             if(In < OC->LowThresh)
+ 126              		.loc 1 36 0
+ 127 0030 7B68     		ldr	r3, [r7, #4]
+ 128 0032 9A69     		ldr	r2, [r3, #24]
+ 129 0034 FB68     		ldr	r3, [r7, #12]
+ 130 0036 9A42     		cmp	r2, r3
+ 131 0038 03DD     		ble	.L4
+  37:../Sources/DSP/Octave.c ****                 {
+  38:../Sources/DSP/Octave.c ****                     OC->SquareTracker[0] =  0x80000000;
+ 132              		.loc 1 38 0
+ 133 003a 7B68     		ldr	r3, [r7, #4]
+ 134 003c 4FF00042 		mov	r2, #-2147483648
+ 135 0040 1A60     		str	r2, [r3, #0]
+ 136              	.L4:
+  39:../Sources/DSP/Octave.c ****                 }
+  40:../Sources/DSP/Octave.c ****         }
+  41:../Sources/DSP/Octave.c **** 
+  42:../Sources/DSP/Octave.c ****     OC->Modulation[1] = OC->Modulation[0];
+ 137              		.loc 1 42 0
+ 138 0042 7B68     		ldr	r3, [r7, #4]
+ 139 0044 5A68     		ldr	r2, [r3, #4]
+ 140 0046 7B68     		ldr	r3, [r7, #4]
+ 141 0048 9A60     		str	r2, [r3, #8]
+  43:../Sources/DSP/Octave.c **** 
+  44:../Sources/DSP/Octave.c ****     if(OC->SquareTracker[0] > 0 && OC->SquareTracker[1] < 0)
+ 142              		.loc 1 44 0
+ 143 004a 7B68     		ldr	r3, [r7, #4]
+ 144 004c 1B68     		ldr	r3, [r3, #0]
+ 145 004e 002B     		cmp	r3, #0
+ 146 0050 12DD     		ble	.L5
+ 147              		.loc 1 44 0 is_stmt 0
+ 148 0052 7B68     		ldr	r3, [r7, #4]
+ 149 0054 5B68     		ldr	r3, [r3, #4]
+ 150 0056 002B     		cmp	r3, #0
+ 151 0058 0EDA     		bge	.L5
+  45:../Sources/DSP/Octave.c ****         {
+  46:../Sources/DSP/Octave.c ****             if(OC->Modulation[0] == 0x7FFFFFFF)
+ 152              		.loc 1 46 0 is_stmt 1
+ 153 005a 7B68     		ldr	r3, [r7, #4]
+ 154 005c 5A68     		ldr	r2, [r3, #4]
+ 155 005e 6FF00043 		mvn	r3, #-2147483648
+ 156 0062 9A42     		cmp	r2, r3
+ 157 0064 04D1     		bne	.L6
+  47:../Sources/DSP/Octave.c ****                 {
+  48:../Sources/DSP/Octave.c ****                     OC->Modulation[0] =  0x80000000; //make it -1
+ 158              		.loc 1 48 0
+ 159 0066 7B68     		ldr	r3, [r7, #4]
+ 160 0068 4FF00042 		mov	r2, #-2147483648
+ 161 006c 5A60     		str	r2, [r3, #4]
+ 162 006e 03E0     		b	.L5
+ 163              	.L6:
+  49:../Sources/DSP/Octave.c ****                 }
+  50:../Sources/DSP/Octave.c ****             else
+  51:../Sources/DSP/Octave.c ****                 {
+  52:../Sources/DSP/Octave.c ****                     OC->Modulation[0] = 0x7FFFFFFF; //make +1
+ 164              		.loc 1 52 0
+ 165 0070 7B68     		ldr	r3, [r7, #4]
+ 166 0072 6FF00042 		mvn	r2, #-2147483648
+ 167 0076 5A60     		str	r2, [r3, #4]
+ 168              	.L5:
+  53:../Sources/DSP/Octave.c ****                 }
+  54:../Sources/DSP/Octave.c ****         }
+  55:../Sources/DSP/Octave.c **** 
+  56:../Sources/DSP/Octave.c ****     if(OC->Modulation[0] > 0 && OC->Modulation[1] < 0)
+ 169              		.loc 1 56 0
+ 170 0078 7B68     		ldr	r3, [r7, #4]
+ 171 007a 5B68     		ldr	r3, [r3, #4]
+ 172 007c 002B     		cmp	r3, #0
+ 173 007e 12DD     		ble	.L7
+ 174              		.loc 1 56 0 is_stmt 0
+ 175 0080 7B68     		ldr	r3, [r7, #4]
+ 176 0082 9B68     		ldr	r3, [r3, #8]
+ 177 0084 002B     		cmp	r3, #0
+ 178 0086 0EDA     		bge	.L7
+  57:../Sources/DSP/Octave.c ****         {
+  58:../Sources/DSP/Octave.c ****             if(OC->Modulation[2] == 0x7FFFFFFF)
+ 179              		.loc 1 58 0 is_stmt 1
+ 180 0088 7B68     		ldr	r3, [r7, #4]
+ 181 008a DA68     		ldr	r2, [r3, #12]
+ 182 008c 6FF00043 		mvn	r3, #-2147483648
+ 183 0090 9A42     		cmp	r2, r3
+ 184 0092 04D1     		bne	.L8
+  59:../Sources/DSP/Octave.c ****                 {
+  60:../Sources/DSP/Octave.c ****                     OC->Modulation[2] =  0x80000000; //make it -1
+ 185              		.loc 1 60 0
+ 186 0094 7B68     		ldr	r3, [r7, #4]
+ 187 0096 4FF00042 		mov	r2, #-2147483648
+ 188 009a DA60     		str	r2, [r3, #12]
+ 189 009c 03E0     		b	.L7
+ 190              	.L8:
+  61:../Sources/DSP/Octave.c ****                 }
+  62:../Sources/DSP/Octave.c ****             else
+  63:../Sources/DSP/Octave.c ****                 {
+  64:../Sources/DSP/Octave.c ****                     OC->Modulation[2] = 0x7FFFFFFF; //make +1
+ 191              		.loc 1 64 0
+ 192 009e 7B68     		ldr	r3, [r7, #4]
+ 193 00a0 6FF00042 		mvn	r2, #-2147483648
+ 194 00a4 DA60     		str	r2, [r3, #12]
+ 195              	.L7:
+ 196              	.LBB2:
+  65:../Sources/DSP/Octave.c ****                 }
+  66:../Sources/DSP/Octave.c ****         }
+  67:../Sources/DSP/Octave.c **** 
+  68:../Sources/DSP/Octave.c ****     //Apply our 1/2 frequency modulation to the input waveform.
+  69:../Sources/DSP/Octave.c ****     *Out =  __SSAT(OC->Modulation[2],24);
+ 197              		.loc 1 69 0
+ 198 00a6 7B68     		ldr	r3, [r7, #4]
+ 199 00a8 DB68     		ldr	r3, [r3, #12]
+ 200 00aa 7B61     		str	r3, [r7, #20]
+ 201 00ac 7B69     		ldr	r3, [r7, #20]
+ 202              	@ 69 "../Sources/DSP/Octave.c" 1
+ 203 00ae 03F31704 		ssat r4, #24, r3
+ 204              	@ 0 "" 2
+ 205              		.thumb
+ 206 00b2 3C61     		str	r4, [r7, #16]
+ 207 00b4 3B69     		ldr	r3, [r7, #16]
+ 208              	.LBE2:
+ 209 00b6 1A46     		mov	r2, r3
+ 210 00b8 BB68     		ldr	r3, [r7, #8]
+ 211 00ba 1A60     		str	r2, [r3, #0]
+  70:../Sources/DSP/Octave.c ****     //*Out =  ((q63_t)OC->Modulation[2] * In)>>30;
+  71:../Sources/DSP/Octave.c **** }
+ 212              		.loc 1 71 0
+ 213 00bc 07F11807 		add	r7, r7, #24
+ 214 00c0 BD46     		mov	sp, r7
+ 215 00c2 90BC     		pop	{r4, r7}
+ 216 00c4 7047     		bx	lr
+ 217              		.cfi_endproc
+ 218              	.LFE129:
+ 220 00c6 00BF     		.text
+ 221              	.Letext0:
+ 222              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 223              		.file 3 "C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
+ 224              		.file 4 "../Sources/DSP/Octave.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Octave.c
+C:\Users\ehughes\AppData\Local\Temp\ccuz2VUi.s:19     .text.InitOctave:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccuz2VUi.s:24     .text.InitOctave:00000000 InitOctave
+C:\Users\ehughes\AppData\Local\Temp\ccuz2VUi.s:78     .text.Octave:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccuz2VUi.s:83     .text.Octave:00000000 Octave
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,505 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"uart.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.uart_init,"ax",%progbits
+  19              		.align	2
+  20              		.global	uart_init
+  21              		.thumb
+  22              		.thumb_func
+  24              	uart_init:
+  25              	.LFB0:
+  26              		.file 1 "../Sources/drivers/uart/uart.c"
+   1:../Sources/drivers/uart/uart.c **** /**************************************************************************************************
+   2:../Sources/drivers/uart/uart.c **** 
+   3:../Sources/drivers/uart/uart.c **** /**
+   4:../Sources/drivers/uart/uart.c **** Copyright (c) 2011 Freescale Semiconductor
+   5:../Sources/drivers/uart/uart.c **** Freescale Confidential Proprietary
+   6:../Sources/drivers/uart/uart.c **** \file        uart.c
+   7:../Sources/drivers/uart/uart.c **** \brief      Provide common UART routines for serial IO
+   8:../Sources/drivers/uart/uart.c **** \author     Freescale Semiconductor
+   9:../Sources/drivers/uart/uart.c **** \author
+  10:../Sources/drivers/uart/uart.c **** \version    1.0
+  11:../Sources/drivers/uart/uart.c **** \date       Sep 14, 2011
+  12:../Sources/drivers/uart/uart.c **** */
+  13:../Sources/drivers/uart/uart.c **** 
+  14:../Sources/drivers/uart/uart.c **** /**************************************************************************************************
+  15:../Sources/drivers/uart/uart.c **** * Include files
+  16:../Sources/drivers/uart/uart.c **** ***************************************************************************************************
+  17:../Sources/drivers/uart/uart.c **** 
+  18:../Sources/drivers/uart/uart.c **** #include "derivative.h"
+  19:../Sources/drivers/uart/uart.c **** #include "uart.h"
+  20:../Sources/drivers/uart/uart.c **** #include "../../cpu/arm_cm4.h"
+  21:../Sources/drivers/uart/uart.c **** 
+  22:../Sources/drivers/uart/uart.c **** /**************************************************************************************************
+  23:../Sources/drivers/uart/uart.c **** * Code of project wide FUNCTIONS
+  24:../Sources/drivers/uart/uart.c **** ***************************************************************************************************
+  25:../Sources/drivers/uart/uart.c **** 
+  26:../Sources/drivers/uart/uart.c **** /**
+  27:../Sources/drivers/uart/uart.c ****  * \brief   Initialize the UART for 8N1 operation, interrupts disabled, and
+  28:../Sources/drivers/uart/uart.c ****  * \brief    no hardware flow-control
+  29:../Sources/drivers/uart/uart.c **** 
+  30:../Sources/drivers/uart/uart.c **** 
+  31:../Sources/drivers/uart/uart.c ****  * \author
+  32:../Sources/drivers/uart/uart.c ****  * \param
+  33:../Sources/drivers/uart/uart.c ****  *         uartch      UART channel to initialize
+  34:../Sources/drivers/uart/uart.c ****  *         sysclk      UART module Clock in kHz(used to calculate baud)
+  35:../Sources/drivers/uart/uart.c ****  *         baud        UART baud rate
+  36:../Sources/drivers/uart/uart.c ****  * \return
+  37:../Sources/drivers/uart/uart.c ****        none
+  38:../Sources/drivers/uart/uart.c ****  * \todo
+  39:../Sources/drivers/uart/uart.c ****  * \warning  Since the UARTs are pinned out in multiple locations on most
+  40:../Sources/drivers/uart/uart.c ****  *       Kinetis devices, this driver does not enable UART pin functions.
+  41:../Sources/drivers/uart/uart.c ****  *       The desired pins should be enabled before calling this init function.
+  42:../Sources/drivers/uart/uart.c ****  */
+  43:../Sources/drivers/uart/uart.c **** 
+  44:../Sources/drivers/uart/uart.c **** void uart_init
+  45:../Sources/drivers/uart/uart.c **** (
+  46:../Sources/drivers/uart/uart.c ****     UART_MemMapPtr  uartch,
+  47:../Sources/drivers/uart/uart.c ****     int             sysclk,
+  48:../Sources/drivers/uart/uart.c ****     int             baud
+  49:../Sources/drivers/uart/uart.c **** )
+  50:../Sources/drivers/uart/uart.c **** {
+  27              		.loc 1 50 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 24
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 90B4     		push	{r4, r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 7, -4
+  37 0002 86B0     		sub	sp, sp, #24
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 32
+  40 0004 00AF     		add	r7, sp, #0
+  41              	.LCFI2:
+  42              		.cfi_def_cfa_register 7
+  43 0006 F860     		str	r0, [r7, #12]
+  44 0008 B960     		str	r1, [r7, #8]
+  45 000a 7A60     		str	r2, [r7, #4]
+  51:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  52:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  53:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  54:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  55:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  56:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  57:../Sources/drivers/uart/uart.c ****     register uint16 sbr, brfa;
+  58:../Sources/drivers/uart/uart.c ****     uint8           temp;
+  59:../Sources/drivers/uart/uart.c **** 
+  60:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  61:../Sources/drivers/uart/uart.c **** 
+  62:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  63:../Sources/drivers/uart/uart.c **** 
+  64:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  65:../Sources/drivers/uart/uart.c **** 
+  66:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  67:../Sources/drivers/uart/uart.c **** 
+  68:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  69:../Sources/drivers/uart/uart.c **** 
+  70:../Sources/drivers/uart/uart.c ****     /*~~~~~~~~~~~~~~~~~~~~~~*/
+  71:../Sources/drivers/uart/uart.c **** 
+  72:../Sources/drivers/uart/uart.c ****     /* Enable the clock to the selected UART */
+  73:../Sources/drivers/uart/uart.c **** 
+  74:../Sources/drivers/uart/uart.c ****     if(uartch == UART0_BASE_PTR)
+  46              		.loc 1 74 0
+  47 000c FA68     		ldr	r2, [r7, #12]
+  48 000e 4FF42043 		mov	r3, #40960
+  49 0012 C4F20603 		movt	r3, 16390
+  50 0016 9A42     		cmp	r2, r3
+  51 0018 14D1     		bne	.L2
+  75:../Sources/drivers/uart/uart.c ****         SIM_SCGC4 |= SIM_SCGC4_UART0_MASK;
+  52              		.loc 1 75 0
+  53 001a 4FF4E043 		mov	r3, #28672
+  54 001e C4F20403 		movt	r3, 16388
+  55 0022 4FF4E042 		mov	r2, #28672
+  56 0026 C4F20402 		movt	r2, 16388
+  57 002a 02F58152 		add	r2, r2, #4128
+  58 002e 02F11402 		add	r2, r2, #20
+  59 0032 1268     		ldr	r2, [r2, #0]
+  60 0034 42F48062 		orr	r2, r2, #1024
+  61 0038 03F58153 		add	r3, r3, #4128
+  62 003c 03F11403 		add	r3, r3, #20
+  63 0040 1A60     		str	r2, [r3, #0]
+  64 0042 36E0     		b	.L3
+  65              	.L2:
+  76:../Sources/drivers/uart/uart.c ****     else if(uartch == UART1_BASE_PTR)
+  66              		.loc 1 76 0
+  67 0044 FA68     		ldr	r2, [r7, #12]
+  68 0046 4FF43043 		mov	r3, #45056
+  69 004a C4F20603 		movt	r3, 16390
+  70 004e 9A42     		cmp	r2, r3
+  71 0050 14D1     		bne	.L4
+  77:../Sources/drivers/uart/uart.c ****         SIM_SCGC4 |= SIM_SCGC4_UART1_MASK;
+  72              		.loc 1 77 0
+  73 0052 4FF4E043 		mov	r3, #28672
+  74 0056 C4F20403 		movt	r3, 16388
+  75 005a 4FF4E042 		mov	r2, #28672
+  76 005e C4F20402 		movt	r2, 16388
+  77 0062 02F58152 		add	r2, r2, #4128
+  78 0066 02F11402 		add	r2, r2, #20
+  79 006a 1268     		ldr	r2, [r2, #0]
+  80 006c 42F40062 		orr	r2, r2, #2048
+  81 0070 03F58153 		add	r3, r3, #4128
+  82 0074 03F11403 		add	r3, r3, #20
+  83 0078 1A60     		str	r2, [r3, #0]
+  84 007a 1AE0     		b	.L3
+  85              	.L4:
+  78:../Sources/drivers/uart/uart.c ****     else if(uartch == UART2_BASE_PTR)
+  86              		.loc 1 78 0
+  87 007c FA68     		ldr	r2, [r7, #12]
+  88 007e 4FF44043 		mov	r3, #49152
+  89 0082 C4F20603 		movt	r3, 16390
+  90 0086 9A42     		cmp	r2, r3
+  91 0088 13D1     		bne	.L3
+  79:../Sources/drivers/uart/uart.c ****         SIM_SCGC4 |= SIM_SCGC4_UART2_MASK;
+  92              		.loc 1 79 0
+  93 008a 4FF4E043 		mov	r3, #28672
+  94 008e C4F20403 		movt	r3, 16388
+  95 0092 4FF4E042 		mov	r2, #28672
+  96 0096 C4F20402 		movt	r2, 16388
+  97 009a 02F58152 		add	r2, r2, #4128
+  98 009e 02F11402 		add	r2, r2, #20
+  99 00a2 1268     		ldr	r2, [r2, #0]
+ 100 00a4 42F48052 		orr	r2, r2, #4096
+ 101 00a8 03F58153 		add	r3, r3, #4128
+ 102 00ac 03F11403 		add	r3, r3, #20
+ 103 00b0 1A60     		str	r2, [r3, #0]
+ 104              	.L3:
+  80:../Sources/drivers/uart/uart.c **** 
+  81:../Sources/drivers/uart/uart.c **** #if 0
+  82:../Sources/drivers/uart/uart.c ****     else if(uartch == UART3_BASE_PTR)
+  83:../Sources/drivers/uart/uart.c ****         SIM_SCGC4 |= SIM_SCGC4_UART3_MASK;
+  84:../Sources/drivers/uart/uart.c ****     else if(uartch == UART4_BASE_PTR)
+  85:../Sources/drivers/uart/uart.c ****         SIM_SCGC1 |= SIM_SCGC1_UART4_MASK;
+  86:../Sources/drivers/uart/uart.c ****     else
+  87:../Sources/drivers/uart/uart.c ****         SIM_SCGC1 |= SIM_SCGC1_UART5_MASK;
+  88:../Sources/drivers/uart/uart.c **** 
+  89:../Sources/drivers/uart/uart.c **** #endif
+  90:../Sources/drivers/uart/uart.c ****     /* Make sure that the transmitter and receiver are disabled while we
+  91:../Sources/drivers/uart/uart.c ****      * change settings.
+  92:../Sources/drivers/uart/uart.c ****      */
+  93:../Sources/drivers/uart/uart.c ****     UART_C2_REG(uartch) &= ~(UART_C2_TE_MASK | UART_C2_RE_MASK);
+ 105              		.loc 1 93 0
+ 106 00b2 FB68     		ldr	r3, [r7, #12]
+ 107 00b4 DB78     		ldrb	r3, [r3, #3]
+ 108 00b6 DBB2     		uxtb	r3, r3
+ 109 00b8 23F00C03 		bic	r3, r3, #12
+ 110 00bc DAB2     		uxtb	r2, r3
+ 111 00be FB68     		ldr	r3, [r7, #12]
+ 112 00c0 DA70     		strb	r2, [r3, #3]
+  94:../Sources/drivers/uart/uart.c ****     /* Configure the UART for 8-bit mode, no parity */
+  95:../Sources/drivers/uart/uart.c ****     UART_C1_REG(uartch) = 0;    /* We need all default settings, so entire register is cleared */
+ 113              		.loc 1 95 0
+ 114 00c2 FB68     		ldr	r3, [r7, #12]
+ 115 00c4 4FF00002 		mov	r2, #0
+ 116 00c8 9A70     		strb	r2, [r3, #2]
+  96:../Sources/drivers/uart/uart.c ****     /* Calculate baud settings */
+  97:../Sources/drivers/uart/uart.c ****     sbr = (uint16) ((sysclk * 1000) / (baud * 16));
+ 117              		.loc 1 97 0
+ 118 00ca BB68     		ldr	r3, [r7, #8]
+ 119 00cc 4FF47A72 		mov	r2, #1000
+ 120 00d0 02FB03F2 		mul	r2, r2, r3
+ 121 00d4 7B68     		ldr	r3, [r7, #4]
+ 122 00d6 4FEA0313 		lsl	r3, r3, #4
+ 123 00da 92FBF3F3 		sdiv	r3, r2, r3
+ 124 00de 9CB2     		uxth	r4, r3
+  98:../Sources/drivers/uart/uart.c ****     /* Save off the current value of the UARTx_BDH except for the SBR field */
+  99:../Sources/drivers/uart/uart.c ****     temp = UART_BDH_REG(uartch) &~(UART_BDH_SBR(0x1F));
+ 125              		.loc 1 99 0
+ 126 00e0 FB68     		ldr	r3, [r7, #12]
+ 127 00e2 1B78     		ldrb	r3, [r3, #0]
+ 128 00e4 DBB2     		uxtb	r3, r3
+ 129 00e6 23F01F03 		bic	r3, r3, #31
+ 130 00ea FB75     		strb	r3, [r7, #23]
+ 100:../Sources/drivers/uart/uart.c ****     UART_BDH_REG(uartch) = temp | UART_BDH_SBR(((sbr & 0x1F00) >> 8));
+ 131              		.loc 1 100 0
+ 132 00ec 2346     		mov	r3, r4
+ 133 00ee 03F4F853 		and	r3, r3, #7936
+ 134 00f2 4FEA2323 		asr	r3, r3, #8
+ 135 00f6 DBB2     		uxtb	r3, r3
+ 136 00f8 03F01F03 		and	r3, r3, #31
+ 137 00fc DAB2     		uxtb	r2, r3
+ 138 00fe FB7D     		ldrb	r3, [r7, #23]
+ 139 0100 1343     		orrs	r3, r3, r2
+ 140 0102 DAB2     		uxtb	r2, r3
+ 141 0104 FB68     		ldr	r3, [r7, #12]
+ 142 0106 1A70     		strb	r2, [r3, #0]
+ 101:../Sources/drivers/uart/uart.c ****     UART_BDL_REG(uartch) = (uint8) (sbr & UART_BDL_SBR_MASK);
+ 143              		.loc 1 101 0
+ 144 0108 E2B2     		uxtb	r2, r4
+ 145 010a FB68     		ldr	r3, [r7, #12]
+ 146 010c 5A70     		strb	r2, [r3, #1]
+ 102:../Sources/drivers/uart/uart.c ****     /* Determine if a fractional divider is needed to get closer to the baud rate */
+ 103:../Sources/drivers/uart/uart.c ****     brfa = (((sysclk * 32000) / (baud * 16)) - (sbr * 32));
+ 147              		.loc 1 103 0
+ 148 010e BB68     		ldr	r3, [r7, #8]
+ 149 0110 4FF4FA42 		mov	r2, #32000
+ 150 0114 02FB03F2 		mul	r2, r2, r3
+ 151 0118 7B68     		ldr	r3, [r7, #4]
+ 152 011a 4FEA0313 		lsl	r3, r3, #4
+ 153 011e 92FBF3F3 		sdiv	r3, r2, r3
+ 154 0122 9AB2     		uxth	r2, r3
+ 155 0124 2346     		mov	r3, r4	@ movhi
+ 156 0126 1946     		mov	r1, r3	@ movhi
+ 157 0128 4FEAC121 		lsl	r1, r1, #11
+ 158 012c CB1A     		subs	r3, r1, r3
+ 159 012e 4FEA4313 		lsl	r3, r3, #5
+ 160 0132 9BB2     		uxth	r3, r3
+ 161 0134 D318     		adds	r3, r2, r3
+ 162 0136 9CB2     		uxth	r4, r3
+ 104:../Sources/drivers/uart/uart.c ****     /* Save off the current value of the UARTx_C4 register except for the BRFA field */
+ 105:../Sources/drivers/uart/uart.c ****     temp = UART_C4_REG(uartch) &~(UART_C4_BRFA(0x1F));
+ 163              		.loc 1 105 0
+ 164 0138 FB68     		ldr	r3, [r7, #12]
+ 165 013a 9B7A     		ldrb	r3, [r3, #10]
+ 166 013c DBB2     		uxtb	r3, r3
+ 167 013e 23F01F03 		bic	r3, r3, #31
+ 168 0142 FB75     		strb	r3, [r7, #23]
+ 106:../Sources/drivers/uart/uart.c ****     UART_C4_REG(uartch) = temp | UART_C4_BRFA(brfa);
+ 169              		.loc 1 106 0
+ 170 0144 E3B2     		uxtb	r3, r4
+ 171 0146 03F01F03 		and	r3, r3, #31
+ 172 014a DAB2     		uxtb	r2, r3
+ 173 014c FB7D     		ldrb	r3, [r7, #23]
+ 174 014e 1343     		orrs	r3, r3, r2
+ 175 0150 DAB2     		uxtb	r2, r3
+ 176 0152 FB68     		ldr	r3, [r7, #12]
+ 177 0154 9A72     		strb	r2, [r3, #10]
+ 107:../Sources/drivers/uart/uart.c ****     /* Enable receiver and transmitter */
+ 108:../Sources/drivers/uart/uart.c ****     UART_C2_REG(uartch) |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
+ 178              		.loc 1 108 0
+ 179 0156 FB68     		ldr	r3, [r7, #12]
+ 180 0158 DB78     		ldrb	r3, [r3, #3]
+ 181 015a DBB2     		uxtb	r3, r3
+ 182 015c 43F00C03 		orr	r3, r3, #12
+ 183 0160 DAB2     		uxtb	r2, r3
+ 184 0162 FB68     		ldr	r3, [r7, #12]
+ 185 0164 DA70     		strb	r2, [r3, #3]
+ 109:../Sources/drivers/uart/uart.c **** }
+ 186              		.loc 1 109 0
+ 187 0166 07F11807 		add	r7, r7, #24
+ 188 016a BD46     		mov	sp, r7
+ 189 016c 90BC     		pop	{r4, r7}
+ 190 016e 7047     		bx	lr
+ 191              		.cfi_endproc
+ 192              	.LFE0:
+ 194              		.section	.text.uart_getchar,"ax",%progbits
+ 195              		.align	2
+ 196              		.global	uart_getchar
+ 197              		.thumb
+ 198              		.thumb_func
+ 200              	uart_getchar:
+ 201              	.LFB1:
+ 110:../Sources/drivers/uart/uart.c **** 
+ 111:../Sources/drivers/uart/uart.c **** /**
+ 112:../Sources/drivers/uart/uart.c ****  * \brief   Wait for a character to be received on the specified UART
+ 113:../Sources/drivers/uart/uart.c ****  * \author
+ 114:../Sources/drivers/uart/uart.c ****  * \param    channel      UART channel to read from
+ 115:../Sources/drivers/uart/uart.c ****  * \return   the received character
+ 116:../Sources/drivers/uart/uart.c ****  * \todo
+ 117:../Sources/drivers/uart/uart.c ****  * \warning
+ 118:../Sources/drivers/uart/uart.c ****  */
+ 119:../Sources/drivers/uart/uart.c **** 
+ 120:../Sources/drivers/uart/uart.c **** char uart_getchar
+ 121:../Sources/drivers/uart/uart.c **** (UART_MemMapPtr  channel)
+ 122:../Sources/drivers/uart/uart.c **** {
+ 202              		.loc 1 122 0
+ 203              		.cfi_startproc
+ 204              		@ args = 0, pretend = 0, frame = 8
+ 205              		@ frame_needed = 1, uses_anonymous_args = 0
+ 206              		@ link register save eliminated.
+ 207 0000 80B4     		push	{r7}
+ 208              	.LCFI3:
+ 209              		.cfi_def_cfa_offset 4
+ 210              		.cfi_offset 7, -4
+ 211 0002 83B0     		sub	sp, sp, #12
+ 212              	.LCFI4:
+ 213              		.cfi_def_cfa_offset 16
+ 214 0004 00AF     		add	r7, sp, #0
+ 215              	.LCFI5:
+ 216              		.cfi_def_cfa_register 7
+ 217 0006 7860     		str	r0, [r7, #4]
+ 123:../Sources/drivers/uart/uart.c ****     /* Wait until character has been received */
+ 124:../Sources/drivers/uart/uart.c ****     while(!(UART_S1_REG(channel) & UART_S1_RDRF_MASK));
+ 218              		.loc 1 124 0
+ 219 0008 00BF     		nop
+ 220              	.L6:
+ 221              		.loc 1 124 0 is_stmt 0
+ 222 000a 7B68     		ldr	r3, [r7, #4]
+ 223 000c 1B79     		ldrb	r3, [r3, #4]
+ 224 000e DBB2     		uxtb	r3, r3
+ 225 0010 03F02003 		and	r3, r3, #32
+ 226 0014 002B     		cmp	r3, #0
+ 227 0016 F8D0     		beq	.L6
+ 125:../Sources/drivers/uart/uart.c **** 
+ 126:../Sources/drivers/uart/uart.c ****     /* Return the 8-bit data from the receiver */
+ 127:../Sources/drivers/uart/uart.c ****     return UART_D_REG(channel);
+ 228              		.loc 1 127 0 is_stmt 1
+ 229 0018 7B68     		ldr	r3, [r7, #4]
+ 230 001a DB79     		ldrb	r3, [r3, #7]
+ 231 001c DBB2     		uxtb	r3, r3
+ 128:../Sources/drivers/uart/uart.c **** }
+ 232              		.loc 1 128 0
+ 233 001e 1846     		mov	r0, r3
+ 234 0020 07F10C07 		add	r7, r7, #12
+ 235 0024 BD46     		mov	sp, r7
+ 236 0026 80BC     		pop	{r7}
+ 237 0028 7047     		bx	lr
+ 238              		.cfi_endproc
+ 239              	.LFE1:
+ 241 002a 00BF     		.section	.text.uart_putchar,"ax",%progbits
+ 242              		.align	2
+ 243              		.global	uart_putchar
+ 244              		.thumb
+ 245              		.thumb_func
+ 247              	uart_putchar:
+ 248              	.LFB2:
+ 129:../Sources/drivers/uart/uart.c **** 
+ 130:../Sources/drivers/uart/uart.c **** /**
+ 131:../Sources/drivers/uart/uart.c ****  * \brief   Wait for space in the UART Tx FIFO and then send a character
+ 132:../Sources/drivers/uart/uart.c ****  * \author
+ 133:../Sources/drivers/uart/uart.c ****  * \param    channel  UART channel to send to
+ 134:../Sources/drivers/uart/uart.c **** *  \param    ch	     character to send
+ 135:../Sources/drivers/uart/uart.c ****  * \return   none
+ 136:../Sources/drivers/uart/uart.c ****  * \todo
+ 137:../Sources/drivers/uart/uart.c ****  * \warning
+ 138:../Sources/drivers/uart/uart.c ****  */
+ 139:../Sources/drivers/uart/uart.c **** 
+ 140:../Sources/drivers/uart/uart.c **** void uart_putchar
+ 141:../Sources/drivers/uart/uart.c **** (
+ 142:../Sources/drivers/uart/uart.c ****     UART_MemMapPtr  channel,
+ 143:../Sources/drivers/uart/uart.c ****     char            ch
+ 144:../Sources/drivers/uart/uart.c **** )
+ 145:../Sources/drivers/uart/uart.c **** {
+ 249              		.loc 1 145 0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 8
+ 252              		@ frame_needed = 1, uses_anonymous_args = 0
+ 253              		@ link register save eliminated.
+ 254 0000 80B4     		push	{r7}
+ 255              	.LCFI6:
+ 256              		.cfi_def_cfa_offset 4
+ 257              		.cfi_offset 7, -4
+ 258 0002 83B0     		sub	sp, sp, #12
+ 259              	.LCFI7:
+ 260              		.cfi_def_cfa_offset 16
+ 261 0004 00AF     		add	r7, sp, #0
+ 262              	.LCFI8:
+ 263              		.cfi_def_cfa_register 7
+ 264 0006 7860     		str	r0, [r7, #4]
+ 265 0008 0B46     		mov	r3, r1
+ 266 000a FB70     		strb	r3, [r7, #3]
+ 146:../Sources/drivers/uart/uart.c ****     /* Wait until space is available in the FIFO */
+ 147:../Sources/drivers/uart/uart.c ****     while(!(UART_S1_REG(channel) & UART_S1_TDRE_MASK));
+ 267              		.loc 1 147 0
+ 268 000c 00BF     		nop
+ 269              	.L9:
+ 270              		.loc 1 147 0 is_stmt 0
+ 271 000e 7B68     		ldr	r3, [r7, #4]
+ 272 0010 1B79     		ldrb	r3, [r3, #4]
+ 273 0012 DBB2     		uxtb	r3, r3
+ 274 0014 DBB2     		uxtb	r3, r3
+ 275 0016 5BB2     		sxtb	r3, r3
+ 276 0018 002B     		cmp	r3, #0
+ 277 001a F8DA     		bge	.L9
+ 148:../Sources/drivers/uart/uart.c **** 
+ 149:../Sources/drivers/uart/uart.c ****     /* Send the character */
+ 150:../Sources/drivers/uart/uart.c ****     UART_D_REG(channel) = (uint8) ch;
+ 278              		.loc 1 150 0 is_stmt 1
+ 279 001c 7B68     		ldr	r3, [r7, #4]
+ 280 001e FA78     		ldrb	r2, [r7, #3]
+ 281 0020 DA71     		strb	r2, [r3, #7]
+ 151:../Sources/drivers/uart/uart.c **** }
+ 282              		.loc 1 151 0
+ 283 0022 07F10C07 		add	r7, r7, #12
+ 284 0026 BD46     		mov	sp, r7
+ 285 0028 80BC     		pop	{r7}
+ 286 002a 7047     		bx	lr
+ 287              		.cfi_endproc
+ 288              	.LFE2:
+ 290              		.section	.text.uart_getchar_present,"ax",%progbits
+ 291              		.align	2
+ 292              		.global	uart_getchar_present
+ 293              		.thumb
+ 294              		.thumb_func
+ 296              	uart_getchar_present:
+ 297              	.LFB3:
+ 152:../Sources/drivers/uart/uart.c **** 
+ 153:../Sources/drivers/uart/uart.c **** /**
+ 154:../Sources/drivers/uart/uart.c ****  * \brief   Check to see if a character has been received
+ 155:../Sources/drivers/uart/uart.c ****  * \author
+ 156:../Sources/drivers/uart/uart.c ****  * \param    channel      UART channel to check for a character
+ 157:../Sources/drivers/uart/uart.c **** *  \param    ch	     character to send
+ 158:../Sources/drivers/uart/uart.c ****  * \return    0       No character received
+ 159:../Sources/drivers/uart/uart.c ****  * \return    1       Character has been received
+ 160:../Sources/drivers/uart/uart.c ****  * \todo
+ 161:../Sources/drivers/uart/uart.c ****  * \warning
+ 162:../Sources/drivers/uart/uart.c ****  */
+ 163:../Sources/drivers/uart/uart.c **** 
+ 164:../Sources/drivers/uart/uart.c **** int uart_getchar_present
+ 165:../Sources/drivers/uart/uart.c **** (UART_MemMapPtr  channel)
+ 166:../Sources/drivers/uart/uart.c **** {
+ 298              		.loc 1 166 0
+ 299              		.cfi_startproc
+ 300              		@ args = 0, pretend = 0, frame = 8
+ 301              		@ frame_needed = 1, uses_anonymous_args = 0
+ 302              		@ link register save eliminated.
+ 303 0000 80B4     		push	{r7}
+ 304              	.LCFI9:
+ 305              		.cfi_def_cfa_offset 4
+ 306              		.cfi_offset 7, -4
+ 307 0002 83B0     		sub	sp, sp, #12
+ 308              	.LCFI10:
+ 309              		.cfi_def_cfa_offset 16
+ 310 0004 00AF     		add	r7, sp, #0
+ 311              	.LCFI11:
+ 312              		.cfi_def_cfa_register 7
+ 313 0006 7860     		str	r0, [r7, #4]
+ 167:../Sources/drivers/uart/uart.c ****     return(UART_S1_REG(channel) & UART_S1_RDRF_MASK);
+ 314              		.loc 1 167 0
+ 315 0008 7B68     		ldr	r3, [r7, #4]
+ 316 000a 1B79     		ldrb	r3, [r3, #4]
+ 317 000c DBB2     		uxtb	r3, r3
+ 318 000e 03F02003 		and	r3, r3, #32
+ 168:../Sources/drivers/uart/uart.c **** }
+ 319              		.loc 1 168 0
+ 320 0012 1846     		mov	r0, r3
+ 321 0014 07F10C07 		add	r7, r7, #12
+ 322 0018 BD46     		mov	sp, r7
+ 323 001a 80BC     		pop	{r7}
+ 324 001c 7047     		bx	lr
+ 325              		.cfi_endproc
+ 326              	.LFE3:
+ 328 001e 00BF     		.text
+ 329              	.Letext0:
+ 330              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 331              		.file 3 "C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+ 332              		.file 4 "../Sources/drivers/uart/../../cpu/arm_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart.c
+C:\Users\ehughes\AppData\Local\Temp\ccLx6jv3.s:19     .text.uart_init:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccLx6jv3.s:24     .text.uart_init:00000000 uart_init
+C:\Users\ehughes\AppData\Local\Temp\ccLx6jv3.s:195    .text.uart_getchar:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccLx6jv3.s:200    .text.uart_getchar:00000000 uart_getchar
+C:\Users\ehughes\AppData\Local\Temp\ccLx6jv3.s:242    .text.uart_putchar:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccLx6jv3.s:247    .text.uart_putchar:00000000 uart_putchar
+C:\Users\ehughes\AppData\Local\Temp\ccLx6jv3.s:291    .text.uart_getchar_present:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccLx6jv3.s:296    .text.uart_getchar_present:00000000 uart_getchar_present
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

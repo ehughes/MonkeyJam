@@ -1,0 +1,712 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"arm_cm4.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.stop,"ax",%progbits
+  19              		.align	2
+  20              		.global	stop
+  21              		.thumb
+  22              		.thumb_func
+  24              	stop:
+  25              	.LFB0:
+  26              		.file 1 "../Sources/cpu/arm_cm4.c"
+   1:../Sources/cpu/arm_cm4.c **** /*
+   2:../Sources/cpu/arm_cm4.c ****  * File:		arm_cm4.c
+   3:../Sources/cpu/arm_cm4.c ****  * Purpose:		Generic high-level routines for ARM Cortex M4 processors
+   4:../Sources/cpu/arm_cm4.c ****  *
+   5:../Sources/cpu/arm_cm4.c ****  * Notes:
+   6:../Sources/cpu/arm_cm4.c ****  */
+   7:../Sources/cpu/arm_cm4.c **** 
+   8:../Sources/cpu/arm_cm4.c **** /***********************************************************************/
+   9:../Sources/cpu/arm_cm4.c **** 
+  10:../Sources/cpu/arm_cm4.c **** /*
+  11:../Sources/cpu/arm_cm4.c ****  * Configures the ARM system control register for STOP (deep sleep) mode
+  12:../Sources/cpu/arm_cm4.c ****  * and then executes the WFI instruction to enter the mode.
+  13:../Sources/cpu/arm_cm4.c ****  *
+  14:../Sources/cpu/arm_cm4.c ****  * Parameters:
+  15:../Sources/cpu/arm_cm4.c ****  * none
+  16:../Sources/cpu/arm_cm4.c ****  *
+  17:../Sources/cpu/arm_cm4.c ****  * Note: Might want to change this later to allow for passing in a parameter
+  18:../Sources/cpu/arm_cm4.c ****  *       to optionally set the sleep on exit bit.
+  19:../Sources/cpu/arm_cm4.c ****  */
+  20:../Sources/cpu/arm_cm4.c **** 
+  21:../Sources/cpu/arm_cm4.c **** #include "derivative.h" /* include peripheral declarations */
+  22:../Sources/cpu/arm_cm4.c **** #include "arm_cm4.h"
+  23:../Sources/cpu/arm_cm4.c **** 
+  24:../Sources/cpu/arm_cm4.c **** /* */
+  25:../Sources/cpu/arm_cm4.c **** 
+  26:../Sources/cpu/arm_cm4.c **** void stop(void)
+  27:../Sources/cpu/arm_cm4.c **** {
+  27              		.loc 1 27 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
+  28:../Sources/cpu/arm_cm4.c ****     /* Set the SLEEPDEEP bit to enable deep sleep mode (STOP) */
+  29:../Sources/cpu/arm_cm4.c ****     SCB_SCR |= SCB_SCR_SLEEPDEEP_MASK;
+  39              		.loc 1 29 0
+  40 0004 4FF0E023 		mov	r3, #-536813568
+  41 0008 4FF0E022 		mov	r2, #-536813568
+  42 000c D2F8102D 		ldr	r2, [r2, #3344]
+  43 0010 42F00402 		orr	r2, r2, #4
+  44 0014 C3F8102D 		str	r2, [r3, #3344]
+  30:../Sources/cpu/arm_cm4.c ****     /* WFI instruction will start entry into STOP mode */
+  31:../Sources/cpu/arm_cm4.c **** #ifndef KEIL
+  32:../Sources/cpu/arm_cm4.c ****     asm("WFI");
+  45              		.loc 1 32 0
+  46              	@ 32 "../Sources/cpu/arm_cm4.c" 1
+  47 0018 30BF     		WFI
+  48              	@ 0 "" 2
+  33:../Sources/cpu/arm_cm4.c **** #else
+  34:../Sources/cpu/arm_cm4.c ****     __wfi();
+  35:../Sources/cpu/arm_cm4.c **** #endif
+  36:../Sources/cpu/arm_cm4.c **** }
+  49              		.loc 1 36 0
+  50              		.thumb
+  51 001a BD46     		mov	sp, r7
+  52 001c 80BC     		pop	{r7}
+  53 001e 7047     		bx	lr
+  54              		.cfi_endproc
+  55              	.LFE0:
+  57              		.section	.text.wait,"ax",%progbits
+  58              		.align	2
+  59              		.global	wait
+  60              		.thumb
+  61              		.thumb_func
+  63              	wait:
+  64              	.LFB1:
+  37:../Sources/cpu/arm_cm4.c **** 
+  38:../Sources/cpu/arm_cm4.c **** /***********************************************************************/
+  39:../Sources/cpu/arm_cm4.c **** 
+  40:../Sources/cpu/arm_cm4.c **** /*
+  41:../Sources/cpu/arm_cm4.c ****  * Configures the ARM system control register for WAIT (sleep) mode
+  42:../Sources/cpu/arm_cm4.c ****  * and then executes the WFI instruction to enter the mode.
+  43:../Sources/cpu/arm_cm4.c ****  *
+  44:../Sources/cpu/arm_cm4.c ****  * Parameters:
+  45:../Sources/cpu/arm_cm4.c ****  * none
+  46:../Sources/cpu/arm_cm4.c ****  *
+  47:../Sources/cpu/arm_cm4.c ****  * Note: Might want to change this later to allow for passing in a parameter
+  48:../Sources/cpu/arm_cm4.c ****  *       to optionally set the sleep on exit bit.
+  49:../Sources/cpu/arm_cm4.c ****  */
+  50:../Sources/cpu/arm_cm4.c **** 
+  51:../Sources/cpu/arm_cm4.c **** void wait(void)
+  52:../Sources/cpu/arm_cm4.c **** {
+  65              		.loc 1 52 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 1, uses_anonymous_args = 0
+  69              		@ link register save eliminated.
+  70 0000 80B4     		push	{r7}
+  71              	.LCFI2:
+  72              		.cfi_def_cfa_offset 4
+  73              		.cfi_offset 7, -4
+  74 0002 00AF     		add	r7, sp, #0
+  75              	.LCFI3:
+  76              		.cfi_def_cfa_register 7
+  53:../Sources/cpu/arm_cm4.c ****     /* Clear the SLEEPDEEP bit to make sure we go into WAIT (sleep) mode instead
+  54:../Sources/cpu/arm_cm4.c ****      * of deep sleep.
+  55:../Sources/cpu/arm_cm4.c ****      */
+  56:../Sources/cpu/arm_cm4.c ****     SCB_SCR &= ~SCB_SCR_SLEEPDEEP_MASK;
+  77              		.loc 1 56 0
+  78 0004 4FF0E023 		mov	r3, #-536813568
+  79 0008 4FF0E022 		mov	r2, #-536813568
+  80 000c D2F8102D 		ldr	r2, [r2, #3344]
+  81 0010 22F00402 		bic	r2, r2, #4
+  82 0014 C3F8102D 		str	r2, [r3, #3344]
+  57:../Sources/cpu/arm_cm4.c ****     /* WFI instruction will start entry into WAIT mode */
+  58:../Sources/cpu/arm_cm4.c **** #ifndef KEIL
+  59:../Sources/cpu/arm_cm4.c ****     asm("WFI");
+  83              		.loc 1 59 0
+  84              	@ 59 "../Sources/cpu/arm_cm4.c" 1
+  85 0018 30BF     		WFI
+  86              	@ 0 "" 2
+  60:../Sources/cpu/arm_cm4.c **** #else
+  61:../Sources/cpu/arm_cm4.c ****     __wfi();
+  62:../Sources/cpu/arm_cm4.c **** #endif
+  63:../Sources/cpu/arm_cm4.c **** }
+  87              		.loc 1 63 0
+  88              		.thumb
+  89 001a BD46     		mov	sp, r7
+  90 001c 80BC     		pop	{r7}
+  91 001e 7047     		bx	lr
+  92              		.cfi_endproc
+  93              	.LFE1:
+  95              		.section	.text.write_vtor,"ax",%progbits
+  96              		.align	2
+  97              		.global	write_vtor
+  98              		.thumb
+  99              		.thumb_func
+ 101              	write_vtor:
+ 102              	.LFB2:
+  64:../Sources/cpu/arm_cm4.c **** 
+  65:../Sources/cpu/arm_cm4.c **** /***********************************************************************/
+  66:../Sources/cpu/arm_cm4.c **** 
+  67:../Sources/cpu/arm_cm4.c **** /*
+  68:../Sources/cpu/arm_cm4.c ****  * Change the value of the vector table offset register to the specified value.
+  69:../Sources/cpu/arm_cm4.c ****  *
+  70:../Sources/cpu/arm_cm4.c ****  * Parameters:
+  71:../Sources/cpu/arm_cm4.c ****  * vtor     new value to write to the VTOR
+  72:../Sources/cpu/arm_cm4.c ****  */
+  73:../Sources/cpu/arm_cm4.c **** 
+  74:../Sources/cpu/arm_cm4.c **** void write_vtor
+  75:../Sources/cpu/arm_cm4.c **** (int vtor)
+  76:../Sources/cpu/arm_cm4.c **** {
+ 103              		.loc 1 76 0
+ 104              		.cfi_startproc
+ 105              		@ args = 0, pretend = 0, frame = 8
+ 106              		@ frame_needed = 1, uses_anonymous_args = 0
+ 107              		@ link register save eliminated.
+ 108 0000 80B4     		push	{r7}
+ 109              	.LCFI4:
+ 110              		.cfi_def_cfa_offset 4
+ 111              		.cfi_offset 7, -4
+ 112 0002 83B0     		sub	sp, sp, #12
+ 113              	.LCFI5:
+ 114              		.cfi_def_cfa_offset 16
+ 115 0004 00AF     		add	r7, sp, #0
+ 116              	.LCFI6:
+ 117              		.cfi_def_cfa_register 7
+ 118 0006 7860     		str	r0, [r7, #4]
+  77:../Sources/cpu/arm_cm4.c ****     /* Write the VTOR with the new value */
+  78:../Sources/cpu/arm_cm4.c ****     SCB_VTOR = vtor;
+ 119              		.loc 1 78 0
+ 120 0008 4FF0E023 		mov	r3, #-536813568
+ 121 000c 7A68     		ldr	r2, [r7, #4]
+ 122 000e C3F8082D 		str	r2, [r3, #3336]
+  79:../Sources/cpu/arm_cm4.c **** }
+ 123              		.loc 1 79 0
+ 124 0012 07F10C07 		add	r7, r7, #12
+ 125 0016 BD46     		mov	sp, r7
+ 126 0018 80BC     		pop	{r7}
+ 127 001a 7047     		bx	lr
+ 128              		.cfi_endproc
+ 129              	.LFE2:
+ 131              		.section	.text.enable_irq,"ax",%progbits
+ 132              		.align	2
+ 133              		.global	enable_irq
+ 134              		.thumb
+ 135              		.thumb_func
+ 137              	enable_irq:
+ 138              	.LFB3:
+  80:../Sources/cpu/arm_cm4.c **** 
+  81:../Sources/cpu/arm_cm4.c **** /***********************************************************************/
+  82:../Sources/cpu/arm_cm4.c **** 
+  83:../Sources/cpu/arm_cm4.c **** /*
+  84:../Sources/cpu/arm_cm4.c ****  * Initialize the NVIC to enable the specified IRQ.
+  85:../Sources/cpu/arm_cm4.c ****  *
+  86:../Sources/cpu/arm_cm4.c ****  * NOTE: The function only initializes the NVIC to enable a single IRQ.
+  87:../Sources/cpu/arm_cm4.c ****  * Interrupts will also need to be enabled in the ARM core. This can be
+  88:../Sources/cpu/arm_cm4.c ****  * done using the EnableInterrupts macro.
+  89:../Sources/cpu/arm_cm4.c ****  *
+  90:../Sources/cpu/arm_cm4.c ****  * Parameters:
+  91:../Sources/cpu/arm_cm4.c ****  * irq    irq number to be enabled (the irq number NOT the vector number)
+  92:../Sources/cpu/arm_cm4.c ****  */
+  93:../Sources/cpu/arm_cm4.c **** 
+  94:../Sources/cpu/arm_cm4.c **** void enable_irq
+  95:../Sources/cpu/arm_cm4.c **** (int irq)
+  96:../Sources/cpu/arm_cm4.c **** {
+ 139              		.loc 1 96 0
+ 140              		.cfi_startproc
+ 141              		@ args = 0, pretend = 0, frame = 16
+ 142              		@ frame_needed = 1, uses_anonymous_args = 0
+ 143              		@ link register save eliminated.
+ 144 0000 80B4     		push	{r7}
+ 145              	.LCFI7:
+ 146              		.cfi_def_cfa_offset 4
+ 147              		.cfi_offset 7, -4
+ 148 0002 85B0     		sub	sp, sp, #20
+ 149              	.LCFI8:
+ 150              		.cfi_def_cfa_offset 24
+ 151 0004 00AF     		add	r7, sp, #0
+ 152              	.LCFI9:
+ 153              		.cfi_def_cfa_register 7
+ 154 0006 7860     		str	r0, [r7, #4]
+  97:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+  98:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+  99:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 100:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 101:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 102:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 103:../Sources/cpu/arm_cm4.c ****     int div;
+ 104:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 105:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 106:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 107:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 108:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 109:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 110:../Sources/cpu/arm_cm4.c ****     /* Make sure that the IRQ is an allowable number. Right now up to 61 is
+ 111:../Sources/cpu/arm_cm4.c ****      * used.
+ 112:../Sources/cpu/arm_cm4.c ****      */
+ 113:../Sources/cpu/arm_cm4.c ****     /// if (irq > 61)
+ 114:../Sources/cpu/arm_cm4.c ****     //printf("\nERR! Invalid IRQ value passed to enable irq function!\n");
+ 115:../Sources/cpu/arm_cm4.c ****     /* Determine which of the NVICISERs corresponds to the irq */
+ 116:../Sources/cpu/arm_cm4.c ****     div = irq / 32;
+ 155              		.loc 1 116 0
+ 156 0008 7B68     		ldr	r3, [r7, #4]
+ 157 000a 002B     		cmp	r3, #0
+ 158 000c 01DA     		bge	.L5
+ 159 000e 03F11F03 		add	r3, r3, #31
+ 160              	.L5:
+ 161 0012 4FEA6313 		asr	r3, r3, #5
+ 162 0016 FB60     		str	r3, [r7, #12]
+ 117:../Sources/cpu/arm_cm4.c **** 
+ 118:../Sources/cpu/arm_cm4.c ****     switch(div)
+ 163              		.loc 1 118 0
+ 164 0018 FB68     		ldr	r3, [r7, #12]
+ 165 001a 012B     		cmp	r3, #1
+ 166 001c 34D0     		beq	.L8
+ 167 001e 022B     		cmp	r3, #2
+ 168 0020 62D0     		beq	.L9
+ 169 0022 002B     		cmp	r3, #0
+ 170 0024 40F09080 		bne	.L4
+ 171              	.L7:
+ 119:../Sources/cpu/arm_cm4.c ****         {
+ 120:../Sources/cpu/arm_cm4.c ****             case 0x0:
+ 121:../Sources/cpu/arm_cm4.c ****                 NVICICPR0 = 1 << (irq % 32);
+ 172              		.loc 1 121 0
+ 173 0028 4FF46142 		mov	r2, #57600
+ 174 002c CEF20002 		movt	r2, 57344
+ 175 0030 7968     		ldr	r1, [r7, #4]
+ 176 0032 4FF01F03 		mov	r3, #31
+ 177 0036 C8F20003 		movt	r3, 32768
+ 178 003a 0B40     		ands	r3, r3, r1
+ 179 003c 002B     		cmp	r3, #0
+ 180 003e 05DA     		bge	.L10
+ 181 0040 03F1FF33 		add	r3, r3, #-1
+ 182 0044 63F01F03 		orn	r3, r3, #31
+ 183 0048 03F10103 		add	r3, r3, #1
+ 184              	.L10:
+ 185 004c 4FF00101 		mov	r1, #1
+ 186 0050 01FA03F3 		lsl	r3, r1, r3
+ 187 0054 C2F88031 		str	r3, [r2, #384]
+ 122:../Sources/cpu/arm_cm4.c ****                 NVICISER0 = 1 << (irq % 32);
+ 188              		.loc 1 122 0
+ 189 0058 4FF46142 		mov	r2, #57600
+ 190 005c CEF20002 		movt	r2, 57344
+ 191 0060 7968     		ldr	r1, [r7, #4]
+ 192 0062 4FF01F03 		mov	r3, #31
+ 193 0066 C8F20003 		movt	r3, 32768
+ 194 006a 0B40     		ands	r3, r3, r1
+ 195 006c 002B     		cmp	r3, #0
+ 196 006e 05DA     		bge	.L11
+ 197 0070 03F1FF33 		add	r3, r3, #-1
+ 198 0074 63F01F03 		orn	r3, r3, #31
+ 199 0078 03F10103 		add	r3, r3, #1
+ 200              	.L11:
+ 201 007c 4FF00101 		mov	r1, #1
+ 202 0080 01FA03F3 		lsl	r3, r1, r3
+ 203 0084 1360     		str	r3, [r2, #0]
+ 123:../Sources/cpu/arm_cm4.c ****                 break;
+ 204              		.loc 1 123 0
+ 205 0086 5FE0     		b	.L4
+ 206              	.L8:
+ 124:../Sources/cpu/arm_cm4.c **** 
+ 125:../Sources/cpu/arm_cm4.c ****             case 0x1:
+ 126:../Sources/cpu/arm_cm4.c ****                 NVICICPR1 = 1 << (irq % 32);
+ 207              		.loc 1 126 0
+ 208 0088 4FF46142 		mov	r2, #57600
+ 209 008c CEF20002 		movt	r2, 57344
+ 210 0090 7968     		ldr	r1, [r7, #4]
+ 211 0092 4FF01F03 		mov	r3, #31
+ 212 0096 C8F20003 		movt	r3, 32768
+ 213 009a 0B40     		ands	r3, r3, r1
+ 214 009c 002B     		cmp	r3, #0
+ 215 009e 05DA     		bge	.L12
+ 216 00a0 03F1FF33 		add	r3, r3, #-1
+ 217 00a4 63F01F03 		orn	r3, r3, #31
+ 218 00a8 03F10103 		add	r3, r3, #1
+ 219              	.L12:
+ 220 00ac 4FF00101 		mov	r1, #1
+ 221 00b0 01FA03F3 		lsl	r3, r1, r3
+ 222 00b4 C2F88431 		str	r3, [r2, #388]
+ 127:../Sources/cpu/arm_cm4.c ****                 NVICISER1 = 1 << (irq % 32);
+ 223              		.loc 1 127 0
+ 224 00b8 4FF46142 		mov	r2, #57600
+ 225 00bc CEF20002 		movt	r2, 57344
+ 226 00c0 7968     		ldr	r1, [r7, #4]
+ 227 00c2 4FF01F03 		mov	r3, #31
+ 228 00c6 C8F20003 		movt	r3, 32768
+ 229 00ca 0B40     		ands	r3, r3, r1
+ 230 00cc 002B     		cmp	r3, #0
+ 231 00ce 05DA     		bge	.L13
+ 232 00d0 03F1FF33 		add	r3, r3, #-1
+ 233 00d4 63F01F03 		orn	r3, r3, #31
+ 234 00d8 03F10103 		add	r3, r3, #1
+ 235              	.L13:
+ 236 00dc 4FF00101 		mov	r1, #1
+ 237 00e0 01FA03F3 		lsl	r3, r1, r3
+ 238 00e4 5360     		str	r3, [r2, #4]
+ 128:../Sources/cpu/arm_cm4.c ****                 break;
+ 239              		.loc 1 128 0
+ 240 00e6 2FE0     		b	.L4
+ 241              	.L9:
+ 129:../Sources/cpu/arm_cm4.c **** 
+ 130:../Sources/cpu/arm_cm4.c ****             case 0x2:
+ 131:../Sources/cpu/arm_cm4.c ****                 NVICICPR2 = 1 << (irq % 32);
+ 242              		.loc 1 131 0
+ 243 00e8 4FF46142 		mov	r2, #57600
+ 244 00ec CEF20002 		movt	r2, 57344
+ 245 00f0 7968     		ldr	r1, [r7, #4]
+ 246 00f2 4FF01F03 		mov	r3, #31
+ 247 00f6 C8F20003 		movt	r3, 32768
+ 248 00fa 0B40     		ands	r3, r3, r1
+ 249 00fc 002B     		cmp	r3, #0
+ 250 00fe 05DA     		bge	.L14
+ 251 0100 03F1FF33 		add	r3, r3, #-1
+ 252 0104 63F01F03 		orn	r3, r3, #31
+ 253 0108 03F10103 		add	r3, r3, #1
+ 254              	.L14:
+ 255 010c 4FF00101 		mov	r1, #1
+ 256 0110 01FA03F3 		lsl	r3, r1, r3
+ 257 0114 C2F88831 		str	r3, [r2, #392]
+ 132:../Sources/cpu/arm_cm4.c ****                 NVICISER2 = 1 << (irq % 32);
+ 258              		.loc 1 132 0
+ 259 0118 4FF46142 		mov	r2, #57600
+ 260 011c CEF20002 		movt	r2, 57344
+ 261 0120 7968     		ldr	r1, [r7, #4]
+ 262 0122 4FF01F03 		mov	r3, #31
+ 263 0126 C8F20003 		movt	r3, 32768
+ 264 012a 0B40     		ands	r3, r3, r1
+ 265 012c 002B     		cmp	r3, #0
+ 266 012e 05DA     		bge	.L15
+ 267 0130 03F1FF33 		add	r3, r3, #-1
+ 268 0134 63F01F03 		orn	r3, r3, #31
+ 269 0138 03F10103 		add	r3, r3, #1
+ 270              	.L15:
+ 271 013c 4FF00101 		mov	r1, #1
+ 272 0140 01FA03F3 		lsl	r3, r1, r3
+ 273 0144 9360     		str	r3, [r2, #8]
+ 133:../Sources/cpu/arm_cm4.c ****                 break;
+ 274              		.loc 1 133 0
+ 275 0146 00BF     		nop
+ 276              	.L4:
+ 134:../Sources/cpu/arm_cm4.c ****         }
+ 135:../Sources/cpu/arm_cm4.c **** }
+ 277              		.loc 1 135 0
+ 278 0148 07F11407 		add	r7, r7, #20
+ 279 014c BD46     		mov	sp, r7
+ 280 014e 80BC     		pop	{r7}
+ 281 0150 7047     		bx	lr
+ 282              		.cfi_endproc
+ 283              	.LFE3:
+ 285 0152 00BF     		.section	.text.disable_irq,"ax",%progbits
+ 286              		.align	2
+ 287              		.global	disable_irq
+ 288              		.thumb
+ 289              		.thumb_func
+ 291              	disable_irq:
+ 292              	.LFB4:
+ 136:../Sources/cpu/arm_cm4.c **** 
+ 137:../Sources/cpu/arm_cm4.c **** /***********************************************************************/
+ 138:../Sources/cpu/arm_cm4.c **** 
+ 139:../Sources/cpu/arm_cm4.c **** /*
+ 140:../Sources/cpu/arm_cm4.c ****  * Initialize the NVIC to disable the specified IRQ.
+ 141:../Sources/cpu/arm_cm4.c ****  *
+ 142:../Sources/cpu/arm_cm4.c ****  * NOTE: The function only initializes the NVIC to disable a single IRQ.
+ 143:../Sources/cpu/arm_cm4.c ****  * If you want to disable all interrupts, then use the DisableInterrupts
+ 144:../Sources/cpu/arm_cm4.c ****  * macro instead.
+ 145:../Sources/cpu/arm_cm4.c ****  *
+ 146:../Sources/cpu/arm_cm4.c ****  * Parameters:
+ 147:../Sources/cpu/arm_cm4.c ****  * irq    irq number to be disabled (the irq number NOT the vector number)
+ 148:../Sources/cpu/arm_cm4.c ****  */
+ 149:../Sources/cpu/arm_cm4.c **** 
+ 150:../Sources/cpu/arm_cm4.c **** void disable_irq
+ 151:../Sources/cpu/arm_cm4.c **** (int irq)
+ 152:../Sources/cpu/arm_cm4.c **** {
+ 293              		.loc 1 152 0
+ 294              		.cfi_startproc
+ 295              		@ args = 0, pretend = 0, frame = 16
+ 296              		@ frame_needed = 1, uses_anonymous_args = 0
+ 297              		@ link register save eliminated.
+ 298 0000 80B4     		push	{r7}
+ 299              	.LCFI10:
+ 300              		.cfi_def_cfa_offset 4
+ 301              		.cfi_offset 7, -4
+ 302 0002 85B0     		sub	sp, sp, #20
+ 303              	.LCFI11:
+ 304              		.cfi_def_cfa_offset 24
+ 305 0004 00AF     		add	r7, sp, #0
+ 306              	.LCFI12:
+ 307              		.cfi_def_cfa_register 7
+ 308 0006 7860     		str	r0, [r7, #4]
+ 153:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 154:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 155:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 156:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 157:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 158:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 159:../Sources/cpu/arm_cm4.c ****     int div;
+ 160:../Sources/cpu/arm_cm4.c **** 
+ 161:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 162:../Sources/cpu/arm_cm4.c **** 
+ 163:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 164:../Sources/cpu/arm_cm4.c **** 
+ 165:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 166:../Sources/cpu/arm_cm4.c **** 
+ 167:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 168:../Sources/cpu/arm_cm4.c **** 
+ 169:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 170:../Sources/cpu/arm_cm4.c **** 
+ 171:../Sources/cpu/arm_cm4.c ****     /*~~~~*/
+ 172:../Sources/cpu/arm_cm4.c **** 
+ 173:../Sources/cpu/arm_cm4.c ****     /* Make sure that the IRQ is an allowable number. Right now up to 91 is
+ 174:../Sources/cpu/arm_cm4.c ****      * used.
+ 175:../Sources/cpu/arm_cm4.c ****      */
+ 176:../Sources/cpu/arm_cm4.c **** 
+ 177:../Sources/cpu/arm_cm4.c ****     if(irq > 91)
+ 309              		.loc 1 177 0
+ 310 0008 7B68     		ldr	r3, [r7, #4]
+ 311 000a 5B2B     		cmp	r3, #91
+ 312 000c 07DD     		ble	.L17
+ 178:../Sources/cpu/arm_cm4.c ****         //    printf("\nERR! Invalid IRQ value passed to disable irq function!\n");
+ 179:../Sources/cpu/arm_cm4.c ****         /* Determine which of the NVICICERs corresponds to the irq */
+ 180:../Sources/cpu/arm_cm4.c ****         div = irq / 32;
+ 313              		.loc 1 180 0
+ 314 000e 7B68     		ldr	r3, [r7, #4]
+ 315 0010 002B     		cmp	r3, #0
+ 316 0012 01DA     		bge	.L18
+ 317 0014 03F11F03 		add	r3, r3, #31
+ 318              	.L18:
+ 319 0018 4FEA6313 		asr	r3, r3, #5
+ 320 001c FB60     		str	r3, [r7, #12]
+ 321              	.L17:
+ 181:../Sources/cpu/arm_cm4.c **** 
+ 182:../Sources/cpu/arm_cm4.c ****     switch(div)
+ 322              		.loc 1 182 0
+ 323 001e FB68     		ldr	r3, [r7, #12]
+ 324 0020 012B     		cmp	r3, #1
+ 325 0022 1CD0     		beq	.L21
+ 326 0024 022B     		cmp	r3, #2
+ 327 0026 33D0     		beq	.L22
+ 328 0028 002B     		cmp	r3, #0
+ 329 002a 4AD1     		bne	.L16
+ 330              	.L20:
+ 183:../Sources/cpu/arm_cm4.c ****         {
+ 184:../Sources/cpu/arm_cm4.c ****             case 0x0:
+ 185:../Sources/cpu/arm_cm4.c ****                 NVICICER0 = 1 << (irq % 32);
+ 331              		.loc 1 185 0
+ 332 002c 4FF46142 		mov	r2, #57600
+ 333 0030 CEF20002 		movt	r2, 57344
+ 334 0034 7968     		ldr	r1, [r7, #4]
+ 335 0036 4FF01F03 		mov	r3, #31
+ 336 003a C8F20003 		movt	r3, 32768
+ 337 003e 0B40     		ands	r3, r3, r1
+ 338 0040 002B     		cmp	r3, #0
+ 339 0042 05DA     		bge	.L23
+ 340 0044 03F1FF33 		add	r3, r3, #-1
+ 341 0048 63F01F03 		orn	r3, r3, #31
+ 342 004c 03F10103 		add	r3, r3, #1
+ 343              	.L23:
+ 344 0050 4FF00101 		mov	r1, #1
+ 345 0054 01FA03F3 		lsl	r3, r1, r3
+ 346 0058 C2F88030 		str	r3, [r2, #128]
+ 186:../Sources/cpu/arm_cm4.c ****                 break;
+ 347              		.loc 1 186 0
+ 348 005c 31E0     		b	.L16
+ 349              	.L21:
+ 187:../Sources/cpu/arm_cm4.c **** 
+ 188:../Sources/cpu/arm_cm4.c ****             case 0x1:
+ 189:../Sources/cpu/arm_cm4.c ****                 NVICICER1 = 1 << (irq % 32);
+ 350              		.loc 1 189 0
+ 351 005e 4FF46142 		mov	r2, #57600
+ 352 0062 CEF20002 		movt	r2, 57344
+ 353 0066 7968     		ldr	r1, [r7, #4]
+ 354 0068 4FF01F03 		mov	r3, #31
+ 355 006c C8F20003 		movt	r3, 32768
+ 356 0070 0B40     		ands	r3, r3, r1
+ 357 0072 002B     		cmp	r3, #0
+ 358 0074 05DA     		bge	.L24
+ 359 0076 03F1FF33 		add	r3, r3, #-1
+ 360 007a 63F01F03 		orn	r3, r3, #31
+ 361 007e 03F10103 		add	r3, r3, #1
+ 362              	.L24:
+ 363 0082 4FF00101 		mov	r1, #1
+ 364 0086 01FA03F3 		lsl	r3, r1, r3
+ 365 008a C2F88430 		str	r3, [r2, #132]
+ 190:../Sources/cpu/arm_cm4.c ****                 break;
+ 366              		.loc 1 190 0
+ 367 008e 18E0     		b	.L16
+ 368              	.L22:
+ 191:../Sources/cpu/arm_cm4.c **** 
+ 192:../Sources/cpu/arm_cm4.c ****             case 0x2:
+ 193:../Sources/cpu/arm_cm4.c ****                 NVICICER2 = 1 << (irq % 32);
+ 369              		.loc 1 193 0
+ 370 0090 4FF46142 		mov	r2, #57600
+ 371 0094 CEF20002 		movt	r2, 57344
+ 372 0098 7968     		ldr	r1, [r7, #4]
+ 373 009a 4FF01F03 		mov	r3, #31
+ 374 009e C8F20003 		movt	r3, 32768
+ 375 00a2 0B40     		ands	r3, r3, r1
+ 376 00a4 002B     		cmp	r3, #0
+ 377 00a6 05DA     		bge	.L25
+ 378 00a8 03F1FF33 		add	r3, r3, #-1
+ 379 00ac 63F01F03 		orn	r3, r3, #31
+ 380 00b0 03F10103 		add	r3, r3, #1
+ 381              	.L25:
+ 382 00b4 4FF00101 		mov	r1, #1
+ 383 00b8 01FA03F3 		lsl	r3, r1, r3
+ 384 00bc C2F88830 		str	r3, [r2, #136]
+ 194:../Sources/cpu/arm_cm4.c ****                 break;
+ 385              		.loc 1 194 0
+ 386 00c0 00BF     		nop
+ 387              	.L16:
+ 195:../Sources/cpu/arm_cm4.c ****         }
+ 196:../Sources/cpu/arm_cm4.c **** }
+ 388              		.loc 1 196 0
+ 389 00c2 07F11407 		add	r7, r7, #20
+ 390 00c6 BD46     		mov	sp, r7
+ 391 00c8 80BC     		pop	{r7}
+ 392 00ca 7047     		bx	lr
+ 393              		.cfi_endproc
+ 394              	.LFE4:
+ 396              		.section	.text.set_irq_priority,"ax",%progbits
+ 397              		.align	2
+ 398              		.global	set_irq_priority
+ 399              		.thumb
+ 400              		.thumb_func
+ 402              	set_irq_priority:
+ 403              	.LFB5:
+ 197:../Sources/cpu/arm_cm4.c **** 
+ 198:../Sources/cpu/arm_cm4.c **** /***********************************************************************/
+ 199:../Sources/cpu/arm_cm4.c **** 
+ 200:../Sources/cpu/arm_cm4.c **** /*
+ 201:../Sources/cpu/arm_cm4.c ****  * Initialize the NVIC to set specified IRQ priority.
+ 202:../Sources/cpu/arm_cm4.c ****  *
+ 203:../Sources/cpu/arm_cm4.c ****  * NOTE: The function only initializes the NVIC to set a single IRQ priority.
+ 204:../Sources/cpu/arm_cm4.c ****  * Interrupts will also need to be enabled in the ARM core. This can be
+ 205:../Sources/cpu/arm_cm4.c ****  * done using the EnableInterrupts macro.
+ 206:../Sources/cpu/arm_cm4.c ****  *
+ 207:../Sources/cpu/arm_cm4.c ****  * Parameters:
+ 208:../Sources/cpu/arm_cm4.c ****  * irq    irq number to be enabled (the irq number NOT the vector number)
+ 209:../Sources/cpu/arm_cm4.c ****  * prio   irq priority. 0-15 levels. 0 max priority
+ 210:../Sources/cpu/arm_cm4.c ****  */
+ 211:../Sources/cpu/arm_cm4.c **** 
+ 212:../Sources/cpu/arm_cm4.c **** void set_irq_priority
+ 213:../Sources/cpu/arm_cm4.c **** (
+ 214:../Sources/cpu/arm_cm4.c ****     int irq,
+ 215:../Sources/cpu/arm_cm4.c ****     int prio
+ 216:../Sources/cpu/arm_cm4.c **** )
+ 217:../Sources/cpu/arm_cm4.c **** {
+ 404              		.loc 1 217 0
+ 405              		.cfi_startproc
+ 406              		@ args = 0, pretend = 0, frame = 16
+ 407              		@ frame_needed = 1, uses_anonymous_args = 0
+ 408              		@ link register save eliminated.
+ 409 0000 80B4     		push	{r7}
+ 410              	.LCFI13:
+ 411              		.cfi_def_cfa_offset 4
+ 412              		.cfi_offset 7, -4
+ 413 0002 85B0     		sub	sp, sp, #20
+ 414              	.LCFI14:
+ 415              		.cfi_def_cfa_offset 24
+ 416 0004 00AF     		add	r7, sp, #0
+ 417              	.LCFI15:
+ 418              		.cfi_def_cfa_register 7
+ 419 0006 7860     		str	r0, [r7, #4]
+ 420 0008 3960     		str	r1, [r7, #0]
+ 218:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 219:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 220:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 221:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 222:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 223:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 224:../Sources/cpu/arm_cm4.c ****     /*irq priority pointer*/
+ 225:../Sources/cpu/arm_cm4.c ****     uint8   *prio_reg;
+ 226:../Sources/cpu/arm_cm4.c **** 
+ 227:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 228:../Sources/cpu/arm_cm4.c **** 
+ 229:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 230:../Sources/cpu/arm_cm4.c **** 
+ 231:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 232:../Sources/cpu/arm_cm4.c **** 
+ 233:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 234:../Sources/cpu/arm_cm4.c **** 
+ 235:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 236:../Sources/cpu/arm_cm4.c **** 
+ 237:../Sources/cpu/arm_cm4.c ****     /*~~~~~~~~~~~~~~*/
+ 238:../Sources/cpu/arm_cm4.c **** 
+ 239:../Sources/cpu/arm_cm4.c ****     /* Make sure that the IRQ is an allowable number. Right now up to 91 is
+ 240:../Sources/cpu/arm_cm4.c ****      * used.
+ 241:../Sources/cpu/arm_cm4.c ****      */
+ 242:../Sources/cpu/arm_cm4.c **** 
+ 243:../Sources/cpu/arm_cm4.c ****     if(irq > 91)
+ 421              		.loc 1 243 0
+ 422 000a 7B68     		ldr	r3, [r7, #4]
+ 423 000c 5B2B     		cmp	r3, #91
+ 424 000e 08DD     		ble	.L27
+ 244:../Sources/cpu/arm_cm4.c ****         {
+ 245:../Sources/cpu/arm_cm4.c ****             //  printf("\nERR! Invalid IRQ value passed to priority irq function!\n");
+ 246:../Sources/cpu/arm_cm4.c ****             if(prio > 15)
+ 425              		.loc 1 246 0
+ 426 0010 3B68     		ldr	r3, [r7, #0]
+ 427 0012 0F2B     		cmp	r3, #15
+ 428 0014 05DD     		ble	.L27
+ 247:../Sources/cpu/arm_cm4.c ****                 // printf("\nERR! Invalid priority value passed to priority irq function!\n");
+ 248:../Sources/cpu/arm_cm4.c ****                 /* Determine which of the NVICIPx corresponds to the irq */
+ 249:../Sources/cpu/arm_cm4.c ****                 prio_reg = (uint8 *) (((uint32) & NVICIP0) + irq);
+ 429              		.loc 1 249 0
+ 430 0016 7B68     		ldr	r3, [r7, #4]
+ 431 0018 03F16043 		add	r3, r3, #-536870912
+ 432 001c 03F56443 		add	r3, r3, #58368
+ 433 0020 FB60     		str	r3, [r7, #12]
+ 434              	.L27:
+ 250:../Sources/cpu/arm_cm4.c ****         }
+ 251:../Sources/cpu/arm_cm4.c **** 
+ 252:../Sources/cpu/arm_cm4.c ****     /* Assign priority to IRQ */
+ 253:../Sources/cpu/arm_cm4.c ****     *prio_reg = ((prio & 0xF) << (8 - ARM_INTERRUPT_LEVEL_BITS));
+ 435              		.loc 1 253 0
+ 436 0022 3B68     		ldr	r3, [r7, #0]
+ 437 0024 4FEA0313 		lsl	r3, r3, #4
+ 438 0028 DAB2     		uxtb	r2, r3
+ 439 002a FB68     		ldr	r3, [r7, #12]
+ 440 002c 1A70     		strb	r2, [r3, #0]
+ 254:../Sources/cpu/arm_cm4.c **** }
+ 441              		.loc 1 254 0
+ 442 002e 07F11407 		add	r7, r7, #20
+ 443 0032 BD46     		mov	sp, r7
+ 444 0034 80BC     		pop	{r7}
+ 445 0036 7047     		bx	lr
+ 446              		.cfi_endproc
+ 447              	.LFE5:
+ 449              		.text
+ 450              	.Letext0:
+ 451              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 452              		.file 3 "C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+ 453              		.file 4 "../Sources/cpu/arm_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 arm_cm4.c
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:19     .text.stop:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:24     .text.stop:00000000 stop
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:58     .text.wait:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:63     .text.wait:00000000 wait
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:96     .text.write_vtor:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:101    .text.write_vtor:00000000 write_vtor
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:132    .text.enable_irq:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:137    .text.enable_irq:00000000 enable_irq
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:286    .text.disable_irq:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:291    .text.disable_irq:00000000 disable_irq
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:397    .text.set_irq_priority:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccRY3Sgh.s:402    .text.set_irq_priority:00000000 set_irq_priority
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

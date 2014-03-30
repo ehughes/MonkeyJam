@@ -1,0 +1,1205 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"adc16.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.ADC_Cal,"ax",%progbits
+  19              		.align	2
+  20              		.global	ADC_Cal
+  21              		.thumb
+  22              		.thumb_func
+  24              	ADC_Cal:
+  25              	.LFB0:
+  26              		.file 1 "../Sources/drivers/adc16/adc16.c"
+   1:../Sources/drivers/adc16/adc16.c **** /*
+   2:../Sources/drivers/adc16/adc16.c ****  * File:		a16dc.c
+   3:../Sources/drivers/adc16/adc16.c ****  * Purpose:		Simple Driver or API for AdC16/PGA
+   4:../Sources/drivers/adc16/adc16.c ****  * This file contains the following two functions:
+   5:../Sources/drivers/adc16/adc16.c ****  *  1. ADC_Cal: calibrates the ADC
+   6:../Sources/drivers/adc16/adc16.c ****  *  2. ADC_Config_Alt: Simply configures an ADC per a structure
+   7:../Sources/drivers/adc16/adc16.c ****  *
+   8:../Sources/drivers/adc16/adc16.c ****  * Typical usage: Fill the structure with the ADC and PGA register contents
+   9:../Sources/drivers/adc16/adc16.c ****  * needed for the ADC usage.
+  10:../Sources/drivers/adc16/adc16.c **** 
+  11:../Sources/drivers/adc16/adc16.c ****  * a) Call the ADC_Config_Alt function to configure an ADC, (ADC0 or ADC1)
+  12:../Sources/drivers/adc16/adc16.c ****  * b) Call the ADC_Cal function to calibrate that ADC
+  13:../Sources/drivers/adc16/adc16.c ****  * c) Call the ADC_Config_Alt function again to restore desired configuation
+  14:../Sources/drivers/adc16/adc16.c ****  *    after a calibration
+  15:../Sources/drivers/adc16/adc16.c ****  *
+  16:../Sources/drivers/adc16/adc16.c ****  *
+  17:../Sources/drivers/adc16/adc16.c ****  */
+  18:../Sources/drivers/adc16/adc16.c **** 
+  19:../Sources/drivers/adc16/adc16.c **** #include "derivative.h"
+  20:../Sources/drivers/adc16/adc16.c **** #include "adc16.h"
+  21:../Sources/drivers/adc16/adc16.c **** 
+  22:../Sources/drivers/adc16/adc16.c **** #include "../../cpu/arm_cm4.h"
+  23:../Sources/drivers/adc16/adc16.c **** 
+  24:../Sources/drivers/adc16/adc16.c **** 
+  25:../Sources/drivers/adc16/adc16.c **** //#define ADC0_irq_no 38
+  26:../Sources/drivers/adc16/adc16.c **** // Bit shifting of bitfiled is already taken into account so
+  27:../Sources/drivers/adc16/adc16.c **** // bitfiled values are always represented as relative to their position.
+  28:../Sources/drivers/adc16/adc16.c **** 
+  29:../Sources/drivers/adc16/adc16.c **** /************************* #Defines ******************************************/
+  30:../Sources/drivers/adc16/adc16.c **** 
+  31:../Sources/drivers/adc16/adc16.c **** #define A   0x0
+  32:../Sources/drivers/adc16/adc16.c **** #define B   0x1
+  33:../Sources/drivers/adc16/adc16.c **** 
+  34:../Sources/drivers/adc16/adc16.c **** /////// NOTE: the following defines relate to the ADC register definitions
+  35:../Sources/drivers/adc16/adc16.c **** /////// and the content follows the reference manual, using the same symbols.
+  36:../Sources/drivers/adc16/adc16.c **** 
+  37:../Sources/drivers/adc16/adc16.c **** 
+  38:../Sources/drivers/adc16/adc16.c **** //// ADCSC1 (register)
+  39:../Sources/drivers/adc16/adc16.c **** // Conversion Complete (COCO) mask
+  40:../Sources/drivers/adc16/adc16.c **** 
+  41:../Sources/drivers/adc16/adc16.c **** #define COCO_COMPLETE   ADC_SC1_COCO_MASK
+  42:../Sources/drivers/adc16/adc16.c **** #define COCO_NOT        0x00
+  43:../Sources/drivers/adc16/adc16.c **** 
+  44:../Sources/drivers/adc16/adc16.c **** // ADC interrupts: enabled, or disabled.
+  45:../Sources/drivers/adc16/adc16.c **** 
+  46:../Sources/drivers/adc16/adc16.c **** #define AIEN_ON     ADC_SC1_AIEN_MASK
+  47:../Sources/drivers/adc16/adc16.c **** #define AIEN_OFF    0x00
+  48:../Sources/drivers/adc16/adc16.c **** 
+  49:../Sources/drivers/adc16/adc16.c **** // Differential or Single ended ADC input
+  50:../Sources/drivers/adc16/adc16.c **** 
+  51:../Sources/drivers/adc16/adc16.c **** #define DIFF_SINGLE         0x00
+  52:../Sources/drivers/adc16/adc16.c **** #define DIFF_DIFFERENTIAL   ADC_SC1_DIFF_MASK
+  53:../Sources/drivers/adc16/adc16.c **** 
+  54:../Sources/drivers/adc16/adc16.c **** //// ADCCFG1
+  55:../Sources/drivers/adc16/adc16.c **** // Power setting of ADC
+  56:../Sources/drivers/adc16/adc16.c **** 
+  57:../Sources/drivers/adc16/adc16.c **** #define ADLPC_LOW       ADC_CFG1_ADLPC_MASK
+  58:../Sources/drivers/adc16/adc16.c **** #define ADLPC_NORMAL    0x00
+  59:../Sources/drivers/adc16/adc16.c **** 
+  60:../Sources/drivers/adc16/adc16.c **** // Clock divisor
+  61:../Sources/drivers/adc16/adc16.c **** 
+  62:../Sources/drivers/adc16/adc16.c **** #define ADIV_1  0x00
+  63:../Sources/drivers/adc16/adc16.c **** #define ADIV_2  0x01
+  64:../Sources/drivers/adc16/adc16.c **** #define ADIV_4  0x02
+  65:../Sources/drivers/adc16/adc16.c **** #define ADIV_8  0x03
+  66:../Sources/drivers/adc16/adc16.c **** 
+  67:../Sources/drivers/adc16/adc16.c **** // Long samle time, or Short sample time
+  68:../Sources/drivers/adc16/adc16.c **** 
+  69:../Sources/drivers/adc16/adc16.c **** #define ADLSMP_LONG     ADC_CFG1_ADLSMP_MASK
+  70:../Sources/drivers/adc16/adc16.c **** #define ADLSMP_SHORT    0x00
+  71:../Sources/drivers/adc16/adc16.c **** 
+  72:../Sources/drivers/adc16/adc16.c **** // How many bits for the conversion?  8, 12, 10, or 16 (single ended).
+  73:../Sources/drivers/adc16/adc16.c **** 
+  74:../Sources/drivers/adc16/adc16.c **** #define MODE_8  0x00
+  75:../Sources/drivers/adc16/adc16.c **** #define MODE_12 0x01
+  76:../Sources/drivers/adc16/adc16.c **** #define MODE_10 0x02
+  77:../Sources/drivers/adc16/adc16.c **** #define MODE_16 0x03
+  78:../Sources/drivers/adc16/adc16.c **** 
+  79:../Sources/drivers/adc16/adc16.c **** // ADC Input Clock Source choice? Bus clock, Bus clock/2, "altclk", or the
+  80:../Sources/drivers/adc16/adc16.c **** //                                ADC's own asynchronous clock for less noise
+  81:../Sources/drivers/adc16/adc16.c **** 
+  82:../Sources/drivers/adc16/adc16.c **** #define ADICLK_BUS      0x00
+  83:../Sources/drivers/adc16/adc16.c **** #define ADICLK_BUS_2    0x01
+  84:../Sources/drivers/adc16/adc16.c **** #define ADICLK_ALTCLK   0x02
+  85:../Sources/drivers/adc16/adc16.c **** #define ADICLK_ADACK    0x03
+  86:../Sources/drivers/adc16/adc16.c **** 
+  87:../Sources/drivers/adc16/adc16.c **** //// ADCCFG2
+  88:../Sources/drivers/adc16/adc16.c **** // Select between B or A channels
+  89:../Sources/drivers/adc16/adc16.c **** 
+  90:../Sources/drivers/adc16/adc16.c **** #define MUXSEL_ADCB ADC_CFG2_MUXSEL_MASK
+  91:../Sources/drivers/adc16/adc16.c **** #define MUXSEL_ADCA 0x00
+  92:../Sources/drivers/adc16/adc16.c **** 
+  93:../Sources/drivers/adc16/adc16.c **** // Ansync clock output enable: enable, or disable the output of it
+  94:../Sources/drivers/adc16/adc16.c **** 
+  95:../Sources/drivers/adc16/adc16.c **** #define ADACKEN_ENABLED     ADC_CFG2_ADACKEN_MASK
+  96:../Sources/drivers/adc16/adc16.c **** #define ADACKEN_DISABLED    0x00
+  97:../Sources/drivers/adc16/adc16.c **** 
+  98:../Sources/drivers/adc16/adc16.c **** // High speed or low speed conversion mode
+  99:../Sources/drivers/adc16/adc16.c **** 
+ 100:../Sources/drivers/adc16/adc16.c **** #define ADHSC_HISPEED   ADC_CFG2_ADHSC_MASK
+ 101:../Sources/drivers/adc16/adc16.c **** #define ADHSC_NORMAL    0x00
+ 102:../Sources/drivers/adc16/adc16.c **** 
+ 103:../Sources/drivers/adc16/adc16.c **** // Long Sample Time selector: 20, 12, 6, or 2 extra clocks for a longer sample time
+ 104:../Sources/drivers/adc16/adc16.c **** 
+ 105:../Sources/drivers/adc16/adc16.c **** #define ADLSTS_20   0x00
+ 106:../Sources/drivers/adc16/adc16.c **** #define ADLSTS_12   0x01
+ 107:../Sources/drivers/adc16/adc16.c **** #define ADLSTS_6    0x02
+ 108:../Sources/drivers/adc16/adc16.c **** #define ADLSTS_2    0x03
+ 109:../Sources/drivers/adc16/adc16.c **** 
+ 110:../Sources/drivers/adc16/adc16.c **** ////ADCSC2
+ 111:../Sources/drivers/adc16/adc16.c **** // Read-only status bit indicating conversion status
+ 112:../Sources/drivers/adc16/adc16.c **** 
+ 113:../Sources/drivers/adc16/adc16.c **** #define ADACT_ACTIVE    ADC_SC2_ADACT_MASK
+ 114:../Sources/drivers/adc16/adc16.c **** #define ADACT_INACTIVE  0x00
+ 115:../Sources/drivers/adc16/adc16.c **** 
+ 116:../Sources/drivers/adc16/adc16.c **** // Trigger for starting conversion: Hardware trigger, or software trigger.
+ 117:../Sources/drivers/adc16/adc16.c **** // For using PDB, the Hardware trigger option is selected.
+ 118:../Sources/drivers/adc16/adc16.c **** 
+ 119:../Sources/drivers/adc16/adc16.c **** #define ADTRG_HW    ADC_SC2_ADTRG_MASK
+ 120:../Sources/drivers/adc16/adc16.c **** #define ADTRG_SW    0x00
+ 121:../Sources/drivers/adc16/adc16.c **** 
+ 122:../Sources/drivers/adc16/adc16.c **** // ADC Compare Function Enable: Disabled, or Enabled.
+ 123:../Sources/drivers/adc16/adc16.c **** 
+ 124:../Sources/drivers/adc16/adc16.c **** #define ACFE_DISABLED   0x00
+ 125:../Sources/drivers/adc16/adc16.c **** #define ACFE_ENABLED    ADC_SC2_ACFE_MASK
+ 126:../Sources/drivers/adc16/adc16.c **** 
+ 127:../Sources/drivers/adc16/adc16.c **** // Compare Function Greater Than Enable: Greater, or Less.
+ 128:../Sources/drivers/adc16/adc16.c **** 
+ 129:../Sources/drivers/adc16/adc16.c **** #define ACFGT_GREATER   ADC_SC2_ACFGT_MASK
+ 130:../Sources/drivers/adc16/adc16.c **** #define ACFGT_LESS      0x00
+ 131:../Sources/drivers/adc16/adc16.c **** 
+ 132:../Sources/drivers/adc16/adc16.c **** // Compare Function Range Enable: Enabled or Disabled.
+ 133:../Sources/drivers/adc16/adc16.c **** 
+ 134:../Sources/drivers/adc16/adc16.c **** #define ACREN_ENABLED   ADC_SC2_ACREN_MASK
+ 135:../Sources/drivers/adc16/adc16.c **** #define ACREN_DISABLED  0x00
+ 136:../Sources/drivers/adc16/adc16.c **** 
+ 137:../Sources/drivers/adc16/adc16.c **** // DMA enable: enabled or disabled.
+ 138:../Sources/drivers/adc16/adc16.c **** 
+ 139:../Sources/drivers/adc16/adc16.c **** #define DMAEN_ENABLED   ADC_SC2_DMAEN_MASK
+ 140:../Sources/drivers/adc16/adc16.c **** #define DMAEN_DISABLED  0x00
+ 141:../Sources/drivers/adc16/adc16.c **** 
+ 142:../Sources/drivers/adc16/adc16.c **** // Voltage Reference selection for the ADC conversions
+ 143:../Sources/drivers/adc16/adc16.c **** // (***not*** the PGA which uses VREFO only).
+ 144:../Sources/drivers/adc16/adc16.c **** // VREFH and VREFL (0) , or VREFO (1).
+ 145:../Sources/drivers/adc16/adc16.c **** 
+ 146:../Sources/drivers/adc16/adc16.c **** #define REFSEL_EXT      0x00
+ 147:../Sources/drivers/adc16/adc16.c **** #define REFSEL_ALT      0x01
+ 148:../Sources/drivers/adc16/adc16.c **** #define REFSEL_RES      0x02    /* reserved */
+ 149:../Sources/drivers/adc16/adc16.c **** #define REFSEL_RES_EXT  0x03    /* reserved but defaults to Vref */
+ 150:../Sources/drivers/adc16/adc16.c **** 
+ 151:../Sources/drivers/adc16/adc16.c **** ////ADCSC3
+ 152:../Sources/drivers/adc16/adc16.c **** // Calibration begin or off
+ 153:../Sources/drivers/adc16/adc16.c **** 
+ 154:../Sources/drivers/adc16/adc16.c **** #define CAL_BEGIN   ADC_SC3_CAL_MASK
+ 155:../Sources/drivers/adc16/adc16.c **** #define CAL_OFF     0x00
+ 156:../Sources/drivers/adc16/adc16.c **** 
+ 157:../Sources/drivers/adc16/adc16.c **** // Status indicating Calibration failed, or normal success
+ 158:../Sources/drivers/adc16/adc16.c **** 
+ 159:../Sources/drivers/adc16/adc16.c **** #define CALF_FAIL   ADC_SC3_CALF_MASK
+ 160:../Sources/drivers/adc16/adc16.c **** #define CALF_NORMAL 0x00
+ 161:../Sources/drivers/adc16/adc16.c **** 
+ 162:../Sources/drivers/adc16/adc16.c **** // ADC to continously convert, or do a sinle conversion
+ 163:../Sources/drivers/adc16/adc16.c **** 
+ 164:../Sources/drivers/adc16/adc16.c **** #define ADCO_CONTINUOUS ADC_SC3_ADCO_MASK
+ 165:../Sources/drivers/adc16/adc16.c **** #define ADCO_SINGLE     0x00
+ 166:../Sources/drivers/adc16/adc16.c **** 
+ 167:../Sources/drivers/adc16/adc16.c **** // Averaging enabled in the ADC, or not.
+ 168:../Sources/drivers/adc16/adc16.c **** 
+ 169:../Sources/drivers/adc16/adc16.c **** #define AVGE_ENABLED    ADC_SC3_AVGE_MASK
+ 170:../Sources/drivers/adc16/adc16.c **** #define AVGE_DISABLED   0x00
+ 171:../Sources/drivers/adc16/adc16.c **** 
+ 172:../Sources/drivers/adc16/adc16.c **** // How many to average prior to "interrupting" the MCU?  4, 8, 16, or 32
+ 173:../Sources/drivers/adc16/adc16.c **** 
+ 174:../Sources/drivers/adc16/adc16.c **** #define AVGS_4  0x00
+ 175:../Sources/drivers/adc16/adc16.c **** #define AVGS_8  0x01
+ 176:../Sources/drivers/adc16/adc16.c **** #define AVGS_16 0x02
+ 177:../Sources/drivers/adc16/adc16.c **** #define AVGS_32 0x03
+ 178:../Sources/drivers/adc16/adc16.c **** 
+ 179:../Sources/drivers/adc16/adc16.c **** ////PGA
+ 180:../Sources/drivers/adc16/adc16.c **** // PGA enabled or not?
+ 181:../Sources/drivers/adc16/adc16.c **** 
+ 182:../Sources/drivers/adc16/adc16.c **** #define PGAEN_ENABLED   ADC_PGA_PGAEN_MASK
+ 183:../Sources/drivers/adc16/adc16.c **** #define PGAEN_DISABLED  0x00
+ 184:../Sources/drivers/adc16/adc16.c **** 
+ 185:../Sources/drivers/adc16/adc16.c **** // Chopper stabilization of the amplifier, or not.
+ 186:../Sources/drivers/adc16/adc16.c **** 
+ 187:../Sources/drivers/adc16/adc16.c **** #define PGACHP_CHOP     ADC_PGA_PGACHP_MASK
+ 188:../Sources/drivers/adc16/adc16.c **** #define PGACHP_NOCHOP   0x00
+ 189:../Sources/drivers/adc16/adc16.c **** 
+ 190:../Sources/drivers/adc16/adc16.c **** // PGA in low power mode, or normal mode.
+ 191:../Sources/drivers/adc16/adc16.c **** 
+ 192:../Sources/drivers/adc16/adc16.c **** #define PGALP_LOW       ADC_PGA_PGALP_MASK
+ 193:../Sources/drivers/adc16/adc16.c **** #define PGALP_NORMAL    0x00
+ 194:../Sources/drivers/adc16/adc16.c **** 
+ 195:../Sources/drivers/adc16/adc16.c **** // Gain of PGA.  Selectable from 1 to 64.
+ 196:../Sources/drivers/adc16/adc16.c **** 
+ 197:../Sources/drivers/adc16/adc16.c **** #define PGAG_1  0x00
+ 198:../Sources/drivers/adc16/adc16.c **** #define PGAG_2  0x01
+ 199:../Sources/drivers/adc16/adc16.c **** #define PGAG_4  0x02
+ 200:../Sources/drivers/adc16/adc16.c **** #define PGAG_8  0x03
+ 201:../Sources/drivers/adc16/adc16.c **** #define PGAG_16 0x04
+ 202:../Sources/drivers/adc16/adc16.c **** #define PGAG_32 0x05
+ 203:../Sources/drivers/adc16/adc16.c **** #define PGAG_64 0x06
+ 204:../Sources/drivers/adc16/adc16.c **** 
+ 205:../Sources/drivers/adc16/adc16.c **** /////////// The above values fit into the structure below to select ADC/PGA
+ 206:../Sources/drivers/adc16/adc16.c **** /////////// configuration desired:
+ 207:../Sources/drivers/adc16/adc16.c **** 
+ 208:../Sources/drivers/adc16/adc16.c **** typedef struct adc_cfg
+ 209:../Sources/drivers/adc16/adc16.c **** {
+ 210:../Sources/drivers/adc16/adc16.c ****     uint8_t     CONFIG1;
+ 211:../Sources/drivers/adc16/adc16.c ****     uint8_t     CONFIG2;
+ 212:../Sources/drivers/adc16/adc16.c ****     uint16_t    COMPARE1;
+ 213:../Sources/drivers/adc16/adc16.c ****     uint16_t    COMPARE2;
+ 214:../Sources/drivers/adc16/adc16.c ****     uint8_t     STATUS2;
+ 215:../Sources/drivers/adc16/adc16.c ****     uint8_t     STATUS3;
+ 216:../Sources/drivers/adc16/adc16.c ****     uint8_t     STATUS1A;
+ 217:../Sources/drivers/adc16/adc16.c ****     uint8_t     STATUS1B;
+ 218:../Sources/drivers/adc16/adc16.c ****     uint32_t    PGA;
+ 219:../Sources/drivers/adc16/adc16.c **** }
+ 220:../Sources/drivers/adc16/adc16.c **** *tADC_ConfigPtr, tADC_Config;
+ 221:../Sources/drivers/adc16/adc16.c **** 
+ 222:../Sources/drivers/adc16/adc16.c **** #define CAL_BLK_NUMREC  18
+ 223:../Sources/drivers/adc16/adc16.c **** 
+ 224:../Sources/drivers/adc16/adc16.c **** typedef struct adc_cal
+ 225:../Sources/drivers/adc16/adc16.c **** {
+ 226:../Sources/drivers/adc16/adc16.c ****     uint16_t    OFS;
+ 227:../Sources/drivers/adc16/adc16.c ****     uint16_t    PG;
+ 228:../Sources/drivers/adc16/adc16.c ****     uint16_t    MG;
+ 229:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLPD;
+ 230:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLPS;
+ 231:../Sources/drivers/adc16/adc16.c ****     uint16_t    CLP4;
+ 232:../Sources/drivers/adc16/adc16.c ****     uint16_t    CLP3;
+ 233:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLP2;
+ 234:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLP1;
+ 235:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLP0;
+ 236:../Sources/drivers/adc16/adc16.c ****     uint8_t     dummy;
+ 237:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLMD;
+ 238:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLMS;
+ 239:../Sources/drivers/adc16/adc16.c ****     uint16_t    CLM4;
+ 240:../Sources/drivers/adc16/adc16.c ****     uint16_t    CLM3;
+ 241:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLM2;
+ 242:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLM1;
+ 243:../Sources/drivers/adc16/adc16.c ****     uint8_t     CLM0;
+ 244:../Sources/drivers/adc16/adc16.c **** } tADC_Cal_Blk;
+ 245:../Sources/drivers/adc16/adc16.c **** 
+ 246:../Sources/drivers/adc16/adc16.c **** // function prototypes:
+ 247:../Sources/drivers/adc16/adc16.c **** 
+ 248:../Sources/drivers/adc16/adc16.c **** uint8_t ADC_Cal(ADC_MemMapPtr);
+ 249:../Sources/drivers/adc16/adc16.c **** 
+ 250:../Sources/drivers/adc16/adc16.c **** void    ADC_Config_Alt(ADC_MemMapPtr, tADC_ConfigPtr);
+ 251:../Sources/drivers/adc16/adc16.c **** 
+ 252:../Sources/drivers/adc16/adc16.c **** void    ADC_Read_Cal(ADC_MemMapPtr, tADC_Cal_Blk *);
+ 253:../Sources/drivers/adc16/adc16.c **** 
+ 254:../Sources/drivers/adc16/adc16.c **** /******************************************************************************
+ 255:../Sources/drivers/adc16/adc16.c **** Function 1. Name	AUTO CAL ROUTINE
+ 256:../Sources/drivers/adc16/adc16.c **** 
+ 257:../Sources/drivers/adc16/adc16.c **** Parameters		ADC module pointer points to adc0 or adc1 register map
+ 258:../Sources/drivers/adc16/adc16.c ****                          base address.
+ 259:../Sources/drivers/adc16/adc16.c **** Returns			Zero indicates success.
+ 260:../Sources/drivers/adc16/adc16.c **** Notes         		Calibrates the ADC16. Required to meet specifications
+ 261:../Sources/drivers/adc16/adc16.c ****                         after reset and before a conversion is initiated.
+ 262:../Sources/drivers/adc16/adc16.c **** ******************************************************************************/
+ 263:../Sources/drivers/adc16/adc16.c **** 
+ 264:../Sources/drivers/adc16/adc16.c **** uint8 ADC_Cal
+ 265:../Sources/drivers/adc16/adc16.c **** (ADC_MemMapPtr   adcmap)
+ 266:../Sources/drivers/adc16/adc16.c **** {
+  27              		.loc 1 266 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 16
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 85B0     		sub	sp, sp, #20
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 24
+  39 0004 00AF     		add	r7, sp, #0
+  40              	.LCFI2:
+  41              		.cfi_def_cfa_register 7
+  42 0006 7860     		str	r0, [r7, #4]
+ 267:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 268:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 269:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 270:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 271:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 272:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 273:../Sources/drivers/adc16/adc16.c ****     unsigned short  cal_var;
+ 274:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 275:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 276:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 277:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 278:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 279:../Sources/drivers/adc16/adc16.c ****     /*~~~~~~~~~~~~~~~~~~~~*/
+ 280:../Sources/drivers/adc16/adc16.c ****     ADC_SC2_REG(adcmap) &= ~ADC_SC2_ADTRG_MASK; // Enable Software Conversion Trigger for Calibrati
+  43              		.loc 1 280 0
+  44 0008 7B68     		ldr	r3, [r7, #4]
+  45 000a 1B6A     		ldr	r3, [r3, #32]
+  46 000c 23F04002 		bic	r2, r3, #64
+  47 0010 7B68     		ldr	r3, [r7, #4]
+  48 0012 1A62     		str	r2, [r3, #32]
+ 281:../Sources/drivers/adc16/adc16.c ****     ADC_SC3_REG(adcmap) &= (~ADC_SC3_ADCO_MASK &~ADC_SC3_AVGS_MASK);    // set single conversion, c
+  49              		.loc 1 281 0
+  50 0014 7B68     		ldr	r3, [r7, #4]
+  51 0016 5B6A     		ldr	r3, [r3, #36]
+  52 0018 23F00B02 		bic	r2, r3, #11
+  53 001c 7B68     		ldr	r3, [r7, #4]
+  54 001e 5A62     		str	r2, [r3, #36]
+ 282:../Sources/drivers/adc16/adc16.c ****     ADC_SC3_REG(adcmap) |= (ADC_SC3_AVGE_MASK | ADC_SC3_AVGS(AVGS_32)); // Turn averaging ON and se
+  55              		.loc 1 282 0
+  56 0020 7B68     		ldr	r3, [r7, #4]
+  57 0022 5B6A     		ldr	r3, [r3, #36]
+  58 0024 43F00702 		orr	r2, r3, #7
+  59 0028 7B68     		ldr	r3, [r7, #4]
+  60 002a 5A62     		str	r2, [r3, #36]
+ 283:../Sources/drivers/adc16/adc16.c ****     ADC_SC3_REG(adcmap) |= ADC_SC3_CAL_MASK;    // Start CAL
+  61              		.loc 1 283 0
+  62 002c 7B68     		ldr	r3, [r7, #4]
+  63 002e 5B6A     		ldr	r3, [r3, #36]
+  64 0030 43F08002 		orr	r2, r3, #128
+  65 0034 7B68     		ldr	r3, [r7, #4]
+  66 0036 5A62     		str	r2, [r3, #36]
+ 284:../Sources/drivers/adc16/adc16.c **** 
+ 285:../Sources/drivers/adc16/adc16.c ****     while((ADC_SC1_REG(adcmap, A) & ADC_SC1_COCO_MASK) == COCO_NOT);
+  67              		.loc 1 285 0
+  68 0038 00BF     		nop
+  69              	.L2:
+  70              		.loc 1 285 0 is_stmt 0
+  71 003a 7B68     		ldr	r3, [r7, #4]
+  72 003c 1B68     		ldr	r3, [r3, #0]
+  73 003e 03F08003 		and	r3, r3, #128
+  74 0042 002B     		cmp	r3, #0
+  75 0044 F9D0     		beq	.L2
+ 286:../Sources/drivers/adc16/adc16.c **** 
+ 287:../Sources/drivers/adc16/adc16.c ****     // Wait calibration end
+ 288:../Sources/drivers/adc16/adc16.c **** 
+ 289:../Sources/drivers/adc16/adc16.c ****     if((ADC_SC3_REG(adcmap) & ADC_SC3_CALF_MASK) == CALF_FAIL)
+  76              		.loc 1 289 0 is_stmt 1
+  77 0046 7B68     		ldr	r3, [r7, #4]
+  78 0048 5B6A     		ldr	r3, [r3, #36]
+  79 004a 03F04003 		and	r3, r3, #64
+  80 004e 002B     		cmp	r3, #0
+  81 0050 02D0     		beq	.L3
+ 290:../Sources/drivers/adc16/adc16.c ****         {
+ 291:../Sources/drivers/adc16/adc16.c ****             return(1);      // Check for Calibration fail error and return
+  82              		.loc 1 291 0
+  83 0052 4FF00103 		mov	r3, #1
+  84 0056 69E0     		b	.L4
+  85              	.L3:
+ 292:../Sources/drivers/adc16/adc16.c ****         }
+ 293:../Sources/drivers/adc16/adc16.c **** 
+ 294:../Sources/drivers/adc16/adc16.c ****     // Calculate plus-side calibration
+ 295:../Sources/drivers/adc16/adc16.c ****     cal_var = 0x00;
+  86              		.loc 1 295 0
+  87 0058 4FF00003 		mov	r3, #0
+  88 005c FB81     		strh	r3, [r7, #14]	@ movhi
+ 296:../Sources/drivers/adc16/adc16.c ****     cal_var = ADC_CLP0_REG(adcmap);
+  89              		.loc 1 296 0
+  90 005e 7B68     		ldr	r3, [r7, #4]
+  91 0060 DB6C     		ldr	r3, [r3, #76]
+  92 0062 FB81     		strh	r3, [r7, #14]	@ movhi
+ 297:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLP1_REG(adcmap);
+  93              		.loc 1 297 0
+  94 0064 7B68     		ldr	r3, [r7, #4]
+  95 0066 9B6C     		ldr	r3, [r3, #72]
+  96 0068 9AB2     		uxth	r2, r3
+  97 006a FB89     		ldrh	r3, [r7, #14]	@ movhi
+  98 006c D318     		adds	r3, r2, r3
+  99 006e FB81     		strh	r3, [r7, #14]	@ movhi
+ 298:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLP2_REG(adcmap);
+ 100              		.loc 1 298 0
+ 101 0070 7B68     		ldr	r3, [r7, #4]
+ 102 0072 5B6C     		ldr	r3, [r3, #68]
+ 103 0074 9AB2     		uxth	r2, r3
+ 104 0076 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 105 0078 D318     		adds	r3, r2, r3
+ 106 007a FB81     		strh	r3, [r7, #14]	@ movhi
+ 299:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLP3_REG(adcmap);
+ 107              		.loc 1 299 0
+ 108 007c 7B68     		ldr	r3, [r7, #4]
+ 109 007e 1B6C     		ldr	r3, [r3, #64]
+ 110 0080 9AB2     		uxth	r2, r3
+ 111 0082 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 112 0084 D318     		adds	r3, r2, r3
+ 113 0086 FB81     		strh	r3, [r7, #14]	@ movhi
+ 300:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLP4_REG(adcmap);
+ 114              		.loc 1 300 0
+ 115 0088 7B68     		ldr	r3, [r7, #4]
+ 116 008a DB6B     		ldr	r3, [r3, #60]
+ 117 008c 9AB2     		uxth	r2, r3
+ 118 008e FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 119 0090 D318     		adds	r3, r2, r3
+ 120 0092 FB81     		strh	r3, [r7, #14]	@ movhi
+ 301:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLPS_REG(adcmap);
+ 121              		.loc 1 301 0
+ 122 0094 7B68     		ldr	r3, [r7, #4]
+ 123 0096 9B6B     		ldr	r3, [r3, #56]
+ 124 0098 9AB2     		uxth	r2, r3
+ 125 009a FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 126 009c D318     		adds	r3, r2, r3
+ 127 009e FB81     		strh	r3, [r7, #14]	@ movhi
+ 302:../Sources/drivers/adc16/adc16.c ****     cal_var = cal_var / 2;
+ 128              		.loc 1 302 0
+ 129 00a0 FB89     		ldrh	r3, [r7, #14]
+ 130 00a2 4FEA5303 		lsr	r3, r3, #1
+ 131 00a6 FB81     		strh	r3, [r7, #14]	@ movhi
+ 303:../Sources/drivers/adc16/adc16.c ****     cal_var |= 0x8000;  // Set MSB
+ 132              		.loc 1 303 0
+ 133 00a8 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 134 00aa 6FEA4343 		mvn	r3, r3, lsl #17
+ 135 00ae 6FEA5343 		mvn	r3, r3, lsr #17
+ 136 00b2 FB81     		strh	r3, [r7, #14]	@ movhi
+ 304:../Sources/drivers/adc16/adc16.c ****     ADC_PG_REG(adcmap) = ADC_PG_PG(cal_var);
+ 137              		.loc 1 304 0
+ 138 00b4 FA89     		ldrh	r2, [r7, #14]
+ 139 00b6 7B68     		ldr	r3, [r7, #4]
+ 140 00b8 DA62     		str	r2, [r3, #44]
+ 305:../Sources/drivers/adc16/adc16.c ****     // Calculate minus-side calibration
+ 306:../Sources/drivers/adc16/adc16.c ****     cal_var = 0x00;
+ 141              		.loc 1 306 0
+ 142 00ba 4FF00003 		mov	r3, #0
+ 143 00be FB81     		strh	r3, [r7, #14]	@ movhi
+ 307:../Sources/drivers/adc16/adc16.c ****     cal_var = ADC_CLM0_REG(adcmap);
+ 144              		.loc 1 307 0
+ 145 00c0 7B68     		ldr	r3, [r7, #4]
+ 146 00c2 DB6E     		ldr	r3, [r3, #108]
+ 147 00c4 FB81     		strh	r3, [r7, #14]	@ movhi
+ 308:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLM1_REG(adcmap);
+ 148              		.loc 1 308 0
+ 149 00c6 7B68     		ldr	r3, [r7, #4]
+ 150 00c8 9B6E     		ldr	r3, [r3, #104]
+ 151 00ca 9AB2     		uxth	r2, r3
+ 152 00cc FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 153 00ce D318     		adds	r3, r2, r3
+ 154 00d0 FB81     		strh	r3, [r7, #14]	@ movhi
+ 309:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLM2_REG(adcmap);
+ 155              		.loc 1 309 0
+ 156 00d2 7B68     		ldr	r3, [r7, #4]
+ 157 00d4 5B6E     		ldr	r3, [r3, #100]
+ 158 00d6 9AB2     		uxth	r2, r3
+ 159 00d8 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 160 00da D318     		adds	r3, r2, r3
+ 161 00dc FB81     		strh	r3, [r7, #14]	@ movhi
+ 310:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLM3_REG(adcmap);
+ 162              		.loc 1 310 0
+ 163 00de 7B68     		ldr	r3, [r7, #4]
+ 164 00e0 1B6E     		ldr	r3, [r3, #96]
+ 165 00e2 9AB2     		uxth	r2, r3
+ 166 00e4 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 167 00e6 D318     		adds	r3, r2, r3
+ 168 00e8 FB81     		strh	r3, [r7, #14]	@ movhi
+ 311:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLM4_REG(adcmap);
+ 169              		.loc 1 311 0
+ 170 00ea 7B68     		ldr	r3, [r7, #4]
+ 171 00ec DB6D     		ldr	r3, [r3, #92]
+ 172 00ee 9AB2     		uxth	r2, r3
+ 173 00f0 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 174 00f2 D318     		adds	r3, r2, r3
+ 175 00f4 FB81     		strh	r3, [r7, #14]	@ movhi
+ 312:../Sources/drivers/adc16/adc16.c ****     cal_var += ADC_CLMS_REG(adcmap);
+ 176              		.loc 1 312 0
+ 177 00f6 7B68     		ldr	r3, [r7, #4]
+ 178 00f8 9B6D     		ldr	r3, [r3, #88]
+ 179 00fa 9AB2     		uxth	r2, r3
+ 180 00fc FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 181 00fe D318     		adds	r3, r2, r3
+ 182 0100 FB81     		strh	r3, [r7, #14]	@ movhi
+ 313:../Sources/drivers/adc16/adc16.c ****     cal_var = cal_var / 2;
+ 183              		.loc 1 313 0
+ 184 0102 FB89     		ldrh	r3, [r7, #14]
+ 185 0104 4FEA5303 		lsr	r3, r3, #1
+ 186 0108 FB81     		strh	r3, [r7, #14]	@ movhi
+ 314:../Sources/drivers/adc16/adc16.c ****     cal_var |= 0x8000;  // Set MSB
+ 187              		.loc 1 314 0
+ 188 010a FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 189 010c 6FEA4343 		mvn	r3, r3, lsl #17
+ 190 0110 6FEA5343 		mvn	r3, r3, lsr #17
+ 191 0114 FB81     		strh	r3, [r7, #14]	@ movhi
+ 315:../Sources/drivers/adc16/adc16.c ****     ADC_MG_REG(adcmap) = ADC_MG_MG(cal_var);
+ 192              		.loc 1 315 0
+ 193 0116 FA89     		ldrh	r2, [r7, #14]
+ 194 0118 7B68     		ldr	r3, [r7, #4]
+ 195 011a 1A63     		str	r2, [r3, #48]
+ 316:../Sources/drivers/adc16/adc16.c ****     ADC_SC3_REG(adcmap) &= ~ADC_SC3_CAL_MASK;   /* Clear CAL bit */
+ 196              		.loc 1 316 0
+ 197 011c 7B68     		ldr	r3, [r7, #4]
+ 198 011e 5B6A     		ldr	r3, [r3, #36]
+ 199 0120 23F08002 		bic	r2, r3, #128
+ 200 0124 7B68     		ldr	r3, [r7, #4]
+ 201 0126 5A62     		str	r2, [r3, #36]
+ 317:../Sources/drivers/adc16/adc16.c ****     return(0);
+ 202              		.loc 1 317 0
+ 203 0128 4FF00003 		mov	r3, #0
+ 204              	.L4:
+ 318:../Sources/drivers/adc16/adc16.c **** }
+ 205              		.loc 1 318 0
+ 206 012c 1846     		mov	r0, r3
+ 207 012e 07F11407 		add	r7, r7, #20
+ 208 0132 BD46     		mov	sp, r7
+ 209 0134 80BC     		pop	{r7}
+ 210 0136 7047     		bx	lr
+ 211              		.cfi_endproc
+ 212              	.LFE0:
+ 214              		.section	.text.ADC_Config,"ax",%progbits
+ 215              		.align	2
+ 216              		.global	ADC_Config
+ 217              		.thumb
+ 218              		.thumb_func
+ 220              	ADC_Config:
+ 221              	.LFB1:
+ 319:../Sources/drivers/adc16/adc16.c **** 
+ 320:../Sources/drivers/adc16/adc16.c **** /******************************************************************************
+ 321:../Sources/drivers/adc16/adc16.c **** Function   : Name 	ADC_Config_Alt
+ 322:../Sources/drivers/adc16/adc16.c **** Parameters :		the register values to be set in the adc in a structure
+ 323:../Sources/drivers/adc16/adc16.c **** Returns		 :	NONE
+ 324:../Sources/drivers/adc16/adc16.c **** Notes       	Configures ADC0 or ADC1 depending on adcmap
+ 325:../Sources/drivers/adc16/adc16.c ****               Prior to calling this function populate the structure
+ 326:../Sources/drivers/adc16/adc16.c ****               elements with the desired ADC configuration.
+ 327:../Sources/drivers/adc16/adc16.c **** ******************************************************************************/
+ 328:../Sources/drivers/adc16/adc16.c **** 
+ 329:../Sources/drivers/adc16/adc16.c **** void ADC_Config
+ 330:../Sources/drivers/adc16/adc16.c **** (
+ 331:../Sources/drivers/adc16/adc16.c ****     ADC_MemMapPtr   adcmap,
+ 332:../Sources/drivers/adc16/adc16.c ****     uint8_t         CONFIG1,
+ 333:../Sources/drivers/adc16/adc16.c ****     uint8_t         CONFIG2,
+ 334:../Sources/drivers/adc16/adc16.c ****     uint16_t        COMPARE1,
+ 335:../Sources/drivers/adc16/adc16.c ****     uint16_t        COMPARE2,
+ 336:../Sources/drivers/adc16/adc16.c ****     uint8_t         STATUS2,
+ 337:../Sources/drivers/adc16/adc16.c ****     uint8_t         STATUS3,
+ 338:../Sources/drivers/adc16/adc16.c ****     uint8_t         STATUS1A,
+ 339:../Sources/drivers/adc16/adc16.c ****     uint8_t         STATUS1B,
+ 340:../Sources/drivers/adc16/adc16.c ****     uint32_t        PGA
+ 341:../Sources/drivers/adc16/adc16.c **** )
+ 342:../Sources/drivers/adc16/adc16.c **** {
+ 222              		.loc 1 342 0
+ 223              		.cfi_startproc
+ 224              		@ args = 24, pretend = 0, frame = 8
+ 225              		@ frame_needed = 1, uses_anonymous_args = 0
+ 226              		@ link register save eliminated.
+ 227 0000 80B4     		push	{r7}
+ 228              	.LCFI3:
+ 229              		.cfi_def_cfa_offset 4
+ 230              		.cfi_offset 7, -4
+ 231 0002 83B0     		sub	sp, sp, #12
+ 232              	.LCFI4:
+ 233              		.cfi_def_cfa_offset 16
+ 234 0004 00AF     		add	r7, sp, #0
+ 235              	.LCFI5:
+ 236              		.cfi_def_cfa_register 7
+ 237 0006 7860     		str	r0, [r7, #4]
+ 238 0008 F970     		strb	r1, [r7, #3]
+ 239 000a BA70     		strb	r2, [r7, #2]
+ 240 000c 3B80     		strh	r3, [r7, #0]	@ movhi
+ 343:../Sources/drivers/adc16/adc16.c ****     ADC_CFG1_REG(adcmap) = CONFIG1;
+ 241              		.loc 1 343 0
+ 242 000e FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 243 0010 7B68     		ldr	r3, [r7, #4]
+ 244 0012 9A60     		str	r2, [r3, #8]
+ 344:../Sources/drivers/adc16/adc16.c ****     ADC_CFG2_REG(adcmap) = CONFIG2;
+ 245              		.loc 1 344 0
+ 246 0014 BA78     		ldrb	r2, [r7, #2]	@ zero_extendqisi2
+ 247 0016 7B68     		ldr	r3, [r7, #4]
+ 248 0018 DA60     		str	r2, [r3, #12]
+ 345:../Sources/drivers/adc16/adc16.c ****     ADC_CV1_REG(adcmap) = COMPARE1;
+ 249              		.loc 1 345 0
+ 250 001a 3A88     		ldrh	r2, [r7, #0]
+ 251 001c 7B68     		ldr	r3, [r7, #4]
+ 252 001e 9A61     		str	r2, [r3, #24]
+ 346:../Sources/drivers/adc16/adc16.c ****     ADC_CV2_REG(adcmap) = COMPARE2;
+ 253              		.loc 1 346 0
+ 254 0020 3A8A     		ldrh	r2, [r7, #16]
+ 255 0022 7B68     		ldr	r3, [r7, #4]
+ 256 0024 DA61     		str	r2, [r3, #28]
+ 347:../Sources/drivers/adc16/adc16.c ****     ADC_SC2_REG(adcmap) = STATUS2;
+ 257              		.loc 1 347 0
+ 258 0026 3A7D     		ldrb	r2, [r7, #20]	@ zero_extendqisi2
+ 259 0028 7B68     		ldr	r3, [r7, #4]
+ 260 002a 1A62     		str	r2, [r3, #32]
+ 348:../Sources/drivers/adc16/adc16.c ****     ADC_SC3_REG(adcmap) = STATUS3;
+ 261              		.loc 1 348 0
+ 262 002c 3A7E     		ldrb	r2, [r7, #24]	@ zero_extendqisi2
+ 263 002e 7B68     		ldr	r3, [r7, #4]
+ 264 0030 5A62     		str	r2, [r3, #36]
+ 349:../Sources/drivers/adc16/adc16.c ****     ADC_SC1_REG(adcmap, A) = STATUS1A;
+ 265              		.loc 1 349 0
+ 266 0032 3A7F     		ldrb	r2, [r7, #28]	@ zero_extendqisi2
+ 267 0034 7B68     		ldr	r3, [r7, #4]
+ 268 0036 1A60     		str	r2, [r3, #0]
+ 350:../Sources/drivers/adc16/adc16.c ****     ADC_SC1_REG(adcmap, B) = STATUS1B;
+ 269              		.loc 1 350 0
+ 270 0038 97F82020 		ldrb	r2, [r7, #32]	@ zero_extendqisi2
+ 271 003c 7B68     		ldr	r3, [r7, #4]
+ 272 003e 5A60     		str	r2, [r3, #4]
+ 351:../Sources/drivers/adc16/adc16.c **** }
+ 273              		.loc 1 351 0
+ 274 0040 07F10C07 		add	r7, r7, #12
+ 275 0044 BD46     		mov	sp, r7
+ 276 0046 80BC     		pop	{r7}
+ 277 0048 7047     		bx	lr
+ 278              		.cfi_endproc
+ 279              	.LFE1:
+ 281 004a 00BF     		.section	.text.ADC_Config_Alt,"ax",%progbits
+ 282              		.align	2
+ 283              		.global	ADC_Config_Alt
+ 284              		.thumb
+ 285              		.thumb_func
+ 287              	ADC_Config_Alt:
+ 288              	.LFB2:
+ 352:../Sources/drivers/adc16/adc16.c **** 
+ 353:../Sources/drivers/adc16/adc16.c **** /* */
+ 354:../Sources/drivers/adc16/adc16.c **** 
+ 355:../Sources/drivers/adc16/adc16.c **** void ADC_Config_Alt
+ 356:../Sources/drivers/adc16/adc16.c **** (
+ 357:../Sources/drivers/adc16/adc16.c ****     ADC_MemMapPtr   adcmap,
+ 358:../Sources/drivers/adc16/adc16.c ****     tADC_ConfigPtr  ADC_CfgPtr
+ 359:../Sources/drivers/adc16/adc16.c **** )
+ 360:../Sources/drivers/adc16/adc16.c **** {
+ 289              		.loc 1 360 0
+ 290              		.cfi_startproc
+ 291              		@ args = 0, pretend = 0, frame = 8
+ 292              		@ frame_needed = 1, uses_anonymous_args = 0
+ 293              		@ link register save eliminated.
+ 294 0000 80B4     		push	{r7}
+ 295              	.LCFI6:
+ 296              		.cfi_def_cfa_offset 4
+ 297              		.cfi_offset 7, -4
+ 298 0002 83B0     		sub	sp, sp, #12
+ 299              	.LCFI7:
+ 300              		.cfi_def_cfa_offset 16
+ 301 0004 00AF     		add	r7, sp, #0
+ 302              	.LCFI8:
+ 303              		.cfi_def_cfa_register 7
+ 304 0006 7860     		str	r0, [r7, #4]
+ 305 0008 3960     		str	r1, [r7, #0]
+ 361:../Sources/drivers/adc16/adc16.c ****     ADC_CFG1_REG(adcmap) = ADC_CfgPtr->CONFIG1;
+ 306              		.loc 1 361 0
+ 307 000a 3B68     		ldr	r3, [r7, #0]
+ 308 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 309 000e 1A46     		mov	r2, r3
+ 310 0010 7B68     		ldr	r3, [r7, #4]
+ 311 0012 9A60     		str	r2, [r3, #8]
+ 362:../Sources/drivers/adc16/adc16.c ****     ADC_CFG2_REG(adcmap) = ADC_CfgPtr->CONFIG2;
+ 312              		.loc 1 362 0
+ 313 0014 3B68     		ldr	r3, [r7, #0]
+ 314 0016 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 315 0018 1A46     		mov	r2, r3
+ 316 001a 7B68     		ldr	r3, [r7, #4]
+ 317 001c DA60     		str	r2, [r3, #12]
+ 363:../Sources/drivers/adc16/adc16.c ****     ADC_CV1_REG(adcmap) = ADC_CfgPtr->COMPARE1;
+ 318              		.loc 1 363 0
+ 319 001e 3B68     		ldr	r3, [r7, #0]
+ 320 0020 5B88     		ldrh	r3, [r3, #2]
+ 321 0022 1A46     		mov	r2, r3
+ 322 0024 7B68     		ldr	r3, [r7, #4]
+ 323 0026 9A61     		str	r2, [r3, #24]
+ 364:../Sources/drivers/adc16/adc16.c ****     ADC_CV2_REG(adcmap) = ADC_CfgPtr->COMPARE2;
+ 324              		.loc 1 364 0
+ 325 0028 3B68     		ldr	r3, [r7, #0]
+ 326 002a 9B88     		ldrh	r3, [r3, #4]
+ 327 002c 1A46     		mov	r2, r3
+ 328 002e 7B68     		ldr	r3, [r7, #4]
+ 329 0030 DA61     		str	r2, [r3, #28]
+ 365:../Sources/drivers/adc16/adc16.c ****     ADC_SC2_REG(adcmap) = ADC_CfgPtr->STATUS2;
+ 330              		.loc 1 365 0
+ 331 0032 3B68     		ldr	r3, [r7, #0]
+ 332 0034 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 333 0036 1A46     		mov	r2, r3
+ 334 0038 7B68     		ldr	r3, [r7, #4]
+ 335 003a 1A62     		str	r2, [r3, #32]
+ 366:../Sources/drivers/adc16/adc16.c ****     ADC_SC3_REG(adcmap) = ADC_CfgPtr->STATUS3;
+ 336              		.loc 1 366 0
+ 337 003c 3B68     		ldr	r3, [r7, #0]
+ 338 003e DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
+ 339 0040 1A46     		mov	r2, r3
+ 340 0042 7B68     		ldr	r3, [r7, #4]
+ 341 0044 5A62     		str	r2, [r3, #36]
+ 367:../Sources/drivers/adc16/adc16.c ****     // ADC_PGA_REG(adcmap)  = ADC_CfgPtr->PGA;  //not one on P0
+ 368:../Sources/drivers/adc16/adc16.c ****     ADC_SC1_REG(adcmap, A) = ADC_CfgPtr->STATUS1A;
+ 342              		.loc 1 368 0
+ 343 0046 3B68     		ldr	r3, [r7, #0]
+ 344 0048 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 345 004a 1A46     		mov	r2, r3
+ 346 004c 7B68     		ldr	r3, [r7, #4]
+ 347 004e 1A60     		str	r2, [r3, #0]
+ 369:../Sources/drivers/adc16/adc16.c ****     ADC_SC1_REG(adcmap, B) = ADC_CfgPtr->STATUS1B;
+ 348              		.loc 1 369 0
+ 349 0050 3B68     		ldr	r3, [r7, #0]
+ 350 0052 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 351 0054 1A46     		mov	r2, r3
+ 352 0056 7B68     		ldr	r3, [r7, #4]
+ 353 0058 5A60     		str	r2, [r3, #4]
+ 370:../Sources/drivers/adc16/adc16.c **** }
+ 354              		.loc 1 370 0
+ 355 005a 07F10C07 		add	r7, r7, #12
+ 356 005e BD46     		mov	sp, r7
+ 357 0060 80BC     		pop	{r7}
+ 358 0062 7047     		bx	lr
+ 359              		.cfi_endproc
+ 360              	.LFE2:
+ 362              		.section	.text.ADC_Read_Cal,"ax",%progbits
+ 363              		.align	2
+ 364              		.global	ADC_Read_Cal
+ 365              		.thumb
+ 366              		.thumb_func
+ 368              	ADC_Read_Cal:
+ 369              	.LFB3:
+ 371:../Sources/drivers/adc16/adc16.c **** 
+ 372:../Sources/drivers/adc16/adc16.c **** /* */
+ 373:../Sources/drivers/adc16/adc16.c **** 
+ 374:../Sources/drivers/adc16/adc16.c **** void ADC_Read_Cal
+ 375:../Sources/drivers/adc16/adc16.c **** (
+ 376:../Sources/drivers/adc16/adc16.c ****     ADC_MemMapPtr   adcmap,
+ 377:../Sources/drivers/adc16/adc16.c ****     tADC_Cal_Blk    *blk
+ 378:../Sources/drivers/adc16/adc16.c **** )
+ 379:../Sources/drivers/adc16/adc16.c **** {
+ 370              		.loc 1 379 0
+ 371              		.cfi_startproc
+ 372              		@ args = 0, pretend = 0, frame = 8
+ 373              		@ frame_needed = 1, uses_anonymous_args = 0
+ 374              		@ link register save eliminated.
+ 375 0000 80B4     		push	{r7}
+ 376              	.LCFI9:
+ 377              		.cfi_def_cfa_offset 4
+ 378              		.cfi_offset 7, -4
+ 379 0002 83B0     		sub	sp, sp, #12
+ 380              	.LCFI10:
+ 381              		.cfi_def_cfa_offset 16
+ 382 0004 00AF     		add	r7, sp, #0
+ 383              	.LCFI11:
+ 384              		.cfi_def_cfa_register 7
+ 385 0006 7860     		str	r0, [r7, #4]
+ 386 0008 3960     		str	r1, [r7, #0]
+ 380:../Sources/drivers/adc16/adc16.c ****     blk->OFS = ADC_OFS_REG(adcmap);
+ 387              		.loc 1 380 0
+ 388 000a 7B68     		ldr	r3, [r7, #4]
+ 389 000c 9B6A     		ldr	r3, [r3, #40]
+ 390 000e 9AB2     		uxth	r2, r3
+ 391 0010 3B68     		ldr	r3, [r7, #0]
+ 392 0012 1A80     		strh	r2, [r3, #0]	@ movhi
+ 381:../Sources/drivers/adc16/adc16.c ****     blk->PG = ADC_PG_REG(adcmap);
+ 393              		.loc 1 381 0
+ 394 0014 7B68     		ldr	r3, [r7, #4]
+ 395 0016 DB6A     		ldr	r3, [r3, #44]
+ 396 0018 9AB2     		uxth	r2, r3
+ 397 001a 3B68     		ldr	r3, [r7, #0]
+ 398 001c 5A80     		strh	r2, [r3, #2]	@ movhi
+ 382:../Sources/drivers/adc16/adc16.c ****     blk->MG = ADC_MG_REG(adcmap);
+ 399              		.loc 1 382 0
+ 400 001e 7B68     		ldr	r3, [r7, #4]
+ 401 0020 1B6B     		ldr	r3, [r3, #48]
+ 402 0022 9AB2     		uxth	r2, r3
+ 403 0024 3B68     		ldr	r3, [r7, #0]
+ 404 0026 9A80     		strh	r2, [r3, #4]	@ movhi
+ 383:../Sources/drivers/adc16/adc16.c ****     blk->CLPD = ADC_CLPD_REG(adcmap);
+ 405              		.loc 1 383 0
+ 406 0028 7B68     		ldr	r3, [r7, #4]
+ 407 002a 5B6B     		ldr	r3, [r3, #52]
+ 408 002c DAB2     		uxtb	r2, r3
+ 409 002e 3B68     		ldr	r3, [r7, #0]
+ 410 0030 9A71     		strb	r2, [r3, #6]
+ 384:../Sources/drivers/adc16/adc16.c ****     blk->CLPS = ADC_CLPS_REG(adcmap);
+ 411              		.loc 1 384 0
+ 412 0032 7B68     		ldr	r3, [r7, #4]
+ 413 0034 9B6B     		ldr	r3, [r3, #56]
+ 414 0036 DAB2     		uxtb	r2, r3
+ 415 0038 3B68     		ldr	r3, [r7, #0]
+ 416 003a DA71     		strb	r2, [r3, #7]
+ 385:../Sources/drivers/adc16/adc16.c ****     blk->CLP4 = ADC_CLP4_REG(adcmap);
+ 417              		.loc 1 385 0
+ 418 003c 7B68     		ldr	r3, [r7, #4]
+ 419 003e DB6B     		ldr	r3, [r3, #60]
+ 420 0040 9AB2     		uxth	r2, r3
+ 421 0042 3B68     		ldr	r3, [r7, #0]
+ 422 0044 1A81     		strh	r2, [r3, #8]	@ movhi
+ 386:../Sources/drivers/adc16/adc16.c ****     blk->CLP3 = ADC_CLP3_REG(adcmap);
+ 423              		.loc 1 386 0
+ 424 0046 7B68     		ldr	r3, [r7, #4]
+ 425 0048 1B6C     		ldr	r3, [r3, #64]
+ 426 004a 9AB2     		uxth	r2, r3
+ 427 004c 3B68     		ldr	r3, [r7, #0]
+ 428 004e 5A81     		strh	r2, [r3, #10]	@ movhi
+ 387:../Sources/drivers/adc16/adc16.c ****     blk->CLP2 = ADC_CLP2_REG(adcmap);
+ 429              		.loc 1 387 0
+ 430 0050 7B68     		ldr	r3, [r7, #4]
+ 431 0052 5B6C     		ldr	r3, [r3, #68]
+ 432 0054 DAB2     		uxtb	r2, r3
+ 433 0056 3B68     		ldr	r3, [r7, #0]
+ 434 0058 1A73     		strb	r2, [r3, #12]
+ 388:../Sources/drivers/adc16/adc16.c ****     blk->CLP1 = ADC_CLP1_REG(adcmap);
+ 435              		.loc 1 388 0
+ 436 005a 7B68     		ldr	r3, [r7, #4]
+ 437 005c 9B6C     		ldr	r3, [r3, #72]
+ 438 005e DAB2     		uxtb	r2, r3
+ 439 0060 3B68     		ldr	r3, [r7, #0]
+ 440 0062 5A73     		strb	r2, [r3, #13]
+ 389:../Sources/drivers/adc16/adc16.c ****     blk->CLP0 = ADC_CLP0_REG(adcmap);
+ 441              		.loc 1 389 0
+ 442 0064 7B68     		ldr	r3, [r7, #4]
+ 443 0066 DB6C     		ldr	r3, [r3, #76]
+ 444 0068 DAB2     		uxtb	r2, r3
+ 445 006a 3B68     		ldr	r3, [r7, #0]
+ 446 006c 9A73     		strb	r2, [r3, #14]
+ 390:../Sources/drivers/adc16/adc16.c ****     blk->CLMD = ADC_CLMD_REG(adcmap);
+ 447              		.loc 1 390 0
+ 448 006e 7B68     		ldr	r3, [r7, #4]
+ 449 0070 5B6D     		ldr	r3, [r3, #84]
+ 450 0072 DAB2     		uxtb	r2, r3
+ 451 0074 3B68     		ldr	r3, [r7, #0]
+ 452 0076 1A74     		strb	r2, [r3, #16]
+ 391:../Sources/drivers/adc16/adc16.c ****     blk->CLMS = ADC_CLMS_REG(adcmap);
+ 453              		.loc 1 391 0
+ 454 0078 7B68     		ldr	r3, [r7, #4]
+ 455 007a 9B6D     		ldr	r3, [r3, #88]
+ 456 007c DAB2     		uxtb	r2, r3
+ 457 007e 3B68     		ldr	r3, [r7, #0]
+ 458 0080 5A74     		strb	r2, [r3, #17]
+ 392:../Sources/drivers/adc16/adc16.c ****     blk->CLM4 = ADC_CLM4_REG(adcmap);
+ 459              		.loc 1 392 0
+ 460 0082 7B68     		ldr	r3, [r7, #4]
+ 461 0084 DB6D     		ldr	r3, [r3, #92]
+ 462 0086 9AB2     		uxth	r2, r3
+ 463 0088 3B68     		ldr	r3, [r7, #0]
+ 464 008a 5A82     		strh	r2, [r3, #18]	@ movhi
+ 393:../Sources/drivers/adc16/adc16.c ****     blk->CLM3 = ADC_CLM3_REG(adcmap);
+ 465              		.loc 1 393 0
+ 466 008c 7B68     		ldr	r3, [r7, #4]
+ 467 008e 1B6E     		ldr	r3, [r3, #96]
+ 468 0090 9AB2     		uxth	r2, r3
+ 469 0092 3B68     		ldr	r3, [r7, #0]
+ 470 0094 9A82     		strh	r2, [r3, #20]	@ movhi
+ 394:../Sources/drivers/adc16/adc16.c ****     blk->CLM2 = ADC_CLM2_REG(adcmap);
+ 471              		.loc 1 394 0
+ 472 0096 7B68     		ldr	r3, [r7, #4]
+ 473 0098 5B6E     		ldr	r3, [r3, #100]
+ 474 009a DAB2     		uxtb	r2, r3
+ 475 009c 3B68     		ldr	r3, [r7, #0]
+ 476 009e 9A75     		strb	r2, [r3, #22]
+ 395:../Sources/drivers/adc16/adc16.c ****     blk->CLM1 = ADC_CLM1_REG(adcmap);
+ 477              		.loc 1 395 0
+ 478 00a0 7B68     		ldr	r3, [r7, #4]
+ 479 00a2 9B6E     		ldr	r3, [r3, #104]
+ 480 00a4 DAB2     		uxtb	r2, r3
+ 481 00a6 3B68     		ldr	r3, [r7, #0]
+ 482 00a8 DA75     		strb	r2, [r3, #23]
+ 396:../Sources/drivers/adc16/adc16.c ****     blk->CLM0 = ADC_CLM0_REG(adcmap);
+ 483              		.loc 1 396 0
+ 484 00aa 7B68     		ldr	r3, [r7, #4]
+ 485 00ac DB6E     		ldr	r3, [r3, #108]
+ 486 00ae DAB2     		uxtb	r2, r3
+ 487 00b0 3B68     		ldr	r3, [r7, #0]
+ 488 00b2 1A76     		strb	r2, [r3, #24]
+ 397:../Sources/drivers/adc16/adc16.c **** }
+ 489              		.loc 1 397 0
+ 490 00b4 07F10C07 		add	r7, r7, #12
+ 491 00b8 BD46     		mov	sp, r7
+ 492 00ba 80BC     		pop	{r7}
+ 493 00bc 7047     		bx	lr
+ 494              		.cfi_endproc
+ 495              	.LFE3:
+ 497              		.comm	Master_Adc_Config,16,4
+ 498 00be 00BF     		.section	.text.InitADC_12Bit,"ax",%progbits
+ 499              		.align	2
+ 500              		.global	InitADC_12Bit
+ 501              		.thumb
+ 502              		.thumb_func
+ 504              	InitADC_12Bit:
+ 505              	.LFB4:
+ 398:../Sources/drivers/adc16/adc16.c **** 
+ 399:../Sources/drivers/adc16/adc16.c **** 
+ 400:../Sources/drivers/adc16/adc16.c **** tADC_Config Master_Adc_Config;
+ 401:../Sources/drivers/adc16/adc16.c **** 
+ 402:../Sources/drivers/adc16/adc16.c **** void InitADC_12Bit()
+ 403:../Sources/drivers/adc16/adc16.c **** {
+ 506              		.loc 1 403 0
+ 507              		.cfi_startproc
+ 508              		@ args = 0, pretend = 0, frame = 0
+ 509              		@ frame_needed = 1, uses_anonymous_args = 0
+ 510 0000 80B5     		push	{r7, lr}
+ 511              	.LCFI12:
+ 512              		.cfi_def_cfa_offset 8
+ 513              		.cfi_offset 7, -8
+ 514              		.cfi_offset 14, -4
+ 515 0002 00AF     		add	r7, sp, #0
+ 516              	.LCFI13:
+ 517              		.cfi_def_cfa_register 7
+ 404:../Sources/drivers/adc16/adc16.c ****     SIM_SCGC6 |= SIM_SCGC6_ADC0_MASK;
+ 518              		.loc 1 404 0
+ 519 0004 4FF4E043 		mov	r3, #28672
+ 520 0008 C4F20403 		movt	r3, 16388
+ 521 000c 4FF4E042 		mov	r2, #28672
+ 522 0010 C4F20402 		movt	r2, 16388
+ 523 0014 02F58152 		add	r2, r2, #4128
+ 524 0018 02F11C02 		add	r2, r2, #28
+ 525 001c 1268     		ldr	r2, [r2, #0]
+ 526 001e 42F00062 		orr	r2, r2, #134217728
+ 527 0022 03F58153 		add	r3, r3, #4128
+ 528 0026 03F11C03 		add	r3, r3, #28
+ 529 002a 1A60     		str	r2, [r3, #0]
+ 405:../Sources/drivers/adc16/adc16.c ****     // setup the initial ADC default configuration to get setup for calibration
+ 406:../Sources/drivers/adc16/adc16.c ****     Master_Adc_Config.CONFIG1  = ADLPC_NORMAL
+ 530              		.loc 1 406 0
+ 531 002c 40F20003 		movw	r3, #:lower16:Master_Adc_Config
+ 532 0030 C0F20003 		movt	r3, #:upper16:Master_Adc_Config
+ 533 0034 4FF05402 		mov	r2, #84
+ 534 0038 1A70     		strb	r2, [r3, #0]
+ 407:../Sources/drivers/adc16/adc16.c ****                                  | ADC_CFG1_ADIV(ADIV_4)
+ 408:../Sources/drivers/adc16/adc16.c ****                                  | ADLSMP_LONG
+ 409:../Sources/drivers/adc16/adc16.c ****                                  | ADC_CFG1_MODE(MODE_12)
+ 410:../Sources/drivers/adc16/adc16.c ****                                  | ADC_CFG1_ADICLK(ADICLK_BUS);
+ 411:../Sources/drivers/adc16/adc16.c ****     Master_Adc_Config.CONFIG2  = MUXSEL_ADCA
+ 535              		.loc 1 411 0
+ 536 003a 40F20003 		movw	r3, #:lower16:Master_Adc_Config
+ 537 003e C0F20003 		movt	r3, #:upper16:Master_Adc_Config
+ 538 0042 4FF00402 		mov	r2, #4
+ 539 0046 5A70     		strb	r2, [r3, #1]
+ 412:../Sources/drivers/adc16/adc16.c ****                                  | ADACKEN_DISABLED
+ 413:../Sources/drivers/adc16/adc16.c ****                                  | ADHSC_HISPEED
+ 414:../Sources/drivers/adc16/adc16.c ****                                  | ADC_CFG2_ADLSTS(ADLSTS_20) ;
+ 415:../Sources/drivers/adc16/adc16.c ****     Master_Adc_Config.COMPARE1 = 0x1234u ;                 // can be anything
+ 540              		.loc 1 415 0
+ 541 0048 40F20003 		movw	r3, #:lower16:Master_Adc_Config
+ 542 004c C0F20003 		movt	r3, #:upper16:Master_Adc_Config
+ 543 0050 41F23422 		movw	r2, #4660
+ 544 0054 5A80     		strh	r2, [r3, #2]	@ movhi
+ 416:../Sources/drivers/adc16/adc16.c ****     Master_Adc_Config.COMPARE2 = 0x5678u ;                 // can be anything
+ 545              		.loc 1 416 0
+ 546 0056 40F20003 		movw	r3, #:lower16:Master_Adc_Config
+ 547 005a C0F20003 		movt	r3, #:upper16:Master_Adc_Config
+ 548 005e 45F27862 		movw	r2, #22136
+ 549 0062 9A80     		strh	r2, [r3, #4]	@ movhi
+ 417:../Sources/drivers/adc16/adc16.c ****     // since not using
+ 418:../Sources/drivers/adc16/adc16.c ****     // compare feature
+ 419:../Sources/drivers/adc16/adc16.c ****     Master_Adc_Config.STATUS2  =
+ 550              		.loc 1 419 0
+ 551 0064 40F20003 		movw	r3, #:lower16:Master_Adc_Config
+ 552 0068 C0F20003 		movt	r3, #:upper16:Master_Adc_Config
+ 553 006c 4FF01802 		mov	r2, #24
+ 554 0070 9A71     		strb	r2, [r3, #6]
+ 420:../Sources/drivers/adc16/adc16.c ****         ACFE_DISABLED
+ 421:../Sources/drivers/adc16/adc16.c ****         | ACFGT_GREATER
+ 422:../Sources/drivers/adc16/adc16.c ****         | ACREN_ENABLED
+ 423:../Sources/drivers/adc16/adc16.c ****         | DMAEN_DISABLED
+ 424:../Sources/drivers/adc16/adc16.c ****         | ADC_SC2_REFSEL(REFSEL_EXT);
+ 425:../Sources/drivers/adc16/adc16.c ****     Master_Adc_Config.STATUS3  = CAL_OFF
+ 555              		.loc 1 425 0
+ 556 0072 40F20003 		movw	r3, #:lower16:Master_Adc_Config
+ 557 0076 C0F20003 		movt	r3, #:upper16:Master_Adc_Config
+ 558 007a 4FF00602 		mov	r2, #6
+ 559 007e DA71     		strb	r2, [r3, #7]
+ 426:../Sources/drivers/adc16/adc16.c ****                                  | ADCO_SINGLE
+ 427:../Sources/drivers/adc16/adc16.c ****                                  | AVGE_ENABLED
+ 428:../Sources/drivers/adc16/adc16.c ****                                  | ADC_SC3_AVGS(AVGS_16);
+ 429:../Sources/drivers/adc16/adc16.c ****     Master_Adc_Config.STATUS1A = AIEN_OFF | DIFF_SINGLE | ADC_SC1_ADCH(31);
+ 560              		.loc 1 429 0
+ 561 0080 40F20003 		movw	r3, #:lower16:Master_Adc_Config
+ 562 0084 C0F20003 		movt	r3, #:upper16:Master_Adc_Config
+ 563 0088 4FF01F02 		mov	r2, #31
+ 564 008c 1A72     		strb	r2, [r3, #8]
+ 430:../Sources/drivers/adc16/adc16.c ****     Master_Adc_Config.STATUS1B = AIEN_OFF | DIFF_SINGLE | ADC_SC1_ADCH(31);
+ 565              		.loc 1 430 0
+ 566 008e 40F20003 		movw	r3, #:lower16:Master_Adc_Config
+ 567 0092 C0F20003 		movt	r3, #:upper16:Master_Adc_Config
+ 568 0096 4FF01F02 		mov	r2, #31
+ 569 009a 5A72     		strb	r2, [r3, #9]
+ 431:../Sources/drivers/adc16/adc16.c ****     // Configure ADC as it will be used, but becuase ADC_SC1_ADCH is 31,
+ 432:../Sources/drivers/adc16/adc16.c ****     // the ADC will be inactive.  Channel 31 is just disable function.
+ 433:../Sources/drivers/adc16/adc16.c ****     // There really is no channel 31.
+ 434:../Sources/drivers/adc16/adc16.c ****     ADC_Config_Alt(ADC0_BASE_PTR, &Master_Adc_Config);  // config ADC
+ 570              		.loc 1 434 0
+ 571 009c 4FF43040 		mov	r0, #45056
+ 572 00a0 C4F20300 		movt	r0, 16387
+ 573 00a4 40F20001 		movw	r1, #:lower16:Master_Adc_Config
+ 574 00a8 C0F20001 		movt	r1, #:upper16:Master_Adc_Config
+ 575 00ac FFF7FEFF 		bl	ADC_Config_Alt
+ 435:../Sources/drivers/adc16/adc16.c ****     // Calibrate the ADC in the configuration in which it will be used:
+ 436:../Sources/drivers/adc16/adc16.c ****     ADC_Cal(ADC0_BASE_PTR);                    // do the calibration
+ 576              		.loc 1 436 0
+ 577 00b0 4FF43040 		mov	r0, #45056
+ 578 00b4 C4F20300 		movt	r0, 16387
+ 579 00b8 FFF7FEFF 		bl	ADC_Cal
+ 437:../Sources/drivers/adc16/adc16.c ****     // The structure still has the desired configuration.  So restore it.
+ 438:../Sources/drivers/adc16/adc16.c ****     // Why restore it?  The calibration makes some adjustments to the
+ 439:../Sources/drivers/adc16/adc16.c ****     // configuration of the ADC.  The are now undone:
+ 440:../Sources/drivers/adc16/adc16.c ****     // config the ADC again to desired conditions
+ 441:../Sources/drivers/adc16/adc16.c ****     ADC_Config_Alt(ADC0_BASE_PTR, &Master_Adc_Config);
+ 580              		.loc 1 441 0
+ 581 00bc 4FF43040 		mov	r0, #45056
+ 582 00c0 C4F20300 		movt	r0, 16387
+ 583 00c4 40F20001 		movw	r1, #:lower16:Master_Adc_Config
+ 584 00c8 C0F20001 		movt	r1, #:upper16:Master_Adc_Config
+ 585 00cc FFF7FEFF 		bl	ADC_Config_Alt
+ 442:../Sources/drivers/adc16/adc16.c ****     // *****************************************************************************
+ 443:../Sources/drivers/adc16/adc16.c ****     //      ADC0 using the PDB trigger in ping pong
+ 444:../Sources/drivers/adc16/adc16.c ****     // *****************************************************************************
+ 445:../Sources/drivers/adc16/adc16.c ****     // use interrupts, single ended mode, and real channel numbers now:
+ 446:../Sources/drivers/adc16/adc16.c ****     ADC_Config_Alt(ADC0_BASE_PTR, &Master_Adc_Config);  // config ADC0
+ 586              		.loc 1 446 0
+ 587 00d0 4FF43040 		mov	r0, #45056
+ 588 00d4 C4F20300 		movt	r0, 16387
+ 589 00d8 40F20001 		movw	r1, #:lower16:Master_Adc_Config
+ 590 00dc C0F20001 		movt	r1, #:upper16:Master_Adc_Config
+ 591 00e0 FFF7FEFF 		bl	ADC_Config_Alt
+ 447:../Sources/drivers/adc16/adc16.c **** }
+ 592              		.loc 1 447 0
+ 593 00e4 80BD     		pop	{r7, pc}
+ 594              		.cfi_endproc
+ 595              	.LFE4:
+ 597 00e6 00BF     		.section	.text.StartADC0_SingleEnded,"ax",%progbits
+ 598              		.align	2
+ 599              		.global	StartADC0_SingleEnded
+ 600              		.thumb
+ 601              		.thumb_func
+ 603              	StartADC0_SingleEnded:
+ 604              	.LFB5:
+ 448:../Sources/drivers/adc16/adc16.c **** 
+ 449:../Sources/drivers/adc16/adc16.c **** 
+ 450:../Sources/drivers/adc16/adc16.c **** 
+ 451:../Sources/drivers/adc16/adc16.c **** 
+ 452:../Sources/drivers/adc16/adc16.c **** 
+ 453:../Sources/drivers/adc16/adc16.c **** void StartADC0_SingleEnded(uint8_t Channel,uint8_t MuxSide)
+ 454:../Sources/drivers/adc16/adc16.c **** {
+ 605              		.loc 1 454 0
+ 606              		.cfi_startproc
+ 607              		@ args = 0, pretend = 0, frame = 8
+ 608              		@ frame_needed = 1, uses_anonymous_args = 0
+ 609              		@ link register save eliminated.
+ 610 0000 80B4     		push	{r7}
+ 611              	.LCFI14:
+ 612              		.cfi_def_cfa_offset 4
+ 613              		.cfi_offset 7, -4
+ 614 0002 83B0     		sub	sp, sp, #12
+ 615              	.LCFI15:
+ 616              		.cfi_def_cfa_offset 16
+ 617 0004 00AF     		add	r7, sp, #0
+ 618              	.LCFI16:
+ 619              		.cfi_def_cfa_register 7
+ 620 0006 0246     		mov	r2, r0
+ 621 0008 0B46     		mov	r3, r1
+ 622 000a FA71     		strb	r2, [r7, #7]
+ 623 000c BB71     		strb	r3, [r7, #6]
+ 455:../Sources/drivers/adc16/adc16.c ****     if(MuxSide == 0)
+ 624              		.loc 1 455 0
+ 625 000e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 626 0010 002B     		cmp	r3, #0
+ 627 0012 0CD1     		bne	.L10
+ 456:../Sources/drivers/adc16/adc16.c ****         {
+ 457:../Sources/drivers/adc16/adc16.c ****             //Select The a side of the MUX
+ 458:../Sources/drivers/adc16/adc16.c ****             ADC0_CFG1 &= ~(ADC_CFG2_MUXSEL_MASK);
+ 628              		.loc 1 458 0
+ 629 0014 4FF43043 		mov	r3, #45056
+ 630 0018 C4F20303 		movt	r3, 16387
+ 631 001c 4FF43042 		mov	r2, #45056
+ 632 0020 C4F20302 		movt	r2, 16387
+ 633 0024 9268     		ldr	r2, [r2, #8]
+ 634 0026 22F01002 		bic	r2, r2, #16
+ 635 002a 9A60     		str	r2, [r3, #8]
+ 636 002c 0BE0     		b	.L11
+ 637              	.L10:
+ 459:../Sources/drivers/adc16/adc16.c ****         }
+ 460:../Sources/drivers/adc16/adc16.c ****     else
+ 461:../Sources/drivers/adc16/adc16.c ****         {
+ 462:../Sources/drivers/adc16/adc16.c ****             //Select The b side of the MUX
+ 463:../Sources/drivers/adc16/adc16.c ****             ADC0_CFG1 |= (ADC_CFG2_MUXSEL_MASK);
+ 638              		.loc 1 463 0
+ 639 002e 4FF43043 		mov	r3, #45056
+ 640 0032 C4F20303 		movt	r3, 16387
+ 641 0036 4FF43042 		mov	r2, #45056
+ 642 003a C4F20302 		movt	r2, 16387
+ 643 003e 9268     		ldr	r2, [r2, #8]
+ 644 0040 42F01002 		orr	r2, r2, #16
+ 645 0044 9A60     		str	r2, [r3, #8]
+ 646              	.L11:
+ 464:../Sources/drivers/adc16/adc16.c ****         }
+ 465:../Sources/drivers/adc16/adc16.c **** 
+ 466:../Sources/drivers/adc16/adc16.c ****     ADC0_SC1A  = Channel;
+ 647              		.loc 1 466 0
+ 648 0046 4FF43043 		mov	r3, #45056
+ 649 004a C4F20303 		movt	r3, 16387
+ 650 004e FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 651 0050 1A60     		str	r2, [r3, #0]
+ 467:../Sources/drivers/adc16/adc16.c **** }
+ 652              		.loc 1 467 0
+ 653 0052 07F10C07 		add	r7, r7, #12
+ 654 0056 BD46     		mov	sp, r7
+ 655 0058 80BC     		pop	{r7}
+ 656 005a 7047     		bx	lr
+ 657              		.cfi_endproc
+ 658              	.LFE5:
+ 660              		.section	.text.ReadADC0_SingleEnded,"ax",%progbits
+ 661              		.align	2
+ 662              		.global	ReadADC0_SingleEnded
+ 663              		.thumb
+ 664              		.thumb_func
+ 666              	ReadADC0_SingleEnded:
+ 667              	.LFB6:
+ 468:../Sources/drivers/adc16/adc16.c **** 
+ 469:../Sources/drivers/adc16/adc16.c **** uint16_t ReadADC0_SingleEnded(uint8_t Channel,uint8_t MuxSide)
+ 470:../Sources/drivers/adc16/adc16.c **** {
+ 668              		.loc 1 470 0
+ 669              		.cfi_startproc
+ 670              		@ args = 0, pretend = 0, frame = 8
+ 671              		@ frame_needed = 1, uses_anonymous_args = 0
+ 672 0000 80B5     		push	{r7, lr}
+ 673              	.LCFI17:
+ 674              		.cfi_def_cfa_offset 8
+ 675              		.cfi_offset 7, -8
+ 676              		.cfi_offset 14, -4
+ 677 0002 82B0     		sub	sp, sp, #8
+ 678              	.LCFI18:
+ 679              		.cfi_def_cfa_offset 16
+ 680 0004 00AF     		add	r7, sp, #0
+ 681              	.LCFI19:
+ 682              		.cfi_def_cfa_register 7
+ 683 0006 0246     		mov	r2, r0
+ 684 0008 0B46     		mov	r3, r1
+ 685 000a FA71     		strb	r2, [r7, #7]
+ 686 000c BB71     		strb	r3, [r7, #6]
+ 471:../Sources/drivers/adc16/adc16.c ****     StartADC0_SingleEnded(Channel,MuxSide);
+ 687              		.loc 1 471 0
+ 688 000e FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 689 0010 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 690 0012 1046     		mov	r0, r2
+ 691 0014 1946     		mov	r1, r3
+ 692 0016 FFF7FEFF 		bl	StartADC0_SingleEnded
+ 472:../Sources/drivers/adc16/adc16.c **** 
+ 473:../Sources/drivers/adc16/adc16.c ****     while((ADC0_SC1A & ADC_SC1_COCO_MASK) == 0)
+ 693              		.loc 1 473 0
+ 694 001a 00BF     		nop
+ 695              	.L13:
+ 696              		.loc 1 473 0 is_stmt 0
+ 697 001c 4FF43043 		mov	r3, #45056
+ 698 0020 C4F20303 		movt	r3, 16387
+ 699 0024 1B68     		ldr	r3, [r3, #0]
+ 700 0026 03F08003 		and	r3, r3, #128
+ 701 002a 002B     		cmp	r3, #0
+ 702 002c F6D0     		beq	.L13
+ 474:../Sources/drivers/adc16/adc16.c ****         {
+ 475:../Sources/drivers/adc16/adc16.c ****             //Wait For Conversion Complete
+ 476:../Sources/drivers/adc16/adc16.c ****         }
+ 477:../Sources/drivers/adc16/adc16.c **** 
+ 478:../Sources/drivers/adc16/adc16.c ****     return ADC0_RA;
+ 703              		.loc 1 478 0 is_stmt 1
+ 704 002e 4FF43043 		mov	r3, #45056
+ 705 0032 C4F20303 		movt	r3, 16387
+ 706 0036 1B69     		ldr	r3, [r3, #16]
+ 707 0038 9BB2     		uxth	r3, r3
+ 479:../Sources/drivers/adc16/adc16.c **** }
+ 708              		.loc 1 479 0
+ 709 003a 1846     		mov	r0, r3
+ 710 003c 07F10807 		add	r7, r7, #8
+ 711 0040 BD46     		mov	sp, r7
+ 712 0042 80BD     		pop	{r7, pc}
+ 713              		.cfi_endproc
+ 714              	.LFE6:
+ 716              		.text
+ 717              	.Letext0:
+ 718              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 719              		.file 3 "C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+ 720              		.file 4 "../Sources/drivers/adc16/../../cpu/arm_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc16.c
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:19     .text.ADC_Cal:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:24     .text.ADC_Cal:00000000 ADC_Cal
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:215    .text.ADC_Config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:220    .text.ADC_Config:00000000 ADC_Config
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:282    .text.ADC_Config_Alt:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:287    .text.ADC_Config_Alt:00000000 ADC_Config_Alt
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:363    .text.ADC_Read_Cal:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:368    .text.ADC_Read_Cal:00000000 ADC_Read_Cal
+                            *COM*:00000010 Master_Adc_Config
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:499    .text.InitADC_12Bit:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:504    .text.InitADC_12Bit:00000000 InitADC_12Bit
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:598    .text.StartADC0_SingleEnded:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:603    .text.StartADC0_SingleEnded:00000000 StartADC0_SingleEnded
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:661    .text.ReadADC0_SingleEnded:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc9RbE6b.s:666    .text.ReadADC0_SingleEnded:00000000 ReadADC0_SingleEnded
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

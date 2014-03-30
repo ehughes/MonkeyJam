@@ -1,0 +1,4186 @@
+###############################################################################
+
+
+        GC GreatCode
+        Original source code by Christophe Beaudet (1998)
+        cbeaudet@club-internet.fr
+
+        GC Version 1.140
+
+        The author declines responsability for bad results, corrupted source files
+        and so on... You must backup your files before using GC on them.
+
+        GC is freeware, open source, and so one. You can do what you want with
+		it, without any restriction.
+
+
+        (and sorry for my bad English -:).
+
+
+###############################################################################
+
+
+
+    1/  How to use GC ?
+    2/  Options description
+    3/  Special comments
+
+
+*******************************************************************************
+*                                                                             *
+*                                                                             *
+*                               HOW TO USE GC ?                               *
+*                                                                             *
+*                                                                             *
+*******************************************************************************
+
+    GC is a console application. The best way to use it is as an external
+    tool in your IDE.
+
+    For example in DevStudio 5/6 :
+
+        1/ Menu Tools/Customize.
+        2/ Select the "Tool" tab.
+        3/ Add GC as a new tool.
+
+        Command:                C:\Tools\GC\GC.exe    (example)
+        Arguments:              -file-"$(FilePath)"
+        Initial directory:      C:\Tools\GC            (example)
+
+        You can then associate a shortkey to that tool :
+
+        1/ Menu Tools/Customize/Keyboard
+        2/ Category Tools
+        3/ Command UserTool<num> where num is the rank of GC in the external
+           tool list.
+        4/ And then choose a keyboard shortcut.
+
+        If you don't want a message box each time you press the shortcut :
+
+        1/ Menu Tools/Options.
+        2/ Select the "Editor" tab.
+        3/ "Automatic reload of externally modified files" must be ON.
+
+    You can still use GC directly at the command prompt :
+
+    GC -file-myfile.c -option- -option-
+
+
+    By default, GC searches a GC.cfg file to get a list of options.
+    By default, GC searches a GC.lst file to get a list of files to beautify.
+    If these files do not exist, GC will raise a warning and continue.
+
+
+
+*******************************************************************************
+*                                                                             *
+*                                                                             *
+*                           OPTIONS DESCRIPTION                               *
+*                                                                             *
+*                                                                             *
+*******************************************************************************
+
+
+
+===============================================================================
+    Syntax
+===============================================================================
+
+    GC -option-[param]
+    GC -option-["param with a blank"]
+
+    Example :
+
+    GC -file-myfile.c -no-output-
+    GC -file-*.c -file-*.h -no-output-
+    GC -file-"c:/my dir with a blank/myfile.c"
+
+
+===============================================================================
+    List
+===============================================================================
+
+    -in_cfg-
+    -dir-
+    -direx-
+    -file-
+    -fileex-
+    -file_insert-
+    -file_end_eol-
+    -output-
+    -output_test-
+	-overwrite_read_only-
+    -verbose-
+    -bak-
+    -tab_size-
+    -tab_out-
+    -eol_unix-
+    -space_if-
+    -space_return-
+    -space_fctcall-
+    -space_fctcall_firstparam-
+    -space_fctcall_lastparam-
+	-space_fctcall_inparam-
+    -space_fctdef-
+    -space_fctdef_firstparam-
+    -space_fctdef_lastparam-
+    -space_fctdecl-
+    -space_fctdecl_lastparam-
+    -space_fctdecl_firstparam-
+    -space_paren-
+    -space_cast-
+    -space_cast_after-
+    -space_scope_def-
+    -space_scope_access-
+    -space_affect_style-
+    -space_autoaffect_style-
+	-code_eol_after_close_brace-
+    -code_len-
+    -code_keep_empty_lines-
+    -code_remove_empty_lines-
+    -code_split_bool_before-
+    -code_split_fctcall_style-
+    -code_split_fctdef_style-
+    -code_split_fctdecl_style-
+    -code_split_for_style-
+    -code_split_if_style-
+    -code_split_decl_style-
+    -code_constructor_style-
+    -code_decl_move_affect-
+    -code_decl_move_top-
+    -code_decl_access_to_type-
+    -code_decl_break_template-
+    -code_decl_add_void-
+    -code_wizard_indent-
+    -code_force_return_paren-
+    -code_remove_return_paren-
+    -code_align_max_blanks-
+    -code_def_fct_break_return_type-
+    -code_concat_strings-
+    -code_empty_fct_blanks-
+    -code_class_access_eol_before-
+    -code_class_access_eol_after-
+    -code_labels_eol_after-
+    -stmt_break_alone-
+	-stmt_break_dowhile-
+    -stmt_force_brace-
+    -stmt_concat_if-
+    -stmt_concat_else_2_stmt-
+	-stmt_concat_if_and_else-
+	-stmt_concat_else_if-
+    -stmt_concat_inline_class-
+    -stmt_concat_switch-
+    -stmt_concat_macros-
+    -stmt_concat_enum-
+    -stmt_decl_remove_empty-
+    -stmt_concat_if_remove_empty-
+    -stmt_brace_style_class-
+    -stmt_brace_style_fct-
+    -stmt_brace_style_decl-
+    -stmt_brace_style-
+    -stmt_switch_style-
+	-stmt_switch_eol-
+    -stmt_class_indent-
+    -stmt_namespace_indent-
+    -stmt_extern_c_indent-
+	-stmt_static_init_style-
+	-stmt_static_init_len-
+    -pp_align_to_code-
+    -pp_style-
+    -pp_include_unix-
+	-pp_align_breakline-
+    -cmt_fixme-
+    -cmt_align_max_blanks-
+    -cmt_dont_modify-
+    -cmt_add_gc_tag-
+    -cmt_add_file-
+    -cmt_add_file_style-
+    -cmt_add_fct_def-
+    -cmt_add_fct_def_class-
+    -cmt_trailing_style-
+    -cmt_doxygen-
+    -cmt_force_fct_def_decl_split-
+    -cmt_add_class_access-
+    -cmt_first_space_cpp-
+    -cmt_keep_cpp-
+    -cmt_c2cpp-
+    -cmt_cpp2c_keep_eol-
+    -cmt_fct_categ-
+    -cmt_fct_categ_in-
+    -cmt_decl-
+    -cmt_decl_max_level-
+    -cmt_decl_before-
+    -cmt_decl_len-
+    -cmt_decl_auto_len-
+    -cmt_decl_auto_len_add-
+    -cmt_first_line_break_first-
+    -cmt_first_line_break_last-
+    -cmt_first_line_fill_star-
+    -cmt_first_line_len-
+    -cmt_first_line_concat-
+    -cmt_first_line_blank-
+    -cmt_sep_len-
+    -cmt_sep_fill_star-
+    -cmt_sep_break-
+    -cmt_sep_char_1-
+    -cmt_sep_char_2-
+    -cmt_sep_char_3-
+    -cmt_sep_char_4-
+    -cmt_sep_char_5-
+    -cmt_sep_char_6-
+    -cmt_sep_char_split-
+	-cmt_sep_eol_before-
+	-cmt_sep_eol_after-
+    -cmt_sep_eol_before_1-
+    -cmt_sep_eol_after_1-
+    -cmt_sep_eol_before_2-
+    -cmt_sep_eol_after_2-
+    -cmt_sep_eol_before_3-
+    -cmt_sep_eol_after_3-
+    -cmt_sep_eol_before_4-
+    -cmt_sep_eol_after_4-
+    -cmt_sep_eol_before_5-
+    -cmt_sep_eol_after_5-
+    -cmt_sep_eol_before_6-
+    -cmt_sep_eol_after_6-
+    -cmt_sep_eol_before_fct_def-
+    -cmt_sep_force_fct_proto-
+    -cmt_sep_force_fct_macro-
+    -cmt_sep_force_fct_def-
+    -cmt_sep_force_class_access-
+    -cmt_sep_force_struct-
+    -cmt_sep_force_class-
+    -token_ext-
+    -replace_on-
+    -replace-
+    -dependencies-
+    -dependencies_all-
+    -dependencies_dir-
+    -dependencies_dir_rec-
+
+
+
+===============================================================================
+-in_cfg-<file>
+===============================================================================
+
+        Read an additional configuration file "file.cfg" file to get GC options.
+        All options must be separated with EOL.
+        Example :
+
+        ** GC.cfg file **
+        -tab_size-4<EOL>
+        -verbose-<EOL>
+        # comment with a # at the beginning of the line<EOL>
+        # another comment
+        -no-tab_out-<EOL>
+        -space_fctcall-<EOL>
+        ** EOF **
+
+        Note(s) :
+        - A warning is generated if the file cannot be found (but not an error).
+        - The priority is given to the options in the configuration file (versus
+          the options in the command line).
+        - The file can be at the same place as GC.exe, or anywhere in a
+          registered path.
+        - You can insert comments with a # as the first character of the line.
+
+
+
+===============================================================================
+-dir-<path>
+===============================================================================
+
+        Beautify all files of that directory (recursively).
+        Example :
+
+        GC -dir-d:/project/sources
+        GC -dir-"d:/my project/sources"
+
+        See option(s) :
+        -direx-<path>
+        -fileex-<file>
+
+        Note(s) :
+        - GC knows .c, .cpp, .cxx, .h, .hpp, .hxx, .java and .inc files.
+
+
+
+===============================================================================
+-direx-<path>
+===============================================================================
+
+        Exclude a directory (and all its subdirectories) when -dir- option is used.
+        Example :
+
+        GC -dir-c:/project/sources -direx-c:/project/sources/extern
+
+        See option(s) :
+        -dir-<path>
+        -fileex-<file>
+
+
+
+===============================================================================
+-fileex-<file>
+===============================================================================
+
+        Exclude a given file when -dir- option is used.
+        Example :
+
+        GC -dir-c:/project/sources -fileex-c:/project/sources/precomp.h
+
+        See option(s) :
+        -dir-<path>
+        -direx-<path>
+
+
+
+===============================================================================
+-file-<file>
+===============================================================================
+
+        Beautify a single file or a set of files defined with the * syntax.
+        Example :
+
+        GC -file-c:/project/sources/main.c
+        GC -file-*.c
+
+        See option(s) :
+        -dir-<path>
+
+
+
+===============================================================================
+-output-        (DEFAULT)
+-no-output-
+===============================================================================
+
+        Write the result to file. Be careful, because if -output_test- or -bak-
+        options are not specified, the original file will be overwritten.
+
+        See option(s) :
+        [-no]-output_test-
+        [-no]-bak-
+
+
+
+===============================================================================
+-output_test-
+no-output_test- (DEFAULT)
+===============================================================================
+
+        Write the result to file_test.???. The original file will not be lost.
+        Example :
+
+        GC -file-main.c -output-test-
+        => will generate main_test.c as a result.
+
+        See option(s) :
+        [-no]-output-
+        [-no]-bak-
+
+        Note(s) :
+        - This option is useful to test all GC options until you find the
+        ones that meet your expectations.
+        - If -output_test- option is set, -bak- option must be FALSE.
+
+
+
+===============================================================================
+-overwrite_read_only-
+-no-overwrite_read_only-	(DEFAULT)
+===============================================================================
+
+		With -overwrite_read_only-, GC can process read only files.
+		It changes the status of the file.
+
+
+
+===============================================================================
+-bak-
+-no-bak-        (DEFAULT)
+===============================================================================
+
+        Generate a backup of the original file before overwriting it. The file
+        will be named "file.???.bak".
+
+        See option(s) :
+        [-no]-output-
+        [-no]-output_test-
+
+        Note(s) :
+        - If -bak- option is set, -output_test- option must be FALSE.
+
+
+
+===============================================================================
+-verbose-       (DEFAULT)
+-no-verbose-
+===============================================================================
+
+        Display the list of processed files.
+
+
+
+===============================================================================
+-tab_size-<num> (DEFAULT 4)
+===============================================================================
+
+        Set the level (number of blanks) of an indentation level.
+        Example:
+
+        -tab_size-4
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a)
+        {
+            a++
+        }
+
+        -tab_size-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a)
+        {
+          a++
+        }
+
+
+
+===============================================================================
+-tab_out-       (DEFAULT)
+-no-tab_out-
+===============================================================================
+
+        Output tab characters instead of spaces. The value defined with
+        -tab_size- option is important to convert spaces to tabulations.
+
+        See option(s) :
+        -tab_size-<num>
+
+
+
+===============================================================================
+-eol_unix-
+-no-eol_unix-   (DEFAULT)
+===============================================================================
+
+        Generate a simple 0x0A characters for EOL instead of the dos sequence
+        0x0D 0x0A. This is unix format for carriage returns.
+
+
+
+===============================================================================
+-space_if-
+-no-space_if-   (DEFAULT)
+===============================================================================
+
+        Output a blank character after if, while, for and switch keywords.
+        Example :
+
+        -space_if-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if (a)
+        {
+            while (a--)
+            {
+            }
+        }
+
+        -no-space_if-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a)
+        {
+            while(a--)
+            {
+            }
+        }
+
+
+
+===============================================================================
+-space_return-
+-no-space_return-   (DEFAULT)
+===============================================================================
+
+        Output a blank character after return if return is followed by an open
+        parenthesis.
+        Example :
+
+        -space_return-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        return (6);
+
+        -no-space_return-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        return(6);
+
+
+
+===============================================================================
+-space_fctcall-
+-no-space_fctcall- (DEFAULT)
+===============================================================================
+
+        Output a blank character before the open parenthese of a function call.
+        Example :
+
+        -space_fctcall-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        main_call (out);
+        loop (100);
+
+        -no-space_fctcall-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        main_call(out);
+        loop(100);
+
+
+
+===============================================================================
+-space_fctcall_firstparam-
+-no-space_fctcall_firstparam-       (DEFAULT)
+-space_fctcall_lastparam-
+-no-space_fctcall_lastparam-		(DEFAULT)
+-space_fctcall_inparam-				(DEFAULT)
+-no-space_fctcall_inparam-			
+
+-space_fctdef_firstparam-
+-no-space_fctdef_firstparam-        (DEFAULT)
+-space_fctdef_lastparam-
+-no-space_fctdef_lastparam-			(DEFAULT)
+
+-space_fctdecl_firstparam-
+-no-space_fctdecl_firstparam-       (DEFAULT)
+-space_fctdecl_lastparam-
+-no-space_fctdecl_lastparam-		(DEFAULT)
+===============================================================================
+
+        Output a blank character before the first/last/inside parameter of a function 
+		call, definition or declaration.
+        Example :
+
+        -space_fctcall_inparam-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        main_call(1, 2, 3, 4);
+
+        -no-space_fctcall_inparam-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        main_call(1,2,3,4);
+
+        -space_fctcall_firstparam-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        main_call( out);
+        loop( 100, 200);
+
+        -no-space_fctcall_firstparam-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        main_call(out);
+        loop(100, 200);
+
+        -space_fctdef_firstparam-
+        -space_fctdef_lastparam-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main_call( int out )
+        {
+        }
+
+        -space_fctdecl_firstparam-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main_call( int out, int in);
+
+        -space_fctdecl_lastparam-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main_call(int out, int in );
+
+
+
+===============================================================================
+-space_fctdecl-
+-no-space_fctdecl-  (DEFAULT)
+-space_fctdef-
+-no-space_fctdef-   (DEFAULT)
+===============================================================================
+
+        Output a blank character before the open parenthese of a function 
+        definition / declaration.
+        Example :
+
+        -space_fctdecl-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        extern func (a);
+
+        -space_fctdef-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int func (a)
+        {
+        }
+
+        -no-space_fctdef-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int func(a)
+        {
+        }
+
+
+
+===============================================================================
+-space_paren-<num>      (DEFAULT 0)
+===============================================================================
+
+
+        Add spaces after '(' and before ')' if the nested level of the
+        parenthese is lower than the argument.
+        Example :
+
+        -space_paren-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if((a < 5) && (b > 2))
+        {
+        }
+
+        -space_paren-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if( (a < 5) && (b > 2) )
+        {
+        }
+
+        -space_paren-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if( ( a < 5 ) && ( b > 2 ) )
+        {
+        }
+
+        See option(s) :
+        [-no]-space_cast-
+
+        Note(s) :
+        - Empty expressions () are not modified.
+        - Casts are not modified.
+
+
+
+===============================================================================
+-space_cast-
+-no-space_cast-         (DEFAULT)
+===============================================================================
+
+
+        Add spaces after '(' and before ')' for cast operators.
+        Example :
+
+        -space_cast-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(( int * ) b)
+        {
+        }
+
+        return ( int * ) b;
+
+        -no-space_cast-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if((int *) b)
+        {
+        }
+
+        return (int *) b;
+
+        See option(s) :
+        -space_paren-<num>
+
+
+
+===============================================================================
+-space_cast_after-          (DEFAULT)
+-no-space_cast_after-
+===============================================================================
+
+
+        Add a space after a cast expression.
+        Example :
+
+        -space_cast_after-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if((int *) b)
+        {
+        }
+
+        return ( int * ) b;
+
+        -no-space_cast_after-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if((int *)b)
+        {
+        }
+
+        return (int *)b;
+
+        See option(s) :
+        [-no]-space_cast-
+
+
+
+===============================================================================
+-space_scope_def-
+-no-space_scope_def-        (DEFAULT)
+===============================================================================
+
+
+        Add a space before and after the scope resolution operator '::' in the
+        function definition.
+        Example :
+
+        -space_scope_def-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void func :: Ping(void)
+        {
+        }
+
+        -no-space_scope_def-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void func::Ping(void)
+        {
+        }
+
+        See option(s) :
+        [-no]-space_scope_access-
+
+
+
+===============================================================================
+-space_scope_access-
+-no-space_scope_access-     (DEFAULT)
+===============================================================================
+
+
+        Add a space before and after the scope resolution operator '::' when
+        accessing a static method.
+        Example :
+
+        -space_scope_access-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void func::Ping(void)
+        {
+            Base :: Ping();
+            Base :: Pong();
+        }
+
+        -no-space_scope_access-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void func::Ping(void)
+        {
+            Base::Ping();
+            Base::Pong();
+        }
+
+        See option(s) :
+        [-no]-space_scope_def-
+
+
+
+===============================================================================
+-space_affect_style-        (DEFAULT 0)
+-space_autoaffect_style-    (DEFAULT 0)
+===============================================================================
+
+        Set the indent style for affect and "auto-affect" operators.
+        Example :
+
+        -space_affect_style-0
+        -space_autoaffect_style-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        a = b = c;      <== Affect
+        a *= 6;         <== Auto-Affect
+
+        -space_affect_style-1
+        -space_autoaffect_style-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        a= b= c;
+        a*= 6;
+
+        -space_affect_style-2
+        -space_autoaffect_style-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        a=b=c;
+        a*=6;
+
+
+
+===============================================================================
+-code_len-<num>     (DEFAULT 120)
+===============================================================================
+
+        Set the maximum number of characters per line. GC will try to split
+        the lines that are too long.
+
+
+
+===============================================================================
+-code_keep_empty_lines-     (DEFAULT)
+-no-code_keep_empty_lines-
+===============================================================================
+
+        Tell GC to keep empty lines in original file. If set to FALSE, GC will
+        remove any original empty lines.
+
+
+
+===============================================================================
+-code_keep_more_empty_lines-
+-no-code_keep_more_empty_lines-  (DEFAULT)
+===============================================================================
+
+        Make more effort to preserve empty lines in the original file -
+        even in the face of other reformatting.
+
+
+
+===============================================================================
+-code_remove_empty_lines-<num>      (DEFAULT 2)
+===============================================================================
+
+        Remove all excedent empty lines. If num is 1, then only one single
+        blank line is authorized.
+        Example :
+
+        -code_remove_empty_lines-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a;
+        <EOL>
+        <EOL>
+        int a;
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a;
+        <EOL>
+        int a;
+
+
+
+===============================================================================
+-code_split_bool_before-        (DEFAULT)
+-no-code_split_bool_before-
+===============================================================================
+
+        Determine the aspect of boolean expressions when they must be split
+        because they are too long.
+        Example :
+
+        -code_split_bool_before-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if
+        (
+            (A + main(func) + 6 > 60)
+        &&  (B - 50 > 10)
+        ||  var
+        )
+        {
+        }
+
+        -no-code_split_bool_before-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if
+        (
+            (A + main(func) + 6 > 60) &&
+            (B - 50 > 10) ||
+            var
+        )
+        {
+        }
+
+
+
+===============================================================================
+-code_split_fctcall_style-<num>     (DEFAULT 0)
+-code_split_fctdef_style-<num>      (DEFAULT 0)
+-code_split_fctdecl_style-<num>     (DEFAULT 0)
+-code_split_for_style-<num>         (DEFAULT 0)
+-code_split_if_style-<num>          (DEFAULT 0)
+===============================================================================
+
+        Set the style when GC must break a function call/def/decl, a for 
+        statement or an if statement if the line is too long. 
+        The resulting style is the same for all options. 
+        Example :
+
+        -code_split_fctcall_style-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        function
+        (
+            parameter,
+            parameter,
+            parameter,
+            parameter,
+            parameter,
+            parameter,
+            parameter,
+        );
+
+        -code_split_fctcall_style-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        function(parameter, parameter, parameter,
+                 parameter, parameter, parameter,
+                 parameter);
+
+        -code_split_fctcall_style-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        function(parameter,
+                 parameter,
+                 parameter,
+                 parameter,
+                 parameter,
+                 parameter,
+                 parameter);
+
+        -code_split_fctdef_style-3
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void function(
+            parameter,
+            parameter,
+            parameter,
+            parameter,
+            parameter,
+            parameter,
+            parameter)
+        {
+        }
+
+        -code_split_fctdef_style-4
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void function(
+        parameter,
+        parameter,
+        parameter,
+        parameter,
+        parameter,
+        parameter,
+        parameter)
+        {
+        }
+
+        -code_split_fctdef_style-5
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void function(
+            parameter, parameter, parameter, parameter,
+            parameter, parameter, parameter)
+        {
+        }
+
+
+
+===============================================================================
+-code_split_decl_style-<num>        (DEFAULT 0)
+===============================================================================
+
+        Set style of indentation for declaration of variables.
+        Example :
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a, b, c = 10;
+		int d;
+
+        -code_split_decl_style-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a,
+            b,
+            c = 10;
+		int d;
+
+        -code_split_decl_style-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a;
+        int b;
+        int c = 10;
+		int d;
+
+
+
+===============================================================================
+-code_constructor_style-<num>       (DEFAULT 0)
+===============================================================================
+
+        Set style of indentation for constructors.
+        Example :
+
+        -code_constructor_style-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        cons::cons(void) :
+            set(0),
+            reset(0)
+        {
+        }
+
+        -code_constructor_style-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        cons::cons(void) : set(0), reset(0)
+        {
+        }
+
+        -code_constructor_style-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        cons::cons(void) :
+        set(0),
+        reset(0)
+        {
+        }
+
+
+    
+===============================================================================
+-code_decl_move_affect-
+-no-code_decl_move_affect-  (DEFAULT)
+===============================================================================
+
+        Move initialization in local variables declaration just after the
+        declaration.
+        Example :
+
+        -code_decl_move_affect-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+        {
+            int a = 0;
+            int     c = a + 1;
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+        {
+            int a;
+            int     c;
+
+            a = 0;      <= initializations has been moved
+            c = a + 1;
+        }
+
+        Note(s) :
+        - Be careful because this option sometimes does not work well. That's
+          why it's set to FALSE by default.
+
+
+
+===============================================================================
+-code_decl_move_top-    
+-no-code_decl_move_top-	(DEFAULT)
+===============================================================================
+
+        Move all local variables declaration to the top of the corresponding
+        statement.
+        Example :
+
+        -code_decl_move_top-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+        {
+            int a, b;
+
+            a = b = 0;
+            while(a)
+            {
+            }
+
+            int c;          <= declaration
+            c = 10;
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+        {
+            int a, b;
+            int c;          <= declaration has been moved
+
+            a = b = 0;
+            while(a)
+            {
+            }
+
+            c = 10;
+        }
+
+
+
+===============================================================================
+-code_decl_access_to_type-
+-no-code_decl_access_to_type-       (DEFAULT)
+===============================================================================
+
+        Move * and & access specifier just after the type if TRUE, or
+        just before the name if FALSE.
+        Example :
+
+        -code_decl_access_to_type-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int**   p;
+        int function(int* b, int& ref)
+        {
+        }
+
+        -no-code_decl_access_to_type-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int     **p;
+        int function(int *b, int &ref)
+        {
+        }
+
+
+
+===============================================================================
+-code_decl_break_template-  (DEFAULT)
+-no-code_decl_break_template-
+===============================================================================
+
+        Force an EOL after a template declaration.
+        Example :
+
+        -code_decl_break_template-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        template<class T, int i>    <= EOL
+        class TestClass
+        {
+        public:
+            char    buffer[i];
+            T		testFunc(T *p1);
+        };
+
+        -no-code_decl_break_template-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        template<class T, int i> class TestClass
+        {
+        public:
+            char    buffer[i];
+            T		testFunc(T *p1);
+        };
+
+
+
+===============================================================================
+-code_decl_add_void-        
+-no-code_decl_add_void-		(DEFAULT)
+===============================================================================
+
+        Force the "void" keyword in a function declaration if nothing is
+        specified.
+        Example :
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int function()
+        {
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int function(void)
+        {
+        }
+
+
+
+===============================================================================
+-code_wizard_indent-        (DEFAULT)
+-no-code_wizard_indent-
+===============================================================================
+
+        Indent code between to devstudio appwizard special comments.
+        Example :
+
+        -code_wizard_indent-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class   a
+        {
+        protected:
+        //{{AFX_MSG(CDocument)
+        enum a              <= has been touched
+        {
+            id = 0
+        };
+        afx_msg void    OnFileClose(void);
+        afx_msg void    OnFileSave(void);
+        afx_msg void    OnFileSaveAs(void);
+        //}}AFX_MSG
+        DECLARE_MESSAGE_MAP()
+        };
+
+        -no-code_wizard_indent-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class   a
+        {
+        protected:
+        //{{AFX_MSG(CDocument)
+        enum a { id = 0 };          <= same as original file
+        afx_msg void    OnFileClose(void);
+        afx_msg void    OnFileSave(void);
+        afx_msg void    OnFileSaveAs(void);
+        //}}AFX_MSG
+        DECLARE_MESSAGE_MAP()
+        };
+
+        Note(s) :
+        - This option must be set to FALSE if you want to indent special
+          appwizard headers with auto generated code. This is because touching
+          that code can make appwizard fail to recognize its special marks.
+        - This option can't be set in a source file with special comment
+          /*$O */
+
+
+
+===============================================================================
+-code_force_return_paren-
+-no-code_force_return_paren-        (DEFAULT)
+===============================================================================
+
+        Force parentheses around a "return" expression.
+        Example :
+
+        -code_force_return_paren-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a()
+        {
+            return 0;
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a()
+        {
+            return(0);
+        }
+
+        See option(s) :
+        [-no]-code_remove_return_paren-
+
+        Note(s) :
+        - This option can't be set in a source file with special comment
+          /*$O */
+        - Can't be used with -code_remove_return_paren- option.
+
+
+
+===============================================================================
+-code_remove_return_paren-
+-no-code_remove_return_paren-       (DEFAULT)
+===============================================================================
+
+        Remove all parentheses around a return parameter.
+        Example :
+
+        -code_remove_return_paren-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a()
+        {
+            return((a + 1) + 2);
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a()
+        {
+            return(a + 1) + 2;
+        }
+
+        See option(s) :
+        [-no]-code_force_return_paren-
+
+        Note(s) :
+        - This option can't be set in a source file with special comment
+          /*$O */
+        - Can't be used with -code_force_return_paren- option.
+
+
+===============================================================================
+-code_align_max_blanks-<num>        (DEFAULT 1000)
+===============================================================================
+
+        Set the maximum number of blank characters that can be added by GC to
+        align declarations of variables or functions.
+        Example :
+
+        -code_align_max_blanks-10
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int     a;
+        un_int  b;
+        unsigned int    coucou;
+        unsigned int    bg;
+
+        -code_align_max_blanks-20
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int         a;
+        un_int      b;
+        unsigned int    coucou;
+        unsigned int    bg;
+
+
+
+===============================================================================
+-code_def_fct_break_return_type-
+-no-code_def_fct_break_return_type-     (DEFAULT)
+===============================================================================
+
+        Force a line break after the return type in a function definition.
+        Example :
+
+        -code_def_fct_break_return_type-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int
+        function(void)
+        {
+        }
+
+        int 
+        class::func(void)
+        {
+        }
+
+        -no-code_def_fct_break_return_type-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int function(void)
+        {
+        }
+
+        int class::func(void)
+        {
+        }
+
+
+
+===============================================================================
+-code_concat_strings-
+-no-code_concat_strings-            (DEFAULT)
+===============================================================================
+
+        Concat adjacent string constants.
+        Example :
+
+        -no-code_concat_strings-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        printf("coucou""la""foule")
+
+        -code_concat_strings-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        printf("coucoulafoule")
+
+
+
+===============================================================================
+-code_empty_fct_blanks-<num>        (DEFAULT 0)
+===============================================================================
+
+        Add empty lines between { and } for empty functions. Empty function
+        must have no code between { and }.
+        Example :
+
+        -code_empty_fct_blanks-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void empty(void)
+        { }
+
+        -code_empty_fct_blanks-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void empty(void)
+        {
+        }
+
+        -code_empty_fct_blanks-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void empty(void)
+        {
+
+        }
+
+
+
+===============================================================================
+-code_class_access_eol_before-<num>     (DEFAULT 1)
+-code_class_access_eol_after-<num>      (DEFAULT 1)
+===============================================================================
+
+        Number of EOL before/after class access specifiers.
+        Example :
+
+        -code_class_access_eol_after-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class a
+        {
+        public:             <EOL>
+            void a(void);
+
+        private:            <EOL>
+            void ab(void);
+        }
+
+
+        -code_class_access_eol_before-2
+        -code_class_access_eol_after-3
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class a
+        {<EOL>
+        <EOL>
+        public:             <EOL>
+                            <EOL>
+                            <EOL>
+            void a(void);
+        <EOL>
+        <EOL>
+        private:            <EOL>
+                            <EOL>
+                            <EOL>
+            void ab(void);
+        }
+
+        See option(s) :
+        -code_remove_empty_lines-<num>
+
+
+
+===============================================================================
+-code_labels_eol_after-<num>            (DEFAULT 1)
+===============================================================================
+
+        Number of EOL after labels.
+        Example :
+
+        -code_labels_eol_after-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            goto label;
+        label:              <EOL>
+            a++;
+
+        -code_labels_eol_after-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            goto label;
+        label:              <EOL>
+                            <EOL>
+            a++;
+
+        See option(s) :
+        -code_remove_empty_lines-<num>
+
+
+
+===============================================================================
+-stmt_break_alone-
+-no-stmt_break_alone-       (DEFAULT)
+===============================================================================
+
+        Force an empty statement to be alone on its line.
+        Example :
+
+        -stmt_break_alone-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        for(a = 0; a < 10; a++)
+            ;
+
+        -no-stmt_break_alone-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        for(a = 0; a < 10; a++);
+
+        Note(s) :
+        - Concerns if, while, for and switch statements.
+
+
+
+===============================================================================
+-stmt_break_dowhile-
+-no-stmt_break_dowhile-		(DEFAULT)
+===============================================================================
+
+		Force a break line before the while of a do...while statement.
+        Example :
+
+		-stmt_break_dowhile-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		do
+		{
+			...
+		} 
+		while(1);
+
+		-no-stmt_break_dowhile-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		do
+		{
+			...
+		} while(1);
+
+
+
+===============================================================================
+-stmt_force_brace-<num>     (DEFAULT 100)
+===============================================================================
+
+        Force a statement to be enclosed with { } if its length exceeded the
+        given parameter.
+        Example :
+
+        -stmt_force_brace-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a) a++;
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a)
+        {
+            a++;
+        }
+
+
+
+===============================================================================
+-code_eol_after_close_brace-<num> (default 0)
+===============================================================================
+
+        Number of blank lines after every close brace -
+        except ones followed by else, while, and those around "typedef"
+        statements...
+
+        -stmt_force_brace-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if foo) {
+          bar();
+        }
+        if foo) {
+          bar();
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if foo) {
+          bar();
+        }
+
+        if foo) {
+          bar();
+        }
+
+
+
+===============================================================================
+-stmt_concat_if-        (DEFAULT)
+-no-stmt_concat_if-
+===============================================================================
+
+        Try to output if, while or for expression on a single line if the
+        length of the statement is not too long.
+        Example :
+
+        -stmt_concat_if-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        while(a && b)
+            a = b + 6;
+        if(a)
+            a++;
+        if(b)
+        {
+            b++;
+        }
+
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        while(a && b) a = b + 6;
+        if(a) a++;
+        if(b)
+        {
+            b++;
+        }
+
+        See options(s) :
+        -code_len-<num>
+
+        Note(s) :
+        - This option does not modify statements with { }.
+
+
+
+===============================================================================
+-stmt_concat_if_and_else-
+-no-stmt_concat_if_and_else-     (DEFAULT)
+===============================================================================
+
+        Try to output if ... else expression on two lines - if possible...
+        Example :
+
+        -stmt_concat_if_and_else-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a)
+            a++;
+        else
+            b++;
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a) a++;
+        else b++;
+
+        See options(s) :
+        -code_len-<num>
+
+        Note(s) :
+        - This option does not modify statements with { }.
+
+
+
+===============================================================================
+-stmt_concat_else_2_stmt-
+-no-stmt_concat_else_2_stmt-    (DEFAULT)
+===============================================================================
+
+        Put the else on the same line as the previous statement.
+        Example :
+
+        -stmt_concat_else_2_stmt-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a)
+        {
+        } else
+        {
+        }
+
+        -no-stmt_concat_else_2_stmt-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a)
+        {
+        } 
+        else
+        {
+        }
+
+
+
+===============================================================================
+-stmt_concat_else_if-       (DEFAULT)
+-no-stmt_concat_else_if-
+===============================================================================
+
+        Close up any gap between else and if in "else ... if" structures.
+        Example :
+
+        -stmt_concat_else_if-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(foo) 
+		{
+        } 
+		else if(bar) 
+		{
+        }
+
+        -no-stmt_concat_else_if-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(foo) 
+		{
+        } else
+        if(bar) 
+		{
+        }
+
+
+
+===============================================================================
+-stmt_concat_inline_class-      (DEFAULT)
+-no-stmt_concat_inline_class-
+===============================================================================
+
+        Concat if possible inline function body inside a class.
+        Example :
+
+        -stmt_concat_inline_class-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class a
+        {
+            int previous(int a)
+            {
+                return a - 1;
+            }
+            int next(int a)
+            {
+                return a + 1;
+            }
+        };
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class   a
+        {
+            int previous(int a) { return a - 1; }
+            int next(int a)     { return a + 1; }
+        };
+
+        See options(s) :
+        -code_len-<num>
+
+
+
+===============================================================================
+-stmt_concat_switch-        (DEFAULT)
+-no-stmt_concat_switch-
+===============================================================================
+
+        Concat all cases of a switch if possible. Empty lines are removed if
+		concatenation is done.
+        Example :
+
+        -stmt_concat_switch-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a)
+        {
+        case 10:
+            break;
+
+        case 11:
+            a = a + 6; return a;
+
+        case 12:
+            if(a) a++;
+            break;
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a)
+        {
+        case 10:    break;
+        case 11:    a = a + 6; return a;
+        case 12:    if(a) a++; break;
+        }
+
+
+
+===============================================================================
+-stmt_concat_macros-        (DEFAULT)
+-no-stmt_concat_macros-
+===============================================================================
+
+        Concat a macro body if possible.
+        Example :
+
+        -stmt_concat_macros-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #define macro()
+        {\
+            a = a + 18 - b;\
+            if(!a) return 10;\
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #define macro() { a = a + 18 - b; if(!a) return 10; }
+
+
+
+===============================================================================
+-stmt_concat_enum-      (DEFAULT)
+-no-stmt_concat_enum-
+===============================================================================
+
+        Concat content of enum if possible.
+        Example :
+
+        -stmt_concat_enum-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        enum a
+        {
+            id1,
+            id2
+        };
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        enum a { id1, id2 };
+
+
+
+===============================================================================
+-stmt_decl_remove_empty-    (DEFAULT)
+-no-stmt_decl_remove_empty-
+===============================================================================
+
+        Remove empty lines in declaration statements.
+        Example :
+
+        -stmt_decl_remove_empty-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+        {
+            int a;
+                        <= Empty line
+            int b;
+            int c;
+
+            a = b = c = 0;
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+        {
+            int a;
+            int b;
+            int c;
+
+            a = b = c = 0;
+        }
+
+
+
+===============================================================================
+-stmt_concat_if_remove_empty-       (DEFAULT)
+-no-stmt_concat_if_remove_empty-
+===============================================================================
+
+        Remove empty lines between concat if/while/for.
+        Example :
+
+        -stmt_concat_if_remove_empty-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a) a++;
+                        <= Empty line
+                        <= Empty line
+        if(b) b = b + a;
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        if(a) a++;
+        if(b) b = b + a;
+
+        See option(s) :
+        [-no]-stmt_concat_if- to concat if/while/for expressions if possible.
+
+
+
+===============================================================================
+-stmt_brace_style_class-<num>   (DEFAULT 0)
+-stmt_brace_style_fct-<num>     (DEFAULT 0)
+-stmt_brace_style_decl-<num>    (DEFAULT 0)
+-stmt_brace_style-<num>         (DEFAULT 0)
+===============================================================================
+
+        Change the indentation style of braces.
+        -stmt_brace_style_class- for a class declaration.
+        -stmt_brace_style_fct- for a function body.
+        -stmt_brace_style_decl- for declarations (struct, enum).
+        -stmt_brace_style- for all other statements (if, while...).
+        Example :
+
+        Style 0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+        {
+            while(a)
+            {
+                a = a + func(a);
+            }
+        }
+
+        Style 1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+            {
+            while(a)
+                {
+                a = a + func(a);
+                }
+            }
+
+        Style 2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void) {
+            while(a) {
+                a = a + func(a);
+            }
+        }
+
+        Style 3
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void) {
+            while(a) {
+                a = a + func(a);
+                }
+            }
+
+        Style 4
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void main(void)
+        {   while(a)
+            {   a = a + func(a);
+            }
+        }
+
+        Note(s) :
+        - Valid values are only 0, 1, 2, 3 or 4.
+
+
+
+===============================================================================
+-stmt_switch_style-<num>        (DEFAULT 0)
+===============================================================================
+
+        Change the indentation style of switch.
+        Example :
+
+        Style 0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a)
+        {
+        case 0:
+            a++;
+            break;
+        case 1:
+            break;
+        }
+
+        Style 1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a)
+        {
+            case 0:
+                a++;
+                break;
+            case 1:
+                break;
+        }
+
+        Style 2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a)
+            {
+            case 0:
+                a++;
+                break;
+            case 1:
+                break;
+            }
+
+        Style 3
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a) {
+        case 0:
+            a++;
+            break;
+        case 1:
+            break;
+        }
+
+        Style 4
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a) {
+            case 0:
+                a++;
+                break;
+            case 1:
+                break;
+        }
+
+
+
+===============================================================================
+-stmt_switch_eol-<num>		(DEFAULT 0)
+===============================================================================
+
+		Is there an empty line before the "case" keyword ?
+
+        Example :
+
+        Style 0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a)
+        {
+        case 0:
+		case 3:
+            a++;
+            break;
+
+        case 1:
+            break;
+
+        case 4:
+            break;
+        }
+
+        Style 1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        switch(a)
+        {
+        case 0:
+		case 3:
+            a++;
+            break;
+        case 1:
+            break;
+        case 4:
+            break;
+        }
+
+
+
+===============================================================================
+-stmt_class_indent-<num>    (DEFAULT 0)
+===============================================================================
+
+        Set the number of additional indentation levels in a class declaration.
+        Example :
+
+        -stmt_class_indent-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class a
+        {
+        public:
+            void a(void);
+        }
+
+        -stmt_class_indent-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class a
+        {
+            public:
+                void a(void);
+        }
+
+
+
+===============================================================================
+-stmt_namespace_indent-
+-no-stmt_namespace_indent-      (DEFAULT)
+===============================================================================
+
+        Indent one level a namespace statement.
+        Example :
+
+        -no-stmt_namespace_indent-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        namespace com
+        {
+        int a(void)
+        {
+        }
+        }
+
+        -stmt_namespace_indent-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        namespace com
+        {
+            int a(void)
+            {
+            }
+        }
+
+
+
+===============================================================================
+-stmt_extern_c_indent-
+-no-stmt_extern_c_indent-       (DEFAULT)
+===============================================================================
+
+        Indent one level an extern "C" statement.
+        Example :
+
+        -no-stmt_extern_c_indent-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        extern "C"
+        {
+        int a(void)
+        {
+        }
+        }
+
+        -stmt_extern_c_indent-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        extern "C"
+        {
+            int a(void)
+            {
+            }
+        }
+
+
+
+===============================================================================
+-stmt_static_init_style-<num>	(DEFAULT 0)
+===============================================================================
+
+		Defines indent style for static initialisations.
+
+		-stmt_static_init_style-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		char *d[] = 
+		{ 
+			"NULL", 
+			"ROM", 
+			"OTPROM", 
+			"EPROM", 
+			"EEPROM", 
+			"FLASH"
+		};
+
+		-stmt_static_init_style-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		char *d[] = { "NULL", "ROM", "OTPROM", "EPROM", "EEPROM", "FLASH"};
+
+		-stmt_static_init_style-3
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		char *d[] = 
+		{ 
+			"NULL", "ROM", "OTPROM", 
+			"EPROM", "EEPROM", "FLASH"
+		};
+
+        Note(s) :
+        - Option -stmt_static_init_style-1 let the original indentation 
+		  unchanged.
+        - The max length of the line in the initialisation statement for option
+		  -stmt_static_init_style-3 is defined by the -stmt_static_init_len-
+		  option.
+
+        See option(s) :
+		-stmt_static_init_len-<num>
+
+
+
+===============================================================================
+-stmt_static_init_len-<num>	(DEFAULT 80)
+===============================================================================
+
+		To be used with -stmt_static_init_style-3. Defined the max length of
+		a line in the initialisation statement.
+
+
+
+===============================================================================
+-pp_align_to_code-
+-no-pp_align_to_code-       (DEFAULT)
+===============================================================================
+
+        Align or not PP directive to the code just below.
+        Example :
+
+        -pp_align_to_code-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #define a   0
+        void main(void)
+        {
+            #define a       0
+            #define coucou  0
+            #define coucou() \
+                while(a) \
+                { \
+                    a = a + func(a); \
+                }
+
+            #if 0
+            if(a) a++;
+            #endif
+        }
+
+        -no-pp_align_to_code-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #define a   0
+        void main(void)
+        {
+        #define a       0
+        #define coucou  0
+        #define coucou() \
+            while(a) \
+            { \
+                a = a + func(a); \
+            }
+
+        #if 0
+            if(a) a++;
+        #endif
+        }
+
+        Note(s) :
+        - This option can't be used in source file file special comment /*$O*/.
+
+
+
+===============================================================================
+-pp_style-<num>         (DEFAULT 0)
+===============================================================================
+
+        Set the indentation style of PP directives.
+        Example :
+
+        -pp_style-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #ifdef a
+            a++;
+        #else
+        #if 0
+        #ifdef a
+        #elif b
+            a--;
+        #endif
+        #endif
+        #endif
+
+        -pp_style-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #ifdef a
+            a++;
+        #else
+            #if 0
+                #ifdef a
+                #elif b
+            a--;
+                #endif
+            #endif
+        #endif
+
+        -pp_style-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #ifdef a
+            a++;
+        #else
+        #   if 0
+        #      ifdef a
+        #      elif b
+            a--;
+        #      endif
+        #   endif
+        #endif
+
+
+
+===============================================================================
+-pp_include_unix-               (DEFAULT)
+[-no]-pp_include_unix-
+===============================================================================
+
+        Change '\' to '/' in an include expression.
+        Example :
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #include "gl\gl.h"
+        #include <gl\gl.h>
+
+        -pp_include_unix-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #include "gl/gl.h"
+        #include <gl/gl.h>
+
+        -no-pp_include_unix-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        #include "gl\gl.h"
+        #include <gl\gl.h>
+
+
+
+===============================================================================
+-pp_align_breakline-	
+[-no]-pp_align_breakline-	(DEFAULT)
+===============================================================================
+
+		Align (or not) breakline characters '\' in macros.
+
+        -pp_align_breakline-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		#define a(A)         \
+			A += 2;			 \
+			A = c(fonc) + 3; \
+
+        -no-pp_align_breakline-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		#define a(A) \
+			A += 2;	\
+			A = c(fonc) + 3; \
+
+
+
+===============================================================================
+-cmt_fixme-<string> (DEFAULT /* */)
+===============================================================================
+
+        Specify the string for FIXME comment the default is "/* FIXME: Comment */"
+        Example :
+
+        -cmt_fixme-"/* TODO: add comment */"
+
+
+
+===============================================================================
+-cmt_align_max_blanks-<num>     (DEFAULT 10)
+===============================================================================
+
+        Set the max number of blank characters to add to align last line
+        comments.
+        Example :
+
+        -cmt_align_max_blanks-20
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int         coucou;     /* comment */
+        unsigned int    b;      /* comment */
+        unsigned int    long_long_variable_variables;   /* comment */
+
+        -cmt_align_max_blanks-30
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int         coucou;             /* comment */
+        unsigned int    b;                  /* comment */
+        unsigned int    long_long_variable_variables;   /* comment */
+
+
+
+===============================================================================
+-cmt_first_space_cpp-       (DEFAULT)
+-no-cmt_first_space_cpp-
+===============================================================================
+
+        Force a space after the opening comment delimiter.
+        Example :
+
+        -cmt_first_space_cpp-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        // coucou
+
+        -no-cmt_first_space_cpp-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        //coucou
+
+
+
+===============================================================================
+-cmt_dont_modify-       
+-no-cmt_dont_modify-	(DEFAULT)
+===============================================================================
+
+        Process or not all the comments of the file.
+
+
+
+===============================================================================
+-cmt_add_gc_tag-        (DEFAULT)
+-no-cmt_add_gc_tag-
+===============================================================================
+
+        Add the GC mark at the beginning of the file.
+
+        /*$T test.c GC 1.102 01/06/01 16:47:25 */
+
+
+
+===============================================================================
+-cmt_add_file-      (DEFAULT)
+-no-cmt_add_file-
+===============================================================================
+
+        Add a special comment at the beginning of file (if not already
+        present). The type of the comment is set by -cmt_add_file_style-.
+
+        -cmt_add_file-
+        -cmt_add_file_style-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ** file.c **
+        /*$6
+         ++++++++++++++++++++++++++++++++++++++++++
+         ++++++++++++++++++++++++++++++++++++++++++
+         */
+        ...
+        ** EOF **
+
+        -cmt_add_file-
+        -cmt_add_file_style-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ** file.c **
+        /*$I0
+            ...
+         */
+        ...
+        ** EOF **
+
+        See option(s) :
+        -cmt_sep_char_6-<char>
+        -cmt_sep_len-<num>
+        -cmt_add_file_style-<num>
+
+
+
+===============================================================================
+-cmt_add_file_style-<num>
+===============================================================================
+
+        Special comment style for -cmt_add_file- option.
+        0 = special comment level 6 /*$6
+        1 = special comment external insertion file /*$I0
+
+        -cmt_add_file_style-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ** file.c **
+        /*$6
+         ++++++++++++++++++++++++++++++++++++++++++
+         ++++++++++++++++++++++++++++++++++++++++++
+         */
+
+        -cmt_add_file_style-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ** file.c **
+        /*$I0
+            ...
+         */
+
+        See option(s) :
+        [no]-cmt_add_file-
+        Special comment /*$I<num>*/
+
+
+
+===============================================================================
+-cmt_add_fct_def-       (DEFAULT)
+-no-cmt_add_fct_def-
+===============================================================================
+
+        Add an empty comment before function definition (if not already
+        present).
+        Comment is level is set by -cmt_sep_force_fct_def- option.
+
+        ** file.c **
+
+        /*
+         ==========================================
+         ==========================================
+         */
+        int a(void)
+        {
+        }
+
+        ** EOF **
+
+        See option(s) :
+        -cmt_sep_char_3-<char>
+        -cmt_sep_len-<num>
+        -cmt_sep_force_fct_def-<num>
+
+        Note(s) :
+        - Actual comments before function are included in the separator.
+
+
+===============================================================================
+-cmt_add_fct_def_class-		(DEFAULT)
+-no-cmt_add_fct_def_class-
+===============================================================================
+
+		Same as -cmt_add_fct_def-, but for functions defined inside a class
+		(inline functions).
+
+        See option(s) :
+		-cmt_add_fct_def-
+
+
+===============================================================================
+-cmt_trailing_style-<num> (DEFAULT 0)
+===============================================================================
+
+        Control style of trailing comments and an empty comment is added to
+        function parameters if not already present. 
+        This also causes -cmt_force_fct_def_decl_split-
+        and -code_split_fctdef_style-3. The content of
+        empty comment is defined by -cmt_fixme-.
+
+        -cmt_trailing_style-1
+        -cmt_force_fct_def_decl_split-
+        -code_split_fctdef_style-3
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        before:
+
+        int a(int param1, int param2)                   ## No comments
+        {
+        }
+
+        after:
+
+        int a(
+            int param1, /* FIXME: add a comment */      ## Added automatically
+            int param2) /* FIXME: add a comment */      ## Added automatically
+        {
+        }
+
+
+        -cmt_trailing_style-2
+        -cmt_force_fct_def_decl_split-
+        -code_split_fctdef_style-3
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        before:
+
+        int a(
+            int param1, /* IN: parameter 1 */
+            int param2) /* IN: parameter 2 */
+        {
+        }
+
+        after:
+
+        int a(
+            int param1, ///< IN: parameter 1            ## Changed to cpp
+            int param2) ///< IN: parameter 2            ## Changed to cpp
+        {
+        }
+
+
+    
+===============================================================================
+-cmt_force_fct_def_decl_split-
+-no-cmt_force_fct_def_decl_split-   (DEFAULT)
+===============================================================================
+
+        Force function definitions to split at each paramenter according
+        to the sytle defined by -code_split_fctdef_style-
+
+
+
+===============================================================================
+-cmt_doxygen-		(DEFAULT)
+-no-cmt_doxygen-   
+===============================================================================
+
+        Enable the doxygen/javadoc comment style.
+
+        /** comment */
+        /*! comment */
+        /*!< comment */
+
+		You can use -cmt_fct_categ- option to set some special doxygen commands
+		to be indent, so that GC will recognize them.
+
+		-cmt_fct_categ_in-@param
+		-cmt_fct_categ-\return
+
+		See option(s) :
+		-cmt_fct_categ-
+
+
+
+===============================================================================
+-cmt_add_class_access-      (DEFAULT)
+-no-cmt_add_class_access-
+===============================================================================
+
+        Add an empty comment before class access (if not already present).
+        Comment level is set by -cmt_sep_force_class_access- option.
+        Example :
+
+        -cmt_add_class_access-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class a
+        {
+        public:
+            void v(void);
+        protected:
+            int c;
+        };
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        class a
+        {
+        /*      <= by default, cmt level is 2
+         ==========================================
+         ==========================================
+         */
+        public:
+            void v(void);
+
+        /*
+         ==========================================
+         ==========================================
+         */
+        protected:
+            int c;
+        };
+
+        See option(s) :
+        -cmt_sep_char_2-<char>
+        -cmt_sep_len-<num>
+        -cmt_sep_force_class_access-<num>
+
+
+
+===============================================================================
+-cmt_keep_cpp-
+-no-cmt_keep_cpp-       (DEFAULT)
+===============================================================================
+
+        Keep C++ comments, and do not change them to the C form.
+        Example :
+
+        -no-cmt_keep_cpp-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        // this is a comment
+        // this is another comment
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         * this is a comment ;
+         * this is another comment
+         */
+
+        See option(s) :
+        [no]-cmt_cpp2c_keep_eol-
+        -cmt_sep_char_split-<char>
+
+        Note(s) :
+        - This option can't be set in a source file with special comment
+          /*$O */
+
+
+
+===============================================================================
+-cmt_c2cpp-
+-no-cmt_c2cpp-      (DEFAULT)
+===============================================================================
+
+        Convert all C comments to the C++ form. Only end of lines comments are
+        converted.
+
+        See option(s) :
+        -cmt_keep_cpp-
+
+        Note(s) :
+        - This option set the -cmt_keep_cpp- to true.
+
+
+
+===============================================================================
+-cmt_cpp2c_keep_eol-        (DEFAULT)
+-no-cmt_cpp2c_keep_eol-
+===============================================================================
+
+        Keep trace of EOL characters when converting C++ comments to C
+        comment. -cmt_keep_cpp- must be enabled.
+        Example :
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        // this is a comment
+        // this is another comment
+
+        -cmt_cpp2c_keep_eol-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         * this is a comment ;          <= ; is the default break character
+         * this is another comment
+         */
+
+        -no-cmt_cpp2c_keep_eol-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* this is a comment this is another comment */
+
+        See option(s) :
+        [no]-cmt_keep_cpp-
+        -cmt_sep_char_split-<char>
+
+
+
+===============================================================================
+-cmt_fct_categ-<name>
+-cmt_fct_categ_in-<name>
+===============================================================================
+
+        -cmt_fct_categ-     Define a special word when indenting function
+                            comments.
+        -cmt_fct_categ_in-  This word is a special category to describe
+                            function parameters.
+
+        GC can indent function definition comments in a special form
+        depending of special words defined with those options.
+
+		There are now some optional options after the declaration of the word.
+		-cmt_fct_categ-<typemask>;<column>
+		-cmt_fct_categ_in-<typemask>;<column>
+
+		<typemask>
+
+		bit 0	=>		Force a blank line before the categ word.
+		bit 1	=>		Force an EOL after the categ word.
+		bit 2	=>		Try to keep EOL and blanks until reached another word.
+
+		<column>
+
+		If you want to align text after the keyword on a given column.
+
+		Example :
+
+		-cmt_fct_categ-Description;2;20
+		-cmt_fct_categ-@code;0;20
+
+		NOTE
+		----
+		For a doxygen/jadadoc special first line comment, words defined with
+		-cmt_fct_categ- are used, even if it's not a function comment.
+		A doxygen/jadadoc is of the form : /** pr /*! or /// or //!
+
+        Example :
+
+        options
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        -cmt_fct_categ-Description;2	(EOL after)
+        -cmt_fct_categ-\return;1		(blank line before)
+        -cmt_fct_categ_in-@param
+        -cmt_fct_categ_in-@code;6		(EOL after + keep inside)
+
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /** doxygen comment. Description: Description of the function. 
+		\return none     
+		@code
+		int a;
+		
+		int b; 
+		*/
+
+        /* @escription Description of the function. \return none
+        @param a - entering value @param b - increment value
+		@code
+		int a;
+		
+		int b; 
+		*/
+        int function(int a, int b)
+        {
+        }
+
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /**
+         * Description:
+	     * Description of the function.
+         * 
+         * \return	none
+		 * @code
+		 * int a;
+         * 
+		 * int b;
+         */
+
+		/*
+         ==========================================
+         Description:
+		 Description of the function.
+
+         \return		none
+         @param			a   - entering value
+         @param			b   - increment value
+		 @code
+		 int a;
+
+		 int b;
+         ==========================================
+         */
+        int function(int a, int b)
+        {
+        }
+
+        See option(s) :
+        [-no]-cmt_add_fct_def-
+
+        Note(s) :
+        - In comment, special words must be followed by ':', except if
+		  the word began with '\' or '@' (for doxygen).
+        - A parameter must be followed by '-', and then by the comment.
+        - This option can't be set in a source file with special comment
+          /*$O */
+        - You will typically define all the special words in the GC.cfg file.
+
+
+
+===============================================================================
+-cmt_decl-      (DEFAULT)
+-no-cmt_decl-
+===============================================================================
+
+        Add separators in local variable declaration (before and/or after).
+        Separators are by default level 1.
+        Example :
+
+        -cmt_decl-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            unsigned int    var;
+            long b;
+            var = 0;
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            /*~~~~~~~~~~~~~~~~~~*/
+            unsigned int    var;
+            long            b;
+            /*~~~~~~~~~~~~~~~~~~*/
+
+            var = 0;
+        }
+
+        See options(s) :
+        -cmt_decl_max_level-<num>
+        [-no]-cmt_decl_before-
+        -cmt_decl_len-<num>
+        [-no]-cmt_decl_auto_len-
+        -cmt_decl_auto_len_add-<num>
+
+        Note(s) :
+        - Can't be used with -cmt_dont_modify- option.
+
+
+
+===============================================================================
+-cmt_decl_max_level-<num>       (DEFAULT 100)
+===============================================================================
+
+        -cmt_decl- option is valid for declaration in a statement level lesser
+        than that value.
+        Example :
+
+        -cmt_decl_max_level-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            /*~~*/
+            int b;
+            /*~~*/
+
+            b = 0;
+            if(b)
+            {
+                unsigned int    var;    <= stmt level is 2, so is not touched
+                long            c;
+
+                var = c = 0;
+            }
+        }
+
+        -cmt_decl_max_level-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            /*~~*/
+            int b;
+            /*~~*/
+
+            b = 0;
+            if(b)
+            {
+                /*~~~~~~~~~~~~~~~~~~*/  <= stmt level 2 is now converned
+                unsigned int    var;
+                long            c;
+                /*~~~~~~~~~~~~~~~~~~*/
+
+                var = c = 0;
+            }
+        }
+
+
+
+===============================================================================
+-cmt_decl_before-       (DEFAULT)
+-no-cmt_decl_before-
+===============================================================================
+
+        Add a separator before local declarations.
+        -cmt_decl- must be enabled.
+        Example :
+
+        -cmt_decl_before-
+
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            /*~~~~~~~~~~~~~~~~~~*/
+            unsigned int    var;
+            long            b;
+            /*~~~~~~~~~~~~~~~~~~*/
+
+            var = 0;
+        }
+
+        -no-cmt_decl_before-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            unsigned int    var;
+            long            b;
+            /*~~~~~~~~~~~~~~~~~~*/
+
+            var = 0;
+        }
+
+
+
+===============================================================================
+-cmt_decl_len-<num>     (DEFAULT 120)
+===============================================================================
+
+        Set the maximum column of the declaration separator.
+        -cmt_decl- must be enabled.
+        -cmt_decl_auto_len- must be disabled.
+
+        -cmt_decl_len-20
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            /*~~~~~~~~~~~~*/        <= column 20
+            int b;
+            /*~~~~~~~~~~~~*/
+            {
+                /*~~~~~~*/
+                unsigned int    var;
+                long            b;
+                /*~~~~~~*/
+            }
+
+            var = 0;
+        }
+
+        -cmt_decl_len-50
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/      <= column 50
+            int b;
+            /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            {
+                /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+                unsigned int    var;
+                long            b;
+                /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            }
+
+            var = 0;
+        }
+
+
+
+===============================================================================
+-cmt_decl_auto_len-     (DEFAULT)
+-no-cmt_decl_auto_len-
+===============================================================================
+
+        Compute the length of the decl separator depending on code.
+        Is disabled, the length is set by -cmt_decl_len- option.
+
+
+
+===============================================================================
+-cmt_decl_auto_len_add-<num>        (DEFAULT 0)
+===============================================================================
+
+        When -cmt_decl_auto_len- and -cmt_decl- are both enabled, add <num>
+        characters to the length of the separator.
+
+        -cmt_decl_auto_len_add-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            /*~~~~~~~~~~~~~~~~~~*/  <= exact size of the code below
+            unsigned int    var;
+            long            b;
+            /*~~~~~~~~~~~~~~~~~~*/
+
+            {
+                /*~~*/      <= idem
+                int c;
+                /*~~*/
+            }
+
+            var = 0;
+        }
+
+        -cmt_decl_auto_len_add-4
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+            /*~~~~~~~~~~~~~~~~~~~~~~*/  <= size + 4
+            unsigned int    var;
+            long            b;
+            /*~~~~~~~~~~~~~~~~~~~~~~*/
+
+            {
+            /*~~~~~~*/              <= size + 4
+            int c;
+            /*~~~~~~*/
+            }
+
+            var = 0;
+        }
+
+
+
+===============================================================================
+cmt_first_line_break_first-     (DEFAULT)
+-no-cmt_first_line_break_first-
+-cmt_first_line_break_last-     (DEFAULT)
+-no-cmt_first_line_break_last-
+===============================================================================
+
+        Add an EOL after /* of first line comments.
+        Add an EOL before */ of first line comments.
+        Example :
+
+        -cmt_first_line_break_first-
+        -cmt_first_line_break_last-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         * Comment ;
+         * Comment
+         */
+
+        -no-cmt_first_line_break_first-
+        -cmt_first_line_break_last-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* Comment ;
+         * Comment
+         */
+
+        -no-cmt_first_line_break_first-
+        -no-cmt_first_line_break_last-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* Comment ;
+         * Comment */
+
+
+
+===============================================================================
+-cmt_first_line_fill_star-      (DEFAULT)
+-no-cmt_first_line_fill_star-
+===============================================================================
+
+        Add a '*' character at the beginning of lines of first line comments.
+        Example :
+
+        -cmt_first_line_fill_star-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         * Comment ;
+         * Comment
+         */
+
+        -no-cmt_first_line_fill_star-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+           Comment ;
+           Comment
+         */
+
+        See options(s) :
+        [-no]-cmt_sep_fill_star-
+
+        Note(s) :
+        - Separators are not concerned.
+
+
+
+===============================================================================
+-cmt_first_line_len-<num>   (DEFAULT 80)
+===============================================================================
+
+        Set the maximum length of first line comments.
+        Example :
+
+        -cmt_first_line_len-100
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* this is a comment that should be split */
+
+        -cmt_first_line_len-40
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         * this is a comment that should be
+         * split
+         */
+
+        -cmt_first_line_len-10
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         * this is a
+         * comment
+         * that
+         * should be
+         * split
+         */
+
+        Note(s) :
+        - Separators are not concerned.
+
+
+
+===============================================================================
+-cmt_first_line_concat-     (DEFAULT)
+-no-cmt_first_line_concat-
+===============================================================================
+
+        Concat adjacent first line comments.
+        Example :
+
+        -cmt_first_line_concat-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* first line comment */
+        /* another first line comment */
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         * first line comment ;
+         * another first line comment
+         */
+
+
+
+===============================================================================
+-cmt_first_line_blank-      (DEFAULT)
+-no-cmt_first_line_blank-
+===============================================================================
+
+        Add an empty line between two adjacent first line comments.
+        -cmt_first_line_concat- must be disabled.
+        Example :
+
+        -cmt_first_line_blank-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* comment1 */
+        /* comment2 */
+        /* comment3 */
+        if(a)
+        {
+        }
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* comment1 */
+        <EOL>
+        /* comment2 */
+        <EOL>
+        /* comment3 */
+        if(a)
+        {
+        }
+
+        See options(s) :
+        [-no]-cmt_first_line_concat-
+
+
+
+===============================================================================
+-cmt_sep_len-<num>  (DEFAULT 120)
+===============================================================================
+
+        Set the maximum length for separators. First line comments are not
+        concerned.
+        Example :
+
+        -cmt_sep_len-10
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$2
+         ---------
+         ---------
+         */
+
+        -cmt_sep_len-20
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$4
+         *******************
+         *******************
+         */
+        /*$5-#############*/
+
+
+
+===============================================================================
+-cmt_sep_fill_star-
+-no-cmt_sep_fill_star-      (DEFAULT)
+===============================================================================
+
+        Add a star at the beginning of all lines of a separator.
+        Example :
+
+        -cmt_sep_fill_star-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$4
+         *******************
+         *    comment ;
+         *    comment
+         *******************
+         */
+
+        -no-cmt_sep_fill_star-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$4
+         *******************
+           comment ;
+           comment
+         *******************
+         */
+
+        See option(s) :
+        -cmt_sep_char_4-<char>
+        -cmt_sep_char_split-<char>
+        [-no]-cmt_first_line_fill_star-
+
+
+
+===============================================================================
+-cmt_sep_break-         (DEFAULT)
+-no-cmt_sep_break-
+===============================================================================
+
+        Force /* and */ to be alone on their lines for separators.
+        Example :
+
+        -cmt_sep_break-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         ===================
+           comment ;
+           comment
+         ===================
+         */
+
+        //
+        // =================
+        // comment
+        // =================
+        //
+
+        -no-cmt_sep_break-
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* =================
+           comment ;
+           comment
+         =================== */
+
+        // =================
+        // comment
+        // =================
+
+
+
+===============================================================================
+-cmt_sep_char_1-<char>      (DEFAULT '~')
+-cmt_sep_char_2-<char>      (DEFAULT '-')
+-cmt_sep_char_3-<char>      (DEFAULT '=')
+-cmt_sep_char_4-<char>      (DEFAULT '*')
+-cmt_sep_char_5-<char>      (DEFAULT '#')
+-cmt_sep_char_6-<char>      (DEFAULT '+')
+===============================================================================
+
+        Set the special character to fill automatic comments.
+        Example :
+
+        -cmt_sep_char_1-O
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$1-OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO*/
+        /*$1
+         OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+         OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+         */
+
+        -cmt_sep_char_2-#
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$2-####################################*/
+        /*$2
+         ##########################################
+         ##########################################
+         */
+
+        Note(s) :
+        - /*$<num>- */ is a special form comment recognized by GC.
+          This is a single line comment.
+        - /*$<num> */ is a special form comment recognized by GC.
+          This is a multiline comment.
+
+
+
+===============================================================================
+-cmt_sep_char_split-<char>  (DEFAULT ;)
+===============================================================================
+
+        Define the special break line character in comments.
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* coucou ; salut */
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         * coucou ;
+         * salut
+         */
+
+        See option(s) :
+        [-no]-cmt_first_line_concat-
+        [-no]-cmt_cpp2c_keep_eol-
+
+        Note(s) :
+        - GC uses this special character to keep trace of EOL when converting
+          C++ comments to C comments, or to concat first line comments.
+
+
+
+===============================================================================
+-cmt_sep_eol_before-<num>     (DEFAULT 1)
+-cmt_sep_eol_after-<num>      (DEFAULT 0)
+===============================================================================
+
+		Set the number of blank lines before and after single-line comments.
+
+        Example :
+
+        -cmt_sep_eol_before-1
+        -cmt_sep_eol_after-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            foo();
+
+            // Single line comment...
+
+            bar();
+
+        -cmt_sep_eol_before-0
+        -cmt_sep_eol_after-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            foo();
+            // Single line comment...
+            bar();
+
+
+
+===============================================================================
+-cmt_sep_eol_before_1-<num>     (DEFAULT 1)
+-cmt_sep_eol_after_1-<num>      (DEFAULT 1)
+-cmt_sep_eol_before_2-<num>     (DEFAULT 1)
+-cmt_sep_eol_after_2-<num>      (DEFAULT 1)
+-cmt_sep_eol_before_3-<num>     (DEFAULT 1)
+-cmt_sep_eol_after_3-<num>      (DEFAULT 1)
+-cmt_sep_eol_before_4-<num>     (DEFAULT 1)
+-cmt_sep_eol_after_4-<num>      (DEFAULT 1)
+-cmt_sep_eol_before_5-<num>     (DEFAULT 1)
+-cmt_sep_eol_after_5-<num>      (DEFAULT 1)
+-cmt_sep_eol_before_6-<num>     (DEFAULT 2)
+-cmt_sep_eol_after_6-<num>      (DEFAULT 2)
+===============================================================================
+
+        Set the number of EOL before and after special first line comments,
+        depending on the level.
+        Example :
+
+        -cmt_sep_eol_before_2-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ...
+        <EOL>
+        <EOL>
+        /*$2
+          ==========================================
+          ==========================================
+          */
+        <EOL>
+        <EOL>
+        ...
+
+        -cmt_sep_eol_before_2-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ...
+        <EOL>
+        /*$2
+          ==========================================
+          ==========================================
+          */
+        <EOL>
+        ...
+
+        Note(s) :
+        - Only automatic comments and /*$<num> */ comments are concerned.
+          The /*$<num>- */ comment is not concerned.
+
+
+
+===============================================================================
+-cmt_sep_eol_before_fct_def-<num>   (DEFAULT 0)
+===============================================================================
+
+        Set the number of blank lines before a function defintion comment.
+        Example :
+
+        -cmt_sep_eol_before_fct_def-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         ==========================================
+            proto
+         ==========================================
+         */
+        void fct(void)
+        {
+        }
+        /*
+         ==========================================
+            proto
+         ==========================================
+         */
+        void fct1(void)
+        {
+        }
+
+        -cmt_sep_eol_before_fct_def-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         ==========================================
+            proto
+         ==========================================
+         */
+        void fct(void)
+        {
+        }
+        <EOL>
+        <EOL>
+        /*
+         ==========================================
+            proto
+         ==========================================
+         */
+        void fct1(void)
+        {
+        }
+
+        See option(s) :
+        -code_remove_empty_lines-<num>
+
+        Note(s) :
+        -code_remove_empty_lines- has a highter priority.
+
+
+
+===============================================================================
+-cmt_sep_force_fct_proto-<num>      (DEFAULT 0)
+-cmt_sep_force_fct_macro-<num>      (DEFAULT 3)
+-cmt_sep_force_fct_def-<num>        (DEFAULT 3)
+-cmt_sep_force_class_access-<num>   (DEFAULT 2)
+-cmt_sep_force_struct-<num>         (DEFAULT 2)
+-cmt_sep_force_class-<num>          (DEFAULT 3)
+===============================================================================
+
+        Set the comment level for comments found in a given position :
+
+        - Before a function prototype (except if protoype is inside a function
+          body).
+        - Before a macro.
+        - Before a function definition.
+        - Before a class access specifier (public, protected...).
+        - Before a struct declaration.
+        - Before a class declaration.
+
+        A comment must already exist. If 0 is specified, the comment is not
+        modified by GC.
+        Example :
+
+        -cmt_sep_force_fct_proto-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /* proto */
+        extern int func(void);
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*
+         ------------------------------------------
+            proto
+         ------------------------------------------
+         */
+        extern int func(void);
+
+        See option(s) :
+        [-no]-cmt_add_fct_def-
+        [-no]-cmt_add_class_access-
+
+
+
+===============================================================================
+-file_insert-<file>
+===============================================================================
+
+        Defines an "insertion" file. The file will be inserted in a comment
+        with /*$I<num> */ comment, where <num> is the rank of the
+        -file_insert- option.
+        Example :
+
+        in GC.cfg
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        -file_insert-header_func.txt    <= rank 0
+        -file_insert-header_file.txt    <= rank 1
+
+        in a file
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$I0*/                         <= rank 0
+        /*$I1*/                         <= rank 1
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$I0
+            content of header_func.txt
+         */
+
+        /*$I1
+            content of header_file.txt
+         */
+
+
+
+===============================================================================
+-file_end_eol-<num>     (DEFAULT 1)
+===============================================================================
+
+        Set the number of EOL after the last token of the file.
+        Example :
+
+        -file_end_eol-0
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+        }<EOF>
+
+        -file_end_eol-1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+        }<EOL>
+        <EOF>
+
+        -file_end_eol-2
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+        }<EOL>
+        <EOL>   
+        <EOF>
+
+
+
+===============================================================================
+-token_ext-<C/C++ keyword>$<user keyword>
+===============================================================================
+
+        Tell GC to consider the "user keyword" as the given "C/C++ keyword".
+        Example :
+
+        -token_ext-typedef$tt
+        => tt has the same meaning as typedef
+
+        -token_ext-extern$extern_all
+        => extern_all has the same meaning as extern
+
+        -token_ext-int$uint8
+        -token_ext-int$uint16
+        => uint8 and uint16 are some types (same as int).
+
+        GC knows special "keywords" you can specify as a "C/C++ keyword".
+        GC will indent the corresponding source file word depending of the
+        special word :
+
+        -token_ext-single_word$tt
+            tt will be alone on a line. Indent at the correct indentation
+            level.
+
+        -token_ext-single_word_0$tt
+            tt will be alone on a line, and at column 0.
+
+        Example :
+
+        -token_ext-single_word_0$WORD
+        -token_ext-single_word_0$WORD1
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        void a(int b)
+        {
+            if(b)
+            {
+        WORD
+                b++
+        WORD1
+            }
+        }
+
+
+
+===============================================================================
+-replace_on-        (DEFAULT)
+-no-replace_on-
+===============================================================================
+
+        Activate/disactivate the word replacement mode.
+
+        See options(s) :
+        -replace-<word to replace>$<replacement word>
+
+
+
+===============================================================================
+-replace-<word to replace>$<replacement word>
+===============================================================================
+
+        GC will replace all occurrences of <word to replace> by
+        <replacement word>.
+        -replace_on- option must be enabled.
+        Example :
+
+        -replace-int$uint
+        -replace-a$variable
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a;
+        int     b;
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        uint    variable;
+        uint    b;
+
+        See options(s) :
+        [-no]-replace_on-
+
+
+
+===============================================================================
+-dependencies-
+-no-dependencies-       (DEFAULT)
+-dependencies_all-
+-no-dependencies_all-   (DEFAULT)
+===============================================================================
+
+        -dependencies- Activate/Deactivate the output of file dependencies.
+        With -dependencies_all- Real dependencies will be computed (instead of
+        just includes dependencies). This option takes much longer, but does a
+        better job.
+
+        -dependencies- is ignored if -dependencies_all- is set to TRUE.
+
+        typical report
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Processing C:\Boulot\GC\Sources\indent.c   (136 lines, 3360 characters)
+Processing ctype.h
+** Warning: Unable to open source file ==> ctype.h
+Processing malloc.h
+** Warning: Unable to open source file ==> malloc.h
+Processing stdlib.h
+** Warning: Unable to open source file ==> stdlib.h
+Processing string.h
+** Warning: Unable to open source file ==> string.h
+Processing config.h
+Processing in.h
+Processing grammar.h
+Processing lexi.h
+Processing error.h
+Processing tools.h
+Processing indent.h
+Processing assert.h
+** Warning: Unable to open source file ==> assert.h
+- Includes files --------------------------------------------------------
+(     1) #include "config.h"
+(     2) #include "in.h"
+(     1) #include "grammar.h"
+(     2) #include "lexi.h"
+(     1) #include "error.h"
+(     1) #include "tools.h"
+(     1) #include "indent.h"
+******** Unresolved 5 Total 12
+- Scanning   1 ----------------------------------------------------------
+.
+- Direct dependencies ---------------------------------------------------
+(     1) #include "config.h"
+(     3) #include "in.h"
+(     8) #include "lexi.h"
+(     5) #include "tools.h"
+(    21) #include "indent.h"
+******** Total 5
+- No dependencies -------------------------------------------------------
+(     1) #include "grammar.h"
+Included by "C:\Boulot\GC\Sources\indent.c"
+(     1) #include "error.h"
+Included by "C:\Boulot\GC\Sources\indent.c"
+******** Total 2
+-------------------------------------------------------------------------
+
+        Note(s) :
+        - GC, sometimes, is wrong...
+
+
+
+===============================================================================
+-dependencies_dir-<dir>
+===============================================================================
+
+        When -dependencies- option is activated, defines a path where GC
+        will find includes.
+        Example :
+
+        -dependencies_dir-c:/system/includes
+        -dependencies_dir-c:/GC/sources
+
+
+
+===============================================================================
+-dependencies_dir_rec-
+-no-dependencies_dir_rec-       (DEFAULT)
+===============================================================================
+
+        All directories set with -dependencies_dir- are recurs scan.
+
+        See options(s) :
+        [-no]-dependencies_dir-
+
+
+
+*******************************************************************************
+*                                                                             *
+*                                                                             *
+*                           SPECIAL COMMENTS                                  *
+*                                                                             *
+*                                                                             *
+*******************************************************************************
+
+
+
+===============================================================================
+/*$<num> ... */
+===============================================================================
+
+        Create a several lines comment separator <num>.
+        Filling character can be set with -cmt_sep_char_<num>- option.
+        Example :
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$2 This is a comment */
+        /*$3 This is another ; comment */
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$2
+         ------------------------------------------
+            This is a comment
+         ------------------------------------------
+         */
+
+        /*$3
+         ==========================================
+            This is another ;
+            comment
+         ==========================================
+         */
+
+        See option(s) :
+        -cmt_sep_char_?-<char>
+        [-no]-cmt_sep_fill_star-
+        -cmt_sep_len-<num>
+        -cmt_sep_char_split-
+
+
+
+===============================================================================
+/*$<num>- ... */
+===============================================================================
+
+        Create a single line comment separator <num>.
+        Filling character can be set with -cmt_sep_char_<num>- option.
+
+        Example :
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$2- This is a comment */
+        /*$3- This is another comment */
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$2- This is a comment -----------------*/
+
+        /*$3- This is another comment ===========*/
+
+        See option(s) :
+        -cmt_sep_char_?-<char>
+        -cmt_sep_len-<num>
+
+
+
+===============================================================================
+/*$F ... */
+===============================================================================
+
+        GC will not indent the comment. It will remain untouched.
+
+
+
+===============================================================================
+/*$off*/
+/*$on*/
+===============================================================================
+
+        GC will not indent the code between /*$off*/ and /*$on*/ special
+        comments.
+
+
+
+===============================================================================
+/*$na*/
+===============================================================================
+
+        GC will stop its alignment process (for variables) at this point.
+
+
+
+===============================================================================
+/*$sf*/
+/*$st*/
+===============================================================================
+
+        GC will stop breaking too long lines between /*$sf*/ and /*$st*/.
+
+
+
+===============================================================================
+/*$bt*/
+/*$bf*/
+===============================================================================
+
+        GC will force function definitions to be on one line, left aligned, 
+		between /*$bt*/ and /*$bf*/. Automatic comments before function bodies 
+		are not generated.
+
+		/*$bt */
+		void fct(void)		{ int a; a = 0; }
+		int fc1(int a)		{ a++; return a; }
+		/*$bf */
+
+		void fct(void)
+		{ 
+			int a; 
+			a = 0; 
+		}
+
+		int fc1(int a)
+		{ 
+			a++; 
+			return a; 
+		}
+
+
+===============================================================================
+/*$O<option>*/
+===============================================================================
+
+        You can set that special comment at the beginning of a file to define
+        a GC option for that file only.
+        Example :
+
+        /*$O-tab_size-8*/
+        /*$O-no-space_if-*/
+
+        Note(s) :
+        - This does not concern every GC options.
+
+
+
+===============================================================================
+/**/
+===============================================================================
+
+        If you define an empty comment before a function definition, GC will
+        not add a special separator.
+        Example :
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        int a(void)
+        {
+        }
+
+        /**/
+        int b(void)
+        {
+        }
+
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*              <= special separator
+         ==========================================
+         ==========================================
+         */
+        int a(void)
+        {
+        }
+
+        /**/            <= untouched
+        int b(void)
+        {
+        }
+
+
+
+===============================================================================
+/*$I<num>*/
+===============================================================================
+
+        Insert a file defined with the -file_insert-<num> option inside the
+        comment. You can for example specify a file that you want to be include
+        at the top of all your file.
+
+        -file_insert-header.txt
+
+        /*$I0*/
+
+        /*$I0
+            This is my header (content of header.txt)
+          */
+
+        See option(s) :
+        -file_insert-<num>
+
+
+
+===============================================================================
+$C      Center
+$A      Make upper
+$a      Make lower
+===============================================================================
+
+        Change the style of the sentence that follows the comment.
+        Example :
+
+        before
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$2 $C coucou ; $A how do you do ? ; $CA I'M FINE YES YES */
+        /*$2 $R coucou */
+
+        after
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /*$2
+         ----------------------------------------------------------------------
+            $C                          coucou ;
+            $A HOW DO YOU DO ? ;
+            $Ca                     i'm fine yes yes
+         ----------------------------------------------------------------------
+         */
+
+        /*$2
+         ----------------------------------------------------------------------
+            $R                                                           coucou
+         ----------------------------------------------------------------------
+         */
+
+        The end of the sentence must be an EOL, the GC special split character
+        or the comment delimiter.

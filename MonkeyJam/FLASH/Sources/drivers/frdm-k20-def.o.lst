@@ -1,0 +1,371 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"frdm-k20-def.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.frdm_GPIO_init,"ax",%progbits
+  19              		.align	2
+  20              		.global	frdm_GPIO_init
+  21              		.thumb
+  22              		.thumb_func
+  24              	frdm_GPIO_init:
+  25              	.LFB0:
+  26              		.file 1 "../Sources/drivers/frdm-k20-def.c"
+   1:../Sources/drivers/frdm-k20-def.c **** /**************************************************************************************************
+   2:../Sources/drivers/frdm-k20-def.c **** 
+   3:../Sources/drivers/frdm-k20-def.c **** /**
+   4:../Sources/drivers/frdm-k20-def.c **** Copyright (c) 2011 Freescale Semiconductor
+   5:../Sources/drivers/frdm-k20-def.c **** Freescale Confidential Proprietary
+   6:../Sources/drivers/frdm-k20-def.c **** \file       frdm-k20-def.h.c
+   7:../Sources/drivers/frdm-k20-def.c **** \brief
+   8:../Sources/drivers/frdm-k20-def.c **** \author
+   9:../Sources/drivers/frdm-k20-def.c **** \author
+  10:../Sources/drivers/frdm-k20-def.c **** \version    1.0
+  11:../Sources/drivers/frdm-k20-def.c **** \date       Sep 26, 2011
+  12:../Sources/drivers/frdm-k20-def.c **** */
+  13:../Sources/drivers/frdm-k20-def.c **** 
+  14:../Sources/drivers/frdm-k20-def.c **** #include "frdm-k20-def.h"
+  15:../Sources/drivers/frdm-k20-def.c **** 
+  16:../Sources/drivers/frdm-k20-def.c **** 
+  17:../Sources/drivers/frdm-k20-def.c **** /*
+  18:../Sources/drivers/frdm-k20-def.c **** Initialize GPIO of TWRK40
+  19:../Sources/drivers/frdm-k20-def.c ****    LEDS as outputs and simple test
+  20:../Sources/drivers/frdm-k20-def.c **** 
+  21:../Sources/drivers/frdm-k20-def.c **** SW3 (IRQ0) PTC5
+  22:../Sources/drivers/frdm-k20-def.c **** SW4 (IRQ1) PTC13
+  23:../Sources/drivers/frdm-k20-def.c **** SW5 (RESET) RESET_b
+  24:../Sources/drivers/frdm-k20-def.c **** 
+  25:../Sources/drivers/frdm-k20-def.c **** 
+  26:../Sources/drivers/frdm-k20-def.c **** 
+  27:../Sources/drivers/frdm-k20-def.c **** */
+  28:../Sources/drivers/frdm-k20-def.c **** 
+  29:../Sources/drivers/frdm-k20-def.c **** void frdm_GPIO_init(void)
+  30:../Sources/drivers/frdm-k20-def.c **** {
+  27              		.loc 1 30 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
+  31:../Sources/drivers/frdm-k20-def.c ****     /*
+  32:../Sources/drivers/frdm-k20-def.c ****      PORTC_PCR7 = PCR_OUTPUT_CONFIG;
+  33:../Sources/drivers/frdm-k20-def.c ****      PORTC_PCR8 = PCR_OUTPUT_CONFIG;
+  34:../Sources/drivers/frdm-k20-def.c ****      GPIOC_PDDR |= (1<<8) | (1<<7);
+  35:../Sources/drivers/frdm-k20-def.c ****      */
+  36:../Sources/drivers/frdm-k20-def.c **** #ifdef LED1
+  37:../Sources/drivers/frdm-k20-def.c ****     LED1_PCR = PCR_OUTPUT_CONFIG;
+  39              		.loc 1 37 0
+  40 0004 4FF44043 		mov	r3, #49152
+  41 0008 C4F20403 		movt	r3, 16388
+  42 000c 4FF4A072 		mov	r2, #320
+  43 0010 1A61     		str	r2, [r3, #16]
+  38:../Sources/drivers/frdm-k20-def.c ****     LED1_OFF;
+  44              		.loc 1 38 0
+  45 0012 4FF2C003 		movw	r3, #61632
+  46 0016 C4F20F03 		movt	r3, 16399
+  47 001a 4FF2C002 		movw	r2, #61632
+  48 001e C4F20F02 		movt	r2, 16399
+  49 0022 5268     		ldr	r2, [r2, #4]
+  50 0024 42F01002 		orr	r2, r2, #16
+  51 0028 5A60     		str	r2, [r3, #4]
+  39:../Sources/drivers/frdm-k20-def.c ****     LED1_OUTPUT_EN;
+  52              		.loc 1 39 0
+  53 002a 4FF2C003 		movw	r3, #61632
+  54 002e C4F20F03 		movt	r3, 16399
+  55 0032 4FF2C002 		movw	r2, #61632
+  56 0036 C4F20F02 		movt	r2, 16399
+  57 003a 5269     		ldr	r2, [r2, #20]
+  58 003c 42F01002 		orr	r2, r2, #16
+  59 0040 5A61     		str	r2, [r3, #20]
+  40:../Sources/drivers/frdm-k20-def.c **** #endif
+  41:../Sources/drivers/frdm-k20-def.c **** #ifdef LED2
+  42:../Sources/drivers/frdm-k20-def.c ****     LED2_PCR = PCR_OUTPUT_CONFIG;
+  60              		.loc 1 42 0
+  61 0042 4FF43043 		mov	r3, #45056
+  62 0046 C4F20403 		movt	r3, 16388
+  63 004a 4FF4A072 		mov	r2, #320
+  64 004e DA60     		str	r2, [r3, #12]
+  43:../Sources/drivers/frdm-k20-def.c ****     LED2_OFF;
+  65              		.loc 1 43 0
+  66 0050 4FF28003 		movw	r3, #61568
+  67 0054 C4F20F03 		movt	r3, 16399
+  68 0058 4FF28002 		movw	r2, #61568
+  69 005c C4F20F02 		movt	r2, 16399
+  70 0060 5268     		ldr	r2, [r2, #4]
+  71 0062 42F00802 		orr	r2, r2, #8
+  72 0066 5A60     		str	r2, [r3, #4]
+  44:../Sources/drivers/frdm-k20-def.c ****     LED2_OUTPUT_EN;
+  73              		.loc 1 44 0
+  74 0068 4FF28003 		movw	r3, #61568
+  75 006c C4F20F03 		movt	r3, 16399
+  76 0070 4FF28002 		movw	r2, #61568
+  77 0074 C4F20F02 		movt	r2, 16399
+  78 0078 5269     		ldr	r2, [r2, #20]
+  79 007a 42F00802 		orr	r2, r2, #8
+  80 007e 5A61     		str	r2, [r3, #20]
+  45:../Sources/drivers/frdm-k20-def.c **** #endif
+  46:../Sources/drivers/frdm-k20-def.c **** #ifdef LED3
+  47:../Sources/drivers/frdm-k20-def.c ****     LED3_PCR = PCR_OUTPUT_CONFIG;
+  81              		.loc 1 47 0
+  82 0080 4FF41043 		mov	r3, #36864
+  83 0084 C4F20403 		movt	r3, 16388
+  84 0088 4FF4A072 		mov	r2, #320
+  85 008c 9A60     		str	r2, [r3, #8]
+  48:../Sources/drivers/frdm-k20-def.c ****     LED3_OFF;
+  86              		.loc 1 48 0
+  87 008e 4FF47043 		mov	r3, #61440
+  88 0092 C4F20F03 		movt	r3, 16399
+  89 0096 4FF47042 		mov	r2, #61440
+  90 009a C4F20F02 		movt	r2, 16399
+  91 009e 5268     		ldr	r2, [r2, #4]
+  92 00a0 42F00402 		orr	r2, r2, #4
+  93 00a4 5A60     		str	r2, [r3, #4]
+  49:../Sources/drivers/frdm-k20-def.c ****     LED3_OUTPUT_EN;
+  94              		.loc 1 49 0
+  95 00a6 4FF47043 		mov	r3, #61440
+  96 00aa C4F20F03 		movt	r3, 16399
+  97 00ae 4FF47042 		mov	r2, #61440
+  98 00b2 C4F20F02 		movt	r2, 16399
+  99 00b6 5269     		ldr	r2, [r2, #20]
+ 100 00b8 42F00402 		orr	r2, r2, #4
+ 101 00bc 5A61     		str	r2, [r3, #20]
+  50:../Sources/drivers/frdm-k20-def.c **** #endif
+  51:../Sources/drivers/frdm-k20-def.c **** #ifdef LED4
+  52:../Sources/drivers/frdm-k20-def.c ****     LED4_PCR = PCR_OUTPUT_CONFIG;
+  53:../Sources/drivers/frdm-k20-def.c ****     LED4_OFF;
+  54:../Sources/drivers/frdm-k20-def.c ****     LED4_OUTPUT_EN;
+  55:../Sources/drivers/frdm-k20-def.c **** #endif
+  56:../Sources/drivers/frdm-k20-def.c **** #ifdef SW1
+  57:../Sources/drivers/frdm-k20-def.c ****     SW1_PCR = PCR_INPUT_CONFIG;
+  58:../Sources/drivers/frdm-k20-def.c ****     SW1_INPUT_EN;
+  59:../Sources/drivers/frdm-k20-def.c **** #endif
+  60:../Sources/drivers/frdm-k20-def.c **** #ifdef SW2
+  61:../Sources/drivers/frdm-k20-def.c ****     SW2_PCR = PCR_INPUT_CONFIG;
+  62:../Sources/drivers/frdm-k20-def.c ****     SW2_INPUT_EN;
+  63:../Sources/drivers/frdm-k20-def.c **** #endif
+  64:../Sources/drivers/frdm-k20-def.c **** }
+ 102              		.loc 1 64 0
+ 103 00be BD46     		mov	sp, r7
+ 104 00c0 80BC     		pop	{r7}
+ 105 00c2 7047     		bx	lr
+ 106              		.cfi_endproc
+ 107              	.LFE0:
+ 109              		.section	.text.input_rise,"ax",%progbits
+ 110              		.align	2
+ 111              		.global	input_rise
+ 112              		.thumb
+ 113              		.thumb_func
+ 115              	input_rise:
+ 116              	.LFB1:
+  65:../Sources/drivers/frdm-k20-def.c **** 
+  66:../Sources/drivers/frdm-k20-def.c **** /*
+  67:../Sources/drivers/frdm-k20-def.c ****  raising(input,aux_mem
+  68:../Sources/drivers/frdm-k20-def.c ****   return 1
+  69:../Sources/drivers/frdm-k20-def.c ****      when input=1 and aux=0
+  70:../Sources/drivers/frdm-k20-def.c ****      aux=input
+  71:../Sources/drivers/frdm-k20-def.c **** */
+  72:../Sources/drivers/frdm-k20-def.c **** 
+  73:../Sources/drivers/frdm-k20-def.c **** char input_rise
+  74:../Sources/drivers/frdm-k20-def.c **** (
+  75:../Sources/drivers/frdm-k20-def.c ****     char    input,
+  76:../Sources/drivers/frdm-k20-def.c ****     char    *mem
+  77:../Sources/drivers/frdm-k20-def.c **** )
+  78:../Sources/drivers/frdm-k20-def.c **** {
+ 117              		.loc 1 78 0
+ 118              		.cfi_startproc
+ 119              		@ args = 0, pretend = 0, frame = 16
+ 120              		@ frame_needed = 1, uses_anonymous_args = 0
+ 121              		@ link register save eliminated.
+ 122 0000 80B4     		push	{r7}
+ 123              	.LCFI2:
+ 124              		.cfi_def_cfa_offset 4
+ 125              		.cfi_offset 7, -4
+ 126 0002 85B0     		sub	sp, sp, #20
+ 127              	.LCFI3:
+ 128              		.cfi_def_cfa_offset 24
+ 129 0004 00AF     		add	r7, sp, #0
+ 130              	.LCFI4:
+ 131              		.cfi_def_cfa_register 7
+ 132 0006 0346     		mov	r3, r0
+ 133 0008 3960     		str	r1, [r7, #0]
+ 134 000a FB71     		strb	r3, [r7, #7]
+  79:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  80:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  81:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  82:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  83:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  84:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  85:../Sources/drivers/frdm-k20-def.c ****     char    result = 0;
+ 135              		.loc 1 85 0
+ 136 000c 4FF00003 		mov	r3, #0
+ 137 0010 FB73     		strb	r3, [r7, #15]
+  86:../Sources/drivers/frdm-k20-def.c **** 
+  87:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  88:../Sources/drivers/frdm-k20-def.c **** 
+  89:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  90:../Sources/drivers/frdm-k20-def.c **** 
+  91:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  92:../Sources/drivers/frdm-k20-def.c **** 
+  93:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  94:../Sources/drivers/frdm-k20-def.c **** 
+  95:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  96:../Sources/drivers/frdm-k20-def.c **** 
+  97:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+  98:../Sources/drivers/frdm-k20-def.c **** 
+  99:../Sources/drivers/frdm-k20-def.c ****     if(input && !*mem) result = 1;
+ 138              		.loc 1 99 0
+ 139 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 140 0014 002B     		cmp	r3, #0
+ 141 0016 06D0     		beq	.L3
+ 142              		.loc 1 99 0 is_stmt 0
+ 143 0018 3B68     		ldr	r3, [r7, #0]
+ 144 001a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 145 001c 002B     		cmp	r3, #0
+ 146 001e 02D1     		bne	.L3
+ 147 0020 4FF00103 		mov	r3, #1
+ 148 0024 FB73     		strb	r3, [r7, #15]
+ 149              	.L3:
+ 100:../Sources/drivers/frdm-k20-def.c **** 
+ 101:../Sources/drivers/frdm-k20-def.c ****     *mem = input;
+ 150              		.loc 1 101 0 is_stmt 1
+ 151 0026 3B68     		ldr	r3, [r7, #0]
+ 152 0028 FA79     		ldrb	r2, [r7, #7]
+ 153 002a 1A70     		strb	r2, [r3, #0]
+ 102:../Sources/drivers/frdm-k20-def.c ****     return result;
+ 154              		.loc 1 102 0
+ 155 002c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 103:../Sources/drivers/frdm-k20-def.c **** }
+ 156              		.loc 1 103 0
+ 157 002e 1846     		mov	r0, r3
+ 158 0030 07F11407 		add	r7, r7, #20
+ 159 0034 BD46     		mov	sp, r7
+ 160 0036 80BC     		pop	{r7}
+ 161 0038 7047     		bx	lr
+ 162              		.cfi_endproc
+ 163              	.LFE1:
+ 165 003a 00BF     		.section	.text.input_fall,"ax",%progbits
+ 166              		.align	2
+ 167              		.global	input_fall
+ 168              		.thumb
+ 169              		.thumb_func
+ 171              	input_fall:
+ 172              	.LFB2:
+ 104:../Sources/drivers/frdm-k20-def.c **** 
+ 105:../Sources/drivers/frdm-k20-def.c **** /*
+ 106:../Sources/drivers/frdm-k20-def.c **** 
+ 107:../Sources/drivers/frdm-k20-def.c ****   return 1
+ 108:../Sources/drivers/frdm-k20-def.c ****      when input=1 and aux=0
+ 109:../Sources/drivers/frdm-k20-def.c ****      aux=input
+ 110:../Sources/drivers/frdm-k20-def.c **** */
+ 111:../Sources/drivers/frdm-k20-def.c **** 
+ 112:../Sources/drivers/frdm-k20-def.c **** char input_fall
+ 113:../Sources/drivers/frdm-k20-def.c **** (
+ 114:../Sources/drivers/frdm-k20-def.c ****     char    input,
+ 115:../Sources/drivers/frdm-k20-def.c ****     char    *mem
+ 116:../Sources/drivers/frdm-k20-def.c **** )
+ 117:../Sources/drivers/frdm-k20-def.c **** {
+ 173              		.loc 1 117 0
+ 174              		.cfi_startproc
+ 175              		@ args = 0, pretend = 0, frame = 16
+ 176              		@ frame_needed = 1, uses_anonymous_args = 0
+ 177              		@ link register save eliminated.
+ 178 0000 80B4     		push	{r7}
+ 179              	.LCFI5:
+ 180              		.cfi_def_cfa_offset 4
+ 181              		.cfi_offset 7, -4
+ 182 0002 85B0     		sub	sp, sp, #20
+ 183              	.LCFI6:
+ 184              		.cfi_def_cfa_offset 24
+ 185 0004 00AF     		add	r7, sp, #0
+ 186              	.LCFI7:
+ 187              		.cfi_def_cfa_register 7
+ 188 0006 0346     		mov	r3, r0
+ 189 0008 3960     		str	r1, [r7, #0]
+ 190 000a FB71     		strb	r3, [r7, #7]
+ 118:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 119:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 120:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 121:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 122:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 123:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 124:../Sources/drivers/frdm-k20-def.c ****     char    result = 0;
+ 191              		.loc 1 124 0
+ 192 000c 4FF00003 		mov	r3, #0
+ 193 0010 FB73     		strb	r3, [r7, #15]
+ 125:../Sources/drivers/frdm-k20-def.c **** 
+ 126:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 127:../Sources/drivers/frdm-k20-def.c **** 
+ 128:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 129:../Sources/drivers/frdm-k20-def.c **** 
+ 130:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 131:../Sources/drivers/frdm-k20-def.c **** 
+ 132:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 133:../Sources/drivers/frdm-k20-def.c **** 
+ 134:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 135:../Sources/drivers/frdm-k20-def.c **** 
+ 136:../Sources/drivers/frdm-k20-def.c ****     /*~~~~~~~~~~~~~~~*/
+ 137:../Sources/drivers/frdm-k20-def.c **** 
+ 138:../Sources/drivers/frdm-k20-def.c ****     if(!input && *mem) result = 1;
+ 194              		.loc 1 138 0
+ 195 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 196 0014 002B     		cmp	r3, #0
+ 197 0016 06D1     		bne	.L6
+ 198              		.loc 1 138 0 is_stmt 0
+ 199 0018 3B68     		ldr	r3, [r7, #0]
+ 200 001a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 201 001c 002B     		cmp	r3, #0
+ 202 001e 02D0     		beq	.L6
+ 203 0020 4FF00103 		mov	r3, #1
+ 204 0024 FB73     		strb	r3, [r7, #15]
+ 205              	.L6:
+ 139:../Sources/drivers/frdm-k20-def.c **** 
+ 140:../Sources/drivers/frdm-k20-def.c ****     *mem = input;
+ 206              		.loc 1 140 0 is_stmt 1
+ 207 0026 3B68     		ldr	r3, [r7, #0]
+ 208 0028 FA79     		ldrb	r2, [r7, #7]
+ 209 002a 1A70     		strb	r2, [r3, #0]
+ 141:../Sources/drivers/frdm-k20-def.c ****     return result;
+ 210              		.loc 1 141 0
+ 211 002c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 142:../Sources/drivers/frdm-k20-def.c **** }
+ 212              		.loc 1 142 0
+ 213 002e 1846     		mov	r0, r3
+ 214 0030 07F11407 		add	r7, r7, #20
+ 215 0034 BD46     		mov	sp, r7
+ 216 0036 80BC     		pop	{r7}
+ 217 0038 7047     		bx	lr
+ 218              		.cfi_endproc
+ 219              	.LFE2:
+ 221 003a 00BF     		.text
+ 222              	.Letext0:
+ 223              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 224              		.file 3 "C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 frdm-k20-def.c
+C:\Users\ehughes\AppData\Local\Temp\ccbdJLp8.s:19     .text.frdm_GPIO_init:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccbdJLp8.s:24     .text.frdm_GPIO_init:00000000 frdm_GPIO_init
+C:\Users\ehughes\AppData\Local\Temp\ccbdJLp8.s:110    .text.input_rise:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccbdJLp8.s:115    .text.input_rise:00000000 input_rise
+C:\Users\ehughes\AppData\Local\Temp\ccbdJLp8.s:166    .text.input_fall:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccbdJLp8.s:171    .text.input_fall:00000000 input_fall
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS
