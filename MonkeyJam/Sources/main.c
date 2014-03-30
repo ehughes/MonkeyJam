@@ -25,7 +25,7 @@ int main(void)
     //processing interrupt routines.  For now we will have no other IRQs to devote as much CPU time to the
     //audio processing
     //Switch into the desired Patch
-    ChangePatch(PATCH_OCTAVE);
+    ChangePatch(PATCH_OVERDRIVE);
 
     for(;;)
         {
