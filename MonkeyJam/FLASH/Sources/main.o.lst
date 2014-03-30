@@ -90,10 +90,10 @@
   25:../Sources/main.c ****     //processing interrupt routines.  For now we will have no other IRQs to devote as much CPU time
   26:../Sources/main.c ****     //audio processing
   27:../Sources/main.c ****     //Switch into the desired Patch
-  28:../Sources/main.c ****     ChangePatch(PATCH_OCTAVE);
+  28:../Sources/main.c ****     ChangePatch(PATCH_OVERDRIVE);
   67              		.loc 1 28 0
   68              		.thumb
-  69 0034 4FF00400 		mov	r0, #4
+  69 0034 4FF00300 		mov	r0, #3
   70 0038 FFF7FEFF 		bl	ChangePatch
   71              	.L9:
   29:../Sources/main.c **** 
@@ -178,7 +178,7 @@
  134 00f8 2A46     		mov	r2, r5
  135 00fa 2346     		mov	r3, r4
  136 00fc FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
-  46:../Sources/main.c ****                         		BIQUAD_PEAKING_EQ, //Filter Type
+  46:../Sources/main.c ****                                                    BIQUAD_PEAKING_EQ, //Filter Type
   47:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
   48:../Sources/main.c ****                                                    ReadPOT(POT_ALPHA), //f0 ("wherever it's happeni
   49:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
@@ -257,7 +257,7 @@
  190 019e 2A46     		mov	r2, r5
  191 01a0 2346     		mov	r3, r4
  192 01a2 FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
-  69:../Sources/main.c ****                         							BIQUAD_PEAKING_EQ,
+  69:../Sources/main.c ****                                                    BIQUAD_PEAKING_EQ,
   70:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
   71:../Sources/main.c ****                                                    ReadPOT(POT_GAMMA), //("wherever it's happenin',
   72:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
@@ -403,7 +403,7 @@
  297 02cc 4FF00003 		mov	r3, #0
  298 02d0 C4F29633 		movt	r3, 17302
  299 02d4 FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
- 108:../Sources/main.c ****                         		BIQUAD_HIGH_SHELF, //Filter Type
+ 108:../Sources/main.c ****                                                    BIQUAD_HIGH_SHELF, //Filter Type
  109:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
  110:../Sources/main.c ****                                                    300, //f0 ("wherever it's happenin', man."  Cent
  111:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
@@ -433,7 +433,7 @@
  315 0302 4FF00003 		mov	r3, #0
  316 0306 C4F29633 		movt	r3, 17302
  317 030a FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
- 120:../Sources/main.c ****                         		BIQUAD_HIGH_SHELF, //Filter Type
+ 120:../Sources/main.c ****                                                    BIQUAD_HIGH_SHELF, //Filter Type
  121:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
  122:../Sources/main.c ****                                                    300, //f0 ("wherever it's happenin', man."  Cent
  123:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
@@ -475,18 +475,18 @@
  339              		.text
  340              	.Letext0:
  341              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 342              		.file 3 "C:/Users/ehughes/Dropbox/FRDM/FRDM-JAM/SRC/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
+ 342              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
  343              		.file 4 "../Sources/DSP/IIR.h"
  344              		.file 5 "../Sources/DSP/PeakingComb.h"
  345              		.file 6 "../Sources/DSP/AudioIF.h"
  346              		.file 7 "../Sources/DSP/AudioProcess.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\ehughes\AppData\Local\Temp\cc8i1W66.s:22     .text.main:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\cc8i1W66.s:27     .text.main:00000000 main
-C:\Users\ehughes\AppData\Local\Temp\cc8i1W66.s:83     .text.main:00000058 $d
-C:\Users\ehughes\AppData\Local\Temp\cc8i1W66.s:89     .text.main:00000068 $t
-C:\Users\ehughes\AppData\Local\Temp\cc8i1W66.s:334    .text.main:00000324 $d
+C:\Users\ehughes\AppData\Local\Temp\ccoGFatI.s:22     .text.main:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccoGFatI.s:27     .text.main:00000000 main
+C:\Users\ehughes\AppData\Local\Temp\ccoGFatI.s:83     .text.main:00000058 $d
+C:\Users\ehughes\AppData\Local\Temp\ccoGFatI.s:89     .text.main:00000068 $t
+C:\Users\ehughes\AppData\Local\Temp\ccoGFatI.s:334    .text.main:00000324 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

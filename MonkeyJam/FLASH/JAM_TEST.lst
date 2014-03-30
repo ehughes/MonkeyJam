@@ -27,13 +27,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  11 .debug_macinfo 00250d9f  00000000  00000000  00025780  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00005d77  00000000  00000000  0027651f  2**0
+ 12 .debug_line   00005d71  00000000  00000000  0027651f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0000239a  00000000  00000000  0027c296  2**0
+ 13 .debug_str    000023d6  00000000  00000000  0027c290  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .comment      00000079  00000000  00000000  0027e630  2**0
+ 14 .comment      00000079  00000000  00000000  0027e666  2**0
                   CONTENTS, READONLY
- 15 .debug_frame  00001558  00000000  00000000  0027e6ac  2**2
+ 15 .debug_frame  00001558  00000000  00000000  0027e6e0  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -2459,7 +2459,6 @@ void Compute_q31_t_IIR(q31_t_IIR *MyIIR,q31_t Input,q31_t *Output)
         {
             default:
             case BIQUAD_LOW_PASS_FILTER	:
-            	
                 b0 =  (1 - cos(w0))/2;
     1f34:	f24e 0368 	movw	r3, #57448	; 0xe068
     1f38:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
@@ -5314,7 +5313,7 @@ void AudioProcess()
     3ca2:	e07e      	b.n	3da2 <AudioProcess+0x36a>
 
             case PATCH_COMB_THE_DESERT:
-                           CombTheDesert(LeftIn, &LeftOut,&MyPeakingComb);
+                CombTheDesert(LeftIn, &LeftOut,&MyPeakingComb);
     3ca4:	f24e 2310 	movw	r3, #57872	; 0xe210
     3ca8:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
     3cac:	681b      	ldr	r3, [r3, #0]
@@ -5324,8 +5323,8 @@ void AudioProcess()
     3cb8:	f64e 2214 	movw	r2, #59924	; 0xea14
     3cbc:	f6c1 72ff 	movt	r2, #8191	; 0x1fff
     3cc0:	f7fd fe1a 	bl	18f8 <CombTheDesert>
-                           //OD_Level is used as a value control
-                           LeftOut = ((q63_t)LeftOut * OD_Level)>>30;
+                //OD_Level is used as a value control
+                LeftOut = ((q63_t)LeftOut * OD_Level)>>30;
     3cc4:	f24e 03b0 	movw	r3, #57520	; 0xe0b0
     3cc8:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
     3ccc:	681b      	ldr	r3, [r3, #0]
@@ -5350,16 +5349,16 @@ void AudioProcess()
     3d06:	f24e 03b0 	movw	r3, #57520	; 0xe0b0
     3d0a:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
     3d0e:	601a      	str	r2, [r3, #0]
-                           RightOut = LeftOut;
+                RightOut = LeftOut;
     3d10:	f24e 03b0 	movw	r3, #57520	; 0xe0b0
     3d14:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
     3d18:	681a      	ldr	r2, [r3, #0]
     3d1a:	f64e 2328 	movw	r3, #59944	; 0xea28
     3d1e:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
     3d22:	601a      	str	r2, [r3, #0]
-                           break;    
+                break;
     3d24:	e03d      	b.n	3da2 <AudioProcess+0x36a>
-                
+
             case PATCH_OCTAVE:
                 if(MyIIR[0].Update>0)
     3d26:	f24e 03d0 	movw	r3, #57552	; 0xe0d0
@@ -5415,10 +5414,10 @@ void AudioProcess()
             default:
                 break;
     3da0:	bf00      	nop
+                Octave(LeftIn,&LeftOut,&MyOctave);
+                //Compute_q31_t_IIR(&MyIIR[1],LeftOut,&LeftOut);
                 RightOut = LeftOut;
                 break;
-
-           
         }
 }
     3da2:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
@@ -9519,8 +9518,8 @@ int main(void)
     //processing interrupt routines.  For now we will have no other IRQs to devote as much CPU time to the
     //audio processing
     //Switch into the desired Patch
-    ChangePatch(PATCH_OCTAVE);
-    5e80:	f04f 0004 	mov.w	r0, #4
+    ChangePatch(PATCH_OVERDRIVE);
+    5e80:	f04f 0003 	mov.w	r0, #3
     5e84:	f7fd fd4a 	bl	391c <ChangePatch>
 
     for(;;)
