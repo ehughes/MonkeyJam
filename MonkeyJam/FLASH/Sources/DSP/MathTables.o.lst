@@ -13102,17 +13102,17 @@
  13114              		.file 3 "../Sources/DSP/MathTables.c"
 DEFINED SYMBOLS
                             *ABS*:00000000 MathTables.c
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:23     .rodata.atan_24pi_q31_t:00000000 atan_24pi_q31_t
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:20     .rodata.atan_24pi_q31_t:00000000 $d
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:4125   .rodata.atan_12pi_q31_t:00000000 atan_12pi_q31_t
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:4122   .rodata.atan_12pi_q31_t:00000000 $d
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:8227   .rodata.atan_4pi_q31_t:00000000 atan_4pi_q31_t
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:8224   .rodata.atan_4pi_q31_t:00000000 $d
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:12329  .rodata.sine_q31_t:00000000 sine_q31_t
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:12326  .rodata.sine_q31_t:00000000 $d
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:12591  .rodata.OffsetCos_0_2048:00000000 OffsetCos_0_2048
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:12588  .rodata.OffsetCos_0_2048:00000000 $d
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:12853  .rodata.OffsetCos_0_1023:00000000 OffsetCos_0_1023
-C:\Users\ehughes\AppData\Local\Temp\cckBZFNE.s:12850  .rodata.OffsetCos_0_1023:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:23     .rodata.atan_24pi_q31_t:00000000 atan_24pi_q31_t
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:20     .rodata.atan_24pi_q31_t:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:4125   .rodata.atan_12pi_q31_t:00000000 atan_12pi_q31_t
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:4122   .rodata.atan_12pi_q31_t:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:8227   .rodata.atan_4pi_q31_t:00000000 atan_4pi_q31_t
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:8224   .rodata.atan_4pi_q31_t:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:12329  .rodata.sine_q31_t:00000000 sine_q31_t
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:12326  .rodata.sine_q31_t:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:12591  .rodata.OffsetCos_0_2048:00000000 OffsetCos_0_2048
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:12588  .rodata.OffsetCos_0_2048:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:12853  .rodata.OffsetCos_0_1023:00000000 OffsetCos_0_1023
+C:\Users\ehughes\AppData\Local\Temp\cc8hgpKX.s:12850  .rodata.OffsetCos_0_1023:00000000 $d
 
 NO UNDEFINED SYMBOLS

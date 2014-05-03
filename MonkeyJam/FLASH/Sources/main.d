@@ -39,8 +39,8 @@ Sources/main.o: ../Sources/main.c \
  ../Sources/drivers/mcg/mcg.h ../Sources/drivers/sai/sai.h \
  ../Sources/cpu/arm_cm4.h ../Sources/DSP/AudioIF.h \
  ../Sources/DSP/AudioProcess.h ../Sources/DSP/IIR.h \
- ../Sources/DSP/CombFilter.h ../Sources/drivers/adc16/adc16.h \
- ../Sources/drivers/io.h ../Sources/DSP/IIR.h ../Sources/DSP/CombFilter.h
+ ../Sources/drivers/adc16/adc16.h ../Sources/drivers/io.h \
+ ../Sources/DSP/IIR.h
 
 C:/Freescale/CW\ MCU\ v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/lib_ewl.prefix:
 
@@ -128,12 +128,8 @@ C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/derivative
 
 ../Sources/DSP/IIR.h:
 
-../Sources/DSP/CombFilter.h:
-
 ../Sources/drivers/adc16/adc16.h:
 
 ../Sources/drivers/io.h:
 
 ../Sources/DSP/IIR.h:
-
-../Sources/DSP/CombFilter.h:

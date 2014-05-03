@@ -33,9 +33,8 @@ Sources/DSP/AudioProcess.o: ../Sources/DSP/AudioProcess.c \
  C:/Freescale/CW\ MCU\ v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/math_config.h \
  C:/Freescale/CW\ MCU\ v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/arm/math.ARM.h \
  C:/Freescale/CW\ MCU\ v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cerrno \
- ../Sources/DSP/IIR.h ../Sources/DSP/CombFilter.h \
- ../Sources/DSP/MathTables.h ../Sources/DSP/Overdrive.h \
- ../Sources/DSP/Octave.h \
+ ../Sources/DSP/IIR.h ../Sources/DSP/MathTables.h \
+ ../Sources/DSP/Overdrive.h \
  C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/Derivative.h \
  C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h \
  ../Sources/DSP/..\Drivers\IO.h
@@ -110,13 +109,9 @@ C:/Freescale/CW\ MCU\ v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cerrno:
 
 ../Sources/DSP/IIR.h:
 
-../Sources/DSP/CombFilter.h:
-
 ../Sources/DSP/MathTables.h:
 
 ../Sources/DSP/Overdrive.h:
-
-../Sources/DSP/Octave.h:
 
 C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/Derivative.h:
 

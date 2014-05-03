@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-#Progress monitor hint: 18
+#Progress monitor hint: 16
 first : all
 -include ../makefile.init
 
@@ -92,28 +92,28 @@ all: warning-messages explicit-dependencies JAM_TEST.elf secondary-outputs
 # Tool invocations
 JAM_TEST.elf: $(OBJS) $(USER_OBJS) ../Project_Settings/Linker_Files/MK20DX128_flash.ld
 	@echo 'Building target: $@'
-	@echo 'Executing target #19 $@'
+	@echo 'Executing target #17 $@'
 	@echo 'Invoking: ARM Ltd Windows GCC C Linker'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc"  $(USER_OBJS_QUOTED)  @"JAM_TEST.args" -o"JAM_TEST.elf"
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 JAM_TEST.hex: JAM_TEST.elf
-	@echo 'Executing target #20 $@'
+	@echo 'Executing target #18 $@'
 	@echo 'Invoking: ARM Ltd Windows GNU Create Flash Image'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-objcopy"  -O ihex -j .text -j .data JAM_TEST.elf "JAM_TEST.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 JAM_TEST.lst: JAM_TEST.elf
-	@echo 'Executing target #21 $@'
+	@echo 'Executing target #19 $@'
 	@echo 'Invoking: ARM Ltd Windows GNU Create Listing'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-objdump"  -h -S JAM_TEST.elf >"JAM_TEST.lst"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 JAM_TEST.siz: JAM_TEST.elf
-	@echo 'Executing target #22 $@'
+	@echo 'Executing target #20 $@'
 	@echo 'Invoking: ARM Ltd Windows GNU Print Size'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-size"  --format=berkeley -x -t JAM_TEST.elf
 	@echo 'Finished building: $@'

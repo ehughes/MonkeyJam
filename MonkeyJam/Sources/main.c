@@ -80,7 +80,7 @@
 #include "drivers/adc16/adc16.h"
 #include "drivers/io.h"
 #include "DSP/IIR.h"
-#include "DSP/CombFilter.h"
+
 
 int main(void)
 {
@@ -92,19 +92,19 @@ int main(void)
     InitIO();
     InitAudioProcess();
     EnableInterrupts;
+    
     //Main Loop....  All audio processing goes on in the IRQ routine for the SAI!
     //The main loop will just read the pots and send updated coefficients to the processing IRQs
     //Note that computations in the foreground do not have to be very fast.  They will be using cycles not used by the
     //processing interrupt routines.  For now we will have no other IRQs to devote as much CPU time to the
     //audio processing
+    
     //Switch into the desired Patch
-   // ChangePatch(PATCH_PASS_THROUGH);
-    //ChangePatch(PATCH_OVERDRIVE);
+   
+    //ChangePatch(PATCH_PASS_THROUGH);
+    ChangePatch(PATCH_OVERDRIVE);
     //ChangePatch(PATCH_TUBEY_CLEAN);
-    ChangePatch(PATCH_COMB_THE_DESERT_CHORUS);
-    //ChangePatch(PATCH_COMB_THE_DESERT_FLANGE);
-   // ChangePatch(PATCH_OCTAVE);
-  //  ChangePatch(PATCH_OD_DEMO_SINE_TEST);
+    //ChangePatch(PATCH_OD_DEMO_SINE_TEST);
     for(;;)
         {
             //In the main loop we will  read in the potentiometer values and update the processing routine
@@ -174,83 +174,6 @@ int main(void)
                         //Copy in our value,   From there it will be used in the interrupt routine
                         MyIIR[0].Update = 1;
                         MyIIR[1].Update = 1;
-                        break;
-
-                    case PATCH_COMB_THE_DESERT_CHORUS:
-                      
-                    	for(t=0;t<100000;t++)
-                    	{
-                    		
-                    	}
-                    	SetPotLimits(POT_ALPHA,0,256);  //Rate Control
-                        
-                        SetPotLimits(POT_BETA,0.0,65535.0);  //Depth Control
-                        
-                        SetPotLimits(POT_GAMMA,-1.0,1.0); //Feeback Amplitude and polarity
-                            
-                        SweepRate_Shadow = (uint16_t)ReadPOT(POT_ALPHA); 
-                       
-                        SweepDepth_Shadow =(uint16_t)ReadPOT(POT_BETA); 
-                               
-                       
-                        FeedbackAmplitude_Shadow =  (q31_t)((ReadPOT(POT_GAMMA) * 0x3FFFFFFF));
-                        
-                        UpdateParameters = TRUE;
-                        
-                        break;
-                        
-
-                    case PATCH_COMB_THE_DESERT_FLANGE:
-                        SetPotLimits(POT_ALPHA,0,256);  //Rate Control
-                        
-                        SetPotLimits(POT_BETA,0.0,65535.0);  //Depth Control
-                        
-                        SetPotLimits(POT_GAMMA,-1.0,1.0); //Feeback Amplitude and polarity
-                            
-                        SweepRate_Shadow = (uint16_t)ReadPOT(POT_ALPHA); 
-                       
-                        SweepDepth_Shadow = (uint16_t)ReadPOT(POT_BETA); 
-                            
-                        FeedbackAmplitude_Shadow =  (q31_t)((ReadPOT(POT_GAMMA) * 0x7FFFFFFF));
-                      
-                        UpdateParameters = TRUE;
-                        
-                        break;
-
-                    case PATCH_OCTAVE:
-                        DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Structure
-                                                   BIQUAD_HIGH_SHELF, //Filter Type
-                                                   AudioSampleRate, //System Sample Rate
-                                                   300, //f0 ("wherever it's happenin', man."  Center Frequency or
-                                                   //Corner Frequency, or shelf midpoint frequency, depending
-                                                   //on which filter type.  The "significant frequency".)*/
-                                                   1.0,//(Q - the EE kind of definition, except for peakingEQ in which A*Q is
-                                                   // the classic EE Q.  That adjustment in definition was made so that
-                                                   // a boost of N dB followed by a cut of N dB for identical Q and
-                                                   // f0/Fs results in a precisely flat unity gain filter or "wire".)*/
-                                                   -40.0// dBgain (used only for peaking and shelving filters)
-                                                  );
-                        DesignAudioBiquadIIR_q31_t(&MyIIR[1].Shadow_Coef,// Pointer to the IIR Structure
-                                                   BIQUAD_HIGH_SHELF, //Filter Type
-                                                   AudioSampleRate, //System Sample Rate
-                                                   300, //f0 ("wherever it's happenin', man."  Center Frequency or
-                                                   //Corner Frequency, or shelf midpoint frequency, depending
-                                                   //on which filter type.  The "significant frequency".)*/
-                                                   1.0,//(Q - the EE kind of definition, except for peakingEQ in which A*Q is
-                                                   // the classic EE Q.  That adjustment in definition was made so that
-                                                   // a boost of N dB followed by a cut of N dB for identical Q and
-                                                   // f0/Fs results in a precisely flat unity gain filter or "wire".)*/
-                                                   -40.0// dBgain (used only for peaking and shelving filters)
-                                                  );
-                        MyIIR[0].Update = 1;
-                        //MyIIR[1].Update = 1;
-                        break;
-
-                        
-                    case PATCH_OD_DEMO_SINE_TEST:
-                    	 SetPotLimits(POT_ALPHA,0,0x7FFFFFFF);  //Rate Control
-                    	 
-                    	 OD_Level = ReadPOT(POT_ALPHA);
                         break;
                         
                     default:

@@ -39,10 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "MathTables.h"
 #include "Overdrive.h"
 #include "IIR.h"
-#include "Octave.h"
-#include "CombFilter.h"
 #include "Derivative.h"
 #include "..\Drivers\IO.h"
+
 uint8_t CurrentPatch = PATCH_OVERDRIVE;
 /*
  *
@@ -62,7 +61,6 @@ uint8_t CurrentPatch = PATCH_OVERDRIVE;
 
 
 
-
 //Samples that just came in.
 q31_t LeftIn;
 q31_t RightIn;
@@ -71,31 +69,15 @@ q31_t RightIn;
 q31_t LeftOut;
 q31_t RightOut;
 
-
 q31_t OD_Level = 0;
 
 uint8_t Idx;
 
 q31_t_IIR MyIIR[NUM_IIR];
 
-OctaveControl MyOctave;
-
-CombFilter MyCombFilter;
-
-q31_t CombFilterHistory[COMB_SIZE+1];
 
 q31_t Signal; //Used for passing around Audio Data
 
-uint32_t SweepRate;
-uint32_t SweepPosition;
-uint32_t SweepDepth;
-uint32_t SweepLoc;
-
-
-uint32_t SweepRate_Shadow;
-uint32_t SweepDepth_Shadow;
-q31_t FeedbackAmplitude_Shadow;
-uint8_t    UpdateParameters = 0;
 
 void ChangePatch(uint8_t NewPatch)
 {
@@ -104,35 +86,6 @@ void ChangePatch(uint8_t NewPatch)
             default:
                 CurrentPatch = NewPatch;
                 break;
-
-            case PATCH_TUBEY_CLEAN:
-                CurrentPatch = PATCH_TUBEY_CLEAN;
-                break;
-
-            case PATCH_OCTAVE:
-                CurrentPatch = PATCH_OCTAVE;
-                InitOctave(&MyOctave,5000,-5000);
-                break;
-
-            case PATCH_COMB_THE_DESERT_FLANGE:
-              
-            	CurrentPatch = PATCH_COMB_THE_DESERT_FLANGE;
-                InitCombFilter(&MyCombFilter,&CombFilterHistory[0],COMB_SIZE,COMB_TYPE_PEAKING);
-                MyCombFilter.FeedbackAmplitude =  0x7FFFFFFF;
-                
-                break;
-                
-            case PATCH_COMB_THE_DESERT_CHORUS:
-                       
-                     	CurrentPatch = PATCH_COMB_THE_DESERT_CHORUS;
-                         InitCombFilter(&MyCombFilter,&CombFilterHistory[0],COMB_SIZE,COMB_TYPE_NULLING);
-                         MyCombFilter.FeedbackAmplitude =  0x7FFFFFFF;
-                      
-                         break;
-                         
-            case  PATCH_OD_DEMO_SINE_TEST:
-            	 CurrentPatch = NewPatch;
-            	break;
         }
 }
 
@@ -159,13 +112,12 @@ void AudioProcess()
 	}
 	else
 	{
-    //See what the current Patch is and do the appropriate processing!
+   
+		//See what the current Patch is and do the appropriate processing!
     switch(CurrentPatch)
         {
             default:
-                break;
-
-            case PATCH_PASS_THROUGH:
+                    case PATCH_PASS_THROUGH:
             	
             	LeftOut = LeftIn;
                 RightOut = RightIn;
@@ -217,7 +169,8 @@ void AudioProcess()
                 break;
 
             case PATCH_TUBEY_CLEAN:
-                if(MyIIR[0].Update>0)
+             
+            	if(MyIIR[0].Update>0)
                     {
                         MyIIR[0].Update = 0;
                         MyIIR[0].Coef = MyIIR[0].Shadow_Coef;
@@ -231,56 +184,9 @@ void AudioProcess()
                 RightOut =Signal;
                 break;
 
-            case PATCH_COMB_THE_DESERT_CHORUS:
-            case PATCH_COMB_THE_DESERT_FLANGE:
-            	
-            	Signal = (LeftIn); //Comb filter can have a gain of 2! Cut the signal down 1st
-            	 
-            	if(UpdateParameters == 1)
-            	{
-            		SweepRate = SweepRate_Shadow;
-            		SweepDepth = SweepDepth_Shadow ;
-            		MyCombFilter.FeedbackAmplitude = FeedbackAmplitude_Shadow;
-            	}
-            	
-            	SweepPosition += SweepRate; // The cosine table has an 8-bit index.   We will us the upper 8 with the low 8 being a fractional control phase accumulator
-            	
-            	SweepPosition &= 0xFFFFFF;
-                    	
-            	
-            	SweepLoc = OffsetCos_0_1023[(SweepPosition>>16)]; // Use the upper 8-bits as the index into the cosine table.
-
-            	SweepLoc = ((uint32_t)SweepDepth * SweepLoc)>>16; //  Scale by the sweep depth.  The Depth is an unsigned 16-bit fixed point from 0 to 1.  The Cos table maxes out at 1024
-            	            	
-            	//SweepLoc = SweepPosition >> 16;
-            	
-            	
-            	MyCombFilter.FeedbackTap = -1 - (int16_t)SweepLoc ; // We need a negative value for the Feedback Tap....
-                
-            	
-            	//MyCombFilter.FeedbackTap = -1023;
-            	CombTheDesert(Signal, &Signal,&MyCombFilter);
            
-                Signal = __SSAT(Signal,24); // saturate to 24 bits just in case....  Not desirable but last ditch effort to avoid wrapping if signal is too large.
-            	
-                LeftOut = Signal;
-                RightOut = Signal;
-                
-                break;
-
-            case PATCH_OCTAVE:
-                if(MyIIR[0].Update>0)
-                    {
-                        MyIIR[0].Update = 0;
-                        MyIIR[0].Coef = MyIIR[0].Shadow_Coef;
-                    }
-
-                //      Compute_q31_t_IIR(&MyIIR[0],LeftIn,&LeftOut);
-                Octave(LeftIn,&LeftOut,&MyOctave);
-                //Compute_q31_t_IIR(&MyIIR[1],LeftOut,&LeftOut);
-                RightOut = LeftOut;
-                break;
         }
+    
 	}
 }
 

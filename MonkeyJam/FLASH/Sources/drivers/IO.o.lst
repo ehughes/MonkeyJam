@@ -347,16 +347,16 @@
  287              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 IO.c
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:19     .text.InitIO:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:24     .text.InitIO:00000000 InitIO
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:92     .bss.PotMin:00000000 PotMin
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:89     .bss.PotMin:00000000 $d
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:99     .data.PotMax:00000000 PotMax
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:96     .data.PotMax:00000000 $d
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:104    .text.SetPotLimits:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:109    .text.SetPotLimits:00000000 SetPotLimits
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:164    .text.ReadPOT:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccqxbV1S.s:169    .text.ReadPOT:00000000 ReadPOT
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:19     .text.InitIO:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:24     .text.InitIO:00000000 InitIO
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:92     .bss.PotMin:00000000 PotMin
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:89     .bss.PotMin:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:99     .data.PotMax:00000000 PotMax
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:96     .data.PotMax:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:104    .text.SetPotLimits:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:109    .text.SetPotLimits:00000000 SetPotLimits
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:164    .text.ReadPOT:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccqBjg9I.s:169    .text.ReadPOT:00000000 ReadPOT
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
