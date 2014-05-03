@@ -1,4 +1,74 @@
 
+/*
+ * 
+ * 
+                 
+                                              ``                                      
+                                         +    @;                                      
+                                         @#   @.                                      
+                                         @@  @@                                       
+                                        :#@ @+@                                       
+                                        @+@@#+@                                       
+                                       `@+@+++@@`                                     
+                                       @++++++@@@@                                    
+                                     #@+++++++++++##                                  
+                             .@@@@@@@@+++++++++++++@@@@+                              
+                           .@#+@@@@###++++++++++++#@@@@@@                             
+                          #@++@@++++++++++++++++++++++@@@@                            
+                         #@++@#+++++++++++++++++++++++++#@#                           
+                        :@++#@++++++++''''''''''++++++++++@@                          
+                        @+++@++++++++'''''''''''''+++++++++@#'                        
+                       ##++++++++++''''''''''''''''+++++++++++@                       
+                       @+++++++++@@@#+'''''''''''''+#+++++++++#@                      
+                      :#+++++++@:,,,:@@@@#+'''+#@@':;@@#+++++++@                      
+                      @++++++#@,,,,,,,,,,;'+++;,,,,,,,,@@++++++@@    +@@@@@@'         
+        `@@@@@@@@,    @++++++@,,,,,,,,,,,,,,,,,,,,,,,,,,@@++++++@  @@++++++++@@       
+       @@++++++++@@  ;++++++@,,,,,,,,,,,,,,,,,,,,,,,,,,,,@@+++++@:@#+++++++++++@`     
+     ,@++++++++++++@`@++++++#,,,,,,,,,,,,,,,,,,,,,,,,,,,,,@+++++@@++++++++++++++@`    
+    :@++++++++++++++@@+++++@,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,@@+++++@+++++++++++++++@    
+   `@+++++++++++++++#@+++++@,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,:@+++++@+++@@@@@@@++++++@   
+   @+++++#@@@@@@@+++##++++';,,,,,::::,,,,,,,,,,,,,::::,,,,,@+++++@##@@@@@@@@@@++++@:  
+  '#++++@@@@@@@@@@##@+++++#,,,,,::::::,,,,,,,,,,,::::::,,,,@#++++@@@@@@;::::+@@++++@  
+  @++++@@;:::::'@@@@@+++++@,,,,,::@#@':,,,,,,,,,:#:`+'::,,,#@++++@@@:,,,,:::::@@+++@` 
+ ,@+++@@:::::,,,,,@@@+++++@,,,,::@````@,,,,,,,,:@````.;:,,,;@++++@#,,,,,,,,::::@++++@ 
+ @+++#@::::,,,,,,,,'@+++++@,,,,:@``````;,,,,,,,;``````#:,,,:@++++#;,,,,,,,,,:::'@+++@ 
+ @+++@;::,,,,,,,,,,,@+++++@,,,,::``````#,,,,,,,@```````',,,,@++++#,,,,,,,,,,,:::@+++@ 
+ @+++@:::,,,,,,,,,,,@+++++#,,,:'````````:,,,,,:````,```@:,,:@++++@,,,,,,,,,,,,::@#++#.
+,#++#@::,,,,,,,,,,,,@+++++#,,,:@``;##,``#,,,,,'``;###``#:,,:#++++@,,,,,,,,,,,,::+@+++'
+'+++@+::,,,,,,,,,,,,@+++++@,,:#';;'';'.;@,,,,,#:.';'';;+#,,'+++++@,,,,,,,,,,,,::;@+++#
+#+++@;::,,,,,,,,,,,,@+++++@,+,:'`:;;;;:.'+,,,''.,;;;;;`::;,@+++++@,,,,,,,,,,,,::;@+++@
+@+++@;::,,,,,,,,,,,,@+++++@,',,'`;;;``;.';,,:,'`;.`;;;`;,,#@++++#+,,,,,,,,,,,,::'@+++@
+#+++@'::,,,,,,,,,,,,@#++++@,;,,'`;;;``;`':++#,'`;:`;;;`',,#@++++@,,,,,,,,,,,,,::@#++++
+++++#@::,,,,,,,,,,,,:@++++@,#,,;`:;:;;;`':#+#,;`:;;:;;`;,,'#++++@,,,,,,,,,,,,,::@+++#;
+:#+++@::,,,,,,,,,,,,,@+++++'@,,,.`;;;;:.:',,,,,.`;;;;.`,,,@+++++@,,,,,,,,,,,,:::@+++@`
+ @+++@;::,,,,,,,,,,,,@+++++@:,,,'`;;;;`,,;,,,+,'`;;;;`',,'@+++++@,,,,,,,,,,,:::@++++@ 
+ @++++@:::,,,,,,,,,,,,@++++#,+,,,,`;;..'#,,,,,',.`,.`,,,,@@++++#',,,,,,,,,,:::'#++++@ 
+ @#++++#:::,,,,,,,,,,:@+++++@,',,:....'+,,;';,,+;,..:,,,@@@++++@:,,,,,,,,,:::'@++++@` 
+  @++++##::::,,,,,,,::'+++++#@,#'::'+#,'@@@#@@@;:#';:;#;#@+++++@:::,,,,:::::##++++#@  
+  @@+++++@::::::,,::::@@++###@@,,,,,,,#@':,,@,;@,,,,,,,,@@##+++@+:::::::::;@++++++@   
+   @#+++++@#:::::::::@#@######@,,,,,,,@:,@@,@',@,,,,,,,@@######@#@::::::+@#++++++@    
+    @#++++++@@;::::'@##@####@@@,,,,,,,@@,#;,:,@@,,,,,,:@@######@###@@@@@#++++++#@     
+     @@+++++++@@@@@###@@##@@@:,,,,,,,,,,,,,,,,,,,,,,,,,,,:#@@##@@@#+++++++++++@#      
+      ,@+++++++++++#@@+@@@,,,,,,,,,,,,,,,,,+,,,,,,,,,,,,,,,,,;@@ +@@@#####@@@+        
+        .@@@@@@@@@@@. ,@;,,,,,,,,,,,,,,,,,,',,,,,,,,,,,,,,,,,,,@`   `;#@#'.           
+            `,:,`     @@,,,,,,,,,,,,,,,,,,,',,,,,,,,,,,,@@,,,,,,@                     
+                     `@,,,,,,'@@;,,,,,,,,,,,,,,,,,,,,,#@@+,,,,,,@                     
+                     '@,,,,,,@,@@@#,,,,,,,,,,,,,,,,,#@@@,,,,,,,,@;                    
+                     ,@:,,,,,,,,'@;#@@#':,,,,,,;#@@@@@#,,,,,,,,:@                     
+                      @@,,,,,,,,,:@,```';+@@@@#+:``:@;,,,,,,,,,@+                     
+                       @@,,,,,,,,,,@```;   .  `````@,,,,,,,,,,@+                      
+                        :@;,,,,,,,,,@+,.      ``:+@,,,,,,,,,@@`                       
+                          '@',,,,,,,,@``.,:;;:.`.@,,,,,,,+@@`                         
+                            :@@',,,,,,@'`    ``.@;,,,,#@@.                            
+                               ;@@#,,,,@@:` `,@@+,,;@@`                               
+                                  '@@@,,:@@@@@@;,,@@                                  
+                                     @@@+,,:;,,,,@`                                   
+                                       :@@+,,,,+@                                     
+                                          ;@@@@                                                                    
+ Get the CODE HTML OR TXT version (with colors or not)
+ * 
+ */
+
 #include "Derivative.h" /* include peripheral declarations */
 #include "arm_math.h"
 #include "drivers/frdm-K20-def.h"
@@ -10,10 +80,13 @@
 #include "drivers/adc16/adc16.h"
 #include "drivers/io.h"
 #include "DSP/IIR.h"
-#include "DSP/PeakingComb.h"
+#include "DSP/CombFilter.h"
 
 int main(void)
 {
+	uint32_t t;
+	
+	
     //Get up and running to 50MHz!
     pll_init(8000000, LOW_POWER, CRYSTAL, 4, 25, 1);
     InitIO();
@@ -25,25 +98,30 @@ int main(void)
     //processing interrupt routines.  For now we will have no other IRQs to devote as much CPU time to the
     //audio processing
     //Switch into the desired Patch
-    ChangePatch(PATCH_OVERDRIVE);
-
+   // ChangePatch(PATCH_PASS_THROUGH);
+    //ChangePatch(PATCH_OVERDRIVE);
+    //ChangePatch(PATCH_TUBEY_CLEAN);
+    ChangePatch(PATCH_COMB_THE_DESERT_CHORUS);
+    //ChangePatch(PATCH_COMB_THE_DESERT_FLANGE);
+   // ChangePatch(PATCH_OCTAVE);
+  //  ChangePatch(PATCH_OD_DEMO_SINE_TEST);
     for(;;)
         {
-            //In the main loop we will  read in the potentiomenter values and update the processing routine
+            //In the main loop we will  read in the potentiometer values and update the processing routine
             switch(CurrentPatch)
                 {
                     case PATCH_TUBEY_CLEAN:
                         //The Alpha Pot will be the gain/crunch value.  It will control a q_31t value from 0 to 1
                         //The use of the variable OD_Level is documented in the audio process routine.  We just need to generate it
                         //THis doesn't necessary need to be called every time through the loop but it won't Hurt anything.
-                        SetPotLimits(POT_ALPHA,50,2000);
+                        SetPotLimits(POT_ALPHA,50,2500);
                         //Since a Q31 is 31 bits of fraction and 1 bit of sign,  just
                         //multiply a binary value of 31 bits by the float and cast back to an integer
-                        OD_Level = (q31_t)((float)0x7fffffff * (float)1.0);
-                        SetPotLimits(POT_BETA,0.1,5.0);
+                        OD_Level = (q31_t)((float)0x7fffffff);
+                        SetPotLimits(POT_BETA,0.05,1.8);
                         SetPotLimits(POT_GAMMA,-30,30.0 );
                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Structure
-                                                   BIQUAD_PEAKING_EQ, //Filter Type
+                                                  BIQUAD_LOW_SHELF,
                                                    AudioSampleRate, //System Sample Rate
                                                    ReadPOT(POT_ALPHA), //f0 ("wherever it's happenin', man."  Center Frequency or
                                                    //Corner Frequency, or shelf midpoint frequency, depending
@@ -54,7 +132,11 @@ int main(void)
                                                    // f0/Fs results in a precisely flat unity gain filter or "wire".)*/
                                                    ReadPOT(POT_GAMMA)// dBgain (used only for peaking and shelving filters)
                                                   );
+                        
+           
                         MyIIR[0].Update = 1;
+                   
+                        
                         //Flag the processing routine to copy the shadow coef. into the real ones.
                         break;
 
@@ -62,9 +144,9 @@ int main(void)
                         //The use of the variable OD_Level is documented in the audio process routine.  We just need to generate it
                         //THis doesn't necessary need to be called every time through the loop but it won't Hurt anything.
                         OD_Level =  (q31_t)0x7fffffff;
-                        SetPotLimits(POT_BETA,0.1,1.0);
-                        SetPotLimits(POT_GAMMA,50,2000);
-                        SetPotLimits(POT_ALPHA,-20,20);
+                        SetPotLimits(POT_BETA,0.1,1.5);
+                        SetPotLimits(POT_GAMMA,50,450);
+                        SetPotLimits(POT_ALPHA,-40,40);
                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Structure
                                                    BIQUAD_PEAKING_EQ,
                                                    AudioSampleRate, //System Sample Rate
@@ -94,13 +176,45 @@ int main(void)
                         MyIIR[1].Update = 1;
                         break;
 
-                    case PATCH_COMB_THE_DESERT:
-                        SetPotLimits(POT_ALPHA,.5,1.0);
-                        SetPotLimits(POT_BETA,-1,-PEAKING_COMB_SIZE);
-                        SetPotLimits(POT_GAMMA,-1.0,1.0);
-                        OD_Level = (q31_t)((float)0x7fffffff * ReadPOT(POT_ALPHA));
-                        MyPeakingComb.FeedbackTap = (int16_t) ReadPOT(POT_BETA);
-                        MyPeakingComb.FeedbackAmplitude = (q31_t)((ReadPOT(POT_GAMMA) * 0x7FFFFFFF));
+                    case PATCH_COMB_THE_DESERT_CHORUS:
+                      
+                    	for(t=0;t<100000;t++)
+                    	{
+                    		
+                    	}
+                    	SetPotLimits(POT_ALPHA,0,256);  //Rate Control
+                        
+                        SetPotLimits(POT_BETA,0.0,65535.0);  //Depth Control
+                        
+                        SetPotLimits(POT_GAMMA,-1.0,1.0); //Feeback Amplitude and polarity
+                            
+                        SweepRate_Shadow = (uint16_t)ReadPOT(POT_ALPHA); 
+                       
+                        SweepDepth_Shadow =(uint16_t)ReadPOT(POT_BETA); 
+                               
+                       
+                        FeedbackAmplitude_Shadow =  (q31_t)((ReadPOT(POT_GAMMA) * 0x3FFFFFFF));
+                        
+                        UpdateParameters = TRUE;
+                        
+                        break;
+                        
+
+                    case PATCH_COMB_THE_DESERT_FLANGE:
+                        SetPotLimits(POT_ALPHA,0,256);  //Rate Control
+                        
+                        SetPotLimits(POT_BETA,0.0,65535.0);  //Depth Control
+                        
+                        SetPotLimits(POT_GAMMA,-1.0,1.0); //Feeback Amplitude and polarity
+                            
+                        SweepRate_Shadow = (uint16_t)ReadPOT(POT_ALPHA); 
+                       
+                        SweepDepth_Shadow = (uint16_t)ReadPOT(POT_BETA); 
+                            
+                        FeedbackAmplitude_Shadow =  (q31_t)((ReadPOT(POT_GAMMA) * 0x7FFFFFFF));
+                      
+                        UpdateParameters = TRUE;
+                        
                         break;
 
                     case PATCH_OCTAVE:
@@ -132,6 +246,13 @@ int main(void)
                         //MyIIR[1].Update = 1;
                         break;
 
+                        
+                    case PATCH_OD_DEMO_SINE_TEST:
+                    	 SetPotLimits(POT_ALPHA,0,0x7FFFFFFF);  //Rate Control
+                    	 
+                    	 OD_Level = ReadPOT(POT_ALPHA);
+                        break;
+                        
                     default:
                         break;
                 }

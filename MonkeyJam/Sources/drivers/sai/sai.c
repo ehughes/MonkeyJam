@@ -1148,14 +1148,12 @@ void sai0_rx_isr(void)
 
 void sai0_tx_isr(void)
 {
-    IO_DELTA_ON;
     I2S_TCSR_REG(I2S0_BASE_PTR) &= ~(I2S_TCSR_FRF_MASK);
     //Send out the last Queued up values
     I2S0_TDR0 = LeftOut;
     I2S0_TDR0 = RightOut;
     //Process the next set of samples
     AudioProcess();
-    IO_DELTA_OFF;
 }
 
 void sai1_rx_isr(void)

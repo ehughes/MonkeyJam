@@ -88,13 +88,14 @@
 									<listOptionValue builtIn="false" value="Sources/drivers/uart/uart.c"/>
 									<listOptionValue builtIn="false" value="Sources/main.c"/>
 									<listOptionValue builtIn="false" value="Sources/DSP/AudioProcess.c"/>
-									<listOptionValue builtIn="false" value="Sources/DSP/Audio_IF.c"/>
 									<listOptionValue builtIn="false" value="Sources/DSP/IIR.c"/>
 									<listOptionValue builtIn="false" value="Sources/DSP/MathTables.c"/>
-									<listOptionValue builtIn="false" value="Sources/DSP/atan.c"/>
 									<listOptionValue builtIn="false" value="Sources/drivers/IO.c"/>
 									<listOptionValue builtIn="false" value="Sources/drivers/QSPI.c"/>
 									<listOptionValue builtIn="false" value="Sources/drivers/frdm-k20-def.c"/>
+									<listOptionValue builtIn="false" value="Sources/DSP/AudioIF.c"/>
+									<listOptionValue builtIn="false" value="Sources/DSP/Octave.c"/>
+									<listOptionValue builtIn="false" value="Sources/DSP/PeakingComb.c"/>
 								</option>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.link.option.other.cref.374517713" name="Cross Reference (-Xlinker --cref)" superClass="org.eclipse.cdt.cross.arm.gnu.c.link.option.other.cref" value="true" valueType="boolean"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.link.option.other.printmap.2113024490" name="Print link map (-Xlinker --print-map)" superClass="org.eclipse.cdt.cross.arm.gnu.c.link.option.other.printmap" value="true" valueType="boolean"/>

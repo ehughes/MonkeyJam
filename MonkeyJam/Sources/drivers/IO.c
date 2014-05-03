@@ -15,9 +15,11 @@ void InitIO()
     //This sets the SAI unit for 32MHz, 256x oversampling on the ADC/ Dacs
     InitAudioIO(50000000, 24000, 256);
     PORTC_PCR(0) = PORT_PCR_MUX(1);
-    PORTC_PCR(4) = PORT_PCR_MUX(1);
+    PORTC_PCR(4) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;
     PORTC_PCR(9) = PORT_PCR_MUX(1);
-    IO_DELTA_IS_OUTPUT;
+    
+    IO_DELTA_IS_INPUT;
+    
 }
 
 

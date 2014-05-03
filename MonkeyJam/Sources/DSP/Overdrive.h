@@ -15,7 +15,7 @@ inline q31_t HardOverdrive(q31_t In, q31_t OD_Level)
     uint32_t TableIndex;
     q31_t Out;
     Out = ((q63_t)In * OD_Level)>>26;
-    //Saturate the output for se are not beyonf 24 bits
+    //Saturate the output to 24 bits
     Out = __SSAT(Out,24);
     //We need the signal to be scaled up by 8 to drive the interpolation table (thighest 12 bits used as table index).
     Out <<= 8;

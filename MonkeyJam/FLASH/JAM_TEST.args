@@ -1,10 +1,10 @@
 "./Project_Settings/Startup_Code/kinetis_sysinit.o"
 "./Project_Settings/Startup_Code/__arm_start.o"
 "./Project_Settings/Startup_Code/__arm_end.o"
-"./Sources/DSP/PeakingComb.o"
 "./Sources/DSP/Octave.o"
 "./Sources/DSP/MathTables.o"
 "./Sources/DSP/IIR.o"
+"./Sources/DSP/CombFilter.o"
 "./Sources/DSP/AudioProcess.o"
 "./Sources/DSP/AudioIF.o"
 "./Sources/cpu/arm_cm4.o"
@@ -26,7 +26,7 @@
 -Xlinker
 --gc-sections
 -L"C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/lib/armv7e-m"
--L"C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Debug"
+-L"C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Debug"
 -Wl,-Map,JAM_TEST.map
 -Xlinker
 --cref

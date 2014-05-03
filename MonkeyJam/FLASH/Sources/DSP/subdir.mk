@@ -8,58 +8,58 @@
 C_SRCS_QUOTED += \
 "../Sources/DSP/AudioIF.c" \
 "../Sources/DSP/AudioProcess.c" \
+"../Sources/DSP/CombFilter.c" \
 "../Sources/DSP/IIR.c" \
 "../Sources/DSP/MathTables.c" \
 "../Sources/DSP/Octave.c" \
-"../Sources/DSP/PeakingComb.c" \
 
 C_SRCS += \
 ../Sources/DSP/AudioIF.c \
 ../Sources/DSP/AudioProcess.c \
+../Sources/DSP/CombFilter.c \
 ../Sources/DSP/IIR.c \
 ../Sources/DSP/MathTables.c \
 ../Sources/DSP/Octave.c \
-../Sources/DSP/PeakingComb.c \
 
 OBJS += \
 ./Sources/DSP/AudioIF.o \
 ./Sources/DSP/AudioProcess.o \
+./Sources/DSP/CombFilter.o \
 ./Sources/DSP/IIR.o \
 ./Sources/DSP/MathTables.o \
 ./Sources/DSP/Octave.o \
-./Sources/DSP/PeakingComb.o \
 
 OBJS_QUOTED += \
 "./Sources/DSP/AudioIF.o" \
 "./Sources/DSP/AudioProcess.o" \
+"./Sources/DSP/CombFilter.o" \
 "./Sources/DSP/IIR.o" \
 "./Sources/DSP/MathTables.o" \
 "./Sources/DSP/Octave.o" \
-"./Sources/DSP/PeakingComb.o" \
 
 C_DEPS += \
 ./Sources/DSP/AudioIF.d \
 ./Sources/DSP/AudioProcess.d \
+./Sources/DSP/CombFilter.d \
 ./Sources/DSP/IIR.d \
 ./Sources/DSP/MathTables.d \
 ./Sources/DSP/Octave.d \
-./Sources/DSP/PeakingComb.d \
 
 OBJS_OS_FORMAT += \
 ./Sources/DSP/AudioIF.o \
 ./Sources/DSP/AudioProcess.o \
+./Sources/DSP/CombFilter.o \
 ./Sources/DSP/IIR.o \
 ./Sources/DSP/MathTables.o \
 ./Sources/DSP/Octave.o \
-./Sources/DSP/PeakingComb.o \
 
 C_DEPS_QUOTED += \
 "./Sources/DSP/AudioIF.d" \
 "./Sources/DSP/AudioProcess.d" \
+"./Sources/DSP/CombFilter.d" \
 "./Sources/DSP/IIR.d" \
 "./Sources/DSP/MathTables.d" \
 "./Sources/DSP/Octave.d" \
-"./Sources/DSP/PeakingComb.d" \
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -79,9 +79,17 @@ Sources/DSP/AudioProcess.o: ../Sources/DSP/AudioProcess.c
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Sources/DSP/IIR.o: ../Sources/DSP/IIR.c
+Sources/DSP/CombFilter.o: ../Sources/DSP/CombFilter.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #12 $<'
+	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/DSP/CombFilter.args" -Wa,-adhlns="$@.lst" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/DSP/CombFilter.o"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/DSP/IIR.o: ../Sources/DSP/IIR.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #13 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/DSP/IIR.args" -Wa,-adhlns="$@.lst" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/DSP/IIR.o"
 	@echo 'Finished building: $<'
@@ -89,7 +97,7 @@ Sources/DSP/IIR.o: ../Sources/DSP/IIR.c
 
 Sources/DSP/MathTables.o: ../Sources/DSP/MathTables.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #13 $<'
+	@echo 'Executing target #14 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/DSP/MathTables.args" -Wa,-adhlns="$@.lst" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/DSP/MathTables.o"
 	@echo 'Finished building: $<'
@@ -97,17 +105,9 @@ Sources/DSP/MathTables.o: ../Sources/DSP/MathTables.c
 
 Sources/DSP/Octave.o: ../Sources/DSP/Octave.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #14 $<'
-	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
-	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/DSP/Octave.args" -Wa,-adhlns="$@.lst" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/DSP/Octave.o"
-	@echo 'Finished building: $<'
-	@echo ' '
-
-Sources/DSP/PeakingComb.o: ../Sources/DSP/PeakingComb.c
-	@echo 'Building file: $<'
 	@echo 'Executing target #15 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
-	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/DSP/PeakingComb.args" -Wa,-adhlns="$@.lst" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/DSP/PeakingComb.o"
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/DSP/Octave.args" -Wa,-adhlns="$@.lst" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/DSP/Octave.o"
 	@echo 'Finished building: $<'
 	@echo ' '
 

@@ -43,5 +43,6 @@ extern const q31_t sine_q31_t[256];
 extern const q31_t atan_4pi_q31_t[4096];
 extern const q31_t atan_12pi_q31_t[4096];
 extern const q31_t atan_24pi_q31_t[4096];
-
+extern const uint16_t OffsetCos_0_2047[256];
+extern const uint16_t OffsetCos_0_1023[256];
 #endif
