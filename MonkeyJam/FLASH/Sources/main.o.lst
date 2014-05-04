@@ -91,7 +91,7 @@
   65:../Sources/main.c ****                                      @@@+,,:;,,,,@`                                   
   66:../Sources/main.c ****                                        :@@+,,,,+@                                     
   67:../Sources/main.c ****                                           ;@@@@                                                    
-  68:../Sources/main.c ****  Get the CODE HTML OR TXT version (with colors or not)
+  68:../Sources/main.c **** 
   69:../Sources/main.c ****  * 
   70:../Sources/main.c ****  */
   71:../Sources/main.c **** 
@@ -163,13 +163,13 @@
  100:../Sources/main.c ****     //Switch into the desired Patch
  101:../Sources/main.c ****    
  102:../Sources/main.c ****     //ChangePatch(PATCH_PASS_THROUGH);
- 103:../Sources/main.c ****     ChangePatch(PATCH_OVERDRIVE);
-  65              		.loc 1 103 0
+ 103:../Sources/main.c ****     //ChangePatch(PATCH_OVERDRIVE);
+ 104:../Sources/main.c ****     ChangePatch(PATCH_TUBEY_CLEAN);
+  65              		.loc 1 104 0
   66              		.thumb
-  67 0034 4FF00300 		mov	r0, #3
+  67 0034 4FF00200 		mov	r0, #2
   68 0038 FFF7FEFF 		bl	ChangePatch
   69              	.L6:
- 104:../Sources/main.c ****     //ChangePatch(PATCH_TUBEY_CLEAN);
  105:../Sources/main.c ****     //ChangePatch(PATCH_OD_DEMO_SINE_TEST);
  106:../Sources/main.c ****     for(;;)
  107:../Sources/main.c ****         {
@@ -182,21 +182,21 @@
   74 0046 022B     		cmp	r3, #2
   75 0048 02D0     		beq	.L3
   76 004a 032B     		cmp	r3, #3
-  77 004c 55D0     		beq	.L4
-  78 004e C8E0     		b	.L7
+  77 004c 76D0     		beq	.L4
+  78 004e E9E0     		b	.L7
   79              	.L3:
  110:../Sources/main.c ****                 {
  111:../Sources/main.c ****                     case PATCH_TUBEY_CLEAN:
  112:../Sources/main.c ****                         //The Alpha Pot will be the gain/crunch value.  It will control a q_31t val
  113:../Sources/main.c ****                         //The use of the variable OD_Level is documented in the audio process routi
  114:../Sources/main.c ****                         //THis doesn't necessary need to be called every time through the loop but 
- 115:../Sources/main.c ****                         SetPotLimits(POT_ALPHA,50,2500);
+ 115:../Sources/main.c ****                         SetPotLimits(POT_ALPHA,1000,4000);
   80              		.loc 1 115 0
   81 0050 4FF00000 		mov	r0, #0
   82 0054 4FF00001 		mov	r1, #0
-  83 0058 C4F24821 		movt	r1, 16968
-  84 005c 4FF48042 		mov	r2, #16384
-  85 0060 C4F21C52 		movt	r2, 17692
+  83 0058 C4F27A41 		movt	r1, 17530
+  84 005c 4FF00002 		mov	r2, #0
+  85 0060 C4F27A52 		movt	r2, 17786
   86 0064 FFF7FEFF 		bl	SetPotLimits
  116:../Sources/main.c ****                         //Since a Q31 is 31 bits of fraction and 1 bit of sign,  just
  117:../Sources/main.c ****                         //multiply a binary value of 31 bits by the float and cast back to an integ
@@ -206,24 +206,25 @@
   89 006c C0F20003 		movt	r3, #:upper16:OD_Level
   90 0070 6FF00042 		mvn	r2, #-2147483648
   91 0074 1A60     		str	r2, [r3, #0]
- 119:../Sources/main.c ****                         SetPotLimits(POT_BETA,0.05,1.8);
+ 119:../Sources/main.c ****                         SetPotLimits(POT_BETA,0.05,2.5);
   92              		.loc 1 119 0
   93 0076 4FF00100 		mov	r0, #1
   94 007a 4CF6CD41 		movw	r1, #52429
   95 007e C3F64C51 		movt	r1, 15692
-  96 0082 46F26662 		movw	r2, #26214
-  97 0086 C3F6E672 		movt	r2, 16358
+  96 0082 4FF00002 		mov	r2, #0
+  97 0086 C4F22002 		movt	r2, 16416
   98 008a FFF7FEFF 		bl	SetPotLimits
- 120:../Sources/main.c ****                         SetPotLimits(POT_GAMMA,-30,30.0 );
+ 120:../Sources/main.c ****                         SetPotLimits(POT_GAMMA,-15,15.0 );
   99              		.loc 1 120 0
  100 008e 4FF00200 		mov	r0, #2
  101 0092 4FF00001 		mov	r1, #0
- 102 0096 CCF2F011 		movt	r1, 49648
+ 102 0096 CCF27011 		movt	r1, 49520
  103 009a 4FF00002 		mov	r2, #0
- 104 009e C4F2F012 		movt	r2, 16880
+ 104 009e C4F27012 		movt	r2, 16752
  105 00a2 FFF7FEFF 		bl	SetPotLimits
- 121:../Sources/main.c ****                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Stru
- 106              		.loc 1 121 0
+ 121:../Sources/main.c ****                        
+ 122:../Sources/main.c ****                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Stru
+ 106              		.loc 1 122 0
  107 00a6 40F20003 		movw	r3, #:lower16:AudioSampleRate
  108 00aa C0F20003 		movt	r3, #:upper16:AudioSampleRate
  109 00ae 1B68     		ldr	r3, [r3, #0]
@@ -241,180 +242,214 @@
  121 00d4 0346     		mov	r3, r0
  122 00d6 0096     		str	r6, [sp, #0]	@ float
  123 00d8 0193     		str	r3, [sp, #4]	@ float
- 124 00da 4348     		ldr	r0, .L8
+ 124 00da 5348     		ldr	r0, .L8
  125 00dc 4FF00701 		mov	r1, #7
  126 00e0 2A46     		mov	r2, r5
  127 00e2 2346     		mov	r3, r4
  128 00e4 FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
- 122:../Sources/main.c ****                                                   BIQUAD_LOW_SHELF,
- 123:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
- 124:../Sources/main.c ****                                                    ReadPOT(POT_ALPHA), //f0 ("wherever it's happeni
- 125:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
- 126:../Sources/main.c ****                                                    //on which filter type.  The "significant freque
- 127:../Sources/main.c ****                                                    ReadPOT(POT_BETA),//(Q - the EE kind of definiti
- 128:../Sources/main.c ****                                                    // the classic EE Q.  That adjustment in definit
- 129:../Sources/main.c ****                                                    // a boost of N dB followed by a cut of N dB for
- 130:../Sources/main.c ****                                                    // f0/Fs results in a precisely flat unity gain 
- 131:../Sources/main.c ****                                                    ReadPOT(POT_GAMMA)// dBgain (used only for peaki
- 132:../Sources/main.c ****                                                   );
- 133:../Sources/main.c ****                         
- 134:../Sources/main.c ****            
- 135:../Sources/main.c ****                         MyIIR[0].Update = 1;
+ 123:../Sources/main.c ****                         							BIQUAD_LOW_SHELF,
+ 124:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
+ 125:../Sources/main.c ****                                                    ReadPOT(POT_ALPHA), //f0 ("wherever it's happeni
+ 126:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
+ 127:../Sources/main.c ****                                                    //on which filter type.  The "significant freque
+ 128:../Sources/main.c ****                                                    ReadPOT(POT_BETA),//(Q - the EE kind of definiti
+ 129:../Sources/main.c ****                                                    // the classic EE Q.  That adjustment in definit
+ 130:../Sources/main.c ****                                                    // a boost of N dB followed by a cut of N dB for
+ 131:../Sources/main.c ****                                                    // f0/Fs results in a precisely flat unity gain 
+ 132:../Sources/main.c ****                                                    ReadPOT(POT_GAMMA)// dBgain (used only for peaki
+ 133:../Sources/main.c ****                                                   );
+ 134:../Sources/main.c ****                       
+ 135:../Sources/main.c ****                         DesignAudioBiquadIIR_q31_t(&MyIIR[1].Shadow_Coef,// Pointer to the IIR Stru
  129              		.loc 1 135 0
- 130 00e8 40F20003 		movw	r3, #:lower16:MyIIR
- 131 00ec C0F20003 		movt	r3, #:upper16:MyIIR
- 132 00f0 4FF00102 		mov	r2, #1
- 133 00f4 83F84820 		strb	r2, [r3, #72]
- 136:../Sources/main.c ****                    
- 137:../Sources/main.c ****                         
- 138:../Sources/main.c ****                         //Flag the processing routine to copy the shadow coef. into the real ones.
- 139:../Sources/main.c ****                         break;
- 134              		.loc 1 139 0
- 135 00f8 74E0     		b	.L5
- 136              	.L4:
- 140:../Sources/main.c **** 
- 141:../Sources/main.c ****                     case PATCH_OVERDRIVE:
- 142:../Sources/main.c ****                         //The use of the variable OD_Level is documented in the audio process routi
- 143:../Sources/main.c ****                         //THis doesn't necessary need to be called every time through the loop but 
- 144:../Sources/main.c ****                         OD_Level =  (q31_t)0x7fffffff;
- 137              		.loc 1 144 0
- 138 00fa 40F20003 		movw	r3, #:lower16:OD_Level
- 139 00fe C0F20003 		movt	r3, #:upper16:OD_Level
- 140 0102 6FF00042 		mvn	r2, #-2147483648
- 141 0106 1A60     		str	r2, [r3, #0]
- 145:../Sources/main.c ****                         SetPotLimits(POT_BETA,0.1,1.5);
- 142              		.loc 1 145 0
- 143 0108 4FF00100 		mov	r0, #1
- 144 010c 4CF6CD41 		movw	r1, #52429
- 145 0110 C3F6CC51 		movt	r1, 15820
- 146 0114 4FF07F52 		mov	r2, #1069547520
- 147 0118 FFF7FEFF 		bl	SetPotLimits
- 146:../Sources/main.c ****                         SetPotLimits(POT_GAMMA,50,450);
- 148              		.loc 1 146 0
- 149 011c 4FF00200 		mov	r0, #2
- 150 0120 4FF00001 		mov	r1, #0
- 151 0124 C4F24821 		movt	r1, 16968
- 152 0128 4FF00002 		mov	r2, #0
- 153 012c C4F2E132 		movt	r2, 17377
- 154 0130 FFF7FEFF 		bl	SetPotLimits
- 147:../Sources/main.c ****                         SetPotLimits(POT_ALPHA,-40,40);
- 155              		.loc 1 147 0
- 156 0134 4FF00000 		mov	r0, #0
- 157 0138 4FF00001 		mov	r1, #0
- 158 013c CCF22021 		movt	r1, 49696
- 159 0140 4FF00002 		mov	r2, #0
- 160 0144 C4F22022 		movt	r2, 16928
- 161 0148 FFF7FEFF 		bl	SetPotLimits
- 148:../Sources/main.c ****                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Stru
- 162              		.loc 1 148 0
- 163 014c 40F20003 		movw	r3, #:lower16:AudioSampleRate
- 164 0150 C0F20003 		movt	r3, #:upper16:AudioSampleRate
- 165 0154 1B68     		ldr	r3, [r3, #0]
- 166 0156 1846     		mov	r0, r3
- 167 0158 FFF7FEFF 		bl	__aeabi_ui2f
- 168 015c 0546     		mov	r5, r0
- 169 015e 4FF00200 		mov	r0, #2
- 170 0162 FFF7FEFF 		bl	ReadPOT
- 171 0166 0446     		mov	r4, r0
- 172 0168 4FF00100 		mov	r0, #1
- 173 016c FFF7FEFF 		bl	ReadPOT
- 174 0170 0646     		mov	r6, r0
- 175 0172 4FF00000 		mov	r0, #0
- 176 0176 FFF7FEFF 		bl	ReadPOT
- 177 017a 0346     		mov	r3, r0
- 178 017c 0096     		str	r6, [sp, #0]	@ float
- 179 017e 0193     		str	r3, [sp, #4]	@ float
- 180 0180 1948     		ldr	r0, .L8
- 181 0182 4FF00601 		mov	r1, #6
- 182 0186 2A46     		mov	r2, r5
- 183 0188 2346     		mov	r3, r4
- 184 018a FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
- 149:../Sources/main.c ****                                                    BIQUAD_PEAKING_EQ,
- 150:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
- 151:../Sources/main.c ****                                                    ReadPOT(POT_GAMMA), //("wherever it's happenin',
- 152:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
- 153:../Sources/main.c ****                                                    //on which filter type.  The "significant freque
- 154:../Sources/main.c ****                                                    ReadPOT(POT_BETA),//(the EE kind of definition, 
- 155:../Sources/main.c ****                                                    // the classic EE Q.  That adjustment in definit
- 156:../Sources/main.c ****                                                    // a boost of N dB followed by a cut of N dB for
- 157:../Sources/main.c ****                                                    // f0/Fs results in a precisely flat unity gain 
- 158:../Sources/main.c ****                                                    ReadPOT(POT_ALPHA)// (used only for peaking and 
- 159:../Sources/main.c ****                                                   );
- 160:../Sources/main.c ****                         DesignAudioBiquadIIR_q31_t(&MyIIR[1].Shadow_Coef,// Pointer to the IIR Stru
- 185              		.loc 1 160 0
- 186 018e 40F20003 		movw	r3, #:lower16:AudioSampleRate
- 187 0192 C0F20003 		movt	r3, #:upper16:AudioSampleRate
- 188 0196 1B68     		ldr	r3, [r3, #0]
- 189 0198 1846     		mov	r0, r3
- 190 019a FFF7FEFF 		bl	__aeabi_ui2f
- 191 019e 0346     		mov	r3, r0
- 192 01a0 4FF08042 		mov	r2, #1073741824
- 193 01a4 0092     		str	r2, [sp, #0]	@ float
- 194 01a6 4FF00002 		mov	r2, #0
- 195 01aa 0192     		str	r2, [sp, #4]	@ float
- 196 01ac 0F48     		ldr	r0, .L8+4
- 197 01ae 4FF00001 		mov	r1, #0
- 198 01b2 1A46     		mov	r2, r3
- 199 01b4 4FF00003 		mov	r3, #0
- 200 01b8 C4F2FA43 		movt	r3, 17658
- 201 01bc FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
- 161:../Sources/main.c ****                                                    BIQUAD_LOW_PASS_FILTER,
- 162:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
- 163:../Sources/main.c ****                                                    2000, //("wherever it's happenin', man."  Center
- 164:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
- 165:../Sources/main.c ****                                                    //on which filter type.  The "significant freque
- 166:../Sources/main.c ****                                                    2.0,//(the EE kind of definition, except for pea
- 167:../Sources/main.c ****                                                    // the classic EE Q.  That adjustment in definit
- 168:../Sources/main.c ****                                                    // a boost of N dB followed by a cut of N dB for
- 169:../Sources/main.c ****                                                    // f0/Fs results in a precisely flat unity gain 
- 170:../Sources/main.c ****                                                    0// (used only for peaking and shelving filters)
- 171:../Sources/main.c ****                                                   );
- 172:../Sources/main.c ****                         //Copy in our value,   From there it will be used in the interrupt routine
- 173:../Sources/main.c ****                         MyIIR[0].Update = 1;
- 202              		.loc 1 173 0
- 203 01c0 40F20003 		movw	r3, #:lower16:MyIIR
- 204 01c4 C0F20003 		movt	r3, #:upper16:MyIIR
- 205 01c8 4FF00102 		mov	r2, #1
- 206 01cc 83F84820 		strb	r2, [r3, #72]
- 174:../Sources/main.c ****                         MyIIR[1].Update = 1;
- 207              		.loc 1 174 0
- 208 01d0 40F20003 		movw	r3, #:lower16:MyIIR
- 209 01d4 C0F20003 		movt	r3, #:upper16:MyIIR
- 210 01d8 4FF00102 		mov	r2, #1
- 211 01dc 83F89820 		strb	r2, [r3, #152]
- 175:../Sources/main.c ****                         break;
- 212              		.loc 1 175 0
- 213 01e0 00E0     		b	.L5
- 214              	.L7:
- 176:../Sources/main.c ****                         
- 177:../Sources/main.c ****                     default:
- 178:../Sources/main.c ****                         break;
- 215              		.loc 1 178 0
- 216 01e2 00BF     		nop
- 217              	.L5:
- 179:../Sources/main.c ****                 }
- 180:../Sources/main.c ****         }
- 218              		.loc 1 180 0
- 219 01e4 2AE7     		b	.L6
- 220              	.L9:
- 221 01e6 00BF     		.align	2
- 222              	.L8:
- 223 01e8 30000000 		.word	MyIIR+48
- 224 01ec 80000000 		.word	MyIIR+128
- 225              		.cfi_endproc
- 226              	.LFE128:
- 228              		.text
- 229              	.Letext0:
- 230              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 231              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
- 232              		.file 4 "../Sources/DSP/IIR.h"
- 233              		.file 5 "../Sources/DSP/AudioIF.h"
- 234              		.file 6 "../Sources/DSP/AudioProcess.h"
+ 130 00e8 40F20003 		movw	r3, #:lower16:AudioSampleRate
+ 131 00ec C0F20003 		movt	r3, #:upper16:AudioSampleRate
+ 132 00f0 1B68     		ldr	r3, [r3, #0]
+ 133 00f2 1846     		mov	r0, r3
+ 134 00f4 FFF7FEFF 		bl	__aeabi_ui2f
+ 135 00f8 0346     		mov	r3, r0
+ 136 00fa 4FF08042 		mov	r2, #1073741824
+ 137 00fe 0092     		str	r2, [sp, #0]	@ float
+ 138 0100 4FF00002 		mov	r2, #0
+ 139 0104 0192     		str	r2, [sp, #4]	@ float
+ 140 0106 4948     		ldr	r0, .L8+4
+ 141 0108 4FF00001 		mov	r1, #0
+ 142 010c 1A46     		mov	r2, r3
+ 143 010e 4FF48043 		mov	r3, #16384
+ 144 0112 C4F21C53 		movt	r3, 17692
+ 145 0116 FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
+ 136:../Sources/main.c ****                                                                  BIQUAD_LOW_PASS_FILTER,
+ 137:../Sources/main.c ****                                                                  AudioSampleRate, //System Sample R
+ 138:../Sources/main.c ****                                                                  2500, //("wherever it's happenin',
+ 139:../Sources/main.c ****                                                                  //Corner Frequency, or shelf midpo
+ 140:../Sources/main.c ****                                                                  //on which filter type.  The "sign
+ 141:../Sources/main.c ****                                                                  2.0,//(the EE kind of definition, 
+ 142:../Sources/main.c ****                                                                  // the classic EE Q.  That adjustm
+ 143:../Sources/main.c ****                                                                  // a boost of N dB followed by a c
+ 144:../Sources/main.c ****                                                                  // f0/Fs results in a precisely fl
+ 145:../Sources/main.c ****                                                                  0// (used only for peaking and she
+ 146:../Sources/main.c ****                                                                 );
+ 147:../Sources/main.c ****            
+ 148:../Sources/main.c ****                         MyIIR[0].Update = 1;
+ 146              		.loc 1 148 0
+ 147 011a 40F20003 		movw	r3, #:lower16:MyIIR
+ 148 011e C0F20003 		movt	r3, #:upper16:MyIIR
+ 149 0122 4FF00102 		mov	r2, #1
+ 150 0126 83F84820 		strb	r2, [r3, #72]
+ 149:../Sources/main.c ****                         MyIIR[1].Update = 1;
+ 151              		.loc 1 149 0
+ 152 012a 40F20003 		movw	r3, #:lower16:MyIIR
+ 153 012e C0F20003 		movt	r3, #:upper16:MyIIR
+ 154 0132 4FF00102 		mov	r2, #1
+ 155 0136 83F89820 		strb	r2, [r3, #152]
+ 150:../Sources/main.c ****                         
+ 151:../Sources/main.c ****                         //Flag the processing routine to copy the shadow coef. into the real ones.
+ 152:../Sources/main.c ****                         break;
+ 156              		.loc 1 152 0
+ 157 013a 74E0     		b	.L5
+ 158              	.L4:
+ 153:../Sources/main.c **** 
+ 154:../Sources/main.c ****                     case PATCH_OVERDRIVE:
+ 155:../Sources/main.c ****                         //The use of the variable OD_Level is documented in the audio process routi
+ 156:../Sources/main.c ****                         //THis doesn't necessary need to be called every time through the loop but 
+ 157:../Sources/main.c ****                         OD_Level =  (q31_t)0x7fffffff;
+ 159              		.loc 1 157 0
+ 160 013c 40F20003 		movw	r3, #:lower16:OD_Level
+ 161 0140 C0F20003 		movt	r3, #:upper16:OD_Level
+ 162 0144 6FF00042 		mvn	r2, #-2147483648
+ 163 0148 1A60     		str	r2, [r3, #0]
+ 158:../Sources/main.c ****                         SetPotLimits(POT_BETA,0.1,1.5);
+ 164              		.loc 1 158 0
+ 165 014a 4FF00100 		mov	r0, #1
+ 166 014e 4CF6CD41 		movw	r1, #52429
+ 167 0152 C3F6CC51 		movt	r1, 15820
+ 168 0156 4FF07F52 		mov	r2, #1069547520
+ 169 015a FFF7FEFF 		bl	SetPotLimits
+ 159:../Sources/main.c ****                         SetPotLimits(POT_GAMMA,50,450);
+ 170              		.loc 1 159 0
+ 171 015e 4FF00200 		mov	r0, #2
+ 172 0162 4FF00001 		mov	r1, #0
+ 173 0166 C4F24821 		movt	r1, 16968
+ 174 016a 4FF00002 		mov	r2, #0
+ 175 016e C4F2E132 		movt	r2, 17377
+ 176 0172 FFF7FEFF 		bl	SetPotLimits
+ 160:../Sources/main.c ****                         SetPotLimits(POT_ALPHA,-40,40);
+ 177              		.loc 1 160 0
+ 178 0176 4FF00000 		mov	r0, #0
+ 179 017a 4FF00001 		mov	r1, #0
+ 180 017e CCF22021 		movt	r1, 49696
+ 181 0182 4FF00002 		mov	r2, #0
+ 182 0186 C4F22022 		movt	r2, 16928
+ 183 018a FFF7FEFF 		bl	SetPotLimits
+ 161:../Sources/main.c ****                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Stru
+ 184              		.loc 1 161 0
+ 185 018e 40F20003 		movw	r3, #:lower16:AudioSampleRate
+ 186 0192 C0F20003 		movt	r3, #:upper16:AudioSampleRate
+ 187 0196 1B68     		ldr	r3, [r3, #0]
+ 188 0198 1846     		mov	r0, r3
+ 189 019a FFF7FEFF 		bl	__aeabi_ui2f
+ 190 019e 0546     		mov	r5, r0
+ 191 01a0 4FF00200 		mov	r0, #2
+ 192 01a4 FFF7FEFF 		bl	ReadPOT
+ 193 01a8 0446     		mov	r4, r0
+ 194 01aa 4FF00100 		mov	r0, #1
+ 195 01ae FFF7FEFF 		bl	ReadPOT
+ 196 01b2 0646     		mov	r6, r0
+ 197 01b4 4FF00000 		mov	r0, #0
+ 198 01b8 FFF7FEFF 		bl	ReadPOT
+ 199 01bc 0346     		mov	r3, r0
+ 200 01be 0096     		str	r6, [sp, #0]	@ float
+ 201 01c0 0193     		str	r3, [sp, #4]	@ float
+ 202 01c2 1948     		ldr	r0, .L8
+ 203 01c4 4FF00601 		mov	r1, #6
+ 204 01c8 2A46     		mov	r2, r5
+ 205 01ca 2346     		mov	r3, r4
+ 206 01cc FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
+ 162:../Sources/main.c ****                                                    BIQUAD_PEAKING_EQ,
+ 163:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
+ 164:../Sources/main.c ****                                                    ReadPOT(POT_GAMMA), //("wherever it's happenin',
+ 165:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
+ 166:../Sources/main.c ****                                                    //on which filter type.  The "significant freque
+ 167:../Sources/main.c ****                                                    ReadPOT(POT_BETA),//(the EE kind of definition, 
+ 168:../Sources/main.c ****                                                    // the classic EE Q.  That adjustment in definit
+ 169:../Sources/main.c ****                                                    // a boost of N dB followed by a cut of N dB for
+ 170:../Sources/main.c ****                                                    // f0/Fs results in a precisely flat unity gain 
+ 171:../Sources/main.c ****                                                    ReadPOT(POT_ALPHA)// (used only for peaking and 
+ 172:../Sources/main.c ****                                                   );
+ 173:../Sources/main.c ****                         DesignAudioBiquadIIR_q31_t(&MyIIR[1].Shadow_Coef,// Pointer to the IIR Stru
+ 207              		.loc 1 173 0
+ 208 01d0 40F20003 		movw	r3, #:lower16:AudioSampleRate
+ 209 01d4 C0F20003 		movt	r3, #:upper16:AudioSampleRate
+ 210 01d8 1B68     		ldr	r3, [r3, #0]
+ 211 01da 1846     		mov	r0, r3
+ 212 01dc FFF7FEFF 		bl	__aeabi_ui2f
+ 213 01e0 0346     		mov	r3, r0
+ 214 01e2 4FF08042 		mov	r2, #1073741824
+ 215 01e6 0092     		str	r2, [sp, #0]	@ float
+ 216 01e8 4FF00002 		mov	r2, #0
+ 217 01ec 0192     		str	r2, [sp, #4]	@ float
+ 218 01ee 0F48     		ldr	r0, .L8+4
+ 219 01f0 4FF00001 		mov	r1, #0
+ 220 01f4 1A46     		mov	r2, r3
+ 221 01f6 4FF00003 		mov	r3, #0
+ 222 01fa C4F2FA43 		movt	r3, 17658
+ 223 01fe FFF7FEFF 		bl	DesignAudioBiquadIIR_q31_t
+ 174:../Sources/main.c ****                                                    BIQUAD_LOW_PASS_FILTER,
+ 175:../Sources/main.c ****                                                    AudioSampleRate, //System Sample Rate
+ 176:../Sources/main.c ****                                                    2000, //("wherever it's happenin', man."  Center
+ 177:../Sources/main.c ****                                                    //Corner Frequency, or shelf midpoint frequency,
+ 178:../Sources/main.c ****                                                    //on which filter type.  The "significant freque
+ 179:../Sources/main.c ****                                                    2.0,//(the EE kind of definition, except for pea
+ 180:../Sources/main.c ****                                                    // the classic EE Q.  That adjustment in definit
+ 181:../Sources/main.c ****                                                    // a boost of N dB followed by a cut of N dB for
+ 182:../Sources/main.c ****                                                    // f0/Fs results in a precisely flat unity gain 
+ 183:../Sources/main.c ****                                                    0// (used only for peaking and shelving filters)
+ 184:../Sources/main.c ****                                                   );
+ 185:../Sources/main.c ****                         //Copy in our value,   From there it will be used in the interrupt routine
+ 186:../Sources/main.c ****                         MyIIR[0].Update = 1;
+ 224              		.loc 1 186 0
+ 225 0202 40F20003 		movw	r3, #:lower16:MyIIR
+ 226 0206 C0F20003 		movt	r3, #:upper16:MyIIR
+ 227 020a 4FF00102 		mov	r2, #1
+ 228 020e 83F84820 		strb	r2, [r3, #72]
+ 187:../Sources/main.c ****                         MyIIR[1].Update = 1;
+ 229              		.loc 1 187 0
+ 230 0212 40F20003 		movw	r3, #:lower16:MyIIR
+ 231 0216 C0F20003 		movt	r3, #:upper16:MyIIR
+ 232 021a 4FF00102 		mov	r2, #1
+ 233 021e 83F89820 		strb	r2, [r3, #152]
+ 188:../Sources/main.c ****                         break;
+ 234              		.loc 1 188 0
+ 235 0222 00E0     		b	.L5
+ 236              	.L7:
+ 189:../Sources/main.c ****                         
+ 190:../Sources/main.c ****                     default:
+ 191:../Sources/main.c ****                         break;
+ 237              		.loc 1 191 0
+ 238 0224 00BF     		nop
+ 239              	.L5:
+ 192:../Sources/main.c ****                 }
+ 193:../Sources/main.c ****         }
+ 240              		.loc 1 193 0
+ 241 0226 09E7     		b	.L6
+ 242              	.L9:
+ 243              		.align	2
+ 244              	.L8:
+ 245 0228 30000000 		.word	MyIIR+48
+ 246 022c 80000000 		.word	MyIIR+128
+ 247              		.cfi_endproc
+ 248              	.LFE128:
+ 250              		.text
+ 251              	.Letext0:
+ 252              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 253              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
+ 254              		.file 4 "../Sources/DSP/IIR.h"
+ 255              		.file 5 "../Sources/DSP/AudioIF.h"
+ 256              		.file 6 "../Sources/DSP/AudioProcess.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\ehughes\AppData\Local\Temp\ccYdjRZW.s:20     .text.main:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccYdjRZW.s:25     .text.main:00000000 main
-C:\Users\ehughes\AppData\Local\Temp\ccYdjRZW.s:223    .text.main:000001e8 $d
+C:\Users\ehughes\AppData\Local\Temp\ccITZYUJ.s:20     .text.main:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccITZYUJ.s:25     .text.main:00000000 main
+C:\Users\ehughes\AppData\Local\Temp\ccITZYUJ.s:245    .text.main:00000228 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

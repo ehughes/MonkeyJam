@@ -65,7 +65,7 @@
                                      @@@+,,:;,,,,@`                                   
                                        :@@+,,,,+@                                     
                                           ;@@@@                                                                    
- Get the CODE HTML OR TXT version (with colors or not)
+
  * 
  */
 
@@ -100,8 +100,8 @@ int main(void)
     //Switch into the desired Patch
    
     //ChangePatch(PATCH_PASS_THROUGH);
-    ChangePatch(PATCH_OVERDRIVE);
-    //ChangePatch(PATCH_TUBEY_CLEAN);
+    //ChangePatch(PATCH_OVERDRIVE);
+    ChangePatch(PATCH_TUBEY_CLEAN);
     //ChangePatch(PATCH_OD_DEMO_SINE_TEST);
     for(;;)
         {
@@ -112,14 +112,15 @@ int main(void)
                         //The Alpha Pot will be the gain/crunch value.  It will control a q_31t value from 0 to 1
                         //The use of the variable OD_Level is documented in the audio process routine.  We just need to generate it
                         //THis doesn't necessary need to be called every time through the loop but it won't Hurt anything.
-                        SetPotLimits(POT_ALPHA,50,2500);
+                        SetPotLimits(POT_ALPHA,1000,4000);
                         //Since a Q31 is 31 bits of fraction and 1 bit of sign,  just
                         //multiply a binary value of 31 bits by the float and cast back to an integer
                         OD_Level = (q31_t)((float)0x7fffffff);
-                        SetPotLimits(POT_BETA,0.05,1.8);
-                        SetPotLimits(POT_GAMMA,-30,30.0 );
+                        SetPotLimits(POT_BETA,0.05,2.5);
+                        SetPotLimits(POT_GAMMA,-15,15.0 );
+                       
                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Structure
-                                                  BIQUAD_LOW_SHELF,
+                        							BIQUAD_LOW_SHELF,
                                                    AudioSampleRate, //System Sample Rate
                                                    ReadPOT(POT_ALPHA), //f0 ("wherever it's happenin', man."  Center Frequency or
                                                    //Corner Frequency, or shelf midpoint frequency, depending
@@ -130,10 +131,22 @@ int main(void)
                                                    // f0/Fs results in a precisely flat unity gain filter or "wire".)*/
                                                    ReadPOT(POT_GAMMA)// dBgain (used only for peaking and shelving filters)
                                                   );
-                        
+                      
+                        DesignAudioBiquadIIR_q31_t(&MyIIR[1].Shadow_Coef,// Pointer to the IIR Structure
+                                                                 BIQUAD_LOW_PASS_FILTER,
+                                                                 AudioSampleRate, //System Sample Rate
+                                                                 2500, //("wherever it's happenin', man."  Center Frequency or
+                                                                 //Corner Frequency, or shelf midpoint frequency, depending
+                                                                 //on which filter type.  The "significant frequency".)*/
+                                                                 2.0,//(the EE kind of definition, except for peakingEQ in which A*Q is
+                                                                 // the classic EE Q.  That adjustment in definition was made so that
+                                                                 // a boost of N dB followed by a cut of N dB for identical Q and
+                                                                 // f0/Fs results in a precisely flat unity gain filter or "wire".)*/
+                                                                 0// (used only for peaking and shelving filters)
+                                                                );
            
                         MyIIR[0].Update = 1;
-                   
+                        MyIIR[1].Update = 1;
                         
                         //Flag the processing routine to copy the shadow coef. into the real ones.
                         break;

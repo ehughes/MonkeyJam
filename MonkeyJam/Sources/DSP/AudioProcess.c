@@ -176,12 +176,24 @@ void AudioProcess()
                         MyIIR[0].Coef = MyIIR[0].Shadow_Coef;
                     }
          
+            	if(MyIIR[1].Update>0)
+                    {
+                         MyIIR[1].Update = 0;
+                          MyIIR[1].Coef = MyIIR[0].Shadow_Coef;
+                   }
+            	
                 Signal = LeftIn;
                 
                 Compute_q31_t_IIR(&MyIIR[0],Signal,&Signal);
-                LeftOut = SoftOverdrive(Signal, OD_Level);
-        
-                RightOut =Signal;
+                Signal = SoftOverdrive(Signal, OD_Level);
+                Compute_q31_t_IIR(&MyIIR[1],Signal,&Signal);
+                      
+                //Saturate the output to 24 bits
+                Signal = __SSAT(Signal,24);
+                
+                LeftOut  = Signal;
+                RightOut = Signal;
+                
                 break;
 
            
