@@ -4811,13 +4811,13 @@ void AudioProcess()
     390e:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
     3912:	f04f 0200 	mov.w	r2, #0
     3916:	f883 2098 	strb.w	r2, [r3, #152]	; 0x98
-                          MyIIR[1].Coef = MyIIR[0].Shadow_Coef;
+                          MyIIR[1].Coef = MyIIR[1].Shadow_Coef;
     391a:	f24e 02b8 	movw	r2, #57528	; 0xe0b8
     391e:	f6c1 72ff 	movt	r2, #8191	; 0x1fff
     3922:	f24e 03b8 	movw	r3, #57528	; 0xe0b8
     3926:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
     392a:	f102 0450 	add.w	r4, r2, #80	; 0x50
-    392e:	f103 0530 	add.w	r5, r3, #48	; 0x30
+    392e:	f103 0580 	add.w	r5, r3, #128	; 0x80
     3932:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
     3934:	c40f      	stmia	r4!, {r0, r1, r2, r3}
     3936:	e895 0003 	ldmia.w	r5, {r0, r1}

@@ -179,7 +179,7 @@ void AudioProcess()
             	if(MyIIR[1].Update>0)
                     {
                          MyIIR[1].Update = 0;
-                          MyIIR[1].Coef = MyIIR[0].Shadow_Coef;
+                          MyIIR[1].Coef = MyIIR[1].Shadow_Coef;
                    }
             	
                 Signal = LeftIn;

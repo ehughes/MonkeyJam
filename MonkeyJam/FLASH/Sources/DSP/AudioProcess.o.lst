@@ -6609,14 +6609,14 @@
  746 0312 C0F20003 		movt	r3, #:upper16:MyIIR
  747 0316 4FF00002 		mov	r2, #0
  748 031a 83F89820 		strb	r2, [r3, #152]
- 182:../Sources/DSP/AudioProcess.c ****                           MyIIR[1].Coef = MyIIR[0].Shadow_Coef;
+ 182:../Sources/DSP/AudioProcess.c ****                           MyIIR[1].Coef = MyIIR[1].Shadow_Coef;
  749              		.loc 3 182 0
  750 031e 40F20002 		movw	r2, #:lower16:MyIIR
  751 0322 C0F20002 		movt	r2, #:upper16:MyIIR
  752 0326 40F20003 		movw	r3, #:lower16:MyIIR
  753 032a C0F20003 		movt	r3, #:upper16:MyIIR
  754 032e 02F15004 		add	r4, r2, #80
- 755 0332 03F13005 		add	r5, r3, #48
+ 755 0332 03F18005 		add	r5, r3, #128
  756 0336 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
  757 0338 0FC4     		stmia	r4!, {r0, r1, r2, r3}
  758 033a 95E80300 		ldmia	r5, {r0, r1}
@@ -6736,31 +6736,31 @@
  852              		.file 7 "../Sources/DSP/MathTables.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 AudioProcess.c
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:19     .text.arm_linear_interp_q31:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:23     .text.arm_linear_interp_q31:00000000 arm_linear_interp_q31
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:153    .text.HardOverdrive:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:158    .text.HardOverdrive:00000000 HardOverdrive
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:241    .text.SoftOverdrive:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:246    .text.SoftOverdrive:00000000 SoftOverdrive
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:331    .data.CurrentPatch:00000000 CurrentPatch
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:19     .text.arm_linear_interp_q31:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:23     .text.arm_linear_interp_q31:00000000 arm_linear_interp_q31
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:153    .text.HardOverdrive:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:158    .text.HardOverdrive:00000000 HardOverdrive
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:241    .text.SoftOverdrive:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:246    .text.SoftOverdrive:00000000 SoftOverdrive
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:331    .data.CurrentPatch:00000000 CurrentPatch
                             *COM*:00000004 LeftIn
                             *COM*:00000004 RightIn
                             *COM*:00000004 LeftOut
                             *COM*:00000004 RightOut
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:342    .bss.OD_Level:00000000 OD_Level
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:339    .bss.OD_Level:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:342    .bss.OD_Level:00000000 OD_Level
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:339    .bss.OD_Level:00000000 $d
                             *COM*:00000001 Idx
                             *COM*:000000a0 MyIIR
                             *COM*:00000004 Signal
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:348    .text.ChangePatch:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:353    .text.ChangePatch:00000000 ChangePatch
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:389    .text.InitAudioProcess:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:394    .text.InitAudioProcess:00000000 InitAudioProcess
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:444    .text.AudioProcess:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:449    .text.AudioProcess:00000000 AudioProcess
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:502    .text.AudioProcess:0000005c $d
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:511    .text.AudioProcess:00000078 $t
-C:\Users\ehughes\AppData\Local\Temp\ccn5Bozz.s:843    .text.AudioProcess:0000040c $d
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:348    .text.ChangePatch:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:353    .text.ChangePatch:00000000 ChangePatch
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:389    .text.InitAudioProcess:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:394    .text.InitAudioProcess:00000000 InitAudioProcess
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:444    .text.AudioProcess:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:449    .text.AudioProcess:00000000 AudioProcess
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:502    .text.AudioProcess:0000005c $d
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:511    .text.AudioProcess:00000078 $t
+C:\Users\ehughes\AppData\Local\Temp\cc2okVez.s:843    .text.AudioProcess:0000040c $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
