@@ -237,21 +237,21 @@
  187              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 kinetis_sysinit.c
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:19     .text.Default_Handler:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 Default_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 HardFault_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 MemManage_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 BusFault_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 UsageFault_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 SVC_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 DebugMonitor_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 PendSV_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 SysTick_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:24     .text.Default_Handler:00000000 NMI_Handler
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:70     .text.__init_hardware:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:75     .text.__init_hardware:00000000 __init_hardware
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:121    .vectortable:00000000 InterruptVector
-C:\Users\ehughes\AppData\Local\Temp\ccQ6Qc50.s:118    .vectortable:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:19     .text.Default_Handler:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 Default_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 HardFault_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 MemManage_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 BusFault_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 UsageFault_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 SVC_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 DebugMonitor_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 PendSV_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 SysTick_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:24     .text.Default_Handler:00000000 NMI_Handler
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:70     .text.__init_hardware:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:75     .text.__init_hardware:00000000 __init_hardware
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:121    .vectortable:00000000 InterruptVector
+C:\Users\ehughes\AppData\Local\Temp\ccJsS9kG.s:118    .vectortable:00000000 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

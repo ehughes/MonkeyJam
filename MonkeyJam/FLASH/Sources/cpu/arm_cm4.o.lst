@@ -695,18 +695,18 @@
  453              		.file 4 "../Sources/cpu/arm_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 arm_cm4.c
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:19     .text.stop:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:24     .text.stop:00000000 stop
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:58     .text.wait:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:63     .text.wait:00000000 wait
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:96     .text.write_vtor:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:101    .text.write_vtor:00000000 write_vtor
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:132    .text.enable_irq:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:137    .text.enable_irq:00000000 enable_irq
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:286    .text.disable_irq:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:291    .text.disable_irq:00000000 disable_irq
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:397    .text.set_irq_priority:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccQ4x6eF.s:402    .text.set_irq_priority:00000000 set_irq_priority
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:19     .text.stop:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:24     .text.stop:00000000 stop
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:58     .text.wait:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:63     .text.wait:00000000 wait
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:96     .text.write_vtor:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:101    .text.write_vtor:00000000 write_vtor
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:132    .text.enable_irq:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:137    .text.enable_irq:00000000 enable_irq
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:286    .text.disable_irq:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:291    .text.disable_irq:00000000 disable_irq
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:397    .text.set_irq_priority:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccnG6c7q.s:402    .text.set_irq_priority:00000000 set_irq_priority
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

@@ -17,23 +17,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   6 .ARM.attributes 00000033  00000000  00000000  00011e78  2**0
                   CONTENTS, READONLY
-  7 .debug_info   000095ca  00000000  00000000  00011eab  2**0
+  7 .debug_info   000095a3  00000000  00000000  00011eab  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00002a10  00000000  00000000  0001b475  2**0
+  8 .debug_abbrev 000029e2  00000000  00000000  0001b44e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    00006273  00000000  00000000  0001de85  2**0
+  9 .debug_loc    00006273  00000000  00000000  0001de30  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges 00000980  00000000  00000000  000240f8  2**0
+ 10 .debug_aranges 00000980  00000000  00000000  000240a3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macinfo 00243b28  00000000  00000000  00024a78  2**0
+ 11 .debug_macinfo 00243b28  00000000  00000000  00024a23  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00005674  00000000  00000000  002685a0  2**0
+ 12 .debug_line   00005674  00000000  00000000  0026854b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    00002283  00000000  00000000  0026dc14  2**0
+ 13 .debug_str    00002283  00000000  00000000  0026dbbf  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .comment      00000079  00000000  00000000  0026fe97  2**0
+ 14 .comment      00000079  00000000  00000000  0026fe42  2**0
                   CONTENTS, READONLY
- 15 .debug_frame  000014ac  00000000  00000000  0026ff10  2**2
+ 15 .debug_frame  000014ac  00000000  00000000  0026febc  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -6081,7 +6081,7 @@ float ReadPOT(uint8_t Channel)
     42f8:	f7ff ff68 	bl	41cc <ReadADC0_SingleEnded>
     42fc:	4603      	mov	r3, r0
     42fe:	4618      	mov	r0, r3
-    4300:	f7fd f802 	bl	1308 <__aeabi_i2f>
+    4300:	f7fc fffe 	bl	1300 <__aeabi_ui2f>
     4304:	4603      	mov	r3, r0
     4306:	4618      	mov	r0, r3
     4308:	f44f 4170 	mov.w	r1, #61440	; 0xf000
@@ -6099,7 +6099,7 @@ float ReadPOT(uint8_t Channel)
     4322:	f7ff ff53 	bl	41cc <ReadADC0_SingleEnded>
     4326:	4603      	mov	r3, r0
     4328:	4618      	mov	r0, r3
-    432a:	f7fc ffed 	bl	1308 <__aeabi_i2f>
+    432a:	f7fc ffe9 	bl	1300 <__aeabi_ui2f>
     432e:	4603      	mov	r3, r0
     4330:	4618      	mov	r0, r3
     4332:	f44f 4170 	mov.w	r1, #61440	; 0xf000
@@ -6117,7 +6117,7 @@ float ReadPOT(uint8_t Channel)
     434c:	f7ff ff3e 	bl	41cc <ReadADC0_SingleEnded>
     4350:	4603      	mov	r3, r0
     4352:	4618      	mov	r0, r3
-    4354:	f7fc ffd8 	bl	1308 <__aeabi_i2f>
+    4354:	f7fc ffd4 	bl	1300 <__aeabi_ui2f>
     4358:	4603      	mov	r3, r0
     435a:	4618      	mov	r0, r3
     435c:	f44f 4170 	mov.w	r1, #61440	; 0xf000
@@ -8913,9 +8913,7 @@ int main(void)
     59f8:	b5f0      	push	{r4, r5, r6, r7, lr}
     59fa:	b083      	sub	sp, #12
     59fc:	af02      	add	r7, sp, #8
-	uint32_t t;
-	
-	
+
     //Get up and running to 50MHz!
     pll_init(8000000, LOW_POWER, CRYSTAL, 4, 25, 1);
     59fe:	f04f 0319 	mov.w	r3, #25

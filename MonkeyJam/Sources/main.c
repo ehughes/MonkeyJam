@@ -84,9 +84,7 @@
 
 int main(void)
 {
-	uint32_t t;
-	
-	
+
     //Get up and running to 50MHz!
     pll_init(8000000, LOW_POWER, CRYSTAL, 4, 25, 1);
     InitIO();

@@ -6662,31 +6662,31 @@
  790              		.file 7 "../Sources/DSP/MathTables.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 AudioProcess.c
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:19     .text.arm_linear_interp_q31:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:23     .text.arm_linear_interp_q31:00000000 arm_linear_interp_q31
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:153    .text.HardOverdrive:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:158    .text.HardOverdrive:00000000 HardOverdrive
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:241    .text.SoftOverdrive:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:246    .text.SoftOverdrive:00000000 SoftOverdrive
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:331    .data.CurrentPatch:00000000 CurrentPatch
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:19     .text.arm_linear_interp_q31:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:23     .text.arm_linear_interp_q31:00000000 arm_linear_interp_q31
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:153    .text.HardOverdrive:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:158    .text.HardOverdrive:00000000 HardOverdrive
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:241    .text.SoftOverdrive:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:246    .text.SoftOverdrive:00000000 SoftOverdrive
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:331    .data.CurrentPatch:00000000 CurrentPatch
                             *COM*:00000004 LeftIn
                             *COM*:00000004 RightIn
                             *COM*:00000004 LeftOut
                             *COM*:00000004 RightOut
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:342    .bss.OD_Level:00000000 OD_Level
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:339    .bss.OD_Level:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:342    .bss.OD_Level:00000000 OD_Level
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:339    .bss.OD_Level:00000000 $d
                             *COM*:00000001 Idx
                             *COM*:000000a0 MyIIR
                             *COM*:00000004 Signal
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:348    .text.ChangePatch:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:353    .text.ChangePatch:00000000 ChangePatch
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:389    .text.InitAudioProcess:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:394    .text.InitAudioProcess:00000000 InitAudioProcess
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:444    .text.AudioProcess:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:449    .text.AudioProcess:00000000 AudioProcess
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:499    .text.AudioProcess:00000058 $d
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:508    .text.AudioProcess:00000074 $t
-C:\Users\ehughes\AppData\Local\Temp\ccHFPIWm.s:781    .text.AudioProcess:00000370 $d
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:348    .text.ChangePatch:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:353    .text.ChangePatch:00000000 ChangePatch
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:389    .text.InitAudioProcess:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:394    .text.InitAudioProcess:00000000 InitAudioProcess
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:444    .text.AudioProcess:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:449    .text.AudioProcess:00000000 AudioProcess
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:499    .text.AudioProcess:00000058 $d
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:508    .text.AudioProcess:00000074 $t
+C:\Users\ehughes\AppData\Local\Temp\cc39tghr.s:781    .text.AudioProcess:00000370 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

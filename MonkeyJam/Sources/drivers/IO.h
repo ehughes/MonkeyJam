@@ -14,6 +14,9 @@ float ReadPOT(uint8_t Channel);
 //THis function is used to set the maximum/minimum limits that will be returned by ReadPOT
 void SetPotLimits(uint8_t Channel,float Min, float Max);
 
+uint16_t ReadADC0_SingleEnded(uint8_t Channel,uint8_t MuxSide);
+
+
 
 #define IO_DELTA_IS_OUTPUT		GPIOC_PDDR |=(1<<4)
 #define IO_DELTA_IS_INPUT		GPIOC_PDDR &=~(1<<4)

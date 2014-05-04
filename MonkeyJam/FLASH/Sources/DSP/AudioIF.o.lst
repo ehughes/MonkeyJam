@@ -602,8 +602,8 @@ DEFINED SYMBOLS
                             *ABS*:00000000 AudioIF.c
                             *COM*:00000004 AudioMasterClock
                             *COM*:00000004 AudioSampleRate
-C:\Users\ehughes\AppData\Local\Temp\ccqvkMEJ.s:26     .text.InitAudioIO:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccqvkMEJ.s:31     .text.InitAudioIO:00000000 InitAudioIO
+C:\Users\ehughes\AppData\Local\Temp\cc1w9s8s.s:26     .text.InitAudioIO:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\cc1w9s8s.s:31     .text.InitAudioIO:00000000 InitAudioIO
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
