@@ -5,6 +5,6 @@
 ################################################################################
 
 export GNU_Make_Install_DirEnv=$(CWInstallLocationEnv)/gnu/bin
-export ProjDirPath=C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam
-export CWInstallLocationEnv=C:/Freescale/CW MCU v10.5
+export ProjDirPath=C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam
+export CWInstallLocationEnv=C:/Freescale/CW MCU v10.6
 export ARMSourceryDirEnv=$(CWInstallLocationEnv)/Cross_Tools/arm-none-eabi-gcc-4_7_3/bin

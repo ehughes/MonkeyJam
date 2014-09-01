@@ -442,168 +442,129 @@
  134:../Sources/DSP/AudioIF.c ****                        0, //Rx
  135:../Sources/DSP/AudioIF.c ****                        1 //Enable both Channel
  136:../Sources/DSP/AudioIF.c ****                       );
- 137:../Sources/DSP/AudioIF.c ****     sai_pinmux_init(0, 0);  //Port C
- 308              		.loc 1 137 0
- 309 02e0 4FF00000 		mov	r0, #0
- 310 02e4 4FF00001 		mov	r1, #0
- 311 02e8 FFF7FEFF 		bl	sai_pinmux_init
+ 137:../Sources/DSP/AudioIF.c ****    // sai_pinmux_init(0, 0);  //Port C
  138:../Sources/DSP/AudioIF.c ****     sai_stop_dbg_enable(0, 1, 0, 0);    //tx enabled in debug and stop
- 312              		.loc 1 138 0
- 313 02ec 4FF00000 		mov	r0, #0
- 314 02f0 4FF00101 		mov	r1, #1
- 315 02f4 4FF00002 		mov	r2, #0
- 316 02f8 4FF00003 		mov	r3, #0
- 317 02fc FFF7FEFF 		bl	sai_stop_dbg_enable
+ 308              		.loc 1 138 0
+ 309 02e0 4FF00000 		mov	r0, #0
+ 310 02e4 4FF00101 		mov	r1, #1
+ 311 02e8 4FF00002 		mov	r2, #0
+ 312 02ec 4FF00003 		mov	r3, #0
+ 313 02f0 FFF7FEFF 		bl	sai_stop_dbg_enable
  139:../Sources/DSP/AudioIF.c ****     sai_stop_dbg_enable(0, 0, 0, 0);    //RX enabled in debug and stop
- 318              		.loc 1 139 0
- 319 0300 4FF00000 		mov	r0, #0
- 320 0304 4FF00001 		mov	r1, #0
- 321 0308 4FF00002 		mov	r2, #0
- 322 030c 4FF00003 		mov	r3, #0
- 323 0310 FFF7FEFF 		bl	sai_stop_dbg_enable
+ 314              		.loc 1 139 0
+ 315 02f4 4FF00000 		mov	r0, #0
+ 316 02f8 4FF00001 		mov	r1, #0
+ 317 02fc 4FF00002 		mov	r2, #0
+ 318 0300 4FF00003 		mov	r3, #0
+ 319 0304 FFF7FEFF 		bl	sai_stop_dbg_enable
  140:../Sources/DSP/AudioIF.c ****     sai_watermark_config(0, //POrt 0
- 324              		.loc 1 140 0
- 325 0314 4FF00000 		mov	r0, #0
- 326 0318 4FF00101 		mov	r1, #1
- 327 031c 4FF00102 		mov	r2, #1
- 328 0320 FFF7FEFF 		bl	sai_watermark_config
+ 320              		.loc 1 140 0
+ 321 0308 4FF00000 		mov	r0, #0
+ 322 030c 4FF00101 		mov	r1, #1
+ 323 0310 4FF00102 		mov	r2, #1
+ 324 0314 FFF7FEFF 		bl	sai_watermark_config
  141:../Sources/DSP/AudioIF.c ****                          1, //Recieve WaterMark
  142:../Sources/DSP/AudioIF.c ****                          1 //anything greater than 1
  143:../Sources/DSP/AudioIF.c ****                         );
  144:../Sources/DSP/AudioIF.c ****     sai_watermark_config(0, //POrt 0
- 329              		.loc 1 144 0
- 330 0324 4FF00000 		mov	r0, #0
- 331 0328 4FF00001 		mov	r1, #0
- 332 032c 4FF00102 		mov	r2, #1
- 333 0330 FFF7FEFF 		bl	sai_watermark_config
+ 325              		.loc 1 144 0
+ 326 0318 4FF00000 		mov	r0, #0
+ 327 031c 4FF00001 		mov	r1, #0
+ 328 0320 4FF00102 		mov	r2, #1
+ 329 0324 FFF7FEFF 		bl	sai_watermark_config
  145:../Sources/DSP/AudioIF.c ****                          0, //tx WaterMark
  146:../Sources/DSP/AudioIF.c ****                          1 //anything less than or equal to
  147:../Sources/DSP/AudioIF.c ****                         );
  148:../Sources/DSP/AudioIF.c ****     sai_enable(0, //port
- 334              		.loc 1 148 0
- 335 0334 4FF00000 		mov	r0, #0
- 336 0338 4FF00001 		mov	r1, #0
- 337 033c FFF7FEFF 		bl	sai_enable
+ 330              		.loc 1 148 0
+ 331 0328 4FF00000 		mov	r0, #0
+ 332 032c 4FF00001 		mov	r1, #0
+ 333 0330 FFF7FEFF 		bl	sai_enable
  149:../Sources/DSP/AudioIF.c ****                0 //rx
  150:../Sources/DSP/AudioIF.c ****               );
  151:../Sources/DSP/AudioIF.c ****     sai_enable(0, //port
- 338              		.loc 1 151 0
- 339 0340 4FF00000 		mov	r0, #0
- 340 0344 4FF00101 		mov	r1, #1
- 341 0348 FFF7FEFF 		bl	sai_enable
+ 334              		.loc 1 151 0
+ 335 0334 4FF00000 		mov	r0, #0
+ 336 0338 4FF00101 		mov	r1, #1
+ 337 033c FFF7FEFF 		bl	sai_enable
  152:../Sources/DSP/AudioIF.c ****                1 //tx
  153:../Sources/DSP/AudioIF.c ****               );
  154:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
- 342              		.loc 1 154 0
- 343 034c 4FF47043 		mov	r3, #61440
- 344 0350 C4F20203 		movt	r3, 16386
- 345 0354 4FF00002 		mov	r2, #0
- 346 0358 1A62     		str	r2, [r3, #32]
+ 338              		.loc 1 154 0
+ 339 0340 4FF47043 		mov	r3, #61440
+ 340 0344 C4F20203 		movt	r3, 16386
+ 341 0348 4FF00002 		mov	r2, #0
+ 342 034c 1A62     		str	r2, [r3, #32]
  155:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
- 347              		.loc 1 155 0
- 348 035a 4FF47043 		mov	r3, #61440
- 349 035e C4F20203 		movt	r3, 16386
- 350 0362 4FF00002 		mov	r2, #0
- 351 0366 1A62     		str	r2, [r3, #32]
+ 343              		.loc 1 155 0
+ 344 034e 4FF47043 		mov	r3, #61440
+ 345 0352 C4F20203 		movt	r3, 16386
+ 346 0356 4FF00002 		mov	r2, #0
+ 347 035a 1A62     		str	r2, [r3, #32]
  156:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
- 352              		.loc 1 156 0
- 353 0368 4FF47043 		mov	r3, #61440
- 354 036c C4F20203 		movt	r3, 16386
- 355 0370 4FF00002 		mov	r2, #0
- 356 0374 1A62     		str	r2, [r3, #32]
+ 348              		.loc 1 156 0
+ 349 035c 4FF47043 		mov	r3, #61440
+ 350 0360 C4F20203 		movt	r3, 16386
+ 351 0364 4FF00002 		mov	r2, #0
+ 352 0368 1A62     		str	r2, [r3, #32]
  157:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
- 357              		.loc 1 157 0
- 358 0376 4FF47043 		mov	r3, #61440
- 359 037a C4F20203 		movt	r3, 16386
- 360 037e 4FF00002 		mov	r2, #0
- 361 0382 1A62     		str	r2, [r3, #32]
- 158:../Sources/DSP/AudioIF.c ****     PORTD_PCR3 = (PORT_PCR_MUX(1) | PORT_PCR_DSE_MASK);
- 362              		.loc 1 158 0
- 363 0384 4FF44043 		mov	r3, #49152
- 364 0388 C4F20403 		movt	r3, 16388
- 365 038c 4FF4A072 		mov	r2, #320
- 366 0390 DA60     		str	r2, [r3, #12]
- 159:../Sources/DSP/AudioIF.c ****     GPIOD_PDDR |= 1<<3;
- 367              		.loc 1 159 0
- 368 0392 4FF2C003 		movw	r3, #61632
- 369 0396 C4F20F03 		movt	r3, 16399
- 370 039a 4FF2C002 		movw	r2, #61632
- 371 039e C4F20F02 		movt	r2, 16399
- 372 03a2 5269     		ldr	r2, [r2, #20]
- 373 03a4 42F00802 		orr	r2, r2, #8
- 374 03a8 5A61     		str	r2, [r3, #20]
- 160:../Sources/DSP/AudioIF.c ****     PORTD_PCR1 = (PORT_PCR_MUX(1) | PORT_PCR_DSE_MASK);
- 375              		.loc 1 160 0
- 376 03aa 4FF44043 		mov	r3, #49152
- 377 03ae C4F20403 		movt	r3, 16388
- 378 03b2 4FF4A072 		mov	r2, #320
- 379 03b6 5A60     		str	r2, [r3, #4]
- 161:../Sources/DSP/AudioIF.c ****     GPIOD_PDDR |= 1<<1;
- 380              		.loc 1 161 0
- 381 03b8 4FF2C003 		movw	r3, #61632
- 382 03bc C4F20F03 		movt	r3, 16399
- 383 03c0 4FF2C002 		movw	r2, #61632
- 384 03c4 C4F20F02 		movt	r2, 16399
- 385 03c8 5269     		ldr	r2, [r2, #20]
- 386 03ca 42F00202 		orr	r2, r2, #2
- 387 03ce 5A61     		str	r2, [r3, #20]
- 162:../Sources/DSP/AudioIF.c ****     GPIOD_PSOR = 0;
- 388              		.loc 1 162 0
- 389 03d0 4FF2C003 		movw	r3, #61632
- 390 03d4 C4F20F03 		movt	r3, 16399
- 391 03d8 4FF00002 		mov	r2, #0
- 392 03dc 5A60     		str	r2, [r3, #4]
- 163:../Sources/DSP/AudioIF.c ****     sai_interrupt_enable(0, //Port
- 393              		.loc 1 163 0
- 394 03de 4FF00000 		mov	r0, #0
- 395 03e2 4FF00001 		mov	r1, #0
- 396 03e6 FFF7FEFF 		bl	sai_interrupt_enable
- 164:../Sources/DSP/AudioIF.c ****                          0 // Rx)
- 165:../Sources/DSP/AudioIF.c ****                         );
- 166:../Sources/DSP/AudioIF.c ****     sai_interrupt_enable(0, //Port
- 397              		.loc 1 166 0
- 398 03ea 4FF00000 		mov	r0, #0
- 399 03ee 4FF00101 		mov	r1, #1
- 400 03f2 FFF7FEFF 		bl	sai_interrupt_enable
- 167:../Sources/DSP/AudioIF.c ****                          1 // tx)
- 168:../Sources/DSP/AudioIF.c ****                         );
- 169:../Sources/DSP/AudioIF.c ****     enable_irq(INT_I2S0_Rx - 16);
- 401              		.loc 1 169 0
- 402 03f6 4FF00E00 		mov	r0, #14
- 403 03fa FFF7FEFF 		bl	enable_irq
- 170:../Sources/DSP/AudioIF.c ****     enable_irq(INT_I2S0_Tx - 16);
- 404              		.loc 1 170 0
- 405 03fe 4FF00D00 		mov	r0, #13
- 406 0402 FFF7FEFF 		bl	enable_irq
- 171:../Sources/DSP/AudioIF.c ****     AudioSampleRate = SampleRate;
- 407              		.loc 1 171 0
- 408 0406 40F20003 		movw	r3, #:lower16:AudioSampleRate
- 409 040a C0F20003 		movt	r3, #:upper16:AudioSampleRate
- 410 040e BA68     		ldr	r2, [r7, #8]
- 411 0410 1A60     		str	r2, [r3, #0]
- 172:../Sources/DSP/AudioIF.c ****     return AudioMasterClock;
- 412              		.loc 1 172 0
- 413 0412 40F20003 		movw	r3, #:lower16:AudioMasterClock
- 414 0416 C0F20003 		movt	r3, #:upper16:AudioMasterClock
- 415 041a 1B68     		ldr	r3, [r3, #0]
- 173:../Sources/DSP/AudioIF.c **** }
- 416              		.loc 1 173 0
- 417 041c 1846     		mov	r0, r3
- 418 041e 07F12007 		add	r7, r7, #32
- 419 0422 BD46     		mov	sp, r7
- 420 0424 B0BD     		pop	{r4, r5, r7, pc}
- 421              		.cfi_endproc
- 422              	.LFE0:
- 424 0426 00BF     		.text
- 425              	.Letext0:
- 426              		.file 2 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 427              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+ 353              		.loc 1 157 0
+ 354 036a 4FF47043 		mov	r3, #61440
+ 355 036e C4F20203 		movt	r3, 16386
+ 356 0372 4FF00002 		mov	r2, #0
+ 357 0376 1A62     		str	r2, [r3, #32]
+ 158:../Sources/DSP/AudioIF.c **** 
+ 159:../Sources/DSP/AudioIF.c ****     sai_interrupt_enable(0, //Port
+ 358              		.loc 1 159 0
+ 359 0378 4FF00000 		mov	r0, #0
+ 360 037c 4FF00001 		mov	r1, #0
+ 361 0380 FFF7FEFF 		bl	sai_interrupt_enable
+ 160:../Sources/DSP/AudioIF.c ****                          0 // Rx)
+ 161:../Sources/DSP/AudioIF.c ****                         );
+ 162:../Sources/DSP/AudioIF.c ****     sai_interrupt_enable(0, //Port
+ 362              		.loc 1 162 0
+ 363 0384 4FF00000 		mov	r0, #0
+ 364 0388 4FF00101 		mov	r1, #1
+ 365 038c FFF7FEFF 		bl	sai_interrupt_enable
+ 163:../Sources/DSP/AudioIF.c ****                          1 // tx)
+ 164:../Sources/DSP/AudioIF.c ****                         );
+ 165:../Sources/DSP/AudioIF.c ****     enable_irq(INT_I2S0_Rx - 16);
+ 366              		.loc 1 165 0
+ 367 0390 4FF00E00 		mov	r0, #14
+ 368 0394 FFF7FEFF 		bl	enable_irq
+ 166:../Sources/DSP/AudioIF.c ****     enable_irq(INT_I2S0_Tx - 16);
+ 369              		.loc 1 166 0
+ 370 0398 4FF00D00 		mov	r0, #13
+ 371 039c FFF7FEFF 		bl	enable_irq
+ 167:../Sources/DSP/AudioIF.c ****     AudioSampleRate = SampleRate;
+ 372              		.loc 1 167 0
+ 373 03a0 40F20003 		movw	r3, #:lower16:AudioSampleRate
+ 374 03a4 C0F20003 		movt	r3, #:upper16:AudioSampleRate
+ 375 03a8 BA68     		ldr	r2, [r7, #8]
+ 376 03aa 1A60     		str	r2, [r3, #0]
+ 168:../Sources/DSP/AudioIF.c ****     return AudioMasterClock;
+ 377              		.loc 1 168 0
+ 378 03ac 40F20003 		movw	r3, #:lower16:AudioMasterClock
+ 379 03b0 C0F20003 		movt	r3, #:upper16:AudioMasterClock
+ 380 03b4 1B68     		ldr	r3, [r3, #0]
+ 169:../Sources/DSP/AudioIF.c **** }
+ 381              		.loc 1 169 0
+ 382 03b6 1846     		mov	r0, r3
+ 383 03b8 07F12007 		add	r7, r7, #32
+ 384 03bc BD46     		mov	sp, r7
+ 385 03be B0BD     		pop	{r4, r5, r7, pc}
+ 386              		.cfi_endproc
+ 387              	.LFE0:
+ 389              		.text
+ 390              	.Letext0:
+ 391              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 392              		.file 3 "C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 AudioIF.c
                             *COM*:00000004 AudioMasterClock
                             *COM*:00000004 AudioSampleRate
-C:\Users\ehughes\AppData\Local\Temp\cc1w9s8s.s:26     .text.InitAudioIO:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\cc1w9s8s.s:31     .text.InitAudioIO:00000000 InitAudioIO
+C:\Users\emh203\AppData\Local\Temp\ccfWodvs.s:26     .text.InitAudioIO:00000000 $t
+C:\Users\emh203\AppData\Local\Temp\ccfWodvs.s:31     .text.InitAudioIO:00000000 InitAudioIO
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
@@ -622,7 +583,6 @@ sai_frame_config
 sai_frameclk_config
 sai_wordlength_config
 sai_channel_enable
-sai_pinmux_init
 sai_stop_dbg_enable
 sai_watermark_config
 sai_enable

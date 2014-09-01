@@ -49,9 +49,9 @@ void sai_pinmux_init
                     PORTC_PCR(9) = PORT_PCR_MUX(4);     //PTC9(ALT4), I2S0_RX_BCLK	-	J44 pin5
                     PORTC_PCR(10) = PORT_PCR_MUX(4);    //PTC10(ALT4), I2S0_RX_FS	-	J44 pin8
                     PORTC_PCR(5) = PORT_PCR_MUX(4);     //PTC5(ALT4), I2S0_RXD0	-	J37 pin8
-                    PORTC_PCR(11) = PORT_PCR_MUX(4);    //PTC11(ALT4), I2S0_RXD1	-	J44 pin11
+                  //  PORTC_PCR(11) = PORT_PCR_MUX(4);    //PTC11(ALT4), I2S0_RXD1	-	J44 pin11
                     PORTC_PCR(1) = PORT_PCR_MUX(6);     //PTC1(ALT6), I2S0_TXD0	-	J51 pin5 or 8
-                    PORTC_PCR(0) = PORT_PCR_MUX(6);     //PTC0(ALT6), I2S0_TXD1	-	J51 pin2
+           //         PORTC_PCR(0) = PORT_PCR_MUX(6);     //PTC0(ALT6), I2S0_TXD1	-	J51 pin2
                     PORTC_PCR(6) = PORT_PCR_MUX(6);     //PTC6(ALT6), I2S0_MCLK	-	J37 pin11
                     PORTC_PCR(8) = PORT_PCR_MUX(4);     //PTC6(ALT6), I2S0_MCLK	-	J37 pin11
                 }

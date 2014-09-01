@@ -21,485 +21,485 @@
   21              		.thumb_func
   23              	mult32x64:
   24              	.LFB99:
-  25              		.file 1 "C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
-   1:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /* ----------------------------------------------------------------------
-   2:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Copyright (C) 2010-2013 ARM Limited. All rights reserved.
-   3:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
-   4:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * $Date:        17. January 2013
-   5:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * $Revision:    V1.4.1
-   6:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
-   7:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Project:      CMSIS DSP Library
-   8:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Title:        arm_math.h
-   9:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
-  10:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Description:  Public header file for CMSIS DSP Library
-  11:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
-  12:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
-  13:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
-  14:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Redistribution and use in source and binary forms, with or without
-  15:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * modification, are permitted provided that the following conditions
-  16:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * are met:
-  17:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Redistributions of source code must retain the above copyright
-  18:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     notice, this list of conditions and the following disclaimer.
-  19:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Redistributions in binary form must reproduce the above copyright
-  20:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     notice, this list of conditions and the following disclaimer in
-  21:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     the documentation and/or other materials provided with the
-  22:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     distribution.
-  23:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Neither the name of ARM LIMITED nor the names of its contributors
-  24:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     may be used to endorse or promote products derived from this
-  25:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     software without specific prior written permission.
-  26:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
-  27:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  28:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  29:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-  30:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-  31:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-  32:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-  33:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-  34:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  35:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-  36:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-  37:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-  38:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * POSSIBILITY OF SUCH DAMAGE.
-  39:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * -------------------------------------------------------------------- */
-  40:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
-  41:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
-  42:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    \mainpage CMSIS DSP Software Library
-  43:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  44:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Introduction</b>
-  45:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  46:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * This user manual describes the CMSIS DSP software library,
-  47:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * a suite of common signal processing functions for use on Cortex-M processor based devices.
-  48:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  49:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library is divided into a number of functions each covering a specific category:
-  50:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Basic math functions
-  51:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Fast math functions
-  52:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Complex math functions
-  53:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Filters
-  54:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Matrix functions
-  55:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Transforms
-  56:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Motor control functions
-  57:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Statistical functions
-  58:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Support functions
-  59:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Interpolation functions
-  60:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  61:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library has separate functions for operating on 8-bit integers, 16-bit integers,
-  62:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * 32-bit integer and 32-bit floating-point values.
-  63:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  64:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Using the Library</b>
-  65:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  66:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library installer contains prebuilt versions of the libraries in the <code>Lib</code> fold
-  67:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4lf_math.lib (Little endian and Floating Point Unit on Cortex-M4)
-  68:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4bf_math.lib (Big endian and Floating Point Unit on Cortex-M4)
-  69:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4l_math.lib (Little endian on Cortex-M4)
-  70:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4b_math.lib (Big endian on Cortex-M4)
-  71:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3l_math.lib (Little endian on Cortex-M3)
-  72:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3b_math.lib (Big endian on Cortex-M3)
-  73:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0l_math.lib (Little endian on Cortex-M0)
-  74:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0b_math.lib (Big endian on Cortex-M3)
-  75:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  76:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library functions are declared in the public file <code>arm_math.h</code> which is placed 
-  77:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Simply include this file and link the appropriate library in the application and begin calling
-  78:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * public header file <code> arm_math.h</code> for Cortex-M4/M3/M0 with little endian and big end
-  79:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define the appropriate pre processor MACRO ARM_MATH_CM4 or  ARM_MATH_CM3 or
-  80:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * ARM_MATH_CM0 or ARM_MATH_CM0PLUS depending on the target processor in the application.
-  81:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  82:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Examples</b>
-  83:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  84:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library ships with a number of examples which demonstrate how to use the library functions
-  85:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  86:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Toolchain Support</b>
-  87:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  88:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library has been developed and tested with MDK-ARM version 4.60.
-  89:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library is being tested in GCC and IAR toolchains and updates on this activity will be mad
-  90:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  91:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Building the Library</b>
-  92:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
-  93:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library installer contains project files to re build libraries on MDK Tool chain in the <c
-  94:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0b_math.uvproj
-  95:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0l_math.uvproj
-  96:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3b_math.uvproj
-  97:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3l_math.uvproj
-  98:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4b_math.uvproj
-  99:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4l_math.uvproj
- 100:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4bf_math.uvproj
- 101:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4lf_math.uvproj
- 102:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 103:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 104:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The project can be built by opening the appropriate project in MDK-ARM 4.60 chain and defining
- 105:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 106:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Pre-processor Macros</b>
- 107:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 108:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Each library project have differant pre-processor macros.
- 109:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 110:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - UNALIGNED_SUPPORT_DISABLE:
- 111:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 112:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro UNALIGNED_SUPPORT_DISABLE, If the silicon does not support unaligned memory acces
- 113:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 114:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_BIG_ENDIAN:
- 115:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 116:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_BIG_ENDIAN to build the library for big endian targets. By default libra
- 117:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 118:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_MATRIX_CHECK:
- 119:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 120:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_MATRIX_CHECK for checking on the input and output sizes of matrices
- 121:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 122:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_ROUNDING:
- 123:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 124:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_ROUNDING for rounding on support functions
- 125:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 126:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_CMx:
- 127:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 128:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_CM4 for building the library on Cortex-M4 target, ARM_MATH_CM3 for build
- 129:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * and ARM_MATH_CM0 for building library on cortex-M0 target, ARM_MATH_CM0PLUS for building libra
- 130:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 131:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - __FPU_PRESENT:
- 132:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 133:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Initialize macro __FPU_PRESENT = 1 when building on FPU supported Targets. Enable this macro f
- 134:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 135:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Copyright Notice</b>
- 136:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
- 137:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Copyright (C) 2010-2013 ARM Limited. All rights reserved.
- 138:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 139:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 140:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 141:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 142:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupMath Basic Math Functions
- 143:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 144:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 145:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 146:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupFastMath Fast Math Functions
- 147:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions provides a fast approximation to sine, cosine, and square root.
- 148:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * As compared to most of the other functions in the CMSIS math library, the fast math functions
- 149:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * operate on individual values and not arrays.
- 150:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There are separate functions for Q15, Q31, and floating-point data.
- 151:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
- 152:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 153:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 154:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 155:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupCmplxMath Complex Math Functions
- 156:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions operates on complex data vectors.
- 157:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The data in the complex arrays is stored in an interleaved fashion
- 158:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * (real, imag, real, imag, ...).
- 159:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * In the API functions, the number of samples in a complex array refers
- 160:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * to the number of complex values; the array contains twice this number of
- 161:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * real values.
- 162:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 163:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 164:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 165:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupFilters Filtering Functions
- 166:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 167:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 168:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 169:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupMatrix Matrix Functions
- 170:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
- 171:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions provides basic matrix math operations.
- 172:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The functions operate on matrix data structures.  For example,
- 173:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * the type
- 174:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * definition for the floating-point matrix structure is shown
- 175:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * below:
- 176:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
- 177:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     typedef struct
- 178:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     {
- 179:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       uint16_t numRows;     // number of rows of the matrix.
- 180:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       uint16_t numCols;     // number of columns of the matrix.
- 181:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       float32_t *pData;     // points to the data of the matrix.
- 182:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     } arm_matrix_instance_f32;
- 183:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
- 184:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There are similar definitions for Q15 and Q31 data types.
- 185:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
- 186:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The structure specifies the size of the matrix and then points to
- 187:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * an array of data.  The array is of size <code>numRows X numCols</code>
- 188:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and the values are arranged in row order.  That is, the
- 189:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * matrix element (i, j) is stored at:
- 190:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
- 191:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     pData[i*numCols + j]
- 192:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
- 193:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
- 194:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par Init Functions
- 195:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There is an associated initialization function for each type of matrix
- 196:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * data structure.
- 197:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The initialization function sets the values of the internal structure fields.
- 198:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Refer to the function <code>arm_mat_init_f32()</code>, <code>arm_mat_init_q31()</code>
- 199:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and <code>arm_mat_init_q15()</code> for floating-point, Q31 and Q15 types,  respectively.
- 200:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
- 201:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par
- 202:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Use of the initialization function is optional. However, if initialization function is used
- 203:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * then the instance structure cannot be placed into a const data section.
- 204:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * To place the instance structure in a const data
- 205:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * section, manually initialize the data structure.  For example:
- 206:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
- 207:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_f32 S = {nRows, nColumns, pData};</code>
- 208:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_q31 S = {nRows, nColumns, pData};</code>
- 209:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_q15 S = {nRows, nColumns, pData};</code>
- 210:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
- 211:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * where <code>nRows</code> specifies the number of rows, <code>nColumns</code>
- 212:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * specifies the number of columns, and <code>pData</code> points to the
- 213:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * data array.
- 214:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
- 215:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par Size Checking
- 216:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * By default all of the matrix functions perform size checking on the input and
- 217:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * output matrices.  For example, the matrix addition function verifies that the
- 218:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * two input matrices and the output matrix all have the same number of rows and
- 219:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * columns.  If the size check fails the functions return:
- 220:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
- 221:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_SIZE_MISMATCH
- 222:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
- 223:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Otherwise the functions return
- 224:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
- 225:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_SUCCESS
- 226:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
- 227:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There is some overhead associated with this matrix size checking.
- 228:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The matrix size checking is enabled via the \#define
- 229:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
- 230:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_MATRIX_CHECK
- 231:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
- 232:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * within the library project settings.  By default this macro is defined
- 233:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and size checking is enabled.  By changing the project settings and
- 234:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * undefining this macro size checking is eliminated and the functions
- 235:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * run a bit faster.  With size checking disabled the functions always
- 236:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * return <code>ARM_MATH_SUCCESS</code>.
- 237:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 238:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 239:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 240:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupTransforms Transform Functions
- 241:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 242:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 243:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 244:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupController Controller Functions
- 245:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 246:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 247:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 248:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupStats Statistics Functions
- 249:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 250:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 251:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupSupport Support Functions
- 252:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 253:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 254:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 255:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupInterpolation Interpolation Functions
- 256:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * These functions perform 1- and 2-dimensional interpolation of data.
- 257:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Linear interpolation is used for 1-dimensional data and
- 258:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * bilinear interpolation is used for 2-dimensional data.
- 259:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 260:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 261:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
- 262:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupExamples Examples
- 263:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
- 264:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef _ARM_MATH_H
- 265:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define _ARM_MATH_H
- 266:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 267:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __CMSIS_GENERIC         /* disable NVIC and Systick functions */
- 268:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 269:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined (ARM_MATH_CM4)
- 270:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm4.h"
- 271:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM3)
- 272:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm3.h"
- 273:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM0)
- 274:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm0.h"
- 275:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define ARM_MATH_CM0_FAMILY
- 276:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM0PLUS)
- 277:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm0plus.h"
- 278:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define ARM_MATH_CM0_FAMILY
- 279:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
- 280:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "ARMCM4.h"
- 281:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #warning "Define either ARM_MATH_CM4 OR ARM_MATH_CM3...By Default building on ARM_MATH_CM4....."
- 282:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
- 283:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 284:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #undef  __CMSIS_GENERIC         /* enable NVIC and Systick functions */
- 285:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "string.h"
- 286:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "math.h"
- 287:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifdef	__cplusplus
- 288:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** extern "C"
- 289:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** {
- 290:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
- 291:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 292:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 293:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 294:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for reciprocal calculation in Normalized LMS
- 295:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 296:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 297:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define DELTA_Q31 			(0x100)
- 298:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define DELTA_Q15 			0x5
- 299:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define INDEX_MASK 			0x0000003F
- 300:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef PI
- 301:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define PI					3.14159265358979f
- 302:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
- 303:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 304:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 305:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for SINE and COSINE Fast math approximations
- 306:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 307:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 308:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SIZE			256
- 309:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SPACING_Q31	0x800000
- 310:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SPACING_Q15	0x80
- 311:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 312:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 313:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for SINE and COSINE Controller functions
- 314:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 315:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /* 1.31(q31) Fixed value of 2/360 */
- 316:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /* -1 to +1 is divided into 360 values so total spacing is (2/360) */
- 317:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define INPUT_SPACING			0xB60B61
- 318:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 319:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 320:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macro for Unaligned Support
- 321:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 322:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef UNALIGNED_SUPPORT_DISABLE
- 323:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4
- 324:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
- 325:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #if defined  (__GNUC__)
- 326:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4 __attribute__((aligned(4)))
- 327:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #else
- 328:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4 __align(4)
- 329:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #endif
- 330:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
- 331:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 332:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 333:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Error status returned by some functions in the library.
- 334:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 335:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 336:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef enum
- 337:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
- 338:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SUCCESS = 0,                /**< No error */
- 339:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_ARGUMENT_ERROR = -1,        /**< One or more arguments are incorrect */
- 340:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_LENGTH_ERROR = -2,          /**< Length of data buffer is incorrect */
- 341:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SIZE_MISMATCH = -3,         /**< Size of matrices is not compatible with the operation
- 342:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_NANINF = -4,                /**< Not-a-number (NaN) or infinity is generated */
- 343:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SINGULAR = -5,              /**< Generated by matrix inversion if the input matrix is 
- 344:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_TEST_FAILURE = -6           /**< Test Failed  */
- 345:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   } arm_status;
- 346:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 347:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 348:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 8-bit fractional data type in 1.7 format.
- 349:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 350:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int8_t q7_t;
- 351:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 352:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 353:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 16-bit fractional data type in 1.15 format.
- 354:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 355:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int16_t q15_t;
- 356:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 357:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 358:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 32-bit fractional data type in 1.31 format.
- 359:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 360:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int32_t q31_t;
- 361:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 362:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 363:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 64-bit fractional data type in 1.63 format.
- 364:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 365:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int64_t q63_t;
- 366:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 367:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 368:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 32-bit floating-point type definition.
- 369:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 370:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef float float32_t;
- 371:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 372:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 373:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 64-bit floating-point type definition.
- 374:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 375:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef double float64_t;
- 376:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 377:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 378:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to read/write two 16 bit values.
- 379:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 380:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined __CC_ARM
- 381:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t __packed
- 382:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED __attribute__((unused))
- 383:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined __ICCARM__
- 384:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED
- 385:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t __packed
- 386:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined __GNUC__
- 387:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t
- 388:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED __attribute__((unused))
- 389:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
- 390:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #error Unknown compiler
- 391:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
- 392:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 393:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32(addr)  (*(__SIMD32_TYPE **) & (addr))
- 394:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_CONST(addr)  ((__SIMD32_TYPE *)(addr))
- 395:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 396:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define _SIMD32_OFFSET(addr)  (*(__SIMD32_TYPE *)  (addr))
- 397:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 398:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD64(addr)  (*(int64_t **) & (addr))
- 399:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 400:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined (ARM_MATH_CM3) || defined (ARM_MATH_CM0_FAMILY)
- 401:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 402:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to pack two 16 bit values.
- 403:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 404:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PKHBT(ARG1, ARG2, ARG3)      ( (((int32_t)(ARG1) <<  0) & (int32_t)0x0000FFFF) | \
- 405:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                          (((int32_t)(ARG2) << ARG3) & (int32_t)0xFFFF0000)  )
- 406:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PKHTB(ARG1, ARG2, ARG3)      ( (((int32_t)(ARG1) <<  0) & (int32_t)0xFFFF0000) | \
- 407:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                          (((int32_t)(ARG2) >> ARG3) & (int32_t)0x0000FFFF)  )
- 408:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 409:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
- 410:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 411:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 412:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    /**
- 413:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to pack four 8 bit values.
- 414:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 415:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef ARM_MATH_BIG_ENDIAN
- 416:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 417:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PACKq7(v0,v1,v2,v3) ( (((int32_t)(v0) <<  0) & (int32_t)0x000000FF) |	\
- 418:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                 (((int32_t)(v1) <<  8) & (int32_t)0x0000FF00) |	\
- 419:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v2) << 16) & (int32_t)0x00FF0000) |	\
- 420:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v3) << 24) & (int32_t)0xFF000000)  )
- 421:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
- 422:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 423:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PACKq7(v0,v1,v2,v3) ( (((int32_t)(v3) <<  0) & (int32_t)0x000000FF) |	\
- 424:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                 (((int32_t)(v2) <<  8) & (int32_t)0x0000FF00) |	\
- 425:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v1) << 16) & (int32_t)0x00FF0000) |	\
- 426:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v0) << 24) & (int32_t)0xFF000000)  )
- 427:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 428:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
- 429:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 430:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 431:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 432:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q63 to Q31 values.
- 433:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 434:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q31_t clip_q63_to_q31(
- 435:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x)
- 436:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
- 437:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 32) != ((q31_t) x >> 31)) ?
- 438:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFFFFFF ^ ((q31_t) (x >> 63)))) : (q31_t) x;
- 439:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
- 440:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 441:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 442:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q63 to Q15 values.
- 443:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 444:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q15_t clip_q63_to_q15(
- 445:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x)
- 446:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
- 447:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 32) != ((q31_t) x >> 31)) ?
- 448:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFF ^ ((q15_t) (x >> 63)))) : (q15_t) (x >> 15);
- 449:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
- 450:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 451:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 452:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q31 to Q7 values.
- 453:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 454:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q7_t clip_q31_to_q7(
- 455:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t x)
- 456:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
- 457:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 24) != ((q31_t) x >> 23)) ?
- 458:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7F ^ ((q7_t) (x >> 31)))) : (q7_t) x;
- 459:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
- 460:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 461:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 462:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q31 to Q15 values.
- 463:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 464:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q15_t clip_q31_to_q15(
- 465:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t x)
- 466:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
- 467:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 16) != ((q31_t) x >> 15)) ?
- 468:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFF ^ ((q15_t) (x >> 31)))) : (q15_t) x;
- 469:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
- 470:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 471:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
- 472:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Multiplies 32 X 64 and returns 32 bit result in 2.30 format.
- 473:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
- 474:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
- 475:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q63_t mult32x64(
- 476:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x,
- 477:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t y)
- 478:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+  25              		.file 1 "C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
+   1:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /* ----------------------------------------------------------------------
+   2:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Copyright (C) 2010-2013 ARM Limited. All rights reserved.
+   3:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+   4:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * $Date:        17. January 2013
+   5:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * $Revision:    V1.4.1
+   6:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+   7:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Project:      CMSIS DSP Library
+   8:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Title:        arm_math.h
+   9:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+  10:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Description:  Public header file for CMSIS DSP Library
+  11:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+  12:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
+  13:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+  14:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * Redistribution and use in source and binary forms, with or without
+  15:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * modification, are permitted provided that the following conditions
+  16:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * are met:
+  17:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Redistributions of source code must retain the above copyright
+  18:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     notice, this list of conditions and the following disclaimer.
+  19:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Redistributions in binary form must reproduce the above copyright
+  20:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     notice, this list of conditions and the following disclaimer in
+  21:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     the documentation and/or other materials provided with the
+  22:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     distribution.
+  23:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *   - Neither the name of ARM LIMITED nor the names of its contributors
+  24:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     may be used to endorse or promote products derived from this
+  25:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *     software without specific prior written permission.
+  26:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** *
+  27:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  28:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  29:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  30:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  31:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  32:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+  33:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  34:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  35:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+  36:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  37:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  38:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** * POSSIBILITY OF SUCH DAMAGE.
+  39:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * -------------------------------------------------------------------- */
+  40:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+  41:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+  42:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    \mainpage CMSIS DSP Software Library
+  43:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  44:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Introduction</b>
+  45:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  46:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * This user manual describes the CMSIS DSP software library,
+  47:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * a suite of common signal processing functions for use on Cortex-M processor based devices.
+  48:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  49:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library is divided into a number of functions each covering a specific category:
+  50:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Basic math functions
+  51:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Fast math functions
+  52:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Complex math functions
+  53:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Filters
+  54:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Matrix functions
+  55:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Transforms
+  56:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Motor control functions
+  57:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Statistical functions
+  58:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Support functions
+  59:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - Interpolation functions
+  60:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  61:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library has separate functions for operating on 8-bit integers, 16-bit integers,
+  62:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * 32-bit integer and 32-bit floating-point values.
+  63:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  64:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Using the Library</b>
+  65:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  66:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library installer contains prebuilt versions of the libraries in the <code>Lib</code> fold
+  67:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4lf_math.lib (Little endian and Floating Point Unit on Cortex-M4)
+  68:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4bf_math.lib (Big endian and Floating Point Unit on Cortex-M4)
+  69:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4l_math.lib (Little endian on Cortex-M4)
+  70:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4b_math.lib (Big endian on Cortex-M4)
+  71:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3l_math.lib (Little endian on Cortex-M3)
+  72:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3b_math.lib (Big endian on Cortex-M3)
+  73:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0l_math.lib (Little endian on Cortex-M0)
+  74:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0b_math.lib (Big endian on Cortex-M3)
+  75:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  76:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library functions are declared in the public file <code>arm_math.h</code> which is placed 
+  77:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Simply include this file and link the appropriate library in the application and begin calling
+  78:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * public header file <code> arm_math.h</code> for Cortex-M4/M3/M0 with little endian and big end
+  79:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define the appropriate pre processor MACRO ARM_MATH_CM4 or  ARM_MATH_CM3 or
+  80:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * ARM_MATH_CM0 or ARM_MATH_CM0PLUS depending on the target processor in the application.
+  81:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  82:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Examples</b>
+  83:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  84:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library ships with a number of examples which demonstrate how to use the library functions
+  85:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  86:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Toolchain Support</b>
+  87:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  88:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library has been developed and tested with MDK-ARM version 4.60.
+  89:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library is being tested in GCC and IAR toolchains and updates on this activity will be mad
+  90:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  91:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Building the Library</b>
+  92:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+  93:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The library installer contains project files to re build libraries on MDK Tool chain in the <c
+  94:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0b_math.uvproj
+  95:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM0l_math.uvproj
+  96:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3b_math.uvproj
+  97:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM3l_math.uvproj
+  98:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4b_math.uvproj
+  99:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4l_math.uvproj
+ 100:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4bf_math.uvproj
+ 101:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - arm_cortexM4lf_math.uvproj
+ 102:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 103:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 104:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * The project can be built by opening the appropriate project in MDK-ARM 4.60 chain and defining
+ 105:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 106:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Pre-processor Macros</b>
+ 107:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 108:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Each library project have differant pre-processor macros.
+ 109:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 110:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - UNALIGNED_SUPPORT_DISABLE:
+ 111:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 112:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro UNALIGNED_SUPPORT_DISABLE, If the silicon does not support unaligned memory acces
+ 113:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 114:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_BIG_ENDIAN:
+ 115:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 116:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_BIG_ENDIAN to build the library for big endian targets. By default libra
+ 117:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 118:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_MATRIX_CHECK:
+ 119:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 120:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_MATRIX_CHECK for checking on the input and output sizes of matrices
+ 121:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 122:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_ROUNDING:
+ 123:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 124:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_ROUNDING for rounding on support functions
+ 125:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 126:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - ARM_MATH_CMx:
+ 127:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 128:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Define macro ARM_MATH_CM4 for building the library on Cortex-M4 target, ARM_MATH_CM3 for build
+ 129:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * and ARM_MATH_CM0 for building library on cortex-M0 target, ARM_MATH_CM0PLUS for building libra
+ 130:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 131:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * - __FPU_PRESENT:
+ 132:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 133:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Initialize macro __FPU_PRESENT = 1 when building on FPU supported Targets. Enable this macro f
+ 134:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 135:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * <b>Copyright Notice</b>
+ 136:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    *
+ 137:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * Copyright (C) 2010-2013 ARM Limited. All rights reserved.
+ 138:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 139:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 140:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 141:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 142:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupMath Basic Math Functions
+ 143:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 144:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 145:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 146:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupFastMath Fast Math Functions
+ 147:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions provides a fast approximation to sine, cosine, and square root.
+ 148:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * As compared to most of the other functions in the CMSIS math library, the fast math functions
+ 149:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * operate on individual values and not arrays.
+ 150:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There are separate functions for Q15, Q31, and floating-point data.
+ 151:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 152:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 153:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 154:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 155:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupCmplxMath Complex Math Functions
+ 156:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions operates on complex data vectors.
+ 157:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The data in the complex arrays is stored in an interleaved fashion
+ 158:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * (real, imag, real, imag, ...).
+ 159:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * In the API functions, the number of samples in a complex array refers
+ 160:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * to the number of complex values; the array contains twice this number of
+ 161:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * real values.
+ 162:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 163:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 164:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 165:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupFilters Filtering Functions
+ 166:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 167:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 168:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 169:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupMatrix Matrix Functions
+ 170:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 171:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * This set of functions provides basic matrix math operations.
+ 172:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The functions operate on matrix data structures.  For example,
+ 173:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * the type
+ 174:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * definition for the floating-point matrix structure is shown
+ 175:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * below:
+ 176:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 177:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     typedef struct
+ 178:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     {
+ 179:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       uint16_t numRows;     // number of rows of the matrix.
+ 180:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       uint16_t numCols;     // number of columns of the matrix.
+ 181:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *       float32_t *pData;     // points to the data of the matrix.
+ 182:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     } arm_matrix_instance_f32;
+ 183:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 184:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There are similar definitions for Q15 and Q31 data types.
+ 185:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 186:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The structure specifies the size of the matrix and then points to
+ 187:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * an array of data.  The array is of size <code>numRows X numCols</code>
+ 188:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and the values are arranged in row order.  That is, the
+ 189:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * matrix element (i, j) is stored at:
+ 190:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 191:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     pData[i*numCols + j]
+ 192:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 193:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 194:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par Init Functions
+ 195:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There is an associated initialization function for each type of matrix
+ 196:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * data structure.
+ 197:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The initialization function sets the values of the internal structure fields.
+ 198:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Refer to the function <code>arm_mat_init_f32()</code>, <code>arm_mat_init_q31()</code>
+ 199:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and <code>arm_mat_init_q15()</code> for floating-point, Q31 and Q15 types,  respectively.
+ 200:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 201:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par
+ 202:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Use of the initialization function is optional. However, if initialization function is used
+ 203:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * then the instance structure cannot be placed into a const data section.
+ 204:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * To place the instance structure in a const data
+ 205:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * section, manually initialize the data structure.  For example:
+ 206:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 207:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_f32 S = {nRows, nColumns, pData};</code>
+ 208:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_q31 S = {nRows, nColumns, pData};</code>
+ 209:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <code>arm_matrix_instance_q15 S = {nRows, nColumns, pData};</code>
+ 210:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 211:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * where <code>nRows</code> specifies the number of rows, <code>nColumns</code>
+ 212:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * specifies the number of columns, and <code>pData</code> points to the
+ 213:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * data array.
+ 214:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *
+ 215:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * \par Size Checking
+ 216:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * By default all of the matrix functions perform size checking on the input and
+ 217:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * output matrices.  For example, the matrix addition function verifies that the
+ 218:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * two input matrices and the output matrix all have the same number of rows and
+ 219:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * columns.  If the size check fails the functions return:
+ 220:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 221:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_SIZE_MISMATCH
+ 222:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 223:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Otherwise the functions return
+ 224:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 225:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_SUCCESS
+ 226:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 227:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * There is some overhead associated with this matrix size checking.
+ 228:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * The matrix size checking is enabled via the \#define
+ 229:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * <pre>
+ 230:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  *     ARM_MATH_MATRIX_CHECK
+ 231:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * </pre>
+ 232:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * within the library project settings.  By default this macro is defined
+ 233:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * and size checking is enabled.  By changing the project settings and
+ 234:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * undefining this macro size checking is eliminated and the functions
+ 235:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * run a bit faster.  With size checking disabled the functions always
+ 236:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * return <code>ARM_MATH_SUCCESS</code>.
+ 237:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 238:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 239:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 240:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupTransforms Transform Functions
+ 241:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 242:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 243:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 244:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupController Controller Functions
+ 245:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 246:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 247:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 248:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupStats Statistics Functions
+ 249:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 250:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 251:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupSupport Support Functions
+ 252:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 253:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 254:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 255:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupInterpolation Interpolation Functions
+ 256:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * These functions perform 1- and 2-dimensional interpolation of data.
+ 257:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * Linear interpolation is used for 1-dimensional data and
+ 258:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * bilinear interpolation is used for 2-dimensional data.
+ 259:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 260:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 261:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** /**
+ 262:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  * @defgroup groupExamples Examples
+ 263:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****  */
+ 264:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef _ARM_MATH_H
+ 265:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define _ARM_MATH_H
+ 266:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 267:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __CMSIS_GENERIC         /* disable NVIC and Systick functions */
+ 268:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 269:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined (ARM_MATH_CM4)
+ 270:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm4.h"
+ 271:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM3)
+ 272:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm3.h"
+ 273:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM0)
+ 274:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm0.h"
+ 275:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define ARM_MATH_CM0_FAMILY
+ 276:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined (ARM_MATH_CM0PLUS)
+ 277:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "core_cm0plus.h"
+ 278:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define ARM_MATH_CM0_FAMILY
+ 279:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
+ 280:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "ARMCM4.h"
+ 281:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #warning "Define either ARM_MATH_CM4 OR ARM_MATH_CM3...By Default building on ARM_MATH_CM4....."
+ 282:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 283:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 284:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #undef  __CMSIS_GENERIC         /* enable NVIC and Systick functions */
+ 285:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "string.h"
+ 286:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #include "math.h"
+ 287:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifdef	__cplusplus
+ 288:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** extern "C"
+ 289:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** {
+ 290:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 291:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 292:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 293:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 294:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for reciprocal calculation in Normalized LMS
+ 295:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 296:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 297:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define DELTA_Q31 			(0x100)
+ 298:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define DELTA_Q15 			0x5
+ 299:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define INDEX_MASK 			0x0000003F
+ 300:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef PI
+ 301:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define PI					3.14159265358979f
+ 302:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 303:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 304:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 305:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for SINE and COSINE Fast math approximations
+ 306:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 307:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 308:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SIZE			256
+ 309:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SPACING_Q31	0x800000
+ 310:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define TABLE_SPACING_Q15	0x80
+ 311:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 312:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 313:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macros required for SINE and COSINE Controller functions
+ 314:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 315:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /* 1.31(q31) Fixed value of 2/360 */
+ 316:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /* -1 to +1 is divided into 360 values so total spacing is (2/360) */
+ 317:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define INPUT_SPACING			0xB60B61
+ 318:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 319:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 320:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Macro for Unaligned Support
+ 321:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 322:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef UNALIGNED_SUPPORT_DISABLE
+ 323:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4
+ 324:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
+ 325:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #if defined  (__GNUC__)
+ 326:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4 __attribute__((aligned(4)))
+ 327:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #else
+ 328:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     #define ALIGN4 __align(4)
+ 329:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   #endif
+ 330:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
+ 331:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 332:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 333:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Error status returned by some functions in the library.
+ 334:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 335:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 336:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef enum
+ 337:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 338:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SUCCESS = 0,                /**< No error */
+ 339:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_ARGUMENT_ERROR = -1,        /**< One or more arguments are incorrect */
+ 340:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_LENGTH_ERROR = -2,          /**< Length of data buffer is incorrect */
+ 341:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SIZE_MISMATCH = -3,         /**< Size of matrices is not compatible with the operation
+ 342:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_NANINF = -4,                /**< Not-a-number (NaN) or infinity is generated */
+ 343:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_SINGULAR = -5,              /**< Generated by matrix inversion if the input matrix is 
+ 344:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     ARM_MATH_TEST_FAILURE = -6           /**< Test Failed  */
+ 345:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   } arm_status;
+ 346:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 347:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 348:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 8-bit fractional data type in 1.7 format.
+ 349:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 350:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int8_t q7_t;
+ 351:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 352:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 353:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 16-bit fractional data type in 1.15 format.
+ 354:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 355:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int16_t q15_t;
+ 356:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 357:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 358:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 32-bit fractional data type in 1.31 format.
+ 359:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 360:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int32_t q31_t;
+ 361:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 362:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 363:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 64-bit fractional data type in 1.63 format.
+ 364:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 365:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef int64_t q63_t;
+ 366:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 367:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 368:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 32-bit floating-point type definition.
+ 369:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 370:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef float float32_t;
+ 371:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 372:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 373:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief 64-bit floating-point type definition.
+ 374:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 375:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   typedef double float64_t;
+ 376:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 377:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 378:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to read/write two 16 bit values.
+ 379:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 380:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined __CC_ARM
+ 381:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t __packed
+ 382:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED __attribute__((unused))
+ 383:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined __ICCARM__
+ 384:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED
+ 385:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t __packed
+ 386:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #elif defined __GNUC__
+ 387:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_TYPE int32_t
+ 388:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define CMSIS_UNUSED __attribute__((unused))
+ 389:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
+ 390:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #error Unknown compiler
+ 391:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 392:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 393:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32(addr)  (*(__SIMD32_TYPE **) & (addr))
+ 394:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD32_CONST(addr)  ((__SIMD32_TYPE *)(addr))
+ 395:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 396:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define _SIMD32_OFFSET(addr)  (*(__SIMD32_TYPE *)  (addr))
+ 397:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 398:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __SIMD64(addr)  (*(int64_t **) & (addr))
+ 399:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 400:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #if defined (ARM_MATH_CM3) || defined (ARM_MATH_CM0_FAMILY)
+ 401:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 402:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to pack two 16 bit values.
+ 403:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 404:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PKHBT(ARG1, ARG2, ARG3)      ( (((int32_t)(ARG1) <<  0) & (int32_t)0x0000FFFF) | \
+ 405:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                          (((int32_t)(ARG2) << ARG3) & (int32_t)0xFFFF0000)  )
+ 406:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PKHTB(ARG1, ARG2, ARG3)      ( (((int32_t)(ARG1) <<  0) & (int32_t)0xFFFF0000) | \
+ 407:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                          (((int32_t)(ARG2) >> ARG3) & (int32_t)0x0000FFFF)  )
+ 408:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 409:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 410:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 411:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 412:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    /**
+ 413:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief definition to pack four 8 bit values.
+ 414:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 415:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #ifndef ARM_MATH_BIG_ENDIAN
+ 416:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 417:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PACKq7(v0,v1,v2,v3) ( (((int32_t)(v0) <<  0) & (int32_t)0x000000FF) |	\
+ 418:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                 (((int32_t)(v1) <<  8) & (int32_t)0x0000FF00) |	\
+ 419:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v2) << 16) & (int32_t)0x00FF0000) |	\
+ 420:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v3) << 24) & (int32_t)0xFF000000)  )
+ 421:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #else
+ 422:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 423:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #define __PACKq7(v0,v1,v2,v3) ( (((int32_t)(v3) <<  0) & (int32_t)0x000000FF) |	\
+ 424:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****                                 (((int32_t)(v2) <<  8) & (int32_t)0x0000FF00) |	\
+ 425:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v1) << 16) & (int32_t)0x00FF0000) |	\
+ 426:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 							    (((int32_t)(v0) << 24) & (int32_t)0xFF000000)  )
+ 427:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 428:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** #endif
+ 429:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 430:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 431:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 432:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q63 to Q31 values.
+ 433:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 434:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q31_t clip_q63_to_q31(
+ 435:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x)
+ 436:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 437:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 32) != ((q31_t) x >> 31)) ?
+ 438:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFFFFFF ^ ((q31_t) (x >> 63)))) : (q31_t) x;
+ 439:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 440:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 441:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 442:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q63 to Q15 values.
+ 443:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 444:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q15_t clip_q63_to_q15(
+ 445:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x)
+ 446:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 447:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 32) != ((q31_t) x >> 31)) ?
+ 448:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFF ^ ((q15_t) (x >> 63)))) : (q15_t) (x >> 15);
+ 449:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 450:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 451:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 452:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q31 to Q7 values.
+ 453:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 454:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q7_t clip_q31_to_q7(
+ 455:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t x)
+ 456:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 457:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 24) != ((q31_t) x >> 23)) ?
+ 458:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7F ^ ((q7_t) (x >> 31)))) : (q7_t) x;
+ 459:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 460:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 461:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 462:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Clips Q31 to Q15 values.
+ 463:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 464:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q15_t clip_q31_to_q15(
+ 465:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t x)
+ 466:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
+ 467:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((q31_t) (x >> 16) != ((q31_t) x >> 15)) ?
+ 468:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****       ((0x7FFF ^ ((q15_t) (x >> 31)))) : (q15_t) x;
+ 469:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 470:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 471:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   /**
+ 472:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    * @brief Multiplies 32 X 64 and returns 32 bit result in 2.30 format.
+ 473:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****    */
+ 474:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h **** 
+ 475:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   static __INLINE q63_t mult32x64(
+ 476:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q63_t x,
+ 477:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   q31_t y)
+ 478:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   {
   26              		.loc 1 478 0
   27              		.cfi_startproc
   28              		@ args = 0, pretend = 0, frame = 16
@@ -522,7 +522,7 @@
   45              		.cfi_def_cfa_register 7
   46 0008 C7E90201 		strd	r0, [r7, #8]
   47 000c 7A60     		str	r2, [r7, #4]
- 479:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((((q63_t) (x & 0x00000000FFFFFFFF) * y) >> 32) +
+ 479:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((((q63_t) (x & 0x00000000FFFFFFFF) * y) >> 32) +
   48              		.loc 1 479 0
   49 000e D7E90201 		ldrd	r0, [r7, #8]
   50 0012 4FF0FF32 		mov	r2, #-1
@@ -540,7 +540,7 @@
   62 003a 0B46     		mov	r3, r1
   63 003c 9846     		mov	r8, r3
   64 003e 4FEAE379 		asr	r9, r3, #31
- 480:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****             (((q63_t) (x >> 32) * y)));
+ 480:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****             (((q63_t) (x >> 32) * y)));
   65              		.loc 1 480 0
   66 0042 FB68     		ldr	r3, [r7, #12]
   67 0044 1C46     		mov	r4, r3
@@ -555,11 +555,11 @@
   76 005e A4FB0223 		umull	r2, r3, r4, r2
   77 0062 C918     		adds	r1, r1, r3
   78 0064 0B46     		mov	r3, r1
- 479:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((((q63_t) (x & 0x00000000FFFFFFFF) * y) >> 32) +
+ 479:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****     return ((((q63_t) (x & 0x00000000FFFFFFFF) * y) >> 32) +
   79              		.loc 1 479 0
   80 0066 12EB0802 		adds	r2, r2, r8
   81 006a 43EB0903 		adc	r3, r3, r9
- 481:C:/Users/ehughes/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
+ 481:C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include\arm_math.h ****   }
   82              		.loc 1 481 0
   83 006e 1046     		mov	r0, r2
   84 0070 1946     		mov	r1, r3
@@ -3384,29 +3384,29 @@
  2662              	.LFE131:
  2664 00b6 00BF     		.text
  2665              	.Letext0:
- 2666              		.file 3 "C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 2666              		.file 3 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
  2667              		.file 4 "../Sources/DSP/IIR.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 IIR.c
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:19     .text.mult32x64:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:23     .text.mult32x64:00000000 mult32x64
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:93     .text.Init_q31_t_IIR:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:98     .text.Init_q31_t_IIR:00000000 Init_q31_t_IIR
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:140    .text.Compute_q31_t_IIR:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:145    .text.Compute_q31_t_IIR:00000000 Compute_q31_t_IIR
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:19     .text.mult32x64:00000000 $t
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:23     .text.mult32x64:00000000 mult32x64
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:93     .text.Init_q31_t_IIR:00000000 $t
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:98     .text.Init_q31_t_IIR:00000000 Init_q31_t_IIR
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:140    .text.Compute_q31_t_IIR:00000000 $t
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:145    .text.Compute_q31_t_IIR:00000000 Compute_q31_t_IIR
                             *COM*:00000008 A
                             *COM*:00000008 w0
                             *COM*:00000008 alpha
                             *COM*:00000030 coef
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:330    .text.DesignAudioBiquadIIR_q31_t:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:335    .text.DesignAudioBiquadIIR_q31_t:00000000 DesignAudioBiquadIIR_q31_t
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:475    .text.DesignAudioBiquadIIR_q31_t:00000124 $d
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:485    .text.DesignAudioBiquadIIR_q31_t:00000144 $t
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:616    .text.DesignAudioBiquadIIR_q31_t:000002c8 $d
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:620    .text.DesignAudioBiquadIIR_q31_t:000002d0 $t
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:2563   .text.GetPeak:00000000 GetPeak
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:2551   .text.DesignAudioBiquadIIR_q31_t:00001878 $d
-C:\Users\ehughes\AppData\Local\Temp\ccLU9Dcu.s:2558   .text.GetPeak:00000000 $t
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:330    .text.DesignAudioBiquadIIR_q31_t:00000000 $t
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:335    .text.DesignAudioBiquadIIR_q31_t:00000000 DesignAudioBiquadIIR_q31_t
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:475    .text.DesignAudioBiquadIIR_q31_t:00000124 $d
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:485    .text.DesignAudioBiquadIIR_q31_t:00000144 $t
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:616    .text.DesignAudioBiquadIIR_q31_t:000002c8 $d
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:620    .text.DesignAudioBiquadIIR_q31_t:000002d0 $t
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:2563   .text.GetPeak:00000000 GetPeak
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:2551   .text.DesignAudioBiquadIIR_q31_t:00001878 $d
+C:\Users\emh203\AppData\Local\Temp\cclVPvvh.s:2558   .text.GetPeak:00000000 $t
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

@@ -11,13 +11,44 @@ void InitIO()
                  SIM_SCGC5_PORTC_MASK |
                  SIM_SCGC5_PORTD_MASK |
                  SIM_SCGC5_PORTE_MASK;
+      
+        
+    PORTC_PCR(4) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;
+    PORTD_PCR(0) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;;
+       
+    
+    
+    PORTC_PCR(3) = PORT_PCR_MUX(6);     //PTC3(ALT6), I2S0_TX_BCLK
+    PORTC_PCR(2) = PORT_PCR_MUX(6);     //PTC2(ALT6), I2S0_TX_FS	
+    PORTC_PCR(1) = PORT_PCR_MUX(6);     //PTC1(ALT6), I2S0_TXD0
+    
+    
+   PORTC_PCR(10) = PORT_PCR_MUX(4);    //PTC10(ALT4), I2S0_RX_FS
+   PORTC_PCR(5) = PORT_PCR_MUX(4);     //PTC5(ALT4), I2S0_RXD0
+                        
+   PORTC_PCR(6) = PORT_PCR_MUX(6);     //PTC6(ALT6), I2S0_MCLK
+   PORTC_PCR(8) = PORT_PCR_MUX(4);     //PTC6(ALT6), I2S0_MCLK
+  
+    //for K64 compatibility
+    PORTC_PCR(9) = PORT_PCR_MUX(1);    
+    GPIOC_PDDR &=~(1<<9);
+                     
+    PORTC_PCR(11) = PORT_PCR_MUX(1);   
+    GPIOC_PDDR &=~(1<<11);
+    
+    PORTD_PCR(7) = PORT_PCR_MUX(1);    
+     GPIOD_PDDR &=~(1<<7);
+     
+     PORTD_PCR(0) = PORT_PCR_MUX(1);    
+      GPIOD_PDDR &=~(1<<0);
+                       
+                      
     InitADC_12Bit();
     //This sets the SAI unit for 32MHz, 256x oversampling on the ADC/ Dacs
     InitAudioIO(50000000, 24000, 256);
-    PORTC_PCR(0) = PORT_PCR_MUX(1);
-    PORTC_PCR(4) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;
-    PORTC_PCR(9) = PORT_PCR_MUX(1);
     
+
+        
     IO_DELTA_IS_INPUT;
     
 }
