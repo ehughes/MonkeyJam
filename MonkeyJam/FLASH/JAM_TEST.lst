@@ -25,15 +25,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  10 .debug_aranges 00000980  00000000  00000000  00024015  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macinfo 00243b28  00000000  00000000  00024995  2**0
+ 11 .debug_macinfo 00243b47  00000000  00000000  00024995  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   0000567c  00000000  00000000  002684bd  2**0
+ 12 .debug_line   0000569c  00000000  00000000  002684dc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    00002283  00000000  00000000  0026db39  2**0
+ 13 .debug_str    00002282  00000000  00000000  0026db78  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .comment      00000079  00000000  00000000  0026fdbc  2**0
+ 14 .comment      00000079  00000000  00000000  0026fdfa  2**0
                   CONTENTS, READONLY
- 15 .debug_frame  000014b0  00000000  00000000  0026fe38  2**2
+ 15 .debug_frame  000014b0  00000000  00000000  0026fe74  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -4676,7 +4676,6 @@ void AudioProcess()
     37c2:	f24e 1360 	movw	r3, #57696	; 0xe160
     37c6:	f6c1 73ff 	movt	r3, #8191	; 0x1fff
     37ca:	601a      	str	r2, [r3, #0]
-                          
                 break;
     37cc:	e13c      	b.n	3a48 <AudioProcess+0x404>
 
@@ -5233,7 +5232,7 @@ uint32_t InitAudioIO( uint32_t    BusClockIn,
     3cba:	f04f 0200 	mov.w	r2, #0
     3cbe:	f04f 0300 	mov.w	r3, #0
     3cc2:	f001 faf5 	bl	52b0 <sai_frameclk_config>
-        0,                  //Frame Sync One bit Early. //  This makes it I2S compatible
+        
         0,                  //high active frame sync polarity
         1                   //Master mode generates frame sync
     );
@@ -8943,16 +8942,14 @@ int main(void)
     5a56:	f7fd fdd3 	bl	3600 <InitAudioProcess>
     EnableInterrupts;
     5a5a:	b662      	cpsie	i
-    //audio processing
-    
     //Switch into the desired Patch
    
    // ChangePatch(PATCH_PASS_THROUGH);
-   ChangePatch(PATCH_OVERDRIVE);
-    5a5c:	f04f 0003 	mov.w	r0, #3
-    5a60:	f7fd fdbc 	bl	35dc <ChangePatch>
+   //ChangePatch(PATCH_OVERDRIVE);
     //ChangePatch(PATCH_TUBEY_CLEAN);
- //   ChangePatch(PATCH_OD_DEMO_SINE_TEST);
+    ChangePatch(PATCH_OD_DEMO_SINE_TEST);
+    5a5c:	f04f 0007 	mov.w	r0, #7
+    5a60:	f7fd fdbc 	bl	35dc <ChangePatch>
     for(;;)
         {
             //In the main loop we will  read in the potentiometer values and update the processing routine
@@ -9157,7 +9154,6 @@ int main(void)
     5c50:	e017      	b.n	5c82 <main+0x25a>
                         
                     case PATCH_OD_DEMO_SINE_TEST:     
-                    	
                     	
                     	 SetPotLimits(POT_ALPHA,0,0x7fffffff);
     5c52:	f04f 0000 	mov.w	r0, #0

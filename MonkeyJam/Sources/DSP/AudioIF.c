@@ -4,8 +4,7 @@
 #include "derivative.h"
 #include "../drivers/sai/sai.h"
 #include "../cpu/arm_cm4.h"
-
-//#include "Audio_IF.h"
+#include "../config.h"
 
 uint32_t    AudioMasterClock;
 uint32_t    AudioSampleRate;
@@ -102,7 +101,13 @@ uint32_t InitAudioIO( uint32_t    BusClockIn,
     (
         0,                  //Port 0
         1,                  //Tx
+      
+#ifdef DAC_WM8762
         0,                  //Frame Sync One bit Early. //  This makes it I2S compatible
+#else
+        1
+#endif
+        
         0,                  //high active frame sync polarity
         1                   //Master mode generates frame sync
     );

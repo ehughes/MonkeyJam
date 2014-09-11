@@ -100,9 +100,9 @@ int main(void)
     //Switch into the desired Patch
    
    // ChangePatch(PATCH_PASS_THROUGH);
-   ChangePatch(PATCH_OVERDRIVE);
+   //ChangePatch(PATCH_OVERDRIVE);
     //ChangePatch(PATCH_TUBEY_CLEAN);
- //   ChangePatch(PATCH_OD_DEMO_SINE_TEST);
+    ChangePatch(PATCH_OD_DEMO_SINE_TEST);
     for(;;)
         {
             //In the main loop we will  read in the potentiometer values and update the processing routine
@@ -188,7 +188,6 @@ int main(void)
                         break;
                         
                     case PATCH_OD_DEMO_SINE_TEST:     
-                    	
                     	
                     	 SetPotLimits(POT_ALPHA,0,0x7fffffff);
                     	 OD_Level = ReadPOT(POT_ALPHA);

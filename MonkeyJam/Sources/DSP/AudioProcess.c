@@ -139,7 +139,6 @@ void AudioProcess()
                        Signal = SoftOverdrive(Signal, OD_Level);
                           
                         RightOut = LeftOut =  Signal;         
-                          
                 break;
 
 

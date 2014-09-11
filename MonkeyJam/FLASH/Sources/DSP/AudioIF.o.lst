@@ -36,18 +36,17 @@
    4:../Sources/DSP/AudioIF.c **** #include "derivative.h"
    5:../Sources/DSP/AudioIF.c **** #include "../drivers/sai/sai.h"
    6:../Sources/DSP/AudioIF.c **** #include "../cpu/arm_cm4.h"
-   7:../Sources/DSP/AudioIF.c **** 
-   8:../Sources/DSP/AudioIF.c **** //#include "Audio_IF.h"
-   9:../Sources/DSP/AudioIF.c **** 
-  10:../Sources/DSP/AudioIF.c **** uint32_t    AudioMasterClock;
-  11:../Sources/DSP/AudioIF.c **** uint32_t    AudioSampleRate;
-  12:../Sources/DSP/AudioIF.c **** 
-  13:../Sources/DSP/AudioIF.c **** uint32_t InitAudioIO( uint32_t    BusClockIn,
-  14:../Sources/DSP/AudioIF.c ****                       uint32_t    SampleRate,
-  15:../Sources/DSP/AudioIF.c ****                       uint32_t    MCLK_Ratio)
-  16:../Sources/DSP/AudioIF.c **** 
-  17:../Sources/DSP/AudioIF.c **** {
-  34              		.loc 1 17 0
+   7:../Sources/DSP/AudioIF.c **** #include "../config.h"
+   8:../Sources/DSP/AudioIF.c **** 
+   9:../Sources/DSP/AudioIF.c **** uint32_t    AudioMasterClock;
+  10:../Sources/DSP/AudioIF.c **** uint32_t    AudioSampleRate;
+  11:../Sources/DSP/AudioIF.c **** 
+  12:../Sources/DSP/AudioIF.c **** uint32_t InitAudioIO( uint32_t    BusClockIn,
+  13:../Sources/DSP/AudioIF.c ****                       uint32_t    SampleRate,
+  14:../Sources/DSP/AudioIF.c ****                       uint32_t    MCLK_Ratio)
+  15:../Sources/DSP/AudioIF.c **** 
+  16:../Sources/DSP/AudioIF.c **** {
+  34              		.loc 1 16 0
   35              		.cfi_startproc
   36              		@ args = 0, pretend = 0, frame = 32
   37              		@ frame_needed = 1, uses_anonymous_args = 0
@@ -67,11 +66,11 @@
   51 0006 F860     		str	r0, [r7, #12]
   52 0008 B960     		str	r1, [r7, #8]
   53 000a 7A60     		str	r2, [r7, #4]
-  18:../Sources/DSP/AudioIF.c ****     float       TargetDivider;
-  19:../Sources/DSP/AudioIF.c ****     uint32_t    Frac;
-  20:../Sources/DSP/AudioIF.c ****     uint32_t    Div;
-  21:../Sources/DSP/AudioIF.c ****     SIM_SCGC6 |= SIM_SCGC6_I2S_MASK;    //Enable CLock to I2S Module
-  54              		.loc 1 21 0
+  17:../Sources/DSP/AudioIF.c ****     float       TargetDivider;
+  18:../Sources/DSP/AudioIF.c ****     uint32_t    Frac;
+  19:../Sources/DSP/AudioIF.c ****     uint32_t    Div;
+  20:../Sources/DSP/AudioIF.c ****     SIM_SCGC6 |= SIM_SCGC6_I2S_MASK;    //Enable CLock to I2S Module
+  54              		.loc 1 20 0
   55 000c 4FF4E043 		mov	r3, #28672
   56 0010 C4F20403 		movt	r3, 16388
   57 0014 4FF4E042 		mov	r2, #28672
@@ -83,23 +82,23 @@
   63 002a 03F58153 		add	r3, r3, #4128
   64 002e 03F11C03 		add	r3, r3, #28
   65 0032 1A60     		str	r2, [r3, #0]
-  22:../Sources/DSP/AudioIF.c ****     //blow away all the registers;
-  23:../Sources/DSP/AudioIF.c ****     sai_clear_reg(0);
-  66              		.loc 1 23 0
+  21:../Sources/DSP/AudioIF.c ****     //blow away all the registers;
+  22:../Sources/DSP/AudioIF.c ****     sai_clear_reg(0);
+  66              		.loc 1 22 0
   67 0034 4FF00000 		mov	r0, #0
   68 0038 FFF7FEFF 		bl	sai_clear_reg
-  24:../Sources/DSP/AudioIF.c ****     //Setup the Master Clock
-  25:../Sources/DSP/AudioIF.c ****     AudioMasterClock = SampleRate *     //input Sample Rate
-  69              		.loc 1 25 0
+  23:../Sources/DSP/AudioIF.c ****     //Setup the Master Clock
+  24:../Sources/DSP/AudioIF.c ****     AudioMasterClock = SampleRate *     //input Sample Rate
+  69              		.loc 1 24 0
   70 003c BB68     		ldr	r3, [r7, #8]
   71 003e 7A68     		ldr	r2, [r7, #4]
   72 0040 02FB03F2 		mul	r2, r2, r3
   73 0044 40F20003 		movw	r3, #:lower16:AudioMasterClock
   74 0048 C0F20003 		movt	r3, #:upper16:AudioMasterClock
   75 004c 1A60     		str	r2, [r3, #0]
-  26:../Sources/DSP/AudioIF.c ****                        MCLK_Ratio; // Overclock Ration
-  27:../Sources/DSP/AudioIF.c ****     TargetDivider = (float)AudioMasterClock / (float)BusClockIn;
-  76              		.loc 1 27 0
+  25:../Sources/DSP/AudioIF.c ****                        MCLK_Ratio; // Overclock Ration
+  26:../Sources/DSP/AudioIF.c ****     TargetDivider = (float)AudioMasterClock / (float)BusClockIn;
+  76              		.loc 1 26 0
   77 004e 40F20003 		movw	r3, #:lower16:AudioMasterClock
   78 0052 C0F20003 		movt	r3, #:upper16:AudioMasterClock
   79 0056 1B68     		ldr	r3, [r3, #0]
@@ -114,22 +113,22 @@
   88 006c FFF7FEFF 		bl	__aeabi_fdiv
   89 0070 0346     		mov	r3, r0
   90 0072 BB61     		str	r3, [r7, #24]	@ float
-  28:../Sources/DSP/AudioIF.c ****     //Iterate through all possibilities of the DIv/Frac to narrow in on a good diver
-  29:../Sources/DSP/AudioIF.c ****     Div = 8192; //1st operation is a halving which will put us at the maximum divider value
-  91              		.loc 1 29 0
+  27:../Sources/DSP/AudioIF.c ****     //Iterate through all possibilities of the DIv/Frac to narrow in on a good diver
+  28:../Sources/DSP/AudioIF.c ****     Div = 8192; //1st operation is a halving which will put us at the maximum divider value
+  91              		.loc 1 28 0
   92 0074 4FF40053 		mov	r3, #8192
   93 0078 FB61     		str	r3, [r7, #28]
   94              	.L2:
-  30:../Sources/DSP/AudioIF.c **** 
-  31:../Sources/DSP/AudioIF.c ****     do
-  32:../Sources/DSP/AudioIF.c ****         {
-  33:../Sources/DSP/AudioIF.c ****             Div >>= 1;
-  95              		.loc 1 33 0
+  29:../Sources/DSP/AudioIF.c **** 
+  30:../Sources/DSP/AudioIF.c ****     do
+  31:../Sources/DSP/AudioIF.c ****         {
+  32:../Sources/DSP/AudioIF.c ****             Div >>= 1;
+  95              		.loc 1 32 0
   96 007a FB69     		ldr	r3, [r7, #28]
   97 007c 4FEA5303 		lsr	r3, r3, #1
   98 0080 FB61     		str	r3, [r7, #28]
-  34:../Sources/DSP/AudioIF.c ****             Frac = (uint32_t) ((float)Div * TargetDivider);
-  99              		.loc 1 34 0
+  33:../Sources/DSP/AudioIF.c ****             Frac = (uint32_t) ((float)Div * TargetDivider);
+  99              		.loc 1 33 0
  100 0082 F869     		ldr	r0, [r7, #28]
  101 0084 FFF7FEFF 		bl	__aeabi_ui2f
  102 0088 0346     		mov	r3, r0
@@ -141,16 +140,16 @@
  108 0096 FFF7FEFF 		bl	__aeabi_f2uiz
  109 009a 0346     		mov	r3, r0
  110 009c 7B61     		str	r3, [r7, #20]
-  35:../Sources/DSP/AudioIF.c ****         }
-  36:../Sources/DSP/AudioIF.c ****     while(Frac > 256);
- 111              		.loc 1 36 0
+  34:../Sources/DSP/AudioIF.c ****         }
+  35:../Sources/DSP/AudioIF.c ****     while(Frac > 256);
+ 111              		.loc 1 35 0
  112 009e 7B69     		ldr	r3, [r7, #20]
  113 00a0 B3F5807F 		cmp	r3, #256
  114 00a4 E9D8     		bhi	.L2
-  37:../Sources/DSP/AudioIF.c **** 
-  38:../Sources/DSP/AudioIF.c ****     //Re compute based upon actual Values
-  39:../Sources/DSP/AudioIF.c ****     AudioMasterClock = (uint32_t) ((float)BusClockIn * (((float)Frac + 1) / ((float)Div + 1)));
- 115              		.loc 1 39 0
+  36:../Sources/DSP/AudioIF.c **** 
+  37:../Sources/DSP/AudioIF.c ****     //Re compute based upon actual Values
+  38:../Sources/DSP/AudioIF.c ****     AudioMasterClock = (uint32_t) ((float)BusClockIn * (((float)Frac + 1) / ((float)Div + 1)));
+ 115              		.loc 1 38 0
  116 00a6 F868     		ldr	r0, [r7, #12]
  117 00a8 FFF7FEFF 		bl	__aeabi_ui2f
  118 00ac 0446     		mov	r4, r0
@@ -183,8 +182,8 @@
  145 00f4 40F20003 		movw	r3, #:lower16:AudioMasterClock
  146 00f8 C0F20003 		movt	r3, #:upper16:AudioMasterClock
  147 00fc 1A60     		str	r2, [r3, #0]
-  40:../Sources/DSP/AudioIF.c ****     SampleRate = (uint32_t) ((float)AudioMasterClock / (float)MCLK_Ratio);
- 148              		.loc 1 40 0
+  39:../Sources/DSP/AudioIF.c ****     SampleRate = (uint32_t) ((float)AudioMasterClock / (float)MCLK_Ratio);
+ 148              		.loc 1 39 0
  149 00fe 40F20003 		movw	r3, #:lower16:AudioMasterClock
  150 0102 C0F20003 		movt	r3, #:upper16:AudioMasterClock
  151 0106 1B68     		ldr	r3, [r3, #0]
@@ -202,8 +201,8 @@
  163 0124 FFF7FEFF 		bl	__aeabi_f2uiz
  164 0128 0346     		mov	r3, r0
  165 012a BB60     		str	r3, [r7, #8]
-  41:../Sources/DSP/AudioIF.c ****     sai_mclk_config(0, 0, 1, Frac - 1, Div - 1);
- 166              		.loc 1 41 0
+  40:../Sources/DSP/AudioIF.c ****     sai_mclk_config(0, 0, 1, Frac - 1, Div - 1);
+ 166              		.loc 1 40 0
  167 012c 7B69     		ldr	r3, [r7, #20]
  168 012e DBB2     		uxtb	r3, r3
  169 0130 03F1FF33 		add	r3, r3, #-1
@@ -215,9 +214,9 @@
  175 0142 4FF00001 		mov	r1, #0
  176 0146 4FF00102 		mov	r2, #1
  177 014a FFF7FEFF 		bl	sai_mclk_config
-  42:../Sources/DSP/AudioIF.c ****     //Set of the BitClock.  There always needs to be 64 bclocks per sample
-  43:../Sources/DSP/AudioIF.c ****     Div = AudioMasterClock / (SampleRate * 64);
- 178              		.loc 1 43 0
+  41:../Sources/DSP/AudioIF.c ****     //Set of the BitClock.  There always needs to be 64 bclocks per sample
+  42:../Sources/DSP/AudioIF.c ****     Div = AudioMasterClock / (SampleRate * 64);
+ 178              		.loc 1 42 0
  179 014e 40F20003 		movw	r3, #:lower16:AudioMasterClock
  180 0152 C0F20003 		movt	r3, #:upper16:AudioMasterClock
  181 0156 1A68     		ldr	r2, [r3, #0]
@@ -225,19 +224,19 @@
  183 015a 4FEA8313 		lsl	r3, r3, #6
  184 015e B2FBF3F3 		udiv	r3, r2, r3
  185 0162 FB61     		str	r3, [r7, #28]
-  44:../Sources/DSP/AudioIF.c ****     sai_bclk_config
-  45:../Sources/DSP/AudioIF.c ****     (
-  46:../Sources/DSP/AudioIF.c ****         0,      //Port 0
-  47:../Sources/DSP/AudioIF.c ****         1,      //Tx
-  48:../Sources/DSP/AudioIF.c ****         1,      //Set as MAster Clock
-  49:../Sources/DSP/AudioIF.c ****         1,      //Active High Polarity
-  50:../Sources/DSP/AudioIF.c ****         1,      //Direction is out
-  51:../Sources/DSP/AudioIF.c ****         Div / 2 - 1
- 186              		.loc 1 51 0
+  43:../Sources/DSP/AudioIF.c ****     sai_bclk_config
+  44:../Sources/DSP/AudioIF.c ****     (
+  45:../Sources/DSP/AudioIF.c ****         0,      //Port 0
+  46:../Sources/DSP/AudioIF.c ****         1,      //Tx
+  47:../Sources/DSP/AudioIF.c ****         1,      //Set as MAster Clock
+  48:../Sources/DSP/AudioIF.c ****         1,      //Active High Polarity
+  49:../Sources/DSP/AudioIF.c ****         1,      //Direction is out
+  50:../Sources/DSP/AudioIF.c ****         Div / 2 - 1
+ 186              		.loc 1 50 0
  187 0164 FB69     		ldr	r3, [r7, #28]
  188 0166 4FEA5303 		lsr	r3, r3, #1
-  45:../Sources/DSP/AudioIF.c ****     (
- 189              		.loc 1 45 0
+  44:../Sources/DSP/AudioIF.c ****     (
+ 189              		.loc 1 44 0
  190 016a DBB2     		uxtb	r3, r3
  191 016c 03F1FF33 		add	r3, r3, #-1
  192 0170 DBB2     		uxtb	r3, r3
@@ -249,20 +248,20 @@
  198 0182 4FF00102 		mov	r2, #1
  199 0186 4FF00103 		mov	r3, #1
  200 018a FFF7FEFF 		bl	sai_bclk_config
-  52:../Sources/DSP/AudioIF.c ****     );          //Set the Div value for the BIt CLock
-  53:../Sources/DSP/AudioIF.c ****     sai_bclk_config
-  54:../Sources/DSP/AudioIF.c ****     (
-  55:../Sources/DSP/AudioIF.c ****         0,      //Port 0
-  56:../Sources/DSP/AudioIF.c ****         0,      //Rx
-  57:../Sources/DSP/AudioIF.c ****         1,      //Set as MAster Clock
-  58:../Sources/DSP/AudioIF.c ****         1,      //Active High Polarity
-  59:../Sources/DSP/AudioIF.c ****         1,      //Direction is out
-  60:../Sources/DSP/AudioIF.c ****         Div / 2 - 1
- 201              		.loc 1 60 0
+  51:../Sources/DSP/AudioIF.c ****     );          //Set the Div value for the BIt CLock
+  52:../Sources/DSP/AudioIF.c ****     sai_bclk_config
+  53:../Sources/DSP/AudioIF.c ****     (
+  54:../Sources/DSP/AudioIF.c ****         0,      //Port 0
+  55:../Sources/DSP/AudioIF.c ****         0,      //Rx
+  56:../Sources/DSP/AudioIF.c ****         1,      //Set as MAster Clock
+  57:../Sources/DSP/AudioIF.c ****         1,      //Active High Polarity
+  58:../Sources/DSP/AudioIF.c ****         1,      //Direction is out
+  59:../Sources/DSP/AudioIF.c ****         Div / 2 - 1
+ 201              		.loc 1 59 0
  202 018e FB69     		ldr	r3, [r7, #28]
  203 0190 4FEA5303 		lsr	r3, r3, #1
-  54:../Sources/DSP/AudioIF.c ****     (
- 204              		.loc 1 54 0
+  53:../Sources/DSP/AudioIF.c ****     (
+ 204              		.loc 1 53 0
  205 0194 DBB2     		uxtb	r3, r3
  206 0196 03F1FF33 		add	r3, r3, #-1
  207 019a DBB2     		uxtb	r3, r3
@@ -274,23 +273,23 @@
  213 01ac 4FF00102 		mov	r2, #1
  214 01b0 4FF00103 		mov	r3, #1
  215 01b4 FFF7FEFF 		bl	sai_bclk_config
-  61:../Sources/DSP/AudioIF.c ****     );          //Set the Div value for the BIt CLock
-  62:../Sources/DSP/AudioIF.c ****     sai_bclk_en(0, //Port
- 216              		.loc 1 62 0
+  60:../Sources/DSP/AudioIF.c ****     );          //Set the Div value for the BIt CLock
+  61:../Sources/DSP/AudioIF.c ****     sai_bclk_en(0, //Port
+ 216              		.loc 1 61 0
  217 01b8 4FF00000 		mov	r0, #0
  218 01bc 4FF00101 		mov	r1, #1
  219 01c0 FFF7FEFF 		bl	sai_bclk_en
-  63:../Sources/DSP/AudioIF.c ****                 1 //Tx
-  64:../Sources/DSP/AudioIF.c ****                );
-  65:../Sources/DSP/AudioIF.c ****     sai_bclk_en(0, //Port
- 220              		.loc 1 65 0
+  62:../Sources/DSP/AudioIF.c ****                 1 //Tx
+  63:../Sources/DSP/AudioIF.c ****                );
+  64:../Sources/DSP/AudioIF.c ****     sai_bclk_en(0, //Port
+ 220              		.loc 1 64 0
  221 01c4 4FF00000 		mov	r0, #0
  222 01c8 4FF00001 		mov	r1, #0
  223 01cc FFF7FEFF 		bl	sai_bclk_en
-  66:../Sources/DSP/AudioIF.c ****                 0 //Rx
-  67:../Sources/DSP/AudioIF.c ****                );
-  68:../Sources/DSP/AudioIF.c ****     sai_mode_config(0, //Port 0
- 224              		.loc 1 68 0
+  65:../Sources/DSP/AudioIF.c ****                 0 //Rx
+  66:../Sources/DSP/AudioIF.c ****                );
+  67:../Sources/DSP/AudioIF.c ****     sai_mode_config(0, //Port 0
+ 224              		.loc 1 67 0
  225 01d0 4FF00003 		mov	r3, #0
  226 01d4 0093     		str	r3, [sp, #0]
  227 01d6 4FF00000 		mov	r0, #0
@@ -298,12 +297,12 @@
  229 01de 4FF00002 		mov	r2, #0
  230 01e2 4FF00003 		mov	r3, #0
  231 01e6 FFF7FEFF 		bl	sai_mode_config
-  69:../Sources/DSP/AudioIF.c ****                     1, //Tx
-  70:../Sources/DSP/AudioIF.c ****                     0,
-  71:../Sources/DSP/AudioIF.c ****                     0, //Not Bit Swap
-  72:../Sources/DSP/AudioIF.c ****                     0);  //No BCI
-  73:../Sources/DSP/AudioIF.c ****     sai_mode_config(0, //Port 0
- 232              		.loc 1 73 0
+  68:../Sources/DSP/AudioIF.c ****                     1, //Tx
+  69:../Sources/DSP/AudioIF.c ****                     0,
+  70:../Sources/DSP/AudioIF.c ****                     0, //Not Bit Swap
+  71:../Sources/DSP/AudioIF.c ****                     0);  //No BCI
+  72:../Sources/DSP/AudioIF.c ****     sai_mode_config(0, //Port 0
+ 232              		.loc 1 72 0
  233 01ea 4FF00003 		mov	r3, #0
  234 01ee 0093     		str	r3, [sp, #0]
  235 01f0 4FF00000 		mov	r0, #0
@@ -311,30 +310,30 @@
  237 01f8 4FF00102 		mov	r2, #1
  238 01fc 4FF00003 		mov	r3, #0
  239 0200 FFF7FEFF 		bl	sai_mode_config
-  74:../Sources/DSP/AudioIF.c ****                     0, //Rx
-  75:../Sources/DSP/AudioIF.c ****                     1,
-  76:../Sources/DSP/AudioIF.c ****                     0, //Not Bit Swap
-  77:../Sources/DSP/AudioIF.c ****                     0);  //No BCI
-  78:../Sources/DSP/AudioIF.c ****     sai_word_flg_config(0, //port
- 240              		.loc 1 78 0
+  73:../Sources/DSP/AudioIF.c ****                     0, //Rx
+  74:../Sources/DSP/AudioIF.c ****                     1,
+  75:../Sources/DSP/AudioIF.c ****                     0, //Not Bit Swap
+  76:../Sources/DSP/AudioIF.c ****                     0);  //No BCI
+  77:../Sources/DSP/AudioIF.c ****     sai_word_flg_config(0, //port
+ 240              		.loc 1 77 0
  241 0204 4FF00000 		mov	r0, #0
  242 0208 4FF00101 		mov	r1, #1
  243 020c 4FF00002 		mov	r2, #0
  244 0210 FFF7FEFF 		bl	sai_word_flg_config
-  79:../Sources/DSP/AudioIF.c ****                         1, //tx
-  80:../Sources/DSP/AudioIF.c ****                         0 //first word starts word flag
-  81:../Sources/DSP/AudioIF.c ****                        );
-  82:../Sources/DSP/AudioIF.c ****     sai_word_flg_config(0, //port
- 245              		.loc 1 82 0
+  78:../Sources/DSP/AudioIF.c ****                         1, //tx
+  79:../Sources/DSP/AudioIF.c ****                         0 //first word starts word flag
+  80:../Sources/DSP/AudioIF.c ****                        );
+  81:../Sources/DSP/AudioIF.c ****     sai_word_flg_config(0, //port
+ 245              		.loc 1 81 0
  246 0214 4FF00000 		mov	r0, #0
  247 0218 4FF00001 		mov	r1, #0
  248 021c 4FF00002 		mov	r2, #0
  249 0220 FFF7FEFF 		bl	sai_word_flg_config
-  83:../Sources/DSP/AudioIF.c ****                         0, //rx
-  84:../Sources/DSP/AudioIF.c ****                         0 //first word starts word flag
-  85:../Sources/DSP/AudioIF.c ****                        );
-  86:../Sources/DSP/AudioIF.c ****     sai_frame_config(
- 250              		.loc 1 86 0
+  82:../Sources/DSP/AudioIF.c ****                         0, //rx
+  83:../Sources/DSP/AudioIF.c ****                         0 //first word starts word flag
+  84:../Sources/DSP/AudioIF.c ****                        );
+  85:../Sources/DSP/AudioIF.c ****     sai_frame_config(
+ 250              		.loc 1 85 0
  251 0224 4FF00103 		mov	r3, #1
  252 0228 0093     		str	r3, [sp, #0]
  253 022a 4FF00000 		mov	r0, #0
@@ -342,15 +341,15 @@
  255 0232 4FF00102 		mov	r2, #1
  256 0236 4FF03F03 		mov	r3, #63
  257 023a FFF7FEFF 		bl	sai_frame_config
-  87:../Sources/DSP/AudioIF.c ****         0,                  //Port
-  88:../Sources/DSP/AudioIF.c ****         1,                  //tx
-  89:../Sources/DSP/AudioIF.c ****         1,                  //Frame is 2 words - write one less than actual number
-  90:../Sources/DSP/AudioIF.c ****         63,                 //one less than the number of BClks per frame.  32 bclocks for each wor
-  91:../Sources/DSP/AudioIF.c ****         1                   //MSB First
-  92:../Sources/DSP/AudioIF.c ****     );
-  93:../Sources/DSP/AudioIF.c ****     sai_frame_config
-  94:../Sources/DSP/AudioIF.c ****     (
- 258              		.loc 1 94 0
+  86:../Sources/DSP/AudioIF.c ****         0,                  //Port
+  87:../Sources/DSP/AudioIF.c ****         1,                  //tx
+  88:../Sources/DSP/AudioIF.c ****         1,                  //Frame is 2 words - write one less than actual number
+  89:../Sources/DSP/AudioIF.c ****         63,                 //one less than the number of BClks per frame.  32 bclocks for each wor
+  90:../Sources/DSP/AudioIF.c ****         1                   //MSB First
+  91:../Sources/DSP/AudioIF.c ****     );
+  92:../Sources/DSP/AudioIF.c ****     sai_frame_config
+  93:../Sources/DSP/AudioIF.c ****     (
+ 258              		.loc 1 93 0
  259 023e 4FF00103 		mov	r3, #1
  260 0242 0093     		str	r3, [sp, #0]
  261 0244 4FF00000 		mov	r0, #0
@@ -358,15 +357,15 @@
  263 024c 4FF00102 		mov	r2, #1
  264 0250 4FF03F03 		mov	r3, #63
  265 0254 FFF7FEFF 		bl	sai_frame_config
-  95:../Sources/DSP/AudioIF.c ****         0,                  //Port
-  96:../Sources/DSP/AudioIF.c ****         0,                  //Rx
-  97:../Sources/DSP/AudioIF.c ****         1,                  //Frame is 2 words
-  98:../Sources/DSP/AudioIF.c ****         63,                 //one less than the number of BClks per frame.  32 bclocks for each wor
-  99:../Sources/DSP/AudioIF.c ****         1                   //MSB First
- 100:../Sources/DSP/AudioIF.c ****     );
- 101:../Sources/DSP/AudioIF.c ****     sai_frameclk_config
- 102:../Sources/DSP/AudioIF.c ****     (
- 266              		.loc 1 102 0
+  94:../Sources/DSP/AudioIF.c ****         0,                  //Port
+  95:../Sources/DSP/AudioIF.c ****         0,                  //Rx
+  96:../Sources/DSP/AudioIF.c ****         1,                  //Frame is 2 words
+  97:../Sources/DSP/AudioIF.c ****         63,                 //one less than the number of BClks per frame.  32 bclocks for each wor
+  98:../Sources/DSP/AudioIF.c ****         1                   //MSB First
+  99:../Sources/DSP/AudioIF.c ****     );
+ 100:../Sources/DSP/AudioIF.c ****     sai_frameclk_config
+ 101:../Sources/DSP/AudioIF.c ****     (
+ 266              		.loc 1 101 0
  267 0258 4FF00103 		mov	r3, #1
  268 025c 0093     		str	r3, [sp, #0]
  269 025e 4FF00000 		mov	r0, #0
@@ -374,15 +373,21 @@
  271 0266 4FF00002 		mov	r2, #0
  272 026a 4FF00003 		mov	r3, #0
  273 026e FFF7FEFF 		bl	sai_frameclk_config
- 103:../Sources/DSP/AudioIF.c ****         0,                  //Port 0
- 104:../Sources/DSP/AudioIF.c ****         1,                  //Tx
- 105:../Sources/DSP/AudioIF.c ****         0,                  //Frame Sync One bit Early. //  This makes it I2S compatible
- 106:../Sources/DSP/AudioIF.c ****         0,                  //high active frame sync polarity
- 107:../Sources/DSP/AudioIF.c ****         1                   //Master mode generates frame sync
- 108:../Sources/DSP/AudioIF.c ****     );
- 109:../Sources/DSP/AudioIF.c ****     sai_frameclk_config
- 110:../Sources/DSP/AudioIF.c ****     (
- 274              		.loc 1 110 0
+ 102:../Sources/DSP/AudioIF.c ****         0,                  //Port 0
+ 103:../Sources/DSP/AudioIF.c ****         1,                  //Tx
+ 104:../Sources/DSP/AudioIF.c ****       
+ 105:../Sources/DSP/AudioIF.c **** #ifdef DAC_WM8762
+ 106:../Sources/DSP/AudioIF.c ****         0,                  //Frame Sync One bit Early. //  This makes it I2S compatible
+ 107:../Sources/DSP/AudioIF.c **** #else
+ 108:../Sources/DSP/AudioIF.c ****         1
+ 109:../Sources/DSP/AudioIF.c **** #endif
+ 110:../Sources/DSP/AudioIF.c ****         
+ 111:../Sources/DSP/AudioIF.c ****         0,                  //high active frame sync polarity
+ 112:../Sources/DSP/AudioIF.c ****         1                   //Master mode generates frame sync
+ 113:../Sources/DSP/AudioIF.c ****     );
+ 114:../Sources/DSP/AudioIF.c ****     sai_frameclk_config
+ 115:../Sources/DSP/AudioIF.c ****     (
+ 274              		.loc 1 115 0
  275 0272 4FF00103 		mov	r3, #1
  276 0276 0093     		str	r3, [sp, #0]
  277 0278 4FF00000 		mov	r0, #0
@@ -390,14 +395,14 @@
  279 0280 4FF00102 		mov	r2, #1
  280 0284 4FF00003 		mov	r3, #0
  281 0288 FFF7FEFF 		bl	sai_frameclk_config
- 111:../Sources/DSP/AudioIF.c ****         0,                  //Port 0
- 112:../Sources/DSP/AudioIF.c ****         0,                  //Rx
- 113:../Sources/DSP/AudioIF.c ****         1,                  //Frame Sync One bit Early.   This makes it I2S compatible
- 114:../Sources/DSP/AudioIF.c ****         0,                  //high active frame sync polarity
- 115:../Sources/DSP/AudioIF.c ****         1                   //Master mode generates frame sync
- 116:../Sources/DSP/AudioIF.c ****     );
- 117:../Sources/DSP/AudioIF.c ****     sai_wordlength_config(0, //Port
- 282              		.loc 1 117 0
+ 116:../Sources/DSP/AudioIF.c ****         0,                  //Port 0
+ 117:../Sources/DSP/AudioIF.c ****         0,                  //Rx
+ 118:../Sources/DSP/AudioIF.c ****         1,                  //Frame Sync One bit Early.   This makes it I2S compatible
+ 119:../Sources/DSP/AudioIF.c ****         0,                  //high active frame sync polarity
+ 120:../Sources/DSP/AudioIF.c ****         1                   //Master mode generates frame sync
+ 121:../Sources/DSP/AudioIF.c ****     );
+ 122:../Sources/DSP/AudioIF.c ****     sai_wordlength_config(0, //Port
+ 282              		.loc 1 122 0
  283 028c 4FF01703 		mov	r3, #23
  284 0290 0093     		str	r3, [sp, #0]
  285 0292 4FF00000 		mov	r0, #0
@@ -405,13 +410,13 @@
  287 029a 4FF01F02 		mov	r2, #31
  288 029e 4FF01F03 		mov	r3, #31
  289 02a2 FFF7FEFF 		bl	sai_wordlength_config
- 118:../Sources/DSP/AudioIF.c ****                           1, //Tx
- 119:../Sources/DSP/AudioIF.c ****                           31, //32 bits per word N
- 120:../Sources/DSP/AudioIF.c ****                           31, //32 bits per word N
- 121:../Sources/DSP/AudioIF.c ****                           23 // first bit to shift
- 122:../Sources/DSP/AudioIF.c ****                          );
- 123:../Sources/DSP/AudioIF.c ****     sai_wordlength_config(0, //Port
- 290              		.loc 1 123 0
+ 123:../Sources/DSP/AudioIF.c ****                           1, //Tx
+ 124:../Sources/DSP/AudioIF.c ****                           31, //32 bits per word N
+ 125:../Sources/DSP/AudioIF.c ****                           31, //32 bits per word N
+ 126:../Sources/DSP/AudioIF.c ****                           23 // first bit to shift
+ 127:../Sources/DSP/AudioIF.c ****                          );
+ 128:../Sources/DSP/AudioIF.c ****     sai_wordlength_config(0, //Port
+ 290              		.loc 1 128 0
  291 02a6 4FF01703 		mov	r3, #23
  292 02aa 0093     		str	r3, [sp, #0]
  293 02ac 4FF00000 		mov	r0, #0
@@ -419,136 +424,136 @@
  295 02b4 4FF01F02 		mov	r2, #31
  296 02b8 4FF01F03 		mov	r3, #31
  297 02bc FFF7FEFF 		bl	sai_wordlength_config
- 124:../Sources/DSP/AudioIF.c ****                           0, //Rx
- 125:../Sources/DSP/AudioIF.c ****                           31, //32 bits per word N
- 126:../Sources/DSP/AudioIF.c ****                           31, //32 bits per word N
- 127:../Sources/DSP/AudioIF.c ****                           23 // first bit to shift
- 128:../Sources/DSP/AudioIF.c ****                          );
- 129:../Sources/DSP/AudioIF.c ****     sai_channel_enable(0, //Port 0
- 298              		.loc 1 129 0
+ 129:../Sources/DSP/AudioIF.c ****                           0, //Rx
+ 130:../Sources/DSP/AudioIF.c ****                           31, //32 bits per word N
+ 131:../Sources/DSP/AudioIF.c ****                           31, //32 bits per word N
+ 132:../Sources/DSP/AudioIF.c ****                           23 // first bit to shift
+ 133:../Sources/DSP/AudioIF.c ****                          );
+ 134:../Sources/DSP/AudioIF.c ****     sai_channel_enable(0, //Port 0
+ 298              		.loc 1 134 0
  299 02c0 4FF00000 		mov	r0, #0
  300 02c4 4FF00101 		mov	r1, #1
  301 02c8 4FF00102 		mov	r2, #1
  302 02cc FFF7FEFF 		bl	sai_channel_enable
- 130:../Sources/DSP/AudioIF.c ****                        1, //Tx
- 131:../Sources/DSP/AudioIF.c ****                        1 //Enable both Channel
- 132:../Sources/DSP/AudioIF.c ****                       );
- 133:../Sources/DSP/AudioIF.c ****     sai_channel_enable(0, //Port 0
- 303              		.loc 1 133 0
+ 135:../Sources/DSP/AudioIF.c ****                        1, //Tx
+ 136:../Sources/DSP/AudioIF.c ****                        1 //Enable both Channel
+ 137:../Sources/DSP/AudioIF.c ****                       );
+ 138:../Sources/DSP/AudioIF.c ****     sai_channel_enable(0, //Port 0
+ 303              		.loc 1 138 0
  304 02d0 4FF00000 		mov	r0, #0
  305 02d4 4FF00001 		mov	r1, #0
  306 02d8 4FF00102 		mov	r2, #1
  307 02dc FFF7FEFF 		bl	sai_channel_enable
- 134:../Sources/DSP/AudioIF.c ****                        0, //Rx
- 135:../Sources/DSP/AudioIF.c ****                        1 //Enable both Channel
- 136:../Sources/DSP/AudioIF.c ****                       );
- 137:../Sources/DSP/AudioIF.c ****    // sai_pinmux_init(0, 0);  //Port C
- 138:../Sources/DSP/AudioIF.c ****     sai_stop_dbg_enable(0, 1, 0, 0);    //tx enabled in debug and stop
- 308              		.loc 1 138 0
+ 139:../Sources/DSP/AudioIF.c ****                        0, //Rx
+ 140:../Sources/DSP/AudioIF.c ****                        1 //Enable both Channel
+ 141:../Sources/DSP/AudioIF.c ****                       );
+ 142:../Sources/DSP/AudioIF.c ****    // sai_pinmux_init(0, 0);  //Port C
+ 143:../Sources/DSP/AudioIF.c ****     sai_stop_dbg_enable(0, 1, 0, 0);    //tx enabled in debug and stop
+ 308              		.loc 1 143 0
  309 02e0 4FF00000 		mov	r0, #0
  310 02e4 4FF00101 		mov	r1, #1
  311 02e8 4FF00002 		mov	r2, #0
  312 02ec 4FF00003 		mov	r3, #0
  313 02f0 FFF7FEFF 		bl	sai_stop_dbg_enable
- 139:../Sources/DSP/AudioIF.c ****     sai_stop_dbg_enable(0, 0, 0, 0);    //RX enabled in debug and stop
- 314              		.loc 1 139 0
+ 144:../Sources/DSP/AudioIF.c ****     sai_stop_dbg_enable(0, 0, 0, 0);    //RX enabled in debug and stop
+ 314              		.loc 1 144 0
  315 02f4 4FF00000 		mov	r0, #0
  316 02f8 4FF00001 		mov	r1, #0
  317 02fc 4FF00002 		mov	r2, #0
  318 0300 4FF00003 		mov	r3, #0
  319 0304 FFF7FEFF 		bl	sai_stop_dbg_enable
- 140:../Sources/DSP/AudioIF.c ****     sai_watermark_config(0, //POrt 0
- 320              		.loc 1 140 0
+ 145:../Sources/DSP/AudioIF.c ****     sai_watermark_config(0, //POrt 0
+ 320              		.loc 1 145 0
  321 0308 4FF00000 		mov	r0, #0
  322 030c 4FF00101 		mov	r1, #1
  323 0310 4FF00102 		mov	r2, #1
  324 0314 FFF7FEFF 		bl	sai_watermark_config
- 141:../Sources/DSP/AudioIF.c ****                          1, //Recieve WaterMark
- 142:../Sources/DSP/AudioIF.c ****                          1 //anything greater than 1
- 143:../Sources/DSP/AudioIF.c ****                         );
- 144:../Sources/DSP/AudioIF.c ****     sai_watermark_config(0, //POrt 0
- 325              		.loc 1 144 0
+ 146:../Sources/DSP/AudioIF.c ****                          1, //Recieve WaterMark
+ 147:../Sources/DSP/AudioIF.c ****                          1 //anything greater than 1
+ 148:../Sources/DSP/AudioIF.c ****                         );
+ 149:../Sources/DSP/AudioIF.c ****     sai_watermark_config(0, //POrt 0
+ 325              		.loc 1 149 0
  326 0318 4FF00000 		mov	r0, #0
  327 031c 4FF00001 		mov	r1, #0
  328 0320 4FF00102 		mov	r2, #1
  329 0324 FFF7FEFF 		bl	sai_watermark_config
- 145:../Sources/DSP/AudioIF.c ****                          0, //tx WaterMark
- 146:../Sources/DSP/AudioIF.c ****                          1 //anything less than or equal to
- 147:../Sources/DSP/AudioIF.c ****                         );
- 148:../Sources/DSP/AudioIF.c ****     sai_enable(0, //port
- 330              		.loc 1 148 0
+ 150:../Sources/DSP/AudioIF.c ****                          0, //tx WaterMark
+ 151:../Sources/DSP/AudioIF.c ****                          1 //anything less than or equal to
+ 152:../Sources/DSP/AudioIF.c ****                         );
+ 153:../Sources/DSP/AudioIF.c ****     sai_enable(0, //port
+ 330              		.loc 1 153 0
  331 0328 4FF00000 		mov	r0, #0
  332 032c 4FF00001 		mov	r1, #0
  333 0330 FFF7FEFF 		bl	sai_enable
- 149:../Sources/DSP/AudioIF.c ****                0 //rx
- 150:../Sources/DSP/AudioIF.c ****               );
- 151:../Sources/DSP/AudioIF.c ****     sai_enable(0, //port
- 334              		.loc 1 151 0
+ 154:../Sources/DSP/AudioIF.c ****                0 //rx
+ 155:../Sources/DSP/AudioIF.c ****               );
+ 156:../Sources/DSP/AudioIF.c ****     sai_enable(0, //port
+ 334              		.loc 1 156 0
  335 0334 4FF00000 		mov	r0, #0
  336 0338 4FF00101 		mov	r1, #1
  337 033c FFF7FEFF 		bl	sai_enable
- 152:../Sources/DSP/AudioIF.c ****                1 //tx
- 153:../Sources/DSP/AudioIF.c ****               );
- 154:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
- 338              		.loc 1 154 0
+ 157:../Sources/DSP/AudioIF.c ****                1 //tx
+ 158:../Sources/DSP/AudioIF.c ****               );
+ 159:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
+ 338              		.loc 1 159 0
  339 0340 4FF47043 		mov	r3, #61440
  340 0344 C4F20203 		movt	r3, 16386
  341 0348 4FF00002 		mov	r2, #0
  342 034c 1A62     		str	r2, [r3, #32]
- 155:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
- 343              		.loc 1 155 0
+ 160:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
+ 343              		.loc 1 160 0
  344 034e 4FF47043 		mov	r3, #61440
  345 0352 C4F20203 		movt	r3, 16386
  346 0356 4FF00002 		mov	r2, #0
  347 035a 1A62     		str	r2, [r3, #32]
- 156:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
- 348              		.loc 1 156 0
+ 161:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
+ 348              		.loc 1 161 0
  349 035c 4FF47043 		mov	r3, #61440
  350 0360 C4F20203 		movt	r3, 16386
  351 0364 4FF00002 		mov	r2, #0
  352 0368 1A62     		str	r2, [r3, #32]
- 157:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
- 353              		.loc 1 157 0
+ 162:../Sources/DSP/AudioIF.c ****     I2S0_TDR0 = 0;
+ 353              		.loc 1 162 0
  354 036a 4FF47043 		mov	r3, #61440
  355 036e C4F20203 		movt	r3, 16386
  356 0372 4FF00002 		mov	r2, #0
  357 0376 1A62     		str	r2, [r3, #32]
- 158:../Sources/DSP/AudioIF.c **** 
- 159:../Sources/DSP/AudioIF.c ****     sai_interrupt_enable(0, //Port
- 358              		.loc 1 159 0
+ 163:../Sources/DSP/AudioIF.c **** 
+ 164:../Sources/DSP/AudioIF.c ****     sai_interrupt_enable(0, //Port
+ 358              		.loc 1 164 0
  359 0378 4FF00000 		mov	r0, #0
  360 037c 4FF00001 		mov	r1, #0
  361 0380 FFF7FEFF 		bl	sai_interrupt_enable
- 160:../Sources/DSP/AudioIF.c ****                          0 // Rx)
- 161:../Sources/DSP/AudioIF.c ****                         );
- 162:../Sources/DSP/AudioIF.c ****     sai_interrupt_enable(0, //Port
- 362              		.loc 1 162 0
+ 165:../Sources/DSP/AudioIF.c ****                          0 // Rx)
+ 166:../Sources/DSP/AudioIF.c ****                         );
+ 167:../Sources/DSP/AudioIF.c ****     sai_interrupt_enable(0, //Port
+ 362              		.loc 1 167 0
  363 0384 4FF00000 		mov	r0, #0
  364 0388 4FF00101 		mov	r1, #1
  365 038c FFF7FEFF 		bl	sai_interrupt_enable
- 163:../Sources/DSP/AudioIF.c ****                          1 // tx)
- 164:../Sources/DSP/AudioIF.c ****                         );
- 165:../Sources/DSP/AudioIF.c ****     enable_irq(INT_I2S0_Rx - 16);
- 366              		.loc 1 165 0
+ 168:../Sources/DSP/AudioIF.c ****                          1 // tx)
+ 169:../Sources/DSP/AudioIF.c ****                         );
+ 170:../Sources/DSP/AudioIF.c ****     enable_irq(INT_I2S0_Rx - 16);
+ 366              		.loc 1 170 0
  367 0390 4FF00E00 		mov	r0, #14
  368 0394 FFF7FEFF 		bl	enable_irq
- 166:../Sources/DSP/AudioIF.c ****     enable_irq(INT_I2S0_Tx - 16);
- 369              		.loc 1 166 0
+ 171:../Sources/DSP/AudioIF.c ****     enable_irq(INT_I2S0_Tx - 16);
+ 369              		.loc 1 171 0
  370 0398 4FF00D00 		mov	r0, #13
  371 039c FFF7FEFF 		bl	enable_irq
- 167:../Sources/DSP/AudioIF.c ****     AudioSampleRate = SampleRate;
- 372              		.loc 1 167 0
+ 172:../Sources/DSP/AudioIF.c ****     AudioSampleRate = SampleRate;
+ 372              		.loc 1 172 0
  373 03a0 40F20003 		movw	r3, #:lower16:AudioSampleRate
  374 03a4 C0F20003 		movt	r3, #:upper16:AudioSampleRate
  375 03a8 BA68     		ldr	r2, [r7, #8]
  376 03aa 1A60     		str	r2, [r3, #0]
- 168:../Sources/DSP/AudioIF.c ****     return AudioMasterClock;
- 377              		.loc 1 168 0
+ 173:../Sources/DSP/AudioIF.c ****     return AudioMasterClock;
+ 377              		.loc 1 173 0
  378 03ac 40F20003 		movw	r3, #:lower16:AudioMasterClock
  379 03b0 C0F20003 		movt	r3, #:upper16:AudioMasterClock
  380 03b4 1B68     		ldr	r3, [r3, #0]
- 169:../Sources/DSP/AudioIF.c **** }
- 381              		.loc 1 169 0
+ 174:../Sources/DSP/AudioIF.c **** }
+ 381              		.loc 1 174 0
  382 03b6 1846     		mov	r0, r3
  383 03b8 07F12007 		add	r7, r7, #32
  384 03bc BD46     		mov	sp, r7
@@ -558,13 +563,13 @@
  389              		.text
  390              	.Letext0:
  391              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 392              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+ 392              		.file 3 "C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 AudioIF.c
                             *COM*:00000004 AudioMasterClock
                             *COM*:00000004 AudioSampleRate
-C:\Users\ehughes\AppData\Local\Temp\ccXJ3UEa.s:26     .text.InitAudioIO:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccXJ3UEa.s:31     .text.InitAudioIO:00000000 InitAudioIO
+C:\Users\emh203\AppData\Local\Temp\cc2HQdT5.s:26     .text.InitAudioIO:00000000 $t
+C:\Users\emh203\AppData\Local\Temp\cc2HQdT5.s:31     .text.InitAudioIO:00000000 InitAudioIO
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

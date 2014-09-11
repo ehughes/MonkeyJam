@@ -164,14 +164,14 @@
  100:../Sources/main.c ****     //Switch into the desired Patch
  101:../Sources/main.c ****    
  102:../Sources/main.c ****    // ChangePatch(PATCH_PASS_THROUGH);
- 103:../Sources/main.c ****    ChangePatch(PATCH_OVERDRIVE);
-  66              		.loc 1 103 0
+ 103:../Sources/main.c ****    //ChangePatch(PATCH_OVERDRIVE);
+ 104:../Sources/main.c ****     //ChangePatch(PATCH_TUBEY_CLEAN);
+ 105:../Sources/main.c ****     ChangePatch(PATCH_OD_DEMO_SINE_TEST);
+  66              		.loc 1 105 0
   67              		.thumb
-  68 0034 4FF00300 		mov	r0, #3
+  68 0034 4FF00700 		mov	r0, #7
   69 0038 FFF7FEFF 		bl	ChangePatch
   70              	.L7:
- 104:../Sources/main.c ****     //ChangePatch(PATCH_TUBEY_CLEAN);
- 105:../Sources/main.c ****  //   ChangePatch(PATCH_OD_DEMO_SINE_TEST);
  106:../Sources/main.c ****     for(;;)
  107:../Sources/main.c ****         {
  108:../Sources/main.c ****             //In the main loop we will  read in the potentiometer values and update the processing 
@@ -426,15 +426,14 @@
  189:../Sources/main.c ****                         
  190:../Sources/main.c ****                     case PATCH_OD_DEMO_SINE_TEST:     
  191:../Sources/main.c ****                     	
- 192:../Sources/main.c ****                     	
- 193:../Sources/main.c ****                     	 SetPotLimits(POT_ALPHA,0,0x7fffffff);
- 239              		.loc 1 193 0
+ 192:../Sources/main.c ****                     	 SetPotLimits(POT_ALPHA,0,0x7fffffff);
+ 239              		.loc 1 192 0
  240 022a 4FF00000 		mov	r0, #0
  241 022e 4FF00001 		mov	r1, #0
  242 0232 4FF09E42 		mov	r2, #1325400064
  243 0236 FFF7FEFF 		bl	SetPotLimits
- 194:../Sources/main.c ****                     	 OD_Level = ReadPOT(POT_ALPHA);
- 244              		.loc 1 194 0
+ 193:../Sources/main.c ****                     	 OD_Level = ReadPOT(POT_ALPHA);
+ 244              		.loc 1 193 0
  245 023a 4FF00000 		mov	r0, #0
  246 023e FFF7FEFF 		bl	ReadPOT
  247 0242 0346     		mov	r3, r0
@@ -444,22 +443,22 @@
  251 024c 40F20003 		movw	r3, #:lower16:OD_Level
  252 0250 C0F20003 		movt	r3, #:upper16:OD_Level
  253 0254 1A60     		str	r2, [r3, #0]
- 195:../Sources/main.c ****                     	 
- 196:../Sources/main.c ****                     	break;
- 254              		.loc 1 196 0
+ 194:../Sources/main.c ****                     	 
+ 195:../Sources/main.c ****                     	break;
+ 254              		.loc 1 195 0
  255 0256 00E0     		b	.L6
  256              	.L8:
+ 196:../Sources/main.c ****                     	
  197:../Sources/main.c ****                     	
- 198:../Sources/main.c ****                     	
- 199:../Sources/main.c ****                         
- 200:../Sources/main.c ****                     default:
- 201:../Sources/main.c ****                         break;
- 257              		.loc 1 201 0
+ 198:../Sources/main.c ****                         
+ 199:../Sources/main.c ****                     default:
+ 200:../Sources/main.c ****                         break;
+ 257              		.loc 1 200 0
  258 0258 00BF     		nop
  259              	.L6:
- 202:../Sources/main.c ****                 }
- 203:../Sources/main.c ****         }
- 260              		.loc 1 203 0
+ 201:../Sources/main.c ****                 }
+ 202:../Sources/main.c ****         }
+ 260              		.loc 1 202 0
  261 025a EFE6     		b	.L7
  262              	.L10:
  263              		.align	2
@@ -471,15 +470,15 @@
  270              		.text
  271              	.Letext0:
  272              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 273              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
+ 273              		.file 3 "C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
  274              		.file 4 "../Sources/DSP/IIR.h"
  275              		.file 5 "../Sources/DSP/AudioIF.h"
  276              		.file 6 "../Sources/DSP/AudioProcess.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\ehughes\AppData\Local\Temp\ccG4790j.s:21     .text.main:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccG4790j.s:26     .text.main:00000000 main
-C:\Users\ehughes\AppData\Local\Temp\ccG4790j.s:265    .text.main:0000025c $d
+C:\Users\emh203\AppData\Local\Temp\ccrDlOcL.s:21     .text.main:00000000 $t
+C:\Users\emh203\AppData\Local\Temp\ccrDlOcL.s:26     .text.main:00000000 main
+C:\Users\emh203\AppData\Local\Temp\ccrDlOcL.s:265    .text.main:0000025c $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
