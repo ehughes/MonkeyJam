@@ -1,6 +1,6 @@
 <Analysispoints>
 	<Name>AnalysispointsManager</Name>
-	<ProjectPath>C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/SaAnalysispointsManager.apconfig</ProjectPath>
+	<ProjectPath>C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/SaAnalysispointsManager.apconfig</ProjectPath>
 	<MaxNumberOfCores>1</MaxNumberOfCores>
 	<Comments>Analysispoints Manager</Comments>
 	<IgnoreAll>false</IgnoreAll>

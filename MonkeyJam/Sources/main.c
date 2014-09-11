@@ -83,7 +83,7 @@
 
 
 int main(void)
-{
+									{
 
     //Get up and running to 50MHz!
     pll_init(8000000, LOW_POWER, CRYSTAL, 4, 25, 1);
@@ -99,10 +99,10 @@ int main(void)
     
     //Switch into the desired Patch
    
-    //ChangePatch(PATCH_PASS_THROUGH);
-    //ChangePatch(PATCH_OVERDRIVE);
-    ChangePatch(PATCH_TUBEY_CLEAN);
-    //ChangePatch(PATCH_OD_DEMO_SINE_TEST);
+   // ChangePatch(PATCH_PASS_THROUGH);
+   ChangePatch(PATCH_OVERDRIVE);
+    //ChangePatch(PATCH_TUBEY_CLEAN);
+ //   ChangePatch(PATCH_OD_DEMO_SINE_TEST);
     for(;;)
         {
             //In the main loop we will  read in the potentiometer values and update the processing routine
@@ -116,7 +116,7 @@ int main(void)
                         //Since a Q31 is 31 bits of fraction and 1 bit of sign,  just
                         //multiply a binary value of 31 bits by the float and cast back to an integer
                         OD_Level = (q31_t)((float)0x7fffffff);
-                        SetPotLimits(POT_BETA,0.05,2.5);
+                        SetPotLimits(POT_BETA,0.001,1.5);
                         SetPotLimits(POT_GAMMA,-15,15.0 );
                        
                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Structure
@@ -155,8 +155,8 @@ int main(void)
                         //The use of the variable OD_Level is documented in the audio process routine.  We just need to generate it
                         //THis doesn't necessary need to be called every time through the loop but it won't Hurt anything.
                         OD_Level =  (q31_t)0x7fffffff;
-                        SetPotLimits(POT_BETA,0.1,1.5);
-                        SetPotLimits(POT_GAMMA,50,450);
+                        SetPotLimits(POT_BETA,0.01,.7);
+                        SetPotLimits(POT_GAMMA,50,350);
                         SetPotLimits(POT_ALPHA,-40,40);
                         DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Structure
                                                    BIQUAD_PEAKING_EQ,
@@ -186,6 +186,16 @@ int main(void)
                         MyIIR[0].Update = 1;
                         MyIIR[1].Update = 1;
                         break;
+                        
+                    case PATCH_OD_DEMO_SINE_TEST:     
+                    	
+                    	
+                    	 SetPotLimits(POT_ALPHA,0,0x7fffffff);
+                    	 OD_Level = ReadPOT(POT_ALPHA);
+                    	 
+                    	break;
+                    	
+                    	
                         
                     default:
                         break;

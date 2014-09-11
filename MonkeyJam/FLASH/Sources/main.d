@@ -2,8 +2,8 @@ Sources/main.o: ../Sources/main.c \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/lib_ewl.prefix \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/common.prefix \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/ewl_c_version.h \
- C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/Derivative.h \
- C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h \
+ C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/Derivative.h \
+ C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/stdint.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/ansi_parms.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/ewlGlobals.h \
@@ -12,11 +12,11 @@ Sources/main.o: ../Sources/main.c \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/limits_api.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/ewl_lib_ext1.h \
- C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/arm_math.h \
- C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/core_cm4.h \
- C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/core_cmInstr.h \
- C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/core_cmFunc.h \
- C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/core_cm4_simd.h \
+ C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/arm_math.h \
+ C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/core_cm4.h \
+ C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/core_cmInstr.h \
+ C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/core_cmFunc.h \
+ C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/core_cm4_simd.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/string.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstring \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/null.h \
@@ -35,7 +35,7 @@ Sources/main.o: ../Sources/main.c \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/arm/math.ARM.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cerrno \
  ../Sources/drivers/frdm-K20-def.h \
- C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/derivative.h \
+ C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/derivative.h \
  ../Sources/drivers/mcg/mcg.h ../Sources/drivers/sai/sai.h \
  ../Sources/cpu/arm_cm4.h ../Sources/DSP/AudioIF.h \
  ../Sources/DSP/AudioProcess.h ../Sources/DSP/IIR.h \
@@ -48,9 +48,9 @@ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/common.prefix:
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/ewl_c_version.h:
 
-C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/Derivative.h:
+C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/Derivative.h:
 
-C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h:
+C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h:
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/stdint.h:
 
@@ -68,15 +68,15 @@ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/limits_api.h:
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/ewl_lib_ext1.h:
 
-C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/arm_math.h:
+C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/arm_math.h:
 
-C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/core_cm4.h:
+C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/core_cm4.h:
 
-C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/core_cmInstr.h:
+C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/core_cmInstr.h:
 
-C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/core_cmFunc.h:
+C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/core_cmFunc.h:
 
-C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/core_cm4_simd.h:
+C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/core_cm4_simd.h:
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/string.h:
 
@@ -114,7 +114,7 @@ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cerrno:
 
 ../Sources/drivers/frdm-K20-def.h:
 
-C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/derivative.h:
+C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/derivative.h:
 
 ../Sources/drivers/mcg/mcg.h:
 

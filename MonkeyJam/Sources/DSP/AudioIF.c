@@ -102,7 +102,7 @@ uint32_t InitAudioIO( uint32_t    BusClockIn,
     (
         0,                  //Port 0
         1,                  //Tx
-        1,                  //Frame Sync One bit Early. //  This makes it I2S compatible
+        0,                  //Frame Sync One bit Early. //  This makes it I2S compatible
         0,                  //high active frame sync polarity
         1                   //Master mode generates frame sync
     );

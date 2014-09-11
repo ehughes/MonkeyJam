@@ -1143,7 +1143,6 @@ void sai0_rx_isr(void)
         RightIn &=~0xFF000000;;
 }
 
-/* */
 
 
 void sai0_tx_isr(void)
