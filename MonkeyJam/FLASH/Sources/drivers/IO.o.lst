@@ -61,77 +61,75 @@
   12:../Sources/drivers/IO.c ****                  SIM_SCGC5_PORTD_MASK |
   13:../Sources/drivers/IO.c ****                  SIM_SCGC5_PORTE_MASK;
   14:../Sources/drivers/IO.c ****       
-  15:../Sources/drivers/IO.c ****         
-  16:../Sources/drivers/IO.c ****     PORTC_PCR(4) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;
-  51              		.loc 1 16 0
+  15:../Sources/drivers/IO.c ****     PORTC_PCR(0) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;
+  51              		.loc 1 15 0
   52 002c 4FF43043 		mov	r3, #45056
   53 0030 C4F20403 		movt	r3, 16388
   54 0034 40F20312 		movw	r2, #259
-  55 0038 1A61     		str	r2, [r3, #16]
-  17:../Sources/drivers/IO.c ****     PORTD_PCR(0) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;;
-  56              		.loc 1 17 0
-  57 003a 4FF44043 		mov	r3, #49152
+  55 0038 1A60     		str	r2, [r3, #0]
+  16:../Sources/drivers/IO.c ****     PORTC_PCR(4) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;
+  56              		.loc 1 16 0
+  57 003a 4FF43043 		mov	r3, #45056
   58 003e C4F20403 		movt	r3, 16388
   59 0042 40F20312 		movw	r2, #259
-  60 0046 1A60     		str	r2, [r3, #0]
-  18:../Sources/drivers/IO.c ****        
-  19:../Sources/drivers/IO.c ****     
-  20:../Sources/drivers/IO.c ****     
-  21:../Sources/drivers/IO.c ****     PORTC_PCR(3) = PORT_PCR_MUX(6);     //PTC3(ALT6), I2S0_TX_BCLK
-  61              		.loc 1 21 0
+  60 0046 1A61     		str	r2, [r3, #16]
+  17:../Sources/drivers/IO.c ****    
+  18:../Sources/drivers/IO.c ****     
+  19:../Sources/drivers/IO.c ****     PORTC_PCR(3) = PORT_PCR_MUX(6);     //PTC3(ALT6), I2S0_TX_BCLK
+  61              		.loc 1 19 0
   62 0048 4FF43043 		mov	r3, #45056
   63 004c C4F20403 		movt	r3, 16388
   64 0050 4FF4C062 		mov	r2, #1536
   65 0054 DA60     		str	r2, [r3, #12]
-  22:../Sources/drivers/IO.c ****     PORTC_PCR(2) = PORT_PCR_MUX(6);     //PTC2(ALT6), I2S0_TX_FS	
-  66              		.loc 1 22 0
+  20:../Sources/drivers/IO.c ****     PORTC_PCR(2) = PORT_PCR_MUX(6);     //PTC2(ALT6), I2S0_TX_FS	
+  66              		.loc 1 20 0
   67 0056 4FF43043 		mov	r3, #45056
   68 005a C4F20403 		movt	r3, 16388
   69 005e 4FF4C062 		mov	r2, #1536
   70 0062 9A60     		str	r2, [r3, #8]
-  23:../Sources/drivers/IO.c ****     PORTC_PCR(1) = PORT_PCR_MUX(6);     //PTC1(ALT6), I2S0_TXD0
-  71              		.loc 1 23 0
+  21:../Sources/drivers/IO.c ****     PORTC_PCR(1) = PORT_PCR_MUX(6);     //PTC1(ALT6), I2S0_TXD0
+  71              		.loc 1 21 0
   72 0064 4FF43043 		mov	r3, #45056
   73 0068 C4F20403 		movt	r3, 16388
   74 006c 4FF4C062 		mov	r2, #1536
   75 0070 5A60     		str	r2, [r3, #4]
-  24:../Sources/drivers/IO.c ****     
-  25:../Sources/drivers/IO.c ****     
-  26:../Sources/drivers/IO.c ****    PORTC_PCR(10) = PORT_PCR_MUX(4);    //PTC10(ALT4), I2S0_RX_FS
-  76              		.loc 1 26 0
+  22:../Sources/drivers/IO.c ****     
+  23:../Sources/drivers/IO.c ****     
+  24:../Sources/drivers/IO.c ****    PORTC_PCR(10) = PORT_PCR_MUX(4);    //PTC10(ALT4), I2S0_RX_FS
+  76              		.loc 1 24 0
   77 0072 4FF43043 		mov	r3, #45056
   78 0076 C4F20403 		movt	r3, 16388
   79 007a 4FF48062 		mov	r2, #1024
   80 007e 9A62     		str	r2, [r3, #40]
-  27:../Sources/drivers/IO.c ****    PORTC_PCR(5) = PORT_PCR_MUX(4);     //PTC5(ALT4), I2S0_RXD0
-  81              		.loc 1 27 0
+  25:../Sources/drivers/IO.c ****    PORTC_PCR(5) = PORT_PCR_MUX(4);     //PTC5(ALT4), I2S0_RXD0
+  81              		.loc 1 25 0
   82 0080 4FF43043 		mov	r3, #45056
   83 0084 C4F20403 		movt	r3, 16388
   84 0088 4FF48062 		mov	r2, #1024
   85 008c 5A61     		str	r2, [r3, #20]
-  28:../Sources/drivers/IO.c ****                         
-  29:../Sources/drivers/IO.c ****    PORTC_PCR(6) = PORT_PCR_MUX(6);     //PTC6(ALT6), I2S0_MCLK
-  86              		.loc 1 29 0
+  26:../Sources/drivers/IO.c ****                         
+  27:../Sources/drivers/IO.c ****    PORTC_PCR(6) = PORT_PCR_MUX(6);     //PTC6(ALT6), I2S0_MCLK
+  86              		.loc 1 27 0
   87 008e 4FF43043 		mov	r3, #45056
   88 0092 C4F20403 		movt	r3, 16388
   89 0096 4FF4C062 		mov	r2, #1536
   90 009a 9A61     		str	r2, [r3, #24]
-  30:../Sources/drivers/IO.c ****    PORTC_PCR(8) = PORT_PCR_MUX(4);     //PTC6(ALT6), I2S0_MCLK
-  91              		.loc 1 30 0
+  28:../Sources/drivers/IO.c ****    PORTC_PCR(8) = PORT_PCR_MUX(4);     //PTC6(ALT6), I2S0_MCLK
+  91              		.loc 1 28 0
   92 009c 4FF43043 		mov	r3, #45056
   93 00a0 C4F20403 		movt	r3, 16388
   94 00a4 4FF48062 		mov	r2, #1024
   95 00a8 1A62     		str	r2, [r3, #32]
-  31:../Sources/drivers/IO.c ****   
-  32:../Sources/drivers/IO.c ****     //for K64 compatibility
-  33:../Sources/drivers/IO.c ****     PORTC_PCR(9) = PORT_PCR_MUX(1);    
-  96              		.loc 1 33 0
+  29:../Sources/drivers/IO.c ****   
+  30:../Sources/drivers/IO.c ****     //for K64 compatibility
+  31:../Sources/drivers/IO.c ****     PORTC_PCR(9) = PORT_PCR_MUX(1);    
+  96              		.loc 1 31 0
   97 00aa 4FF43043 		mov	r3, #45056
   98 00ae C4F20403 		movt	r3, 16388
   99 00b2 4FF48072 		mov	r2, #256
  100 00b6 5A62     		str	r2, [r3, #36]
-  34:../Sources/drivers/IO.c ****     GPIOC_PDDR &=~(1<<9);
- 101              		.loc 1 34 0
+  32:../Sources/drivers/IO.c ****     GPIOC_PDDR &=~(1<<9);
+ 101              		.loc 1 32 0
  102 00b8 4FF28003 		movw	r3, #61568
  103 00bc C4F20F03 		movt	r3, 16399
  104 00c0 4FF28002 		movw	r2, #61568
@@ -139,15 +137,15 @@
  106 00c8 5269     		ldr	r2, [r2, #20]
  107 00ca 22F40072 		bic	r2, r2, #512
  108 00ce 5A61     		str	r2, [r3, #20]
-  35:../Sources/drivers/IO.c ****                      
-  36:../Sources/drivers/IO.c ****     PORTC_PCR(11) = PORT_PCR_MUX(1);   
- 109              		.loc 1 36 0
+  33:../Sources/drivers/IO.c ****                      
+  34:../Sources/drivers/IO.c ****     PORTC_PCR(11) = PORT_PCR_MUX(1);   
+ 109              		.loc 1 34 0
  110 00d0 4FF43043 		mov	r3, #45056
  111 00d4 C4F20403 		movt	r3, 16388
  112 00d8 4FF48072 		mov	r2, #256
  113 00dc DA62     		str	r2, [r3, #44]
-  37:../Sources/drivers/IO.c ****     GPIOC_PDDR &=~(1<<11);
- 114              		.loc 1 37 0
+  35:../Sources/drivers/IO.c ****     GPIOC_PDDR &=~(1<<11);
+ 114              		.loc 1 35 0
  115 00de 4FF28003 		movw	r3, #61568
  116 00e2 C4F20F03 		movt	r3, 16399
  117 00e6 4FF28002 		movw	r2, #61568
@@ -155,15 +153,15 @@
  119 00ee 5269     		ldr	r2, [r2, #20]
  120 00f0 22F40062 		bic	r2, r2, #2048
  121 00f4 5A61     		str	r2, [r3, #20]
-  38:../Sources/drivers/IO.c ****     
-  39:../Sources/drivers/IO.c ****     PORTD_PCR(7) = PORT_PCR_MUX(1);    
- 122              		.loc 1 39 0
+  36:../Sources/drivers/IO.c ****     
+  37:../Sources/drivers/IO.c ****     PORTD_PCR(7) = PORT_PCR_MUX(1);    
+ 122              		.loc 1 37 0
  123 00f6 4FF44043 		mov	r3, #49152
  124 00fa C4F20403 		movt	r3, 16388
  125 00fe 4FF48072 		mov	r2, #256
  126 0102 DA61     		str	r2, [r3, #28]
-  40:../Sources/drivers/IO.c ****      GPIOD_PDDR &=~(1<<7);
- 127              		.loc 1 40 0
+  38:../Sources/drivers/IO.c ****     GPIOD_PDDR &=~(1<<7);
+ 127              		.loc 1 38 0
  128 0104 4FF2C003 		movw	r3, #61632
  129 0108 C4F20F03 		movt	r3, 16399
  130 010c 4FF2C002 		movw	r2, #61632
@@ -171,15 +169,15 @@
  132 0114 5269     		ldr	r2, [r2, #20]
  133 0116 22F08002 		bic	r2, r2, #128
  134 011a 5A61     		str	r2, [r3, #20]
-  41:../Sources/drivers/IO.c ****      
-  42:../Sources/drivers/IO.c ****      PORTD_PCR(0) = PORT_PCR_MUX(1);    
- 135              		.loc 1 42 0
+  39:../Sources/drivers/IO.c ****      
+  40:../Sources/drivers/IO.c ****      PORTD_PCR(0) = PORT_PCR_MUX(1);    
+ 135              		.loc 1 40 0
  136 011c 4FF44043 		mov	r3, #49152
  137 0120 C4F20403 		movt	r3, 16388
  138 0124 4FF48072 		mov	r2, #256
  139 0128 1A60     		str	r2, [r3, #0]
-  43:../Sources/drivers/IO.c ****       GPIOD_PDDR &=~(1<<0);
- 140              		.loc 1 43 0
+  41:../Sources/drivers/IO.c ****      GPIOD_PDDR &=~(1<<0);
+ 140              		.loc 1 41 0
  141 012a 4FF2C003 		movw	r3, #61632
  142 012e C4F20F03 		movt	r3, 16399
  143 0132 4FF2C002 		movw	r2, #61632
@@ -187,287 +185,314 @@
  145 013a 5269     		ldr	r2, [r2, #20]
  146 013c 22F00102 		bic	r2, r2, #1
  147 0140 5A61     		str	r2, [r3, #20]
-  44:../Sources/drivers/IO.c ****                        
-  45:../Sources/drivers/IO.c ****                       
-  46:../Sources/drivers/IO.c ****     InitADC_12Bit();
+  42:../Sources/drivers/IO.c ****                        
+  43:../Sources/drivers/IO.c ****    
+  44:../Sources/drivers/IO.c ****     //for code profiling
+  45:../Sources/drivers/IO.c ****       
+  46:../Sources/drivers/IO.c ****      PORTD_PCR(3) = PORT_PCR_MUX(1);    
  148              		.loc 1 46 0
- 149 0142 FFF7FEFF 		bl	InitADC_12Bit
-  47:../Sources/drivers/IO.c ****     //This sets the SAI unit for 32MHz, 256x oversampling on the ADC/ Dacs
-  48:../Sources/drivers/IO.c ****     InitAudioIO(50000000, 24000, 256);
- 150              		.loc 1 48 0
- 151 0146 4FF28000 		movw	r0, #61568
- 152 014a C0F2FA20 		movt	r0, 762
- 153 014e 45F6C051 		movw	r1, #24000
- 154 0152 4FF48072 		mov	r2, #256
- 155 0156 FFF7FEFF 		bl	InitAudioIO
-  49:../Sources/drivers/IO.c ****     
-  50:../Sources/drivers/IO.c **** 
-  51:../Sources/drivers/IO.c ****         
-  52:../Sources/drivers/IO.c ****     IO_DELTA_IS_INPUT;
- 156              		.loc 1 52 0
- 157 015a 4FF28003 		movw	r3, #61568
- 158 015e C4F20F03 		movt	r3, 16399
- 159 0162 4FF28002 		movw	r2, #61568
- 160 0166 C4F20F02 		movt	r2, 16399
- 161 016a 5269     		ldr	r2, [r2, #20]
- 162 016c 22F01002 		bic	r2, r2, #16
- 163 0170 5A61     		str	r2, [r3, #20]
+ 149 0142 4FF44043 		mov	r3, #49152
+ 150 0146 C4F20403 		movt	r3, 16388
+ 151 014a 4FF48072 		mov	r2, #256
+ 152 014e DA60     		str	r2, [r3, #12]
+  47:../Sources/drivers/IO.c ****      GPIOD_PDDR |=(1<<3);
+ 153              		.loc 1 47 0
+ 154 0150 4FF2C003 		movw	r3, #61632
+ 155 0154 C4F20F03 		movt	r3, 16399
+ 156 0158 4FF2C002 		movw	r2, #61632
+ 157 015c C4F20F02 		movt	r2, 16399
+ 158 0160 5269     		ldr	r2, [r2, #20]
+ 159 0162 42F00802 		orr	r2, r2, #8
+ 160 0166 5A61     		str	r2, [r3, #20]
+  48:../Sources/drivers/IO.c ****             
+  49:../Sources/drivers/IO.c ****       
+  50:../Sources/drivers/IO.c ****     InitADC_12Bit();
+ 161              		.loc 1 50 0
+ 162 0168 FFF7FEFF 		bl	InitADC_12Bit
+  51:../Sources/drivers/IO.c ****     //This sets the SAI unit for 32MHz, 256x oversampling on the ADC/ Dacs
+  52:../Sources/drivers/IO.c ****     InitAudioIO(50000000, 32000, 256);
+ 163              		.loc 1 52 0
+ 164 016c 4FF28000 		movw	r0, #61568
+ 165 0170 C0F2FA20 		movt	r0, 762
+ 166 0174 4FF4FA41 		mov	r1, #32000
+ 167 0178 4FF48072 		mov	r2, #256
+ 168 017c FFF7FEFF 		bl	InitAudioIO
   53:../Sources/drivers/IO.c ****     
-  54:../Sources/drivers/IO.c **** }
- 164              		.loc 1 54 0
- 165 0172 80BD     		pop	{r7, pc}
- 166              		.cfi_endproc
- 167              	.LFE0:
- 169              		.global	PotMin
- 170              		.section	.bss.PotMin,"aw",%nobits
- 171              		.align	2
- 174              	PotMin:
- 175 0000 00000000 		.space	12
- 175      00000000 
- 175      00000000 
- 176              		.global	PotMax
- 177              		.section	.data.PotMax,"aw",%progbits
- 178              		.align	2
- 181              	PotMax:
- 182 0000 0000803F 		.word	1065353216
- 183 0004 0000803F 		.word	1065353216
- 184 0008 0000803F 		.word	1065353216
- 185              		.section	.text.SetPotLimits,"ax",%progbits
- 186              		.align	2
- 187              		.global	SetPotLimits
- 188              		.thumb
- 189              		.thumb_func
- 191              	SetPotLimits:
- 192              	.LFB1:
-  55:../Sources/drivers/IO.c **** 
-  56:../Sources/drivers/IO.c **** 
-  57:../Sources/drivers/IO.c **** 
-  58:../Sources/drivers/IO.c **** float PotMin[3] = {0,0,0};
-  59:../Sources/drivers/IO.c **** float PotMax[3] = {1,1,1};
+  54:../Sources/drivers/IO.c **** 
+  55:../Sources/drivers/IO.c ****     IO_ZETA_IS_INPUT;
+ 169              		.loc 1 55 0
+ 170 0180 4FF28003 		movw	r3, #61568
+ 171 0184 C4F20F03 		movt	r3, 16399
+ 172 0188 4FF28002 		movw	r2, #61568
+ 173 018c C4F20F02 		movt	r2, 16399
+ 174 0190 5269     		ldr	r2, [r2, #20]
+ 175 0192 22F00102 		bic	r2, r2, #1
+ 176 0196 5A61     		str	r2, [r3, #20]
+  56:../Sources/drivers/IO.c ****     IO_DELTA_IS_INPUT;
+ 177              		.loc 1 56 0
+ 178 0198 4FF28003 		movw	r3, #61568
+ 179 019c C4F20F03 		movt	r3, 16399
+ 180 01a0 4FF28002 		movw	r2, #61568
+ 181 01a4 C4F20F02 		movt	r2, 16399
+ 182 01a8 5269     		ldr	r2, [r2, #20]
+ 183 01aa 22F01002 		bic	r2, r2, #16
+ 184 01ae 5A61     		str	r2, [r3, #20]
+  57:../Sources/drivers/IO.c ****     
+  58:../Sources/drivers/IO.c **** }
+ 185              		.loc 1 58 0
+ 186 01b0 80BD     		pop	{r7, pc}
+ 187              		.cfi_endproc
+ 188              	.LFE0:
+ 190              		.global	PotMin
+ 191 01b2 00BF     		.section	.bss.PotMin,"aw",%nobits
+ 192              		.align	2
+ 195              	PotMin:
+ 196 0000 00000000 		.space	12
+ 196      00000000 
+ 196      00000000 
+ 197              		.global	PotMax
+ 198              		.section	.data.PotMax,"aw",%progbits
+ 199              		.align	2
+ 202              	PotMax:
+ 203 0000 0000803F 		.word	1065353216
+ 204 0004 0000803F 		.word	1065353216
+ 205 0008 0000803F 		.word	1065353216
+ 206              		.section	.text.SetPotLimits,"ax",%progbits
+ 207              		.align	2
+ 208              		.global	SetPotLimits
+ 209              		.thumb
+ 210              		.thumb_func
+ 212              	SetPotLimits:
+ 213              	.LFB1:
+  59:../Sources/drivers/IO.c **** 
   60:../Sources/drivers/IO.c **** 
   61:../Sources/drivers/IO.c **** 
-  62:../Sources/drivers/IO.c **** //THis function is used to set the maximum/minimum limits that will be returned by ReadPOT
-  63:../Sources/drivers/IO.c **** void SetPotLimits(uint8_t Channel,float Min, float Max)
-  64:../Sources/drivers/IO.c **** {
- 193              		.loc 1 64 0
- 194              		.cfi_startproc
- 195              		@ args = 0, pretend = 0, frame = 16
- 196              		@ frame_needed = 1, uses_anonymous_args = 0
- 197              		@ link register save eliminated.
- 198 0000 80B4     		push	{r7}
- 199              	.LCFI2:
- 200              		.cfi_def_cfa_offset 4
- 201              		.cfi_offset 7, -4
- 202 0002 85B0     		sub	sp, sp, #20
- 203              	.LCFI3:
- 204              		.cfi_def_cfa_offset 24
- 205 0004 00AF     		add	r7, sp, #0
- 206              	.LCFI4:
- 207              		.cfi_def_cfa_register 7
- 208 0006 0346     		mov	r3, r0
- 209 0008 B960     		str	r1, [r7, #8]	@ float
- 210 000a 7A60     		str	r2, [r7, #4]	@ float
- 211 000c FB73     		strb	r3, [r7, #15]
-  65:../Sources/drivers/IO.c ****     if(Channel>2)
- 212              		.loc 1 65 0
- 213 000e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
- 214 0010 022B     		cmp	r3, #2
- 215 0012 02D9     		bls	.L3
-  66:../Sources/drivers/IO.c ****         {
-  67:../Sources/drivers/IO.c ****             Channel = 0;
- 216              		.loc 1 67 0
- 217 0014 4FF00003 		mov	r3, #0
- 218 0018 FB73     		strb	r3, [r7, #15]
- 219              	.L3:
-  68:../Sources/drivers/IO.c ****         }
-  69:../Sources/drivers/IO.c **** 
-  70:../Sources/drivers/IO.c ****     PotMin[Channel] = Min;
- 220              		.loc 1 70 0
- 221 001a FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
- 222 001c 40F20003 		movw	r3, #:lower16:PotMin
- 223 0020 C0F20003 		movt	r3, #:upper16:PotMin
- 224 0024 B968     		ldr	r1, [r7, #8]	@ float
- 225 0026 43F82210 		str	r1, [r3, r2, lsl #2]	@ float
-  71:../Sources/drivers/IO.c ****     PotMax[Channel] = Max;
- 226              		.loc 1 71 0
- 227 002a FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
- 228 002c 40F20003 		movw	r3, #:lower16:PotMax
- 229 0030 C0F20003 		movt	r3, #:upper16:PotMax
- 230 0034 7968     		ldr	r1, [r7, #4]	@ float
- 231 0036 43F82210 		str	r1, [r3, r2, lsl #2]	@ float
-  72:../Sources/drivers/IO.c **** }
- 232              		.loc 1 72 0
- 233 003a 07F11407 		add	r7, r7, #20
- 234 003e BD46     		mov	sp, r7
- 235 0040 80BC     		pop	{r7}
- 236 0042 7047     		bx	lr
- 237              		.cfi_endproc
- 238              	.LFE1:
- 240              		.global	__aeabi_ui2f
- 241              		.global	__aeabi_fdiv
- 242              		.global	__aeabi_fsub
- 243              		.global	__aeabi_fmul
- 244              		.global	__aeabi_fadd
- 245              		.section	.text.ReadPOT,"ax",%progbits
- 246              		.align	2
- 247              		.global	ReadPOT
- 248              		.thumb
- 249              		.thumb_func
- 251              	ReadPOT:
- 252              	.LFB2:
+  62:../Sources/drivers/IO.c **** float PotMin[3] = {0,0,0};
+  63:../Sources/drivers/IO.c **** float PotMax[3] = {1,1,1};
+  64:../Sources/drivers/IO.c **** 
+  65:../Sources/drivers/IO.c **** 
+  66:../Sources/drivers/IO.c **** //THis function is used to set the maximum/minimum limits that will be returned by ReadPOT
+  67:../Sources/drivers/IO.c **** void SetPotLimits(uint8_t Channel,float Min, float Max)
+  68:../Sources/drivers/IO.c **** {
+ 214              		.loc 1 68 0
+ 215              		.cfi_startproc
+ 216              		@ args = 0, pretend = 0, frame = 16
+ 217              		@ frame_needed = 1, uses_anonymous_args = 0
+ 218              		@ link register save eliminated.
+ 219 0000 80B4     		push	{r7}
+ 220              	.LCFI2:
+ 221              		.cfi_def_cfa_offset 4
+ 222              		.cfi_offset 7, -4
+ 223 0002 85B0     		sub	sp, sp, #20
+ 224              	.LCFI3:
+ 225              		.cfi_def_cfa_offset 24
+ 226 0004 00AF     		add	r7, sp, #0
+ 227              	.LCFI4:
+ 228              		.cfi_def_cfa_register 7
+ 229 0006 0346     		mov	r3, r0
+ 230 0008 B960     		str	r1, [r7, #8]	@ float
+ 231 000a 7A60     		str	r2, [r7, #4]	@ float
+ 232 000c FB73     		strb	r3, [r7, #15]
+  69:../Sources/drivers/IO.c ****     if(Channel>2)
+ 233              		.loc 1 69 0
+ 234 000e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 235 0010 022B     		cmp	r3, #2
+ 236 0012 02D9     		bls	.L3
+  70:../Sources/drivers/IO.c ****         {
+  71:../Sources/drivers/IO.c ****             Channel = 0;
+ 237              		.loc 1 71 0
+ 238 0014 4FF00003 		mov	r3, #0
+ 239 0018 FB73     		strb	r3, [r7, #15]
+ 240              	.L3:
+  72:../Sources/drivers/IO.c ****         }
   73:../Sources/drivers/IO.c **** 
-  74:../Sources/drivers/IO.c **** 
-  75:../Sources/drivers/IO.c **** //Returns potentiometer setting as a float between the values set by SetPotLimits(...)
-  76:../Sources/drivers/IO.c **** float ReadPOT(uint8_t Channel)
-  77:../Sources/drivers/IO.c **** {
- 253              		.loc 1 77 0
- 254              		.cfi_startproc
- 255              		@ args = 0, pretend = 0, frame = 16
- 256              		@ frame_needed = 1, uses_anonymous_args = 0
- 257 0000 80B5     		push	{r7, lr}
- 258              	.LCFI5:
- 259              		.cfi_def_cfa_offset 8
- 260              		.cfi_offset 7, -8
- 261              		.cfi_offset 14, -4
- 262 0002 84B0     		sub	sp, sp, #16
- 263              	.LCFI6:
- 264              		.cfi_def_cfa_offset 24
- 265 0004 00AF     		add	r7, sp, #0
- 266              	.LCFI7:
- 267              		.cfi_def_cfa_register 7
- 268 0006 0346     		mov	r3, r0
- 269 0008 FB71     		strb	r3, [r7, #7]
-  78:../Sources/drivers/IO.c ****     float Pot_Value;
-  79:../Sources/drivers/IO.c **** 
-  80:../Sources/drivers/IO.c ****     switch (Channel)
- 270              		.loc 1 80 0
- 271 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 272 000c 012B     		cmp	r3, #1
- 273 000e 16D0     		beq	.L6
- 274 0010 022B     		cmp	r3, #2
- 275 0012 29D0     		beq	.L7
-  81:../Sources/drivers/IO.c ****         {
-  82:../Sources/drivers/IO.c ****             default:
-  83:../Sources/drivers/IO.c ****             case POT_ALPHA:
-  84:../Sources/drivers/IO.c ****                 Pot_Value =  (float)ReadADC0_SingleEnded(ADC0_SE13) /  4095.0; //Alpha
- 276              		.loc 1 84 0
- 277 0014 4FF00D00 		mov	r0, #13
- 278 0018 4FF00001 		mov	r1, #0
- 279 001c FFF7FEFF 		bl	ReadADC0_SingleEnded
- 280 0020 0346     		mov	r3, r0
- 281 0022 1846     		mov	r0, r3
- 282 0024 FFF7FEFF 		bl	__aeabi_ui2f
- 283 0028 0346     		mov	r3, r0
- 284 002a 1846     		mov	r0, r3
- 285 002c 4FF47041 		mov	r1, #61440
- 286 0030 C4F27F51 		movt	r1, 17791
- 287 0034 FFF7FEFF 		bl	__aeabi_fdiv
- 288 0038 0346     		mov	r3, r0
- 289 003a FB60     		str	r3, [r7, #12]	@ float
-  85:../Sources/drivers/IO.c ****                 break;
- 290              		.loc 1 85 0
- 291 003c 29E0     		b	.L8
- 292              	.L6:
-  86:../Sources/drivers/IO.c **** 
-  87:../Sources/drivers/IO.c ****             case POT_BETA:
-  88:../Sources/drivers/IO.c ****                 Pot_Value =  (float)ReadADC0_SingleEnded(ADC0_SE23)	/  4095.0; //beta
- 293              		.loc 1 88 0
- 294 003e 4FF01700 		mov	r0, #23
- 295 0042 4FF00001 		mov	r1, #0
- 296 0046 FFF7FEFF 		bl	ReadADC0_SingleEnded
- 297 004a 0346     		mov	r3, r0
- 298 004c 1846     		mov	r0, r3
- 299 004e FFF7FEFF 		bl	__aeabi_ui2f
- 300 0052 0346     		mov	r3, r0
- 301 0054 1846     		mov	r0, r3
- 302 0056 4FF47041 		mov	r1, #61440
- 303 005a C4F27F51 		movt	r1, 17791
- 304 005e FFF7FEFF 		bl	__aeabi_fdiv
- 305 0062 0346     		mov	r3, r0
- 306 0064 FB60     		str	r3, [r7, #12]	@ float
+  74:../Sources/drivers/IO.c ****     PotMin[Channel] = Min;
+ 241              		.loc 1 74 0
+ 242 001a FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 243 001c 40F20003 		movw	r3, #:lower16:PotMin
+ 244 0020 C0F20003 		movt	r3, #:upper16:PotMin
+ 245 0024 B968     		ldr	r1, [r7, #8]	@ float
+ 246 0026 43F82210 		str	r1, [r3, r2, lsl #2]	@ float
+  75:../Sources/drivers/IO.c ****     PotMax[Channel] = Max;
+ 247              		.loc 1 75 0
+ 248 002a FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 249 002c 40F20003 		movw	r3, #:lower16:PotMax
+ 250 0030 C0F20003 		movt	r3, #:upper16:PotMax
+ 251 0034 7968     		ldr	r1, [r7, #4]	@ float
+ 252 0036 43F82210 		str	r1, [r3, r2, lsl #2]	@ float
+  76:../Sources/drivers/IO.c **** }
+ 253              		.loc 1 76 0
+ 254 003a 07F11407 		add	r7, r7, #20
+ 255 003e BD46     		mov	sp, r7
+ 256 0040 80BC     		pop	{r7}
+ 257 0042 7047     		bx	lr
+ 258              		.cfi_endproc
+ 259              	.LFE1:
+ 261              		.global	__aeabi_ui2f
+ 262              		.global	__aeabi_fdiv
+ 263              		.global	__aeabi_fsub
+ 264              		.global	__aeabi_fmul
+ 265              		.global	__aeabi_fadd
+ 266              		.section	.text.ReadPOT,"ax",%progbits
+ 267              		.align	2
+ 268              		.global	ReadPOT
+ 269              		.thumb
+ 270              		.thumb_func
+ 272              	ReadPOT:
+ 273              	.LFB2:
+  77:../Sources/drivers/IO.c **** 
+  78:../Sources/drivers/IO.c **** 
+  79:../Sources/drivers/IO.c **** //Returns potentiometer setting as a float between the values set by SetPotLimits(...)
+  80:../Sources/drivers/IO.c **** float ReadPOT(uint8_t Channel)
+  81:../Sources/drivers/IO.c **** {
+ 274              		.loc 1 81 0
+ 275              		.cfi_startproc
+ 276              		@ args = 0, pretend = 0, frame = 16
+ 277              		@ frame_needed = 1, uses_anonymous_args = 0
+ 278 0000 80B5     		push	{r7, lr}
+ 279              	.LCFI5:
+ 280              		.cfi_def_cfa_offset 8
+ 281              		.cfi_offset 7, -8
+ 282              		.cfi_offset 14, -4
+ 283 0002 84B0     		sub	sp, sp, #16
+ 284              	.LCFI6:
+ 285              		.cfi_def_cfa_offset 24
+ 286 0004 00AF     		add	r7, sp, #0
+ 287              	.LCFI7:
+ 288              		.cfi_def_cfa_register 7
+ 289 0006 0346     		mov	r3, r0
+ 290 0008 FB71     		strb	r3, [r7, #7]
+  82:../Sources/drivers/IO.c ****     float Pot_Value;
+  83:../Sources/drivers/IO.c **** 
+  84:../Sources/drivers/IO.c ****     switch (Channel)
+ 291              		.loc 1 84 0
+ 292 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 293 000c 012B     		cmp	r3, #1
+ 294 000e 16D0     		beq	.L6
+ 295 0010 022B     		cmp	r3, #2
+ 296 0012 29D0     		beq	.L7
+  85:../Sources/drivers/IO.c ****         {
+  86:../Sources/drivers/IO.c ****             default:
+  87:../Sources/drivers/IO.c ****             case POT_ALPHA:
+  88:../Sources/drivers/IO.c ****                 Pot_Value =  (float)ReadADC0_SingleEnded(ADC0_SE13) /  4095.0; //Alpha
+ 297              		.loc 1 88 0
+ 298 0014 4FF00D00 		mov	r0, #13
+ 299 0018 4FF00001 		mov	r1, #0
+ 300 001c FFF7FEFF 		bl	ReadADC0_SingleEnded
+ 301 0020 0346     		mov	r3, r0
+ 302 0022 1846     		mov	r0, r3
+ 303 0024 FFF7FEFF 		bl	__aeabi_ui2f
+ 304 0028 0346     		mov	r3, r0
+ 305 002a 1846     		mov	r0, r3
+ 306 002c 4FF47041 		mov	r1, #61440
+ 307 0030 C4F27F51 		movt	r1, 17791
+ 308 0034 FFF7FEFF 		bl	__aeabi_fdiv
+ 309 0038 0346     		mov	r3, r0
+ 310 003a FB60     		str	r3, [r7, #12]	@ float
   89:../Sources/drivers/IO.c ****                 break;
- 307              		.loc 1 89 0
- 308 0066 14E0     		b	.L8
- 309              	.L7:
+ 311              		.loc 1 89 0
+ 312 003c 29E0     		b	.L8
+ 313              	.L6:
   90:../Sources/drivers/IO.c **** 
-  91:../Sources/drivers/IO.c ****             case POT_GAMMA:
-  92:../Sources/drivers/IO.c ****                 Pot_Value =  (float)ReadADC0_SingleEnded(ADC0_SE12)	/  4095.0; //Gamma
- 310              		.loc 1 92 0
- 311 0068 4FF00C00 		mov	r0, #12
- 312 006c 4FF00001 		mov	r1, #0
- 313 0070 FFF7FEFF 		bl	ReadADC0_SingleEnded
- 314 0074 0346     		mov	r3, r0
- 315 0076 1846     		mov	r0, r3
- 316 0078 FFF7FEFF 		bl	__aeabi_ui2f
- 317 007c 0346     		mov	r3, r0
- 318 007e 1846     		mov	r0, r3
- 319 0080 4FF47041 		mov	r1, #61440
- 320 0084 C4F27F51 		movt	r1, 17791
- 321 0088 FFF7FEFF 		bl	__aeabi_fdiv
- 322 008c 0346     		mov	r3, r0
- 323 008e FB60     		str	r3, [r7, #12]	@ float
+  91:../Sources/drivers/IO.c ****             case POT_BETA:
+  92:../Sources/drivers/IO.c ****                 Pot_Value =  (float)ReadADC0_SingleEnded(ADC0_SE23)	/  4095.0; //beta
+ 314              		.loc 1 92 0
+ 315 003e 4FF01700 		mov	r0, #23
+ 316 0042 4FF00001 		mov	r1, #0
+ 317 0046 FFF7FEFF 		bl	ReadADC0_SingleEnded
+ 318 004a 0346     		mov	r3, r0
+ 319 004c 1846     		mov	r0, r3
+ 320 004e FFF7FEFF 		bl	__aeabi_ui2f
+ 321 0052 0346     		mov	r3, r0
+ 322 0054 1846     		mov	r0, r3
+ 323 0056 4FF47041 		mov	r1, #61440
+ 324 005a C4F27F51 		movt	r1, 17791
+ 325 005e FFF7FEFF 		bl	__aeabi_fdiv
+ 326 0062 0346     		mov	r3, r0
+ 327 0064 FB60     		str	r3, [r7, #12]	@ float
   93:../Sources/drivers/IO.c ****                 break;
- 324              		.loc 1 93 0
- 325 0090 00BF     		nop
- 326              	.L8:
-  94:../Sources/drivers/IO.c ****         }
-  95:../Sources/drivers/IO.c **** 
-  96:../Sources/drivers/IO.c ****     //Rescale to Range
-  97:../Sources/drivers/IO.c ****     Pot_Value = (Pot_Value * (PotMax[Channel] - PotMin[Channel])) + PotMin[Channel];
- 327              		.loc 1 97 0
- 328 0092 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
- 329 0094 40F20003 		movw	r3, #:lower16:PotMax
- 330 0098 C0F20003 		movt	r3, #:upper16:PotMax
- 331 009c 53F82220 		ldr	r2, [r3, r2, lsl #2]	@ float
- 332 00a0 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
- 333 00a2 40F20003 		movw	r3, #:lower16:PotMin
- 334 00a6 C0F20003 		movt	r3, #:upper16:PotMin
- 335 00aa 53F82130 		ldr	r3, [r3, r1, lsl #2]	@ float
- 336 00ae 1046     		mov	r0, r2
- 337 00b0 1946     		mov	r1, r3
- 338 00b2 FFF7FEFF 		bl	__aeabi_fsub
- 339 00b6 0346     		mov	r3, r0
- 340 00b8 1846     		mov	r0, r3
- 341 00ba F968     		ldr	r1, [r7, #12]	@ float
- 342 00bc FFF7FEFF 		bl	__aeabi_fmul
- 343 00c0 0346     		mov	r3, r0
- 344 00c2 1A46     		mov	r2, r3
- 345 00c4 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
- 346 00c6 40F20003 		movw	r3, #:lower16:PotMin
- 347 00ca C0F20003 		movt	r3, #:upper16:PotMin
- 348 00ce 53F82130 		ldr	r3, [r3, r1, lsl #2]	@ float
- 349 00d2 1046     		mov	r0, r2
- 350 00d4 1946     		mov	r1, r3
- 351 00d6 FFF7FEFF 		bl	__aeabi_fadd
- 352 00da 0346     		mov	r3, r0
- 353 00dc FB60     		str	r3, [r7, #12]	@ float
-  98:../Sources/drivers/IO.c ****     return Pot_Value;
- 354              		.loc 1 98 0
- 355 00de FB68     		ldr	r3, [r7, #12]	@ float
-  99:../Sources/drivers/IO.c **** }
- 356              		.loc 1 99 0
- 357 00e0 1846     		mov	r0, r3
- 358 00e2 07F11007 		add	r7, r7, #16
- 359 00e6 BD46     		mov	sp, r7
- 360 00e8 80BD     		pop	{r7, pc}
- 361              		.cfi_endproc
- 362              	.LFE2:
- 364 00ea 00BF     		.text
- 365              	.Letext0:
- 366              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 367              		.file 3 "C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+ 328              		.loc 1 93 0
+ 329 0066 14E0     		b	.L8
+ 330              	.L7:
+  94:../Sources/drivers/IO.c **** 
+  95:../Sources/drivers/IO.c ****             case POT_GAMMA:
+  96:../Sources/drivers/IO.c ****                 Pot_Value =  (float)ReadADC0_SingleEnded(ADC0_SE12)	/  4095.0; //Gamma
+ 331              		.loc 1 96 0
+ 332 0068 4FF00C00 		mov	r0, #12
+ 333 006c 4FF00001 		mov	r1, #0
+ 334 0070 FFF7FEFF 		bl	ReadADC0_SingleEnded
+ 335 0074 0346     		mov	r3, r0
+ 336 0076 1846     		mov	r0, r3
+ 337 0078 FFF7FEFF 		bl	__aeabi_ui2f
+ 338 007c 0346     		mov	r3, r0
+ 339 007e 1846     		mov	r0, r3
+ 340 0080 4FF47041 		mov	r1, #61440
+ 341 0084 C4F27F51 		movt	r1, 17791
+ 342 0088 FFF7FEFF 		bl	__aeabi_fdiv
+ 343 008c 0346     		mov	r3, r0
+ 344 008e FB60     		str	r3, [r7, #12]	@ float
+  97:../Sources/drivers/IO.c ****                 break;
+ 345              		.loc 1 97 0
+ 346 0090 00BF     		nop
+ 347              	.L8:
+  98:../Sources/drivers/IO.c ****         }
+  99:../Sources/drivers/IO.c **** 
+ 100:../Sources/drivers/IO.c ****     //Rescale to Range
+ 101:../Sources/drivers/IO.c ****     Pot_Value = (Pot_Value * (PotMax[Channel] - PotMin[Channel])) + PotMin[Channel];
+ 348              		.loc 1 101 0
+ 349 0092 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 350 0094 40F20003 		movw	r3, #:lower16:PotMax
+ 351 0098 C0F20003 		movt	r3, #:upper16:PotMax
+ 352 009c 53F82220 		ldr	r2, [r3, r2, lsl #2]	@ float
+ 353 00a0 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 354 00a2 40F20003 		movw	r3, #:lower16:PotMin
+ 355 00a6 C0F20003 		movt	r3, #:upper16:PotMin
+ 356 00aa 53F82130 		ldr	r3, [r3, r1, lsl #2]	@ float
+ 357 00ae 1046     		mov	r0, r2
+ 358 00b0 1946     		mov	r1, r3
+ 359 00b2 FFF7FEFF 		bl	__aeabi_fsub
+ 360 00b6 0346     		mov	r3, r0
+ 361 00b8 1846     		mov	r0, r3
+ 362 00ba F968     		ldr	r1, [r7, #12]	@ float
+ 363 00bc FFF7FEFF 		bl	__aeabi_fmul
+ 364 00c0 0346     		mov	r3, r0
+ 365 00c2 1A46     		mov	r2, r3
+ 366 00c4 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 367 00c6 40F20003 		movw	r3, #:lower16:PotMin
+ 368 00ca C0F20003 		movt	r3, #:upper16:PotMin
+ 369 00ce 53F82130 		ldr	r3, [r3, r1, lsl #2]	@ float
+ 370 00d2 1046     		mov	r0, r2
+ 371 00d4 1946     		mov	r1, r3
+ 372 00d6 FFF7FEFF 		bl	__aeabi_fadd
+ 373 00da 0346     		mov	r3, r0
+ 374 00dc FB60     		str	r3, [r7, #12]	@ float
+ 102:../Sources/drivers/IO.c ****     return Pot_Value;
+ 375              		.loc 1 102 0
+ 376 00de FB68     		ldr	r3, [r7, #12]	@ float
+ 103:../Sources/drivers/IO.c **** }
+ 377              		.loc 1 103 0
+ 378 00e0 1846     		mov	r0, r3
+ 379 00e2 07F11007 		add	r7, r7, #16
+ 380 00e6 BD46     		mov	sp, r7
+ 381 00e8 80BD     		pop	{r7, pc}
+ 382              		.cfi_endproc
+ 383              	.LFE2:
+ 385 00ea 00BF     		.text
+ 386              	.Letext0:
+ 387              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 388              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 IO.c
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:19     .text.InitIO:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:24     .text.InitIO:00000000 InitIO
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:174    .bss.PotMin:00000000 PotMin
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:171    .bss.PotMin:00000000 $d
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:181    .data.PotMax:00000000 PotMax
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:178    .data.PotMax:00000000 $d
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:186    .text.SetPotLimits:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:191    .text.SetPotLimits:00000000 SetPotLimits
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:246    .text.ReadPOT:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccFZmpYp.s:251    .text.ReadPOT:00000000 ReadPOT
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:19     .text.InitIO:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:24     .text.InitIO:00000000 InitIO
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:195    .bss.PotMin:00000000 PotMin
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:192    .bss.PotMin:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:202    .data.PotMax:00000000 PotMax
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:199    .data.PotMax:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:207    .text.SetPotLimits:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:212    .text.SetPotLimits:00000000 SetPotLimits
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:267    .text.ReadPOT:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccV26emb.s:272    .text.ReadPOT:00000000 ReadPOT
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

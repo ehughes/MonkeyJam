@@ -9,42 +9,49 @@ C_SRCS_QUOTED += \
 "../Sources/DSP/AudioIF.c" \
 "../Sources/DSP/AudioProcess.c" \
 "../Sources/DSP/IIR.c" \
+"../Sources/DSP/MathTable_NG.c" \
 "../Sources/DSP/MathTables.c" \
 
 C_SRCS += \
 ../Sources/DSP/AudioIF.c \
 ../Sources/DSP/AudioProcess.c \
 ../Sources/DSP/IIR.c \
+../Sources/DSP/MathTable_NG.c \
 ../Sources/DSP/MathTables.c \
 
 OBJS += \
 ./Sources/DSP/AudioIF.o \
 ./Sources/DSP/AudioProcess.o \
 ./Sources/DSP/IIR.o \
+./Sources/DSP/MathTable_NG.o \
 ./Sources/DSP/MathTables.o \
 
 OBJS_QUOTED += \
 "./Sources/DSP/AudioIF.o" \
 "./Sources/DSP/AudioProcess.o" \
 "./Sources/DSP/IIR.o" \
+"./Sources/DSP/MathTable_NG.o" \
 "./Sources/DSP/MathTables.o" \
 
 C_DEPS += \
 ./Sources/DSP/AudioIF.d \
 ./Sources/DSP/AudioProcess.d \
 ./Sources/DSP/IIR.d \
+./Sources/DSP/MathTable_NG.d \
 ./Sources/DSP/MathTables.d \
 
 OBJS_OS_FORMAT += \
 ./Sources/DSP/AudioIF.o \
 ./Sources/DSP/AudioProcess.o \
 ./Sources/DSP/IIR.o \
+./Sources/DSP/MathTable_NG.o \
 ./Sources/DSP/MathTables.o \
 
 C_DEPS_QUOTED += \
 "./Sources/DSP/AudioIF.d" \
 "./Sources/DSP/AudioProcess.d" \
 "./Sources/DSP/IIR.d" \
+"./Sources/DSP/MathTable_NG.d" \
 "./Sources/DSP/MathTables.d" \
 
 
@@ -73,9 +80,17 @@ Sources/DSP/IIR.o: ../Sources/DSP/IIR.c
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Sources/DSP/MathTables.o: ../Sources/DSP/MathTables.c
+Sources/DSP/MathTable_NG.o: ../Sources/DSP/MathTable_NG.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #13 $<'
+	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/DSP/MathTable_NG.args" -Wa,-adhlns="$@.lst" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/DSP/MathTable_NG.o"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/DSP/MathTables.o: ../Sources/DSP/MathTables.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #14 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/DSP/MathTables.args" -Wa,-adhlns="$@.lst" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/DSP/MathTables.o"
 	@echo 'Finished building: $<'

@@ -1125,8 +1125,7 @@ void sai0_rx_isr(void)
 {
     //Clear the IRQ Flag
     I2S_RCSR_REG(I2S0_BASE_PTR) &= ~(I2S_RCSR_FRF_MASK);
-    GPIOD_PSOR = 1<<3;
-    GPIOD_PCOR = 1<<3;
+   
     LeftIn = I2S0_RDR0;
     RightIn = I2S0_RDR0;
 
@@ -1151,10 +1150,14 @@ void sai0_tx_isr(void)
     //Send out the last Queued up values
     I2S0_TDR0 = LeftOut;
     I2S0_TDR0 = RightOut;
+    
     //Process the next set of samples
-    AudioProcess();
+    GPIOD_PSOR = 1<<3; //Set and clear Port D3 to measure execution Speed
+      	  
+    	AudioProcess();
+ 
+    GPIOD_PCOR = 1<<3;
+     
 }
 
-void sai1_rx_isr(void)
-{
-}
+

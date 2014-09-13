@@ -4181,276 +4181,250 @@
  3112 0014 D2F88020 		ldr	r2, [r2, #128]
  3113 0018 22F48032 		bic	r2, r2, #65536
  3114 001c C3F88020 		str	r2, [r3, #128]
-1128:../Sources/drivers/sai/sai.c ****     GPIOD_PSOR = 1<<3;
- 3115              		.loc 1 1128 0
- 3116 0020 4FF2C003 		movw	r3, #61632
- 3117 0024 C4F20F03 		movt	r3, 16399
- 3118 0028 4FF00802 		mov	r2, #8
- 3119 002c 5A60     		str	r2, [r3, #4]
-1129:../Sources/drivers/sai/sai.c ****     GPIOD_PCOR = 1<<3;
- 3120              		.loc 1 1129 0
- 3121 002e 4FF2C003 		movw	r3, #61632
- 3122 0032 C4F20F03 		movt	r3, 16399
- 3123 0036 4FF00802 		mov	r2, #8
- 3124 003a 9A60     		str	r2, [r3, #8]
-1130:../Sources/drivers/sai/sai.c ****     LeftIn = I2S0_RDR0;
- 3125              		.loc 1 1130 0
- 3126 003c 4FF47043 		mov	r3, #61440
- 3127 0040 C4F20203 		movt	r3, 16386
- 3128 0044 D3F8A030 		ldr	r3, [r3, #160]
- 3129 0048 1A46     		mov	r2, r3
- 3130 004a 40F20003 		movw	r3, #:lower16:LeftIn
- 3131 004e C0F20003 		movt	r3, #:upper16:LeftIn
- 3132 0052 1A60     		str	r2, [r3, #0]
-1131:../Sources/drivers/sai/sai.c ****     RightIn = I2S0_RDR0;
- 3133              		.loc 1 1131 0
- 3134 0054 4FF47043 		mov	r3, #61440
- 3135 0058 C4F20203 		movt	r3, 16386
- 3136 005c D3F8A030 		ldr	r3, [r3, #160]
- 3137 0060 1A46     		mov	r2, r3
- 3138 0062 40F20003 		movw	r3, #:lower16:RightIn
- 3139 0066 C0F20003 		movt	r3, #:upper16:RightIn
- 3140 006a 1A60     		str	r2, [r3, #0]
-1132:../Sources/drivers/sai/sai.c **** 
-1133:../Sources/drivers/sai/sai.c ****     //Sign extend the 24-bit data to q31_t;
-1134:../Sources/drivers/sai/sai.c **** 
-1135:../Sources/drivers/sai/sai.c ****     if(LeftIn & (1<<23))
- 3141              		.loc 1 1135 0
- 3142 006c 40F20003 		movw	r3, #:lower16:LeftIn
- 3143 0070 C0F20003 		movt	r3, #:upper16:LeftIn
- 3144 0074 1B68     		ldr	r3, [r3, #0]
- 3145 0076 03F40003 		and	r3, r3, #8388608
- 3146 007a 002B     		cmp	r3, #0
- 3147 007c 0DD0     		beq	.L145
-1136:../Sources/drivers/sai/sai.c ****         LeftIn |= 0xFF000000;
- 3148              		.loc 1 1136 0
- 3149 007e 40F20003 		movw	r3, #:lower16:LeftIn
- 3150 0082 C0F20003 		movt	r3, #:upper16:LeftIn
- 3151 0086 1B68     		ldr	r3, [r3, #0]
- 3152 0088 43F07F43 		orr	r3, r3, #-16777216
- 3153 008c 1A46     		mov	r2, r3
- 3154 008e 40F20003 		movw	r3, #:lower16:LeftIn
- 3155 0092 C0F20003 		movt	r3, #:upper16:LeftIn
- 3156 0096 1A60     		str	r2, [r3, #0]
- 3157 0098 0BE0     		b	.L146
- 3158              	.L145:
-1137:../Sources/drivers/sai/sai.c ****     else
-1138:../Sources/drivers/sai/sai.c ****         LeftIn &=~0xFF000000;;
- 3159              		.loc 1 1138 0
- 3160 009a 40F20003 		movw	r3, #:lower16:LeftIn
- 3161 009e C0F20003 		movt	r3, #:upper16:LeftIn
- 3162 00a2 1B68     		ldr	r3, [r3, #0]
- 3163 00a4 23F07F42 		bic	r2, r3, #-16777216
- 3164 00a8 40F20003 		movw	r3, #:lower16:LeftIn
- 3165 00ac C0F20003 		movt	r3, #:upper16:LeftIn
- 3166 00b0 1A60     		str	r2, [r3, #0]
- 3167              	.L146:
-1139:../Sources/drivers/sai/sai.c **** 
-1140:../Sources/drivers/sai/sai.c ****     if(RightIn & (1<<23))
- 3168              		.loc 1 1140 0
- 3169 00b2 40F20003 		movw	r3, #:lower16:RightIn
- 3170 00b6 C0F20003 		movt	r3, #:upper16:RightIn
- 3171 00ba 1B68     		ldr	r3, [r3, #0]
- 3172 00bc 03F40003 		and	r3, r3, #8388608
- 3173 00c0 002B     		cmp	r3, #0
- 3174 00c2 0DD0     		beq	.L147
-1141:../Sources/drivers/sai/sai.c ****         RightIn |= 0xFF000000;
- 3175              		.loc 1 1141 0
- 3176 00c4 40F20003 		movw	r3, #:lower16:RightIn
- 3177 00c8 C0F20003 		movt	r3, #:upper16:RightIn
- 3178 00cc 1B68     		ldr	r3, [r3, #0]
- 3179 00ce 43F07F43 		orr	r3, r3, #-16777216
- 3180 00d2 1A46     		mov	r2, r3
- 3181 00d4 40F20003 		movw	r3, #:lower16:RightIn
- 3182 00d8 C0F20003 		movt	r3, #:upper16:RightIn
- 3183 00dc 1A60     		str	r2, [r3, #0]
- 3184 00de 0BE0     		b	.L144
- 3185              	.L147:
-1142:../Sources/drivers/sai/sai.c ****     else
-1143:../Sources/drivers/sai/sai.c ****         RightIn &=~0xFF000000;;
- 3186              		.loc 1 1143 0
- 3187 00e0 40F20003 		movw	r3, #:lower16:RightIn
- 3188 00e4 C0F20003 		movt	r3, #:upper16:RightIn
- 3189 00e8 1B68     		ldr	r3, [r3, #0]
- 3190 00ea 23F07F42 		bic	r2, r3, #-16777216
- 3191 00ee 40F20003 		movw	r3, #:lower16:RightIn
- 3192 00f2 C0F20003 		movt	r3, #:upper16:RightIn
- 3193 00f6 1A60     		str	r2, [r3, #0]
- 3194              	.L144:
-1144:../Sources/drivers/sai/sai.c **** }
- 3195              		.loc 1 1144 0
- 3196 00f8 BD46     		mov	sp, r7
- 3197 00fa 80BC     		pop	{r7}
- 3198 00fc 7047     		bx	lr
- 3199              		.cfi_endproc
- 3200              	.LFE160:
- 3202 00fe 00BF     		.section	.text.sai0_tx_isr,"ax",%progbits
- 3203              		.align	2
- 3204              		.global	sai0_tx_isr
- 3205              		.thumb
- 3206              		.thumb_func
- 3208              	sai0_tx_isr:
- 3209              	.LFB161:
+1128:../Sources/drivers/sai/sai.c ****    
+1129:../Sources/drivers/sai/sai.c ****     LeftIn = I2S0_RDR0;
+ 3115              		.loc 1 1129 0
+ 3116 0020 4FF47043 		mov	r3, #61440
+ 3117 0024 C4F20203 		movt	r3, 16386
+ 3118 0028 D3F8A030 		ldr	r3, [r3, #160]
+ 3119 002c 1A46     		mov	r2, r3
+ 3120 002e 40F20003 		movw	r3, #:lower16:LeftIn
+ 3121 0032 C0F20003 		movt	r3, #:upper16:LeftIn
+ 3122 0036 1A60     		str	r2, [r3, #0]
+1130:../Sources/drivers/sai/sai.c ****     RightIn = I2S0_RDR0;
+ 3123              		.loc 1 1130 0
+ 3124 0038 4FF47043 		mov	r3, #61440
+ 3125 003c C4F20203 		movt	r3, 16386
+ 3126 0040 D3F8A030 		ldr	r3, [r3, #160]
+ 3127 0044 1A46     		mov	r2, r3
+ 3128 0046 40F20003 		movw	r3, #:lower16:RightIn
+ 3129 004a C0F20003 		movt	r3, #:upper16:RightIn
+ 3130 004e 1A60     		str	r2, [r3, #0]
+1131:../Sources/drivers/sai/sai.c **** 
+1132:../Sources/drivers/sai/sai.c ****     //Sign extend the 24-bit data to q31_t;
+1133:../Sources/drivers/sai/sai.c **** 
+1134:../Sources/drivers/sai/sai.c ****     if(LeftIn & (1<<23))
+ 3131              		.loc 1 1134 0
+ 3132 0050 40F20003 		movw	r3, #:lower16:LeftIn
+ 3133 0054 C0F20003 		movt	r3, #:upper16:LeftIn
+ 3134 0058 1B68     		ldr	r3, [r3, #0]
+ 3135 005a 03F40003 		and	r3, r3, #8388608
+ 3136 005e 002B     		cmp	r3, #0
+ 3137 0060 0DD0     		beq	.L145
+1135:../Sources/drivers/sai/sai.c ****         LeftIn |= 0xFF000000;
+ 3138              		.loc 1 1135 0
+ 3139 0062 40F20003 		movw	r3, #:lower16:LeftIn
+ 3140 0066 C0F20003 		movt	r3, #:upper16:LeftIn
+ 3141 006a 1B68     		ldr	r3, [r3, #0]
+ 3142 006c 43F07F43 		orr	r3, r3, #-16777216
+ 3143 0070 1A46     		mov	r2, r3
+ 3144 0072 40F20003 		movw	r3, #:lower16:LeftIn
+ 3145 0076 C0F20003 		movt	r3, #:upper16:LeftIn
+ 3146 007a 1A60     		str	r2, [r3, #0]
+ 3147 007c 0BE0     		b	.L146
+ 3148              	.L145:
+1136:../Sources/drivers/sai/sai.c ****     else
+1137:../Sources/drivers/sai/sai.c ****         LeftIn &=~0xFF000000;;
+ 3149              		.loc 1 1137 0
+ 3150 007e 40F20003 		movw	r3, #:lower16:LeftIn
+ 3151 0082 C0F20003 		movt	r3, #:upper16:LeftIn
+ 3152 0086 1B68     		ldr	r3, [r3, #0]
+ 3153 0088 23F07F42 		bic	r2, r3, #-16777216
+ 3154 008c 40F20003 		movw	r3, #:lower16:LeftIn
+ 3155 0090 C0F20003 		movt	r3, #:upper16:LeftIn
+ 3156 0094 1A60     		str	r2, [r3, #0]
+ 3157              	.L146:
+1138:../Sources/drivers/sai/sai.c **** 
+1139:../Sources/drivers/sai/sai.c ****     if(RightIn & (1<<23))
+ 3158              		.loc 1 1139 0
+ 3159 0096 40F20003 		movw	r3, #:lower16:RightIn
+ 3160 009a C0F20003 		movt	r3, #:upper16:RightIn
+ 3161 009e 1B68     		ldr	r3, [r3, #0]
+ 3162 00a0 03F40003 		and	r3, r3, #8388608
+ 3163 00a4 002B     		cmp	r3, #0
+ 3164 00a6 0DD0     		beq	.L147
+1140:../Sources/drivers/sai/sai.c ****         RightIn |= 0xFF000000;
+ 3165              		.loc 1 1140 0
+ 3166 00a8 40F20003 		movw	r3, #:lower16:RightIn
+ 3167 00ac C0F20003 		movt	r3, #:upper16:RightIn
+ 3168 00b0 1B68     		ldr	r3, [r3, #0]
+ 3169 00b2 43F07F43 		orr	r3, r3, #-16777216
+ 3170 00b6 1A46     		mov	r2, r3
+ 3171 00b8 40F20003 		movw	r3, #:lower16:RightIn
+ 3172 00bc C0F20003 		movt	r3, #:upper16:RightIn
+ 3173 00c0 1A60     		str	r2, [r3, #0]
+ 3174 00c2 0BE0     		b	.L144
+ 3175              	.L147:
+1141:../Sources/drivers/sai/sai.c ****     else
+1142:../Sources/drivers/sai/sai.c ****         RightIn &=~0xFF000000;;
+ 3176              		.loc 1 1142 0
+ 3177 00c4 40F20003 		movw	r3, #:lower16:RightIn
+ 3178 00c8 C0F20003 		movt	r3, #:upper16:RightIn
+ 3179 00cc 1B68     		ldr	r3, [r3, #0]
+ 3180 00ce 23F07F42 		bic	r2, r3, #-16777216
+ 3181 00d2 40F20003 		movw	r3, #:lower16:RightIn
+ 3182 00d6 C0F20003 		movt	r3, #:upper16:RightIn
+ 3183 00da 1A60     		str	r2, [r3, #0]
+ 3184              	.L144:
+1143:../Sources/drivers/sai/sai.c **** }
+ 3185              		.loc 1 1143 0
+ 3186 00dc BD46     		mov	sp, r7
+ 3187 00de 80BC     		pop	{r7}
+ 3188 00e0 7047     		bx	lr
+ 3189              		.cfi_endproc
+ 3190              	.LFE160:
+ 3192 00e2 00BF     		.section	.text.sai0_tx_isr,"ax",%progbits
+ 3193              		.align	2
+ 3194              		.global	sai0_tx_isr
+ 3195              		.thumb
+ 3196              		.thumb_func
+ 3198              	sai0_tx_isr:
+ 3199              	.LFB161:
+1144:../Sources/drivers/sai/sai.c **** 
 1145:../Sources/drivers/sai/sai.c **** 
 1146:../Sources/drivers/sai/sai.c **** 
-1147:../Sources/drivers/sai/sai.c **** 
-1148:../Sources/drivers/sai/sai.c **** void sai0_tx_isr(void)
-1149:../Sources/drivers/sai/sai.c **** {
- 3210              		.loc 1 1149 0
- 3211              		.cfi_startproc
- 3212              		@ args = 0, pretend = 0, frame = 0
- 3213              		@ frame_needed = 1, uses_anonymous_args = 0
- 3214 0000 80B5     		push	{r7, lr}
- 3215              	.LCFI98:
- 3216              		.cfi_def_cfa_offset 8
- 3217              		.cfi_offset 7, -8
- 3218              		.cfi_offset 14, -4
- 3219 0002 00AF     		add	r7, sp, #0
- 3220              	.LCFI99:
- 3221              		.cfi_def_cfa_register 7
-1150:../Sources/drivers/sai/sai.c ****     I2S_TCSR_REG(I2S0_BASE_PTR) &= ~(I2S_TCSR_FRF_MASK);
- 3222              		.loc 1 1150 0
- 3223 0004 4FF47043 		mov	r3, #61440
- 3224 0008 C4F20203 		movt	r3, 16386
- 3225 000c 4FF47042 		mov	r2, #61440
- 3226 0010 C4F20202 		movt	r2, 16386
- 3227 0014 1268     		ldr	r2, [r2, #0]
- 3228 0016 22F48032 		bic	r2, r2, #65536
- 3229 001a 1A60     		str	r2, [r3, #0]
-1151:../Sources/drivers/sai/sai.c ****     //Send out the last Queued up values
-1152:../Sources/drivers/sai/sai.c ****     I2S0_TDR0 = LeftOut;
- 3230              		.loc 1 1152 0
- 3231 001c 4FF47043 		mov	r3, #61440
- 3232 0020 C4F20203 		movt	r3, 16386
- 3233 0024 40F20002 		movw	r2, #:lower16:LeftOut
- 3234 0028 C0F20002 		movt	r2, #:upper16:LeftOut
- 3235 002c 1268     		ldr	r2, [r2, #0]
- 3236 002e 1A62     		str	r2, [r3, #32]
-1153:../Sources/drivers/sai/sai.c ****     I2S0_TDR0 = RightOut;
- 3237              		.loc 1 1153 0
- 3238 0030 4FF47043 		mov	r3, #61440
- 3239 0034 C4F20203 		movt	r3, 16386
- 3240 0038 40F20002 		movw	r2, #:lower16:RightOut
- 3241 003c C0F20002 		movt	r2, #:upper16:RightOut
- 3242 0040 1268     		ldr	r2, [r2, #0]
- 3243 0042 1A62     		str	r2, [r3, #32]
+1147:../Sources/drivers/sai/sai.c **** void sai0_tx_isr(void)
+1148:../Sources/drivers/sai/sai.c **** {
+ 3200              		.loc 1 1148 0
+ 3201              		.cfi_startproc
+ 3202              		@ args = 0, pretend = 0, frame = 0
+ 3203              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3204 0000 80B5     		push	{r7, lr}
+ 3205              	.LCFI98:
+ 3206              		.cfi_def_cfa_offset 8
+ 3207              		.cfi_offset 7, -8
+ 3208              		.cfi_offset 14, -4
+ 3209 0002 00AF     		add	r7, sp, #0
+ 3210              	.LCFI99:
+ 3211              		.cfi_def_cfa_register 7
+1149:../Sources/drivers/sai/sai.c ****     I2S_TCSR_REG(I2S0_BASE_PTR) &= ~(I2S_TCSR_FRF_MASK);
+ 3212              		.loc 1 1149 0
+ 3213 0004 4FF47043 		mov	r3, #61440
+ 3214 0008 C4F20203 		movt	r3, 16386
+ 3215 000c 4FF47042 		mov	r2, #61440
+ 3216 0010 C4F20202 		movt	r2, 16386
+ 3217 0014 1268     		ldr	r2, [r2, #0]
+ 3218 0016 22F48032 		bic	r2, r2, #65536
+ 3219 001a 1A60     		str	r2, [r3, #0]
+1150:../Sources/drivers/sai/sai.c ****     //Send out the last Queued up values
+1151:../Sources/drivers/sai/sai.c ****     I2S0_TDR0 = LeftOut;
+ 3220              		.loc 1 1151 0
+ 3221 001c 4FF47043 		mov	r3, #61440
+ 3222 0020 C4F20203 		movt	r3, 16386
+ 3223 0024 40F20002 		movw	r2, #:lower16:LeftOut
+ 3224 0028 C0F20002 		movt	r2, #:upper16:LeftOut
+ 3225 002c 1268     		ldr	r2, [r2, #0]
+ 3226 002e 1A62     		str	r2, [r3, #32]
+1152:../Sources/drivers/sai/sai.c ****     I2S0_TDR0 = RightOut;
+ 3227              		.loc 1 1152 0
+ 3228 0030 4FF47043 		mov	r3, #61440
+ 3229 0034 C4F20203 		movt	r3, 16386
+ 3230 0038 40F20002 		movw	r2, #:lower16:RightOut
+ 3231 003c C0F20002 		movt	r2, #:upper16:RightOut
+ 3232 0040 1268     		ldr	r2, [r2, #0]
+ 3233 0042 1A62     		str	r2, [r3, #32]
+1153:../Sources/drivers/sai/sai.c ****     
 1154:../Sources/drivers/sai/sai.c ****     //Process the next set of samples
-1155:../Sources/drivers/sai/sai.c ****     AudioProcess();
- 3244              		.loc 1 1155 0
- 3245 0044 FFF7FEFF 		bl	AudioProcess
-1156:../Sources/drivers/sai/sai.c **** }
- 3246              		.loc 1 1156 0
- 3247 0048 80BD     		pop	{r7, pc}
+1155:../Sources/drivers/sai/sai.c ****     GPIOD_PSOR = 1<<3; //Set and clear Port D3 to measure execution Speed
+ 3234              		.loc 1 1155 0
+ 3235 0044 4FF2C003 		movw	r3, #61632
+ 3236 0048 C4F20F03 		movt	r3, 16399
+ 3237 004c 4FF00802 		mov	r2, #8
+ 3238 0050 5A60     		str	r2, [r3, #4]
+1156:../Sources/drivers/sai/sai.c ****       	  
+1157:../Sources/drivers/sai/sai.c ****     	AudioProcess();
+ 3239              		.loc 1 1157 0
+ 3240 0052 FFF7FEFF 		bl	AudioProcess
+1158:../Sources/drivers/sai/sai.c ****  
+1159:../Sources/drivers/sai/sai.c ****     GPIOD_PCOR = 1<<3;
+ 3241              		.loc 1 1159 0
+ 3242 0056 4FF2C003 		movw	r3, #61632
+ 3243 005a C4F20F03 		movt	r3, 16399
+ 3244 005e 4FF00802 		mov	r2, #8
+ 3245 0062 9A60     		str	r2, [r3, #8]
+1160:../Sources/drivers/sai/sai.c ****      
+1161:../Sources/drivers/sai/sai.c **** }
+ 3246              		.loc 1 1161 0
+ 3247 0064 80BD     		pop	{r7, pc}
  3248              		.cfi_endproc
  3249              	.LFE161:
- 3251 004a 00BF     		.section	.text.sai1_rx_isr,"ax",%progbits
- 3252              		.align	2
- 3253              		.global	sai1_rx_isr
- 3254              		.thumb
- 3255              		.thumb_func
- 3257              	sai1_rx_isr:
- 3258              	.LFB162:
-1157:../Sources/drivers/sai/sai.c **** 
-1158:../Sources/drivers/sai/sai.c **** void sai1_rx_isr(void)
-1159:../Sources/drivers/sai/sai.c **** {
- 3259              		.loc 1 1159 0
- 3260              		.cfi_startproc
- 3261              		@ args = 0, pretend = 0, frame = 0
- 3262              		@ frame_needed = 1, uses_anonymous_args = 0
- 3263              		@ link register save eliminated.
- 3264 0000 80B4     		push	{r7}
- 3265              	.LCFI100:
- 3266              		.cfi_def_cfa_offset 4
- 3267              		.cfi_offset 7, -4
- 3268 0002 00AF     		add	r7, sp, #0
- 3269              	.LCFI101:
- 3270              		.cfi_def_cfa_register 7
-1160:../Sources/drivers/sai/sai.c **** }
- 3271              		.loc 1 1160 0
- 3272 0004 BD46     		mov	sp, r7
- 3273 0006 80BC     		pop	{r7}
- 3274 0008 7047     		bx	lr
- 3275              		.cfi_endproc
- 3276              	.LFE162:
- 3278 000a 00BF     		.text
- 3279              	.Letext0:
- 3280              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 3281              		.file 3 "C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
- 3282              		.file 4 "C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
- 3283              		.file 5 "../Sources/drivers/sai/../../DSP/AudioProcess.h"
- 3284              		.file 6 "../Sources/drivers/sai/sai.h"
+ 3251 0066 00BF     		.text
+ 3252              	.Letext0:
+ 3253              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 3254              		.file 3 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+ 3255              		.file 4 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include/arm_math.h"
+ 3256              		.file 5 "../Sources/drivers/sai/../../DSP/AudioProcess.h"
+ 3257              		.file 6 "../Sources/drivers/sai/sai.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 sai.c
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:19     .text.sai_pinmux_init:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:24     .text.sai_pinmux_init:00000000 sai_pinmux_init
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:155    .text.sai_stop_dbg_enable:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:160    .text.sai_stop_dbg_enable:00000000 sai_stop_dbg_enable
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:291    .text.sai_fifo_reset:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:296    .text.sai_fifo_reset:00000000 sai_fifo_reset
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:353    .text.sai_soft_reset:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:358    .text.sai_soft_reset:00000000 sai_soft_reset
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:431    .text.sai_interrupt_enable:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:436    .text.sai_interrupt_enable:00000000 sai_interrupt_enable
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:493    .text.sai_clear_flags:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:498    .text.sai_clear_flags:00000000 sai_clear_flags
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:555    .text.sai_fifo_request_dma_enable:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:560    .text.sai_fifo_request_dma_enable:00000000 sai_fifo_request_dma_enable
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:617    .text.sai_fifo_warning_dma_enable:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:622    .text.sai_fifo_warning_dma_enable:00000000 sai_fifo_warning_dma_enable
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:679    .text.sai_enable:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:684    .text.sai_enable:00000000 sai_enable
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:741    .text.sai_disable:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:746    .text.sai_disable:00000000 sai_disable
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:803    .text.sai_watermark_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:808    .text.sai_watermark_config:00000000 sai_watermark_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:861    .text.sai_mode_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:866    .text.sai_mode_config:00000000 sai_mode_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1017   .text.sai_bclk_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1022   .text.sai_bclk_config:00000000 sai_bclk_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1215   .text.sai_bclk_en:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1220   .text.sai_bclk_en:00000000 sai_bclk_en
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1276   .text.sai_bclk_dis:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1281   .text.sai_bclk_dis:00000000 sai_bclk_dis
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1337   .text.sai_channel_enable:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1342   .text.sai_channel_enable:00000000 sai_channel_enable
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1407   .text.sai_channel_disable:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1412   .text.sai_channel_disable:00000000 sai_channel_disable
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1479   .text.sai_word_flg_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1484   .text.sai_word_flg_config:00000000 sai_word_flg_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1547   .text.sai_frame_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1552   .text.sai_frame_config:00000000 sai_frame_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1703   .text.sai_frameclk_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1708   .text.sai_frameclk_config:00000000 sai_frameclk_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1885   .text.sai_wordlength_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:1890   .text.sai_wordlength_config:00000000 sai_wordlength_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2023   .text.sai_tx:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2028   .text.sai_tx:00000000 sai_tx
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2254   .text.sai_tx_fifo_status:00000000 sai_tx_fifo_status
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2087   .text.sai_wr_tdr:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2092   .text.sai_wr_tdr:00000000 sai_wr_tdr
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2135   .text.sai_rx:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2140   .text.sai_rx:00000000 sai_rx
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2341   .text.sai_rx_fifo_status:00000000 sai_rx_fifo_status
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2200   .text.sai_rd_rdr:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2205   .text.sai_rd_rdr:00000000 sai_rd_rdr
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2249   .text.sai_tx_fifo_status:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2336   .text.sai_rx_fifo_status:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2423   .text.sai_mask_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2428   .text.sai_mask_config:00000000 sai_mask_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2480   .text.sai_mclk_config:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2485   .text.sai_mclk_config:00000000 sai_mclk_config
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2632   .text.sai_clear_reg:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2637   .text.sai_clear_reg:00000000 sai_clear_reg
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2841   .text.sai_monitor_fifo_status:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2846   .text.sai_monitor_fifo_status:00000000 sai_monitor_fifo_status
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2876   .text.sai_inteprete_flag:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:2881   .text.sai_inteprete_flag:00000000 sai_inteprete_flag
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:3088   .text.sai0_rx_isr:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:3093   .text.sai0_rx_isr:00000000 sai0_rx_isr
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:3203   .text.sai0_tx_isr:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:3208   .text.sai0_tx_isr:00000000 sai0_tx_isr
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:3252   .text.sai1_rx_isr:00000000 $t
-C:\Users\emh203\AppData\Local\Temp\ccfiIvUm.s:3257   .text.sai1_rx_isr:00000000 sai1_rx_isr
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:19     .text.sai_pinmux_init:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:24     .text.sai_pinmux_init:00000000 sai_pinmux_init
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:155    .text.sai_stop_dbg_enable:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:160    .text.sai_stop_dbg_enable:00000000 sai_stop_dbg_enable
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:291    .text.sai_fifo_reset:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:296    .text.sai_fifo_reset:00000000 sai_fifo_reset
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:353    .text.sai_soft_reset:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:358    .text.sai_soft_reset:00000000 sai_soft_reset
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:431    .text.sai_interrupt_enable:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:436    .text.sai_interrupt_enable:00000000 sai_interrupt_enable
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:493    .text.sai_clear_flags:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:498    .text.sai_clear_flags:00000000 sai_clear_flags
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:555    .text.sai_fifo_request_dma_enable:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:560    .text.sai_fifo_request_dma_enable:00000000 sai_fifo_request_dma_enable
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:617    .text.sai_fifo_warning_dma_enable:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:622    .text.sai_fifo_warning_dma_enable:00000000 sai_fifo_warning_dma_enable
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:679    .text.sai_enable:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:684    .text.sai_enable:00000000 sai_enable
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:741    .text.sai_disable:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:746    .text.sai_disable:00000000 sai_disable
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:803    .text.sai_watermark_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:808    .text.sai_watermark_config:00000000 sai_watermark_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:861    .text.sai_mode_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:866    .text.sai_mode_config:00000000 sai_mode_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1017   .text.sai_bclk_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1022   .text.sai_bclk_config:00000000 sai_bclk_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1215   .text.sai_bclk_en:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1220   .text.sai_bclk_en:00000000 sai_bclk_en
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1276   .text.sai_bclk_dis:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1281   .text.sai_bclk_dis:00000000 sai_bclk_dis
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1337   .text.sai_channel_enable:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1342   .text.sai_channel_enable:00000000 sai_channel_enable
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1407   .text.sai_channel_disable:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1412   .text.sai_channel_disable:00000000 sai_channel_disable
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1479   .text.sai_word_flg_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1484   .text.sai_word_flg_config:00000000 sai_word_flg_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1547   .text.sai_frame_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1552   .text.sai_frame_config:00000000 sai_frame_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1703   .text.sai_frameclk_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1708   .text.sai_frameclk_config:00000000 sai_frameclk_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1885   .text.sai_wordlength_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:1890   .text.sai_wordlength_config:00000000 sai_wordlength_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2023   .text.sai_tx:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2028   .text.sai_tx:00000000 sai_tx
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2254   .text.sai_tx_fifo_status:00000000 sai_tx_fifo_status
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2087   .text.sai_wr_tdr:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2092   .text.sai_wr_tdr:00000000 sai_wr_tdr
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2135   .text.sai_rx:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2140   .text.sai_rx:00000000 sai_rx
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2341   .text.sai_rx_fifo_status:00000000 sai_rx_fifo_status
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2200   .text.sai_rd_rdr:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2205   .text.sai_rd_rdr:00000000 sai_rd_rdr
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2249   .text.sai_tx_fifo_status:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2336   .text.sai_rx_fifo_status:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2423   .text.sai_mask_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2428   .text.sai_mask_config:00000000 sai_mask_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2480   .text.sai_mclk_config:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2485   .text.sai_mclk_config:00000000 sai_mclk_config
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2632   .text.sai_clear_reg:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2637   .text.sai_clear_reg:00000000 sai_clear_reg
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2841   .text.sai_monitor_fifo_status:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2846   .text.sai_monitor_fifo_status:00000000 sai_monitor_fifo_status
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2876   .text.sai_inteprete_flag:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:2881   .text.sai_inteprete_flag:00000000 sai_inteprete_flag
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:3088   .text.sai0_rx_isr:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:3093   .text.sai0_rx_isr:00000000 sai0_rx_isr
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:3193   .text.sai0_tx_isr:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccKazemA.s:3198   .text.sai0_tx_isr:00000000 sai0_tx_isr
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

@@ -114,7 +114,7 @@ void AudioProcess()
 	{
    
 		//See what the current Patch is and do the appropriate processing!
-    switch(CurrentPatch)
+		switch(CurrentPatch)
         {
             default:
                     case PATCH_PASS_THROUGH:
@@ -163,6 +163,9 @@ void AudioProcess()
                
                 Compute_q31_t_IIR(&MyIIR[1],Signal,&Signal);
                 
+                //Saturate the output to 24 bits
+                   Signal = __SSAT(Signal,24);
+                
                 LeftOut = Signal;
                 RightOut = Signal;
                 break;
@@ -181,7 +184,7 @@ void AudioProcess()
                           MyIIR[1].Coef = MyIIR[1].Shadow_Coef;
                    }
             	
-                Signal = LeftIn;
+                Signal = LeftIn + RightIn;
                 
                 Compute_q31_t_IIR(&MyIIR[0],Signal,&Signal);
                 Signal = SoftOverdrive(Signal, OD_Level);

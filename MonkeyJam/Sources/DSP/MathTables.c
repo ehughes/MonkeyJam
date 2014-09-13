@@ -39,7 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // od_atan(x) = (2/pi()) * atan(x)
 
 #include "MathTables.h"
-
+#include "..\Config.h"
+#ifndef EXP_NOISE_GATE
 const q31_t atan_24pi_q31_t[4096] =
 {
     -2111227886	,
@@ -4139,7 +4140,7 @@ const q31_t atan_24pi_q31_t[4096] =
     2111210178	,
     2111227886
 };
-
+#endif
 
 const q31_t atan_12pi_q31_t[4096] =
 {
@@ -13119,4 +13120,3 @@ const uint16_t OffsetCos_0_1023[256] = {
 0	,
 0	
 };
-

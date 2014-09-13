@@ -14,4 +14,6 @@
 #define DAC_WM8762
 
 
+//#define EXP_NOISE_GATE
+
 #endif /* CONFIG_H_ */

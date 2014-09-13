@@ -102,12 +102,12 @@ uint32_t InitAudioIO( uint32_t    BusClockIn,
         0,                  //Port 0
         1,                  //Tx
       
-#ifdef DAC_WM8762
-        0,                  //Frame Sync One bit Early. //  This makes it I2S compatible
-#else
-        1
-#endif
-        
+		#ifdef DAC_WM8762
+				0,       //Data comes right after FS.   this means LJ           
+		#else
+				1,		//Frame Sync One bit Early.   This makes it I2S compatible
+		#endif
+				
         0,                  //high active frame sync polarity
         1                   //Master mode generates frame sync
     );

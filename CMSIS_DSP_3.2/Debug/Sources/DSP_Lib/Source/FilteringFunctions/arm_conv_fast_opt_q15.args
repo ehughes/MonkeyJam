@@ -6,7 +6,6 @@
 -gstrict-dwarf
 -DARM_MATH_ROUNDING
 -DARM_MATH_CM4
--I"C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Project_Headers"
 -I"C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Sources/Include"
 -I"C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include"
 -I"C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_Runtime/include"

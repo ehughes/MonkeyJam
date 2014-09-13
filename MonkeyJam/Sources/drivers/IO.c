@@ -12,11 +12,9 @@ void InitIO()
                  SIM_SCGC5_PORTD_MASK |
                  SIM_SCGC5_PORTE_MASK;
       
-        
+    PORTC_PCR(0) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;
     PORTC_PCR(4) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;
-    PORTD_PCR(0) = PORT_PCR_MUX(1)| PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;  // Enable Pull-up;;
-       
-    
+   
     
     PORTC_PCR(3) = PORT_PCR_MUX(6);     //PTC3(ALT6), I2S0_TX_BCLK
     PORTC_PCR(2) = PORT_PCR_MUX(6);     //PTC2(ALT6), I2S0_TX_FS	
@@ -37,18 +35,24 @@ void InitIO()
     GPIOC_PDDR &=~(1<<11);
     
     PORTD_PCR(7) = PORT_PCR_MUX(1);    
-     GPIOD_PDDR &=~(1<<7);
+    GPIOD_PDDR &=~(1<<7);
      
      PORTD_PCR(0) = PORT_PCR_MUX(1);    
-      GPIOD_PDDR &=~(1<<0);
+     GPIOD_PDDR &=~(1<<0);
                        
-                      
+   
+    //for code profiling
+      
+     PORTD_PCR(3) = PORT_PCR_MUX(1);    
+     GPIOD_PDDR |=(1<<3);
+            
+      
     InitADC_12Bit();
     //This sets the SAI unit for 32MHz, 256x oversampling on the ADC/ Dacs
-    InitAudioIO(50000000, 24000, 256);
+    InitAudioIO(50000000, 32000, 256);
     
 
-        
+    IO_ZETA_IS_INPUT;
     IO_DELTA_IS_INPUT;
     
 }

@@ -2,6 +2,7 @@
 "./Project_Settings/Startup_Code/__arm_start.o"
 "./Project_Settings/Startup_Code/__arm_end.o"
 "./Sources/DSP/MathTables.o"
+"./Sources/DSP/MathTable_NG.o"
 "./Sources/DSP/IIR.o"
 "./Sources/DSP/AudioProcess.o"
 "./Sources/DSP/AudioIF.o"
@@ -20,11 +21,11 @@
 -g3
 -gdwarf-2
 -gstrict-dwarf
--T"C:/Users/emh203/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Settings/Linker_Files/MK20DX128_flash.ld"
+-T"C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Settings/Linker_Files/MK20DX128_flash.ld"
 -Xlinker
 --gc-sections
 -L"C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/lib/armv7e-m"
--L"C:/Users/emh203/Documents/GitHub/MonkeyListen/CMSIS_DSP_3.2/Debug"
+-L"C:/Users/ehughes/Documents/GitHub/MonkeyJam/CMSIS_DSP_3.2/Debug"
 -Wl,-Map,JAM_TEST.map
 -Xlinker
 --cref
