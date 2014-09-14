@@ -107,7 +107,7 @@ int main(void)
         {
     	
     		//For Maker Faire Demo
-    		if(!IO_ZETA_IS_ON)
+    		if(IO_ZETA_IS_ON)
     		{
     			CurrentPatch = PATCH_TUBEY_CLEAN;
     		}
@@ -120,12 +120,12 @@ int main(void)
             switch(CurrentPatch)
                 {
                     case PATCH_TUBEY_CLEAN:
-                    	SetPotLimits(POT_ALPHA,1000,4000);
+                    	SetPotLimits(POT_ALPHA,1000,600);
                     	                        //Since a Q31 is 31 bits of fraction and 1 bit of sign,  just
                     	                        //multiply a binary value of 31 bits by the float and cast back to an integer
                     	                        OD_Level = (q31_t)((float)0x7fffffff);
-                    	                        SetPotLimits(POT_BETA,0.001,1.5);
-                    	                        SetPotLimits(POT_GAMMA,-15,15.0 );
+                    	                        SetPotLimits(POT_BETA,0.001,3.5);
+                    	                        SetPotLimits(POT_GAMMA,-30,30.0 );
                     	                       
                     	                        DesignAudioBiquadIIR_q31_t(&MyIIR[0].Shadow_Coef,// Pointer to the IIR Structure
                     	                                                    BIQUAD_PEAKING_EQ,

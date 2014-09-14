@@ -6254,14 +6254,14 @@
  466              	.LCFI17:
  467              		.cfi_def_cfa_register 7
  107:../Sources/DSP/AudioProcess.c **** 	
- 108:../Sources/DSP/AudioProcess.c **** 	if(IO_DELTA_IS_ON == 0) //Bypass the effect processing
+ 108:../Sources/DSP/AudioProcess.c **** 	if(!IO_DELTA_IS_ON == 0) //Bypass the effect processing
  468              		.loc 3 108 0
  469 0006 4FF28003 		movw	r3, #61568
  470 000a C4F20F03 		movt	r3, 16399
  471 000e 1B69     		ldr	r3, [r3, #16]
  472 0010 03F01003 		and	r3, r3, #16
  473 0014 002B     		cmp	r3, #0
- 474 0016 14D1     		bne	.L14
+ 474 0016 14D0     		beq	.L14
  109:../Sources/DSP/AudioProcess.c **** 	{
  110:../Sources/DSP/AudioProcess.c **** 	    LeftOut = LeftIn;
  475              		.loc 3 110 0
@@ -6279,7 +6279,7 @@
  486 0036 40F20003 		movw	r3, #:lower16:RightOut
  487 003a C0F20003 		movt	r3, #:upper16:RightOut
  488 003e 1A60     		str	r2, [r3, #0]
- 489 0040 F7E1     		b	.L13
+ 489 0040 F9E1     		b	.L13
  490              	.L14:
  112:../Sources/DSP/AudioProcess.c **** 	}
  113:../Sources/DSP/AudioProcess.c **** 	else
@@ -6328,7 +6328,7 @@
  523 009e 1A60     		str	r2, [r3, #0]
  124:../Sources/DSP/AudioProcess.c ****                 break;
  524              		.loc 3 124 0
- 525 00a0 C7E1     		b	.L13
+ 525 00a0 C9E1     		b	.L13
  526              	.L17:
  125:../Sources/DSP/AudioProcess.c **** 
  126:../Sources/DSP/AudioProcess.c ****             case PATCH_SINE_TEST:
@@ -6364,7 +6364,7 @@
  553 00f4 1A70     		strb	r2, [r3, #0]
  130:../Sources/DSP/AudioProcess.c ****                 break;
  554              		.loc 3 130 0
- 555 00f6 9CE1     		b	.L13
+ 555 00f6 9EE1     		b	.L13
  556              	.L20:
  131:../Sources/DSP/AudioProcess.c ****                 
  132:../Sources/DSP/AudioProcess.c ****             case PATCH_OD_DEMO_SINE_TEST:
@@ -6427,7 +6427,7 @@
  604 0186 1A60     		str	r2, [r3, #0]
  142:../Sources/DSP/AudioProcess.c ****                 break;
  605              		.loc 3 142 0
- 606 0188 53E1     		b	.L13
+ 606 0188 55E1     		b	.L13
  607              	.L19:
  143:../Sources/DSP/AudioProcess.c **** 
  144:../Sources/DSP/AudioProcess.c **** 
@@ -6536,7 +6536,7 @@
  690 0278 40F20003 		movw	r3, #:lower16:Signal
  691 027c C0F20003 		movt	r3, #:upper16:Signal
  692 0280 1B68     		ldr	r3, [r3, #0]
- 693 0282 6E48     		ldr	r0, .L26
+ 693 0282 6F48     		ldr	r0, .L26
  694 0284 1946     		mov	r1, r3
  695 0286 40F20002 		movw	r2, #:lower16:Signal
  696 028a C0F20002 		movt	r2, #:upper16:Signal
@@ -6581,7 +6581,7 @@
  729 02da 1A60     		str	r2, [r3, #0]
  171:../Sources/DSP/AudioProcess.c ****                 break;
  730              		.loc 3 171 0
- 731 02dc A9E0     		b	.L13
+ 731 02dc ABE0     		b	.L13
  732              	.L18:
  172:../Sources/DSP/AudioProcess.c **** 
  173:../Sources/DSP/AudioProcess.c ****             case PATCH_TUBEY_CLEAN:
@@ -6644,7 +6644,7 @@
  778              	.L25:
  185:../Sources/DSP/AudioProcess.c ****                    }
  186:../Sources/DSP/AudioProcess.c ****             	
- 187:../Sources/DSP/AudioProcess.c ****                 Signal = LeftIn + RightIn;
+ 187:../Sources/DSP/AudioProcess.c ****                 Signal = (LeftIn + RightIn)<<1;
  779              		.loc 3 187 0
  780 0364 40F20003 		movw	r3, #:lower16:LeftIn
  781 0368 C0F20003 		movt	r3, #:upper16:LeftIn
@@ -6652,139 +6652,140 @@
  783 036e 40F20003 		movw	r3, #:lower16:RightIn
  784 0372 C0F20003 		movt	r3, #:upper16:RightIn
  785 0376 1B68     		ldr	r3, [r3, #0]
- 786 0378 D218     		adds	r2, r2, r3
- 787 037a 40F20003 		movw	r3, #:lower16:Signal
- 788 037e C0F20003 		movt	r3, #:upper16:Signal
- 789 0382 1A60     		str	r2, [r3, #0]
+ 786 0378 D318     		adds	r3, r2, r3
+ 787 037a 4FEA4302 		lsl	r2, r3, #1
+ 788 037e 40F20003 		movw	r3, #:lower16:Signal
+ 789 0382 C0F20003 		movt	r3, #:upper16:Signal
+ 790 0386 1A60     		str	r2, [r3, #0]
  188:../Sources/DSP/AudioProcess.c ****                 
  189:../Sources/DSP/AudioProcess.c ****                 Compute_q31_t_IIR(&MyIIR[0],Signal,&Signal);
- 790              		.loc 3 189 0
- 791 0384 40F20003 		movw	r3, #:lower16:Signal
- 792 0388 C0F20003 		movt	r3, #:upper16:Signal
- 793 038c 1B68     		ldr	r3, [r3, #0]
- 794 038e 40F20000 		movw	r0, #:lower16:MyIIR
- 795 0392 C0F20000 		movt	r0, #:upper16:MyIIR
- 796 0396 1946     		mov	r1, r3
- 797 0398 40F20002 		movw	r2, #:lower16:Signal
- 798 039c C0F20002 		movt	r2, #:upper16:Signal
- 799 03a0 FFF7FEFF 		bl	Compute_q31_t_IIR
+ 791              		.loc 3 189 0
+ 792 0388 40F20003 		movw	r3, #:lower16:Signal
+ 793 038c C0F20003 		movt	r3, #:upper16:Signal
+ 794 0390 1B68     		ldr	r3, [r3, #0]
+ 795 0392 40F20000 		movw	r0, #:lower16:MyIIR
+ 796 0396 C0F20000 		movt	r0, #:upper16:MyIIR
+ 797 039a 1946     		mov	r1, r3
+ 798 039c 40F20002 		movw	r2, #:lower16:Signal
+ 799 03a0 C0F20002 		movt	r2, #:upper16:Signal
+ 800 03a4 FFF7FEFF 		bl	Compute_q31_t_IIR
  190:../Sources/DSP/AudioProcess.c ****                 Signal = SoftOverdrive(Signal, OD_Level);
- 800              		.loc 3 190 0
- 801 03a4 40F20003 		movw	r3, #:lower16:Signal
- 802 03a8 C0F20003 		movt	r3, #:upper16:Signal
- 803 03ac 1A68     		ldr	r2, [r3, #0]
- 804 03ae 40F20003 		movw	r3, #:lower16:OD_Level
- 805 03b2 C0F20003 		movt	r3, #:upper16:OD_Level
- 806 03b6 1B68     		ldr	r3, [r3, #0]
- 807 03b8 1046     		mov	r0, r2
- 808 03ba 1946     		mov	r1, r3
- 809 03bc FFF7FEFF 		bl	SoftOverdrive
- 810 03c0 0246     		mov	r2, r0
- 811 03c2 40F20003 		movw	r3, #:lower16:Signal
- 812 03c6 C0F20003 		movt	r3, #:upper16:Signal
- 813 03ca 1A60     		str	r2, [r3, #0]
+ 801              		.loc 3 190 0
+ 802 03a8 40F20003 		movw	r3, #:lower16:Signal
+ 803 03ac C0F20003 		movt	r3, #:upper16:Signal
+ 804 03b0 1A68     		ldr	r2, [r3, #0]
+ 805 03b2 40F20003 		movw	r3, #:lower16:OD_Level
+ 806 03b6 C0F20003 		movt	r3, #:upper16:OD_Level
+ 807 03ba 1B68     		ldr	r3, [r3, #0]
+ 808 03bc 1046     		mov	r0, r2
+ 809 03be 1946     		mov	r1, r3
+ 810 03c0 FFF7FEFF 		bl	SoftOverdrive
+ 811 03c4 0246     		mov	r2, r0
+ 812 03c6 40F20003 		movw	r3, #:lower16:Signal
+ 813 03ca C0F20003 		movt	r3, #:upper16:Signal
+ 814 03ce 1A60     		str	r2, [r3, #0]
  191:../Sources/DSP/AudioProcess.c ****                 Compute_q31_t_IIR(&MyIIR[1],Signal,&Signal);
- 814              		.loc 3 191 0
- 815 03cc 40F20003 		movw	r3, #:lower16:Signal
- 816 03d0 C0F20003 		movt	r3, #:upper16:Signal
- 817 03d4 1B68     		ldr	r3, [r3, #0]
- 818 03d6 1948     		ldr	r0, .L26
- 819 03d8 1946     		mov	r1, r3
- 820 03da 40F20002 		movw	r2, #:lower16:Signal
- 821 03de C0F20002 		movt	r2, #:upper16:Signal
- 822 03e2 FFF7FEFF 		bl	Compute_q31_t_IIR
- 823              	.LBB5:
+ 815              		.loc 3 191 0
+ 816 03d0 40F20003 		movw	r3, #:lower16:Signal
+ 817 03d4 C0F20003 		movt	r3, #:upper16:Signal
+ 818 03d8 1B68     		ldr	r3, [r3, #0]
+ 819 03da 1948     		ldr	r0, .L26
+ 820 03dc 1946     		mov	r1, r3
+ 821 03de 40F20002 		movw	r2, #:lower16:Signal
+ 822 03e2 C0F20002 		movt	r2, #:upper16:Signal
+ 823 03e6 FFF7FEFF 		bl	Compute_q31_t_IIR
+ 824              	.LBB5:
  192:../Sources/DSP/AudioProcess.c ****                       
  193:../Sources/DSP/AudioProcess.c ****                 //Saturate the output to 24 bits
  194:../Sources/DSP/AudioProcess.c ****                 Signal = __SSAT(Signal,24);
- 824              		.loc 3 194 0
- 825 03e6 40F20003 		movw	r3, #:lower16:Signal
- 826 03ea C0F20003 		movt	r3, #:upper16:Signal
- 827 03ee 1B68     		ldr	r3, [r3, #0]
- 828 03f0 7B60     		str	r3, [r7, #4]
- 829 03f2 7B68     		ldr	r3, [r7, #4]
- 830              	@ 194 "../Sources/DSP/AudioProcess.c" 1
- 831 03f4 03F31704 		ssat r4, #24, r3
- 832              	@ 0 "" 2
- 833              		.thumb
- 834 03f8 3C60     		str	r4, [r7, #0]
- 835 03fa 3B68     		ldr	r3, [r7, #0]
- 836              	.LBE5:
- 837 03fc 1A46     		mov	r2, r3
- 838 03fe 40F20003 		movw	r3, #:lower16:Signal
- 839 0402 C0F20003 		movt	r3, #:upper16:Signal
- 840 0406 1A60     		str	r2, [r3, #0]
+ 825              		.loc 3 194 0
+ 826 03ea 40F20003 		movw	r3, #:lower16:Signal
+ 827 03ee C0F20003 		movt	r3, #:upper16:Signal
+ 828 03f2 1B68     		ldr	r3, [r3, #0]
+ 829 03f4 7B60     		str	r3, [r7, #4]
+ 830 03f6 7B68     		ldr	r3, [r7, #4]
+ 831              	@ 194 "../Sources/DSP/AudioProcess.c" 1
+ 832 03f8 03F31704 		ssat r4, #24, r3
+ 833              	@ 0 "" 2
+ 834              		.thumb
+ 835 03fc 3C60     		str	r4, [r7, #0]
+ 836 03fe 3B68     		ldr	r3, [r7, #0]
+ 837              	.LBE5:
+ 838 0400 1A46     		mov	r2, r3
+ 839 0402 40F20003 		movw	r3, #:lower16:Signal
+ 840 0406 C0F20003 		movt	r3, #:upper16:Signal
+ 841 040a 1A60     		str	r2, [r3, #0]
  195:../Sources/DSP/AudioProcess.c ****                 
  196:../Sources/DSP/AudioProcess.c ****                 LeftOut  = Signal;
- 841              		.loc 3 196 0
- 842 0408 40F20003 		movw	r3, #:lower16:Signal
- 843 040c C0F20003 		movt	r3, #:upper16:Signal
- 844 0410 1A68     		ldr	r2, [r3, #0]
- 845 0412 40F20003 		movw	r3, #:lower16:LeftOut
- 846 0416 C0F20003 		movt	r3, #:upper16:LeftOut
- 847 041a 1A60     		str	r2, [r3, #0]
+ 842              		.loc 3 196 0
+ 843 040c 40F20003 		movw	r3, #:lower16:Signal
+ 844 0410 C0F20003 		movt	r3, #:upper16:Signal
+ 845 0414 1A68     		ldr	r2, [r3, #0]
+ 846 0416 40F20003 		movw	r3, #:lower16:LeftOut
+ 847 041a C0F20003 		movt	r3, #:upper16:LeftOut
+ 848 041e 1A60     		str	r2, [r3, #0]
  197:../Sources/DSP/AudioProcess.c ****                 RightOut = Signal;
- 848              		.loc 3 197 0
- 849 041c 40F20003 		movw	r3, #:lower16:Signal
- 850 0420 C0F20003 		movt	r3, #:upper16:Signal
- 851 0424 1A68     		ldr	r2, [r3, #0]
- 852 0426 40F20003 		movw	r3, #:lower16:RightOut
- 853 042a C0F20003 		movt	r3, #:upper16:RightOut
- 854 042e 1A60     		str	r2, [r3, #0]
+ 849              		.loc 3 197 0
+ 850 0420 40F20003 		movw	r3, #:lower16:Signal
+ 851 0424 C0F20003 		movt	r3, #:upper16:Signal
+ 852 0428 1A68     		ldr	r2, [r3, #0]
+ 853 042a 40F20003 		movw	r3, #:lower16:RightOut
+ 854 042e C0F20003 		movt	r3, #:upper16:RightOut
+ 855 0432 1A60     		str	r2, [r3, #0]
  198:../Sources/DSP/AudioProcess.c ****                 
  199:../Sources/DSP/AudioProcess.c ****                 break;
- 855              		.loc 3 199 0
- 856 0430 00BF     		nop
- 857              	.L13:
+ 856              		.loc 3 199 0
+ 857 0434 00BF     		nop
+ 858              	.L13:
  200:../Sources/DSP/AudioProcess.c **** 
  201:../Sources/DSP/AudioProcess.c ****            
  202:../Sources/DSP/AudioProcess.c ****         }
  203:../Sources/DSP/AudioProcess.c ****     
  204:../Sources/DSP/AudioProcess.c **** 	}
  205:../Sources/DSP/AudioProcess.c **** }
- 858              		.loc 3 205 0
- 859 0432 07F11007 		add	r7, r7, #16
- 860 0436 BD46     		mov	sp, r7
- 861 0438 B0BD     		pop	{r4, r5, r7, pc}
- 862              	.L27:
- 863 043a 00BF     		.align	2
- 864              	.L26:
- 865 043c 50000000 		.word	MyIIR+80
- 866              		.cfi_endproc
- 867              	.LFE132:
- 869              		.text
- 870              	.Letext0:
- 871              		.file 4 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 872              		.file 5 "../Sources/DSP/IIR.h"
- 873              		.file 6 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
- 874              		.file 7 "../Sources/DSP/MathTables.h"
+ 859              		.loc 3 205 0
+ 860 0436 07F11007 		add	r7, r7, #16
+ 861 043a BD46     		mov	sp, r7
+ 862 043c B0BD     		pop	{r4, r5, r7, pc}
+ 863              	.L27:
+ 864 043e 00BF     		.align	2
+ 865              	.L26:
+ 866 0440 50000000 		.word	MyIIR+80
+ 867              		.cfi_endproc
+ 868              	.LFE132:
+ 870              		.text
+ 871              	.Letext0:
+ 872              		.file 4 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 873              		.file 5 "../Sources/DSP/IIR.h"
+ 874              		.file 6 "C:/Users/ehughes/Documents/GitHub/MonkeyJam/MonkeyJam/Project_Headers/MK20D5.h"
+ 875              		.file 7 "../Sources/DSP/MathTables.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 AudioProcess.c
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:19     .text.arm_linear_interp_q31:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:23     .text.arm_linear_interp_q31:00000000 arm_linear_interp_q31
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:153    .text.HardOverdrive:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:158    .text.HardOverdrive:00000000 HardOverdrive
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:241    .text.SoftOverdrive:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:246    .text.SoftOverdrive:00000000 SoftOverdrive
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:331    .data.CurrentPatch:00000000 CurrentPatch
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:19     .text.arm_linear_interp_q31:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:23     .text.arm_linear_interp_q31:00000000 arm_linear_interp_q31
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:153    .text.HardOverdrive:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:158    .text.HardOverdrive:00000000 HardOverdrive
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:241    .text.SoftOverdrive:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:246    .text.SoftOverdrive:00000000 SoftOverdrive
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:331    .data.CurrentPatch:00000000 CurrentPatch
                             *COM*:00000004 LeftIn
                             *COM*:00000004 RightIn
                             *COM*:00000004 LeftOut
                             *COM*:00000004 RightOut
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:342    .bss.OD_Level:00000000 OD_Level
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:339    .bss.OD_Level:00000000 $d
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:342    .bss.OD_Level:00000000 OD_Level
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:339    .bss.OD_Level:00000000 $d
                             *COM*:00000001 Idx
                             *COM*:000000a0 MyIIR
                             *COM*:00000004 Signal
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:348    .text.ChangePatch:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:353    .text.ChangePatch:00000000 ChangePatch
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:389    .text.InitAudioProcess:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:394    .text.InitAudioProcess:00000000 InitAudioProcess
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:444    .text.AudioProcess:00000000 $t
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:449    .text.AudioProcess:00000000 AudioProcess
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:502    .text.AudioProcess:0000005c $d
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:511    .text.AudioProcess:00000078 $t
-C:\Users\ehughes\AppData\Local\Temp\ccgViBTJ.s:865    .text.AudioProcess:0000043c $d
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:348    .text.ChangePatch:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:353    .text.ChangePatch:00000000 ChangePatch
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:389    .text.InitAudioProcess:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:394    .text.InitAudioProcess:00000000 InitAudioProcess
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:444    .text.AudioProcess:00000000 $t
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:449    .text.AudioProcess:00000000 AudioProcess
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:502    .text.AudioProcess:0000005c $d
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:511    .text.AudioProcess:00000078 $t
+C:\Users\ehughes\AppData\Local\Temp\ccEUzlNO.s:866    .text.AudioProcess:00000440 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

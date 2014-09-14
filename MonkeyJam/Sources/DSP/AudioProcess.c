@@ -105,7 +105,7 @@ void InitAudioProcess()
 void AudioProcess()
 {
 	
-	if(IO_DELTA_IS_ON == 0) //Bypass the effect processing
+	if(!IO_DELTA_IS_ON == 0) //Bypass the effect processing
 	{
 	    LeftOut = LeftIn;
 		RightOut = RightIn;
@@ -184,7 +184,7 @@ void AudioProcess()
                           MyIIR[1].Coef = MyIIR[1].Shadow_Coef;
                    }
             	
-                Signal = LeftIn + RightIn;
+                Signal = (LeftIn + RightIn)<<1;
                 
                 Compute_q31_t_IIR(&MyIIR[0],Signal,&Signal);
                 Signal = SoftOverdrive(Signal, OD_Level);
