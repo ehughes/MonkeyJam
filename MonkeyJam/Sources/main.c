@@ -71,7 +71,7 @@
 
 #include "Derivative.h" /* include peripheral declarations */
 #include "arm_math.h"
-#include "drivers/frdm-K20-def.h"
+#include "drivers/frdm-K22-def.h"
 #include "drivers/mcg/mcg.h"
 #include "drivers/sai/sai.h"
 #include "cpu/arm_cm4.h"

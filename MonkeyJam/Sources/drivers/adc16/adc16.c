@@ -432,18 +432,23 @@ void InitADC_12Bit()
     // the ADC will be inactive.  Channel 31 is just disable function.
     // There really is no channel 31.
     ADC_Config_Alt(ADC0_BASE_PTR, &Master_Adc_Config);  // config ADC
+    ADC_Config_Alt(ADC1_BASE_PTR, &Master_Adc_Config);  // config ADC
     // Calibrate the ADC in the configuration in which it will be used:
     ADC_Cal(ADC0_BASE_PTR);                    // do the calibration
+    ADC_Cal(ADC1_BASE_PTR);                    // do the calibration
+
     // The structure still has the desired configuration.  So restore it.
     // Why restore it?  The calibration makes some adjustments to the
     // configuration of the ADC.  The are now undone:
     // config the ADC again to desired conditions
     ADC_Config_Alt(ADC0_BASE_PTR, &Master_Adc_Config);
+    ADC_Config_Alt(ADC1_BASE_PTR, &Master_Adc_Config);
     // *****************************************************************************
     //      ADC0 using the PDB trigger in ping pong
     // *****************************************************************************
     // use interrupts, single ended mode, and real channel numbers now:
     ADC_Config_Alt(ADC0_BASE_PTR, &Master_Adc_Config);  // config ADC0
+    ADC_Config_Alt(ADC1_BASE_PTR, &Master_Adc_Config);  // config ADC1
 }
 
 
@@ -453,15 +458,15 @@ void InitADC_12Bit()
 void StartADC0_SingleEnded(uint8_t Channel,uint8_t MuxSide)
 {
     if(MuxSide == 0)
-        {
-            //Select The a side of the MUX
-            ADC0_CFG1 &= ~(ADC_CFG2_MUXSEL_MASK);
-        }
+    {
+    	//Select The a side of the MUX
+        ADC0_CFG1 &= ~(ADC_CFG2_MUXSEL_MASK);
+    }
     else
-        {
-            //Select The b side of the MUX
-            ADC0_CFG1 |= (ADC_CFG2_MUXSEL_MASK);
-        }
+    {
+        //Select The b side of the MUX
+        ADC0_CFG1 |= (ADC_CFG2_MUXSEL_MASK);
+    }
 
     ADC0_SC1A  = Channel;
 }
@@ -471,9 +476,36 @@ uint16_t ReadADC0_SingleEnded(uint8_t Channel,uint8_t MuxSide)
     StartADC0_SingleEnded(Channel,MuxSide);
 
     while((ADC0_SC1A & ADC_SC1_COCO_MASK) == 0)
-        {
-            //Wait For Conversion Complete
-        }
+    {
+        //Wait For Conversion Complete
+    }
 
     return ADC0_RA;
+}
+void StartADC1_SingleEnded(uint8_t Channel,uint8_t MuxSide)
+{
+    if(MuxSide == 0)
+    {
+    	//Select The a side of the MUX
+        ADC1_CFG1 &= ~(ADC_CFG2_MUXSEL_MASK);
+    }
+    else
+    {
+        //Select The b side of the MUX
+        ADC1_CFG1 |= (ADC_CFG2_MUXSEL_MASK);
+    }
+
+    ADC1_SC1A  = Channel;
+}
+
+uint16_t ReadADC1_SingleEnded(uint8_t Channel,uint8_t MuxSide)
+{
+    StartADC1_SingleEnded(Channel,MuxSide);
+
+    while((ADC1_SC1A & ADC_SC1_COCO_MASK) == 0)
+    {
+        //Wait For Conversion Complete
+    }
+
+    return ADC1_RA;
 }
