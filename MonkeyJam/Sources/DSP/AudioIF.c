@@ -134,7 +134,7 @@ uint32_t InitAudioIO( uint32_t    BusClockIn,
                        0, //Rx
                        1 //Enable both Channel
                       );
-   // sai_pinmux_init(0, 0);  //Port C
+    sai_pinmux_init(0, 0);  //Port C
     sai_stop_dbg_enable(0, 1, 0, 0);    //tx enabled in debug and stop
     sai_stop_dbg_enable(0, 0, 0, 0);    //RX enabled in debug and stop
     sai_watermark_config(0, //POrt 0
@@ -155,7 +155,11 @@ uint32_t InitAudioIO( uint32_t    BusClockIn,
     I2S0_TDR0 = 0;
     I2S0_TDR0 = 0;
     I2S0_TDR0 = 0;
-
+    PORTD_PCR3 = (PORT_PCR_MUX(1) | PORT_PCR_DSE_MASK);
+    GPIOD_PDDR |= 1<<3;
+    PORTD_PCR1 = (PORT_PCR_MUX(1) | PORT_PCR_DSE_MASK);
+    GPIOD_PDDR |= 1<<1;
+    GPIOD_PSOR = 0;
     sai_interrupt_enable(0, //Port
                          0 // Rx)
                         );

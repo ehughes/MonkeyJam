@@ -8,7 +8,7 @@
 #include "../../cpu/arm_cm4.h"
 #include "derivative.h"
 #include "sai.h"
-#include "../frdm-k20-def.h"
+#include "../frdm-k22-def.h"
 #include "../../DSP/MathTables.h"
 #include "../../DSP/AudioProcess.h"
 #include "../IO.h"
@@ -19,9 +19,9 @@
  *	I2S0_TX_FS - 	PTC2 or PTB19  or PTA13
  *	I2S0_RX_BCLK - 	PTC9	or PTC6
  *	I2S0_RX_FS - 	PTC10 or PTC7
- * 	I2S0_RXD0 -	PTC5
+ * 	I2S0_RXD0 -		PTC5
  *	I2S0_RXD1 - 	PTC11
- *	I2S0_TXD0 -	PTC1  or PTA12
+ *	I2S0_TXD0 -		PTC1  or PTA12
  *	I2S0_TXD1 - 	PTC0
  * 	I2S0_MCLK - 	PTC6 or PTC8
  *
@@ -43,30 +43,30 @@ void sai_pinmux_init
     if(port == 0)
         {
             if(setting == 0)                        //using PORTC pins
-                {
+            {
                     PORTC_PCR(3) = PORT_PCR_MUX(6);     //PTC3(ALT6), I2S0_TX_BCLK	-	J37 pin2
                     PORTC_PCR(2) = PORT_PCR_MUX(6);     //PTC2(ALT6), I2S0_TX_FS	-	J51 pin11 or 14
                     PORTC_PCR(9) = PORT_PCR_MUX(4);     //PTC9(ALT4), I2S0_RX_BCLK	-	J44 pin5
-                    PORTC_PCR(10) = PORT_PCR_MUX(4);    //PTC10(ALT4), I2S0_RX_FS	-	J44 pin8
+                    PORTC_PCR(10)= PORT_PCR_MUX(4);     //PTC10(ALT4), I2S0_RX_FS	-	J44 pin8
                     PORTC_PCR(5) = PORT_PCR_MUX(4);     //PTC5(ALT4), I2S0_RXD0	-	J37 pin8
-                  //  PORTC_PCR(11) = PORT_PCR_MUX(4);    //PTC11(ALT4), I2S0_RXD1	-	J44 pin11
+                    PORTC_PCR(11)= PORT_PCR_MUX(4);     //PTC11(ALT4), I2S0_RXD1	-	J44 pin11
                     PORTC_PCR(1) = PORT_PCR_MUX(6);     //PTC1(ALT6), I2S0_TXD0	-	J51 pin5 or 8
-           //         PORTC_PCR(0) = PORT_PCR_MUX(6);     //PTC0(ALT6), I2S0_TXD1	-	J51 pin2
+                    PORTC_PCR(0) = PORT_PCR_MUX(6);     //PTC0(ALT6), I2S0_TXD1	-	J51 pin2
                     PORTC_PCR(6) = PORT_PCR_MUX(6);     //PTC6(ALT6), I2S0_MCLK	-	J37 pin11
                     PORTC_PCR(8) = PORT_PCR_MUX(4);     //PTC6(ALT6), I2S0_MCLK	-	J37 pin11
-                }
+            }
             else if(setting == 1)                   //using PORTA pins
-                {
+            {
                     PORTA_PCR(5) = PORT_PCR_MUX(6);     //PTA5(ALT6), I2S0_TX_BCLK -	J35 pin8
-                    PORTA_PCR(13) = PORT_PCR_MUX(6);    //PTA13(ALT6), I2S0_TX_FS -		J35 pin14
+                    PORTA_PCR(13)= PORT_PCR_MUX(6);     //PTA13(ALT6),I2S0_TX_FS -		J35 pin14
                     PORTC_PCR(6) = PORT_PCR_MUX(4);     //PTC6(ALT4), I2S0_RX_BCLK	-	J37 pin11
                     PORTC_PCR(7) = PORT_PCR_MUX(4);     //PTC7(ALT4), I2S0_RX_FS	-	J37 pin14
                     PORTC_PCR(5) = PORT_PCR_MUX(4);     //PTC5(ALT4), I2S0_RXD0	-
-                    PORTC_PCR(11) = PORT_PCR_MUX(4);    //PTC11(ALT4), I2S0_RXD1 -
-                    PORTA_PCR(12) = PORT_PCR_MUX(6);    //PTA12(ALT6), I2S0_TXD0	-	J35 pin11
+                    PORTC_PCR(11)= PORT_PCR_MUX(4);     //PTC11(ALT4),I2S0_RXD1 -
+                    PORTA_PCR(12)= PORT_PCR_MUX(6);     //PTA12(ALT6),I2S0_TXD0	-	J35 pin11
                     PORTC_PCR(0) = PORT_PCR_MUX(6);     //PTC0(ALT6), I2S0_TXD1 -
                     PORTC_PCR(8) = PORT_PCR_MUX(4);     //PTC8(ALT4), I2S0_MCLK	-	J44 pin2
-                }
+            }
         }
     else if(port == 1)
         {

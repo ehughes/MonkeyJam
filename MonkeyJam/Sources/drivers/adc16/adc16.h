@@ -76,10 +76,13 @@
 
 
 
-uint16_t ReadADC_SingleEnded(uint8_t Channel,uint8_t MuxSide);
+
 
 void InitADC_12Bit();
 
+uint16_t ReadADC0_SingleEnded(uint8_t Channel,uint8_t MuxSide);
+uint16_t ReadADC1_SingleEnded(uint8_t Channel,uint8_t MuxSide);
 void StartADC0_SingleEnded(uint8_t Channel,uint8_t MuxSide);
+void StartADC1_SingleEnded(uint8_t Channel,uint8_t MuxSide);
 
 #endif /* __ADC16_H__ */
